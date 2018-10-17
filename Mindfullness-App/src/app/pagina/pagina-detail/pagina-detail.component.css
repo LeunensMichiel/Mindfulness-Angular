@@ -1,0 +1,10 @@
+.paragraph {
+    margin-top: 2%;
+    overflow-y: scroll;
+    height: 47em;
+    
+}
+
+.paragraph > p {
+    font-size: 1.2em;
+}
