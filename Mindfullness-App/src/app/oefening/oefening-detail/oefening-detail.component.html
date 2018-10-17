@@ -1,0 +1,13 @@
+<mat-card class="segment">
+  <mat-card-header>
+    <div class="cardTitle">Oefening 1</div>
+  </mat-card-header>
+  <mat-divider [inset]='true' class="divider"></mat-divider>
+  <mat-card-content class="content">
+    <mat-tab-group mat-stretch-tabs headerPosition="below" class="tabGroup">
+      <mat-tab *ngFor="let page of pages" label="{{page.title}}">
+        <app-pagina-detail [pageType]="page.type" ></app-pagina-detail>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
