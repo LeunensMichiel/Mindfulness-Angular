@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./pagina-detail.component.css']
 })
 export class PaginaDetailComponent implements OnInit {
-  @Input() public pageType: string
+  @Input() public page: Page
 
   constructor() { }
 
