@@ -8,14 +8,22 @@ import { OefeningDetailComponent } from "../oefening-detail/oefening-detail.comp
   styleUrls: ["./oefeninglijst.component.css"]
 })
 export class OefeninglijstComponent implements OnInit {
-  public _oefeningen: Exercise[];
+  public oefeningen = [
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1',
+    'oef1'
+  ];
 
   constructor() {
 
   }
-  
-  get oefeningen() {
-    return this._oefeningen;
-  }
+
   ngOnInit() {}
 }

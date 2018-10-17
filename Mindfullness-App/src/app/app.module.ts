@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule} from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
+import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.comp
     AppComponent,
     OefeningCreatieComponent,
     OefeningDetailComponent,
-    PaginaDetailComponent
+    PaginaDetailComponent,
+    OefeninglijstComponent
   ],
   imports: [
     BrowserModule,
