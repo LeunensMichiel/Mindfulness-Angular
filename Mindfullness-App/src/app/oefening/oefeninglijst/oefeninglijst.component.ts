@@ -13,11 +13,6 @@ export class OefeninglijstComponent implements OnInit {
     'oef1',
     'oef1',
     'oef1',
-    'oef1',
-    'oef1',
-    'oef1',
-    'oef1',
-    'oef1',
     'oef1'
   ];
 

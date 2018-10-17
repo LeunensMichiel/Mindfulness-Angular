@@ -3,10 +3,10 @@
     width: 40%;
     height: 83%;
     border-radius: 0%;
-    margin: 5% 5% 0% 5%;
+    margin: 5% auto;
 }
 .tabGroup {
-    height: 52em;
+    max-height: 75vh;
 }
 .cardTitle {
     margin-left: auto;
