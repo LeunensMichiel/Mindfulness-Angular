@@ -9,6 +9,8 @@ import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, Mat
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
+import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
+import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.c
     OefeningCreatieComponent,
     OefeningDetailComponent,
     PaginaDetailComponent,
-    OefeninglijstComponent
+    OefeninglijstComponent,
+    TekstPaginaDetailComponent,
+    AudioPaginaDetailComponent
   ],
   imports: [
     BrowserModule,

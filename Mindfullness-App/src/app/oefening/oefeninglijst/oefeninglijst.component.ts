@@ -8,12 +8,13 @@ import { OefeningDetailComponent } from "../oefening-detail/oefening-detail.comp
   styleUrls: ["./oefeninglijst.component.css"]
 })
 export class OefeninglijstComponent implements OnInit {
+  textPage:Page = new TextPage()
+  audioPage:Page = new AudioPage()
   public oefeningen = [
-    'oef1',
-    'oef1',
-    'oef1',
-    'oef1',
-    'oef1'
+    new Exercise().pages = [
+      this.textPage,
+      this.audioPage
+    ]
   ];
 
   constructor() {

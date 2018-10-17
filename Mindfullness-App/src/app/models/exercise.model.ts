@@ -3,9 +3,8 @@ export class Exercise {
     pages:Page[];
 
     constructor(
-        title: string
     ){
-        this.title = title;
+        this.title = "";
         this.pages = []
     }
 
