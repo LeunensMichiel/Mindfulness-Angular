@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Exercise } from 'src/app/models/exercise.model';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Excercise } from 'src/app/models/excercise.model';
 
 @Component({
   selector: 'app-oefening-detail',
@@ -7,45 +7,10 @@ import { Exercise } from 'src/app/models/exercise.model';
   styleUrls: ['./oefening-detail.component.css']
 })
 export class OefeningDetailComponent implements OnInit {
-  @Input() excersice: Exercise
-  public pages= [
-    {
-      title: "intro",
-      type: 'text'
-    },
-    {
-      title: "deel 1",
-      type: 'text'
-    },
-    {
-      title: "deel 2",
-      type: 'text'
-    },
-    {
-      title: "denk aan een deur",
-      type: 'text'
-    },
-    {
-      title: "denk aan je moeder",
-      type: 'text'
-    },
-    {
-      title: "het leven heeft geen nut",
-      type: 'text'
-    },
-    {
-      title: "vol hoofd",
-      type: 'text'
-    },
-    {
-      title: "mijn stem",
-      type: 'audio'
-    }
-  ]
+  @Input() excersice: Excercise
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }
