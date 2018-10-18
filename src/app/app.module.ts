@@ -19,6 +19,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing-module';
+import { InvoerPaginaDetailComponent } from './pagina/invoer-pagina-detail/invoer-pagina-detail.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AppRoutingModule } from './app-routing/app-routing-module';
     OefeninglijstComponent,
     TekstPaginaDetailComponent,
     AudioPaginaDetailComponent,
+    InvoerPaginaDetailComponent,
     SessieComponent,
     SessieLijstComponent,
     SessieToevoegenComponent
