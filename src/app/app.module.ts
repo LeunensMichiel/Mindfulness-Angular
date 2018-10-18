@@ -16,6 +16,13 @@ import { SessieLijstComponent } from './sessie/sessie-lijst/sessie-lijst.compone
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'sessie-list', component: SessieLijstComponent },
+  { path: 'oefening-list', component: OefeninglijstComponent }
+];
 
 
 @NgModule({
@@ -33,6 +40,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
