@@ -9,11 +9,13 @@ import { HttpErrorResponse } from "@angular/common/http";
   styleUrls: ["./sessie-lijst.component.css"]
 })
 export class SessieLijstComponent implements OnInit {
-  private _sessies: Sessie[];
+  private _sessies: Sessie[] = [];
   public errorMsg: string;
 
 
-  constructor(private _sessieDataService: SessieDataService) {}
+  constructor(private _sessieDataService: SessieDataService) {
+    this._sessies.push(new Sessie("Sessie 1", 1))
+  }
 
   ngOnInit(): void {
     this._sessieDataService.sessies.subscribe(
