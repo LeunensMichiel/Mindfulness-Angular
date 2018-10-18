@@ -11,6 +11,7 @@ import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.comp
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
+import { InvoerPaginaDetailComponent } from './pagina/invoer-pagina-detail/invoer-pagina-detail.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-p
     PaginaDetailComponent,
     OefeninglijstComponent,
     TekstPaginaDetailComponent,
-    AudioPaginaDetailComponent
+    AudioPaginaDetailComponent,
+    InvoerPaginaDetailComponent
   ],
   imports: [
     BrowserModule,

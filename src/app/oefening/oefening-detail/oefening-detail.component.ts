@@ -8,9 +8,19 @@ import { Excercise } from 'src/app/models/excercise.model';
 })
 export class OefeningDetailComponent implements OnInit {
   @Input() excersice: Excercise
+  public dropdownVisible = false;
 
   constructor() { }
 
+  public hideDropdown(event){
+    console.log("check");
+  }
+
   ngOnInit() {
   }
+  
+  ngOnChange(changes:SimpleChanges){
+    console.log(changes);
+  }
+
 }
