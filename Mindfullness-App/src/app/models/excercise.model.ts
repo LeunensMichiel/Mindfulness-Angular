@@ -1,4 +1,6 @@
-export class Exercise {
+import { Page } from "./page.model";
+
+export class Excercise {
     title:string;
     pages:Page[];
 
