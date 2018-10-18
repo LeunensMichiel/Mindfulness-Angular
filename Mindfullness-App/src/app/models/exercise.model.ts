@@ -1,3 +1,5 @@
+import { Page } from './page.model';
+
 export class Exercise {
     title:string;
     pages:Page[];

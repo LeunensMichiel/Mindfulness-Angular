@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Page, AudioPage } from '../../models/page.model';
 
 @Component({
   selector: 'app-audio-pagina-detail',

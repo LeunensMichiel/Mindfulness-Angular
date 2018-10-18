@@ -1,24 +1,36 @@
-interface Page {
+export interface Page {
     title: string;
     position: number;
     
     toString(): string
 }
 
-class AudioPage implements Page{
+export class AudioPage implements Page{
     position: number;
     title: string;
     fileUrl: string;
+
+    constructor(){
+        this.position = 0;
+        this.title = "";
+        this.fileUrl = "";
+    }
 
     toString(): string {
         return 'audio';
     }
 }
 
-class TextPage implements Page {
+export class TextPage implements Page {
     position: number;
     title: string;
     text: string;
+
+    constructor(){
+        this.position = 0;
+        this.title = "";
+        this.text = "";
+    }
 
     toString(): string {
         return 'text';

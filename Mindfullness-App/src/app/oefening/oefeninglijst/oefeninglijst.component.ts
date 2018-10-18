@@ -1,6 +1,7 @@
 import { Exercise } from "./../../models/exercise.model";
 import { Component, OnInit, Input } from "@angular/core";
 import { OefeningDetailComponent } from "../oefening-detail/oefening-detail.component";
+import { TextPage, AudioPage, Page } from '../../models/page.model';
 
 @Component({
   selector: "app-oefeninglijst",

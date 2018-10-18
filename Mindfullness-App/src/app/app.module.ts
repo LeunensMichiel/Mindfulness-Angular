@@ -11,6 +11,11 @@ import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.comp
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
+import { SessieComponent } from './sessie/sessie/sessie.component';
+import { SessieLijstComponent } from './sessie/sessie-lijst/sessie-lijst.component';
+import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
+import { SessieDataService } from './sessie/sessie-data.service';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -21,7 +26,10 @@ import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-p
     PaginaDetailComponent,
     OefeninglijstComponent,
     TekstPaginaDetailComponent,
-    AudioPaginaDetailComponent
+    AudioPaginaDetailComponent,
+    SessieComponent,
+    SessieLijstComponent,
+    SessieToevoegenComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +41,10 @@ import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-p
     MatToolbarModule,
     MatListModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatGridListModule
   ],
-  providers: [],
+  providers: [SessieDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

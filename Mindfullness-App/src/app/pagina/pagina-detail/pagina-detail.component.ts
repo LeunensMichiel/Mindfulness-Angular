@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Page } from '../../models/page.model';
 
 @Component({
   selector: 'app-pagina-detail',
