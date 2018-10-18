@@ -1,15 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
-
-.btn.small {
-    width: 60px;
-    height: 100px;
-}
-.btn.medium {
-    width: 90px;
-    height: 150px;
-}
-.btn.large {
-    width: 120px;
-    height: 200px;
-}

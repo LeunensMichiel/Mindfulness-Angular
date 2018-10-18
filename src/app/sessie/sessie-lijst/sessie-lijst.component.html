@@ -1,10 +1,4 @@
-<mat-grid-list cols="3" gutterSize="3em">
-  <mat-grid-tile *ngFor='let localSessie of sessies'>
-    <app-sessie [sessie]='localSessie'></app-sessie>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-fab color="primary" class="btn-large" (click)='addSessie($event)'>
-      +
-    </button>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="ui three stackable cards">
+  <app-sessie class="card" *ngFor='let localSessie of sessie' [sessie]='localSessie'></app-sessie>
+  
+</div>

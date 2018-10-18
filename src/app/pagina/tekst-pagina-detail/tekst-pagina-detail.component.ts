@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Page, TextPage } from '../../models/page.model';
+import { Page, TextPage } from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-tekst-pagina-detail',
