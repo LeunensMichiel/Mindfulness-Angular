@@ -1,43 +1,75 @@
+import { Exercise } from "./exercise.model";
 export class Sessie {
-    private _id: string;
-    private _nr: number;
-    private _oefeningen: string[];
-    private _admin: string;
-    // private _categorie: Categorie;
+  private _id: string;
+  private _title: string;
+  private _nr: number;
+  private _oefeningen: string[];
+  private _admin: string;
 
-    constructor(nr: number, oefeningen?: string[]) {
-        this._nr = nr;
-        this._oefeningen = oefeningen || new Array();
-        // this._categorie = categorie;
-    }
+  // private _categorie: Categorie;
 
-    static fromJSON(json: any) : Sessie {
-        const sessie = new Sessie(
-            json.nr,
-            // json.categorie,
-            json.oefeningen
-        );
-        sessie._id = json._id;
-        return sessie;
-    }
+  constructor(title: string, nr: number /*, oefeningen?: string[]*/) {
+    this._title = title;
+    this._nr = nr;
+    /*this._oefeningen = oefeningen || new Array();
+    // this._categorie = categorie;*/
+  }
 
-    get nr(): Number {
-        return this._nr;
-    }
-    
-    // get categorie(): Categorie {
-    //     return this._categorie;
-    // }
+  public get_id(): string {
+    return this._id;
+  }
 
-    get oefeningen(): String[] {
-        return this._oefeningen;
-    }
+  public set_id(_id: string): void {
+    this._id = _id;
+  }
 
-    toJSON() {
-        return {
-            _id: this._id,
-            // categorie: this._categorie,
-            oefeningen: this._oefeningen
-        };
-    }
+  public get_title(): string {
+    return this._title;
+  }
+
+  public set_title(_title: string): void {
+    this._title = _title;
+  }
+
+  public get_nr(): number {
+    return this._nr;
+  }
+
+  public set_nr(_nr: number): void {
+    this._nr = _nr;
+  }
+
+  public get_oefeningen(): string[] {
+    return this._oefeningen;
+  }
+
+  public set_oefeningen(_oefeningen: string[]): void {
+    this._oefeningen = _oefeningen;
+  }
+
+  public get_admin(): string {
+    return this._admin;
+  }
+
+  public set_admin(_admin: string): void {
+    this._admin = _admin;
+  }
+
+  static fromJSON(json: any): Sessie {
+    const ses = new Sessie(
+    json.title,
+    json.nr
+      //json.oefeningen.map(Exercise.fromJSON),
+    );
+    ses._id = json._id;
+    return ses;
+  }
+
+  toJSON() {
+    return {
+      _id: this._id,
+      title: this._title,
+      nr: this._nr
+    };
+  }
 }

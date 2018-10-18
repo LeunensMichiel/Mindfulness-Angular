@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { OefeningCreatieComponent } from './oefening/oefening-creatie/oefening-creatie.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule, MatSnackBarModule} from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
@@ -18,11 +18,7 @@ import { SessieDataService } from './sessie/sessie-data.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-
-const appRoutes: Routes = [
-  { path: 'sessie-list', component: SessieLijstComponent },
-  { path: 'oefening-list', component: OefeninglijstComponent }
-];
+import { AppRoutingModule } from './app-routing/app-routing-module';
 
 
 @NgModule({
@@ -40,7 +36,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -51,7 +47,8 @@ const appRoutes: Routes = [
     MatListModule,
     MatCardModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [SessieDataService],
   bootstrap: [AppComponent]
