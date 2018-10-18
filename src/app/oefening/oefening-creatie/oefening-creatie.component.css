@@ -1,0 +1,17 @@
+.segment {
+        width: 40%;
+        height: 83%;
+        border-radius: 0%;
+        margin: 5% auto;
+}
+ul > li {
+        display: inline;
+}
+.icon_button {
+        font-size: 48px;
+}
+
+.icon_list {
+        margin: auto;
+        width: 20%;
+}
