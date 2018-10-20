@@ -1,4 +1,4 @@
-import { Page } from "./page.model";
+import { Page, TextPage } from "./page.model";
 
 export class Excercise {
     title:string;
@@ -7,7 +7,8 @@ export class Excercise {
     constructor(
     ){
         this.title = "";
-        this.pages = []
+        this.pages = [new TextPage()];
+        this.pages[0].position = 0;
     }
 
     public addPage(position: number, page: Page){
@@ -16,6 +17,7 @@ export class Excercise {
             .forEach( p => p.position += 1);
         page.position = position;
         this.pages.splice(position += 1, 0, page);
+        this.pages.sort((a, b) => a.position - b.position);
     }
 
     public deletePage(position: number){

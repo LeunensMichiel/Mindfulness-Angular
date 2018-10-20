@@ -1,17 +1,29 @@
 .segment {
-        width: 40%;
-        height: 83%;
+        width: 35%;
+        min-height: 60vh;
         border-radius: 0%;
         margin: 5% auto;
 }
-ul > li {
-        display: inline;
-}
-.icon_button {
-        font-size: 48px;
+
+.inputField {
+        width: 56px;
+        height: 108px;
+        margin: 30vh auto 30vh auto;
+        display: block;
+        visibility: hidden;
 }
 
-.icon_list {
-        margin: auto;
-        width: 20%;
+.mat-card{
+        padding: 10vh;
+}
+
+.mat-card>:first-child {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+.mat-button-toggle-group {
+        visibility: visible;
 }

@@ -1,0 +1,22 @@
+.segment {
+    min-height: 80vh;
+    min-width: 75vh;
+    border-radius: 0%;
+    margin-top: 5%;
+    float: left;
+}
+.inputField {
+    float: left;
+    max-width: 56px;
+    max-height: 500px;
+    padding: 0%;
+    visibility: hidden;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    margin-bottom: 40vh;
+    margin-top: 40vh;
+}
+
+.mat-button-toggle-group {
+    visibility: visible;
+}
