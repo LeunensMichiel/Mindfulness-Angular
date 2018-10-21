@@ -13,6 +13,6 @@
 </mat-card>
 <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
   <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
-  <p *ngSwitchCase="'text'">text</p>
+  <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
   <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
 </mat-card>
