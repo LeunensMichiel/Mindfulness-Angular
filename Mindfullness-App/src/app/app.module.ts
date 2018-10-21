@@ -13,7 +13,6 @@ import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-p
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
 import { SessieLijstComponent } from './sessie/sessie-lijst/sessie-lijst.component';
-import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 
@@ -28,8 +27,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     TekstPaginaDetailComponent,
     AudioPaginaDetailComponent,
     SessieComponent,
-    SessieLijstComponent,
-    SessieToevoegenComponent
+    SessieLijstComponent
   ],
   imports: [
     BrowserModule,

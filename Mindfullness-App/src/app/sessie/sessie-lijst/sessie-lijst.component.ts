@@ -11,7 +11,8 @@ export class SessieLijstComponent implements OnInit {
 
   private _sessies: Sessie[];
 
-  constructor(private _sessieDataService: SessieDataService) { }
+  constructor(private _sessieDataService: SessieDataService) {
+  }
 
   ngOnInit() {
   }

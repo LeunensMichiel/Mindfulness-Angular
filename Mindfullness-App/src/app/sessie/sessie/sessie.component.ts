@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Sessie } from '../../models/sessie.model';
 
 @Component({
@@ -9,10 +9,14 @@ import { Sessie } from '../../models/sessie.model';
 export class SessieComponent implements OnInit {
 
   @Input() public sessie: Sessie;
+  @Output() public deleteSessie = new EventEmitter<Sessie>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  removeSessie() {
+    this.deleteSessie.emit(this.sessie);
+  }
 }

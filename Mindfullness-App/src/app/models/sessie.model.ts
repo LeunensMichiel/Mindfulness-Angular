@@ -1,11 +1,13 @@
+import { Exercise } from './exercise.model';
+
 export class Sessie {
     private _id: string;
     private _nr: number;
-    private _oefeningen: string[];
+    private _oefeningen: Exercise[];
     private _admin: string;
     // private _categorie: Categorie;
 
-    constructor(nr: number, oefeningen?: string[]) {
+    constructor(nr: number, oefeningen?: Exercise[]) {
         this._nr = nr;
         this._oefeningen = oefeningen || new Array();
         // this._categorie = categorie;
@@ -29,7 +31,7 @@ export class Sessie {
     //     return this._categorie;
     // }
 
-    get oefeningen(): String[] {
+    get oefeningen(): Exercise[] {
         return this._oefeningen;
     }
 
