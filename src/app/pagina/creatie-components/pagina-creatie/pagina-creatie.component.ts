@@ -42,7 +42,7 @@ export class PaginaCreatieComponent implements OnInit, OnChanges {
   }
 
   public saveChangedPage(page){
-    console.log("EMIT CHANGED PAGE");
+    console.log("EMIT CHANGED PAGE ");
     this.changedPage.emit(page);
   }
 

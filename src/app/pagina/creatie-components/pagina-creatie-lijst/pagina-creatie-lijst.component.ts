@@ -18,12 +18,12 @@ export class PaginaCreatieLijstComponent implements OnInit {
 
   addPage(page:Page){
     this.excercise.addPage(page.position, page);
-    console.log(this.excercise.pages);
   }
 
   saveChangedPage(page){
     console.log("SAVED CHANGED PAGE AT ANCESTOR")
     this.excercise.pages[page.position]= page;
+    console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title );
     console.log(this.excercise.pages);
   }
 }

@@ -14,5 +14,5 @@
 <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
   <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
   <p *ngSwitchCase="'text'">text</p>
-  <p *ngSwitchCase="'invoer'">invoer</p>
+  <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
 </mat-card>

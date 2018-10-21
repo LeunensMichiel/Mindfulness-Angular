@@ -1,3 +1,8 @@
-<p>
-  input-pagina-creatie works!
-</p>
+<form>
+  <mat-card-title>
+    <mat-form-field class="titleInput">
+      <input matInput class="textInput" value="tittel" (change)='title = $event.currentTarget.value' >
+    </mat-form-field>
+  </mat-card-title>
+  <mat-divider [inset]='true'></mat-divider>
+</form>
