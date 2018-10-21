@@ -19,7 +19,7 @@ export class ParagraafCreatieComponent implements OnInit {
 
   addPar(type){
     var newPar = new Paragraph();
-    newPar.position = 0;
+    newPar.position = this.position;
     newPar.type = type;
     this.newPar.emit(newPar);
   }
