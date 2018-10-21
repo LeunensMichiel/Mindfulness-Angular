@@ -1,13 +1,7 @@
-<!-- <div class="audioInputContainer">
-    <label for="profile_pic">
-      <i class="material-icons md-18">cloud_upload</i>
-    </label>
-    <input type="file" id="profile_pic" name="profile_pic" accept=".mp3, .mp4 ">
-</div> -->
 <form>
   <mat-card-title>
     <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="tittel">
+      <input matInput class="textInput" value="tittel" (change)='title = $event.currentTarget.value' >
     </mat-form-field>
   </mat-card-title>
   <mat-divider [inset]='true'></mat-divider>
@@ -16,7 +10,7 @@
     <label for="profile_pic" >
       <i class="material-icons md-18">cloud_upload</i>
     </label>
-    <input type="file" id="profile_pic" name="profile_pic" (change)='uploadFile($event)'>
-    <p>{{filePath}}</p>
+    <input type="file" id="profile_pic" name="profile_pic" (change)='fileUrl = $event.target.value.split("\\").pop();'>
+    <p>{{audioPage.fileUrl}}</p>
   </div>
 </form>

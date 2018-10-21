@@ -20,4 +20,10 @@ export class PaginaCreatieLijstComponent implements OnInit {
     this.excercise.addPage(page.position, page);
     console.log(this.excercise.pages);
   }
+
+  saveChangedPage(page){
+    console.log("SAVED CHANGED PAGE AT ANCESTOR")
+    this.excercise.pages[page.position]= page;
+    console.log(this.excercise.pages);
+  }
 }

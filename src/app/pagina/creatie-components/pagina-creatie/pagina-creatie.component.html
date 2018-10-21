@@ -12,7 +12,7 @@
   </mat-button-toggle-group>
 </mat-card>
 <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
-  <app-audio-pagina-creatie *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
+  <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
   <p *ngSwitchCase="'text'">text</p>
   <p *ngSwitchCase="'invoer'">invoer</p>
 </mat-card>

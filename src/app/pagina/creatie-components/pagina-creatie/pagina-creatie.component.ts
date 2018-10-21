@@ -10,7 +10,8 @@ export class PaginaCreatieComponent implements OnInit, OnChanges {
   @Input() page: Page = null;
   @Input() position: number = 0;
   @Input() isLastElement = false;
-  @Output() newPage: EventEmitter<Page> = new EventEmitter();
+  @Output() newPage = new EventEmitter<Page>();
+  @Output() changedPage = new EventEmitter<Page>();
   public inputChoiceActive = true;
 
   constructor() { }
@@ -38,6 +39,11 @@ export class PaginaCreatieComponent implements OnInit, OnChanges {
     }
     newPage.position = this.position;
     this.newPage.emit(newPage);
+  }
+
+  public saveChangedPage(page){
+    console.log("EMIT CHANGED PAGE");
+    this.changedPage.emit(page);
   }
 
   public selectInputType(event) {
