@@ -1,7 +1,7 @@
 export interface Page {
     title: string;
     position: number;
-    
+
     toString(): string
 }
 

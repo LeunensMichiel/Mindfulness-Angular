@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,900');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 5rem;
+  letter-spacing: 15px;
+  margin: 0;
+  padding: 1em 0 1em 0;
+  font-weight: 900;
+}
+
+.titel {
+  text-align: center;
+
+  background: #C33764;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1D2671, #C33764);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}

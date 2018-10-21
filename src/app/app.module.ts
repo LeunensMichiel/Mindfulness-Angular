@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { OefeningCreatieComponent } from './oefening/oefening-creatie/oefening-creatie.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule, MatSnackBarModule} from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
@@ -15,6 +15,9 @@ import { SessieComponent } from './sessie/sessie/sessie.component';
 import { SessieLijstComponent } from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing/app-routing-module';
 
 
 @NgModule({
@@ -31,6 +34,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -40,7 +45,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatListModule,
     MatCardModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ],
   providers: [SessieDataService],
   bootstrap: [AppComponent]
