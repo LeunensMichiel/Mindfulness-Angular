@@ -18,6 +18,7 @@ import { ScrollDispatchModule, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { AudioPaginaCreatieComponent } from './pagina/creatie-components/audio-pagina-creatie/audio-pagina-creatie.component';
 import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-pagina-creatie/input-pagina-creatie.component';
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
+import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-p
     PaginaCreatieLijstComponent,
     AudioPaginaCreatieComponent,
     InputPaginaCreatieComponent,
-    TekstPaginaCreatieComponent
+    TekstPaginaCreatieComponent,
+    ParagraafCreatieComponent
   ],
   imports: [
     BrowserModule,

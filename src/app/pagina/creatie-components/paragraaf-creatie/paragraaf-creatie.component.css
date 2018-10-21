@@ -1,0 +1,32 @@
+.paragraph {
+    min-width: 85%;
+    margin: 2%;
+    height: 20%;
+    margin-top: -1em;
+}
+
+.mat-card {
+    margin-top: -5em;
+    padding: 1%;
+    margin: 5% 0;
+}
+
+.buttonGroup {
+    float: left;
+}
+
+.typeSelectParent {
+    margin-top: 1em;
+    width: 100%;
+    height: 5%;
+}
+
+.typeSelect {
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+}
+
+textarea {
+    height: 10vh;
+}

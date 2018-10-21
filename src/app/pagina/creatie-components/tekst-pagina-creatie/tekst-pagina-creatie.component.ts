@@ -23,4 +23,17 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck {
       this.changedPage.emit(this.textPage);
     }
   }
+
+  addPar(par){
+    this.textPage.addPar(par.position, par);
+    console.log(this.textPage.paragraphs);
+    console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
+    this.changedPage.emit(this.textPage);
+  }
+
+  changeParPos(positions){
+    console.log(positions);
+    console.log(this.textPage.changeParPosition(positions.startPos, positions.endPos));
+    this.changedPage.emit(this.textPage);
+  }
 }

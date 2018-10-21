@@ -33,7 +33,7 @@ export class TextPage implements Page {
         this.position = 0;
         this.title = "";
         this.text = "";
-        this.paragraphs = [];
+        this.paragraphs = [new Paragraph()];
     }
 
     public addPar(position: number, par:Paragraph){
@@ -42,6 +42,7 @@ export class TextPage implements Page {
             .forEach( par => par.position += 1);
         par.position = position;
         this.paragraphs.splice(position += 1, 0, par);
+        this.paragraphs.sort((a, b) => a.position - b.position);
     }
 
     public deletePar(position: number){
@@ -51,21 +52,14 @@ export class TextPage implements Page {
             .forEach( par => par.position -= 1); 
     }
 
-    public changeParPosition(startPos: number, endPos: number){
-        if(startPos != endPos){
-            if (startPos < endPos){
-                this.paragraphs
-                    .filter( par => par.position > startPos && par.position <= endPos )
-                    .forEach( par => par.position += 1 );
-            }
-            if(startPos > endPos){
-                this.paragraphs
-                    .filter( par => par.position >= endPos && par.position < startPos )
-                    .forEach( par => par.position += 1 )
-            }
+    public changeParPosition(startPos: number, endPos: number): boolean{
+        if(startPos != endPos && endPos >= 0 && endPos < this.paragraphs.length){
             this.paragraphs[startPos].position = endPos;
+            this.paragraphs[endPos].position = startPos;
             this.paragraphs.sort((a, b) => a.position - b.position);
+            return true;
         }
+        return false;
     }
 
     toString(): string {

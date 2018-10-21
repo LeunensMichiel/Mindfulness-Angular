@@ -5,6 +5,7 @@ export class Paragraph {
 
     constructor(){
         this.content = "";
+        this.position = 0;
         this.type = "";
     }
 }
