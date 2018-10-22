@@ -1,7 +1,12 @@
-.segment {
-    width: 40%;
-    height: 83%;
-    border-radius: 0%;
-    margin: 5% auto;
+.button {
+    min-width: 200px;
+    min-height: 200px;
 }
 
+/* .delbutton {
+    visibility: hidden;
+} */
+
+.button:hover .delbutton{
+    visibility: visible;
+}

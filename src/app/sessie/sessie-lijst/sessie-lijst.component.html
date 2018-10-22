@@ -1,6 +1,10 @@
-<div class="titel">
-  <h1>SESSIES</h1>
-</div>
-<div *ngFor='let ses of sessies'>
-  <app-sessie [sessie]='ses'></app-sessie>
-</div>
+<mat-grid-list class="sessie-grid" cols="4">
+  <mat-grid-tile *ngFor='let localSessie of sessies'>
+    <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)"></app-sessie>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button class="button" mat-fab color="primary" (click)='addSessie($event)'>
+      <h2>+</h2>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>

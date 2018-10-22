@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class SessieDataService {
 
   private readonly _appUrl = '/API';
+  private _sessies: Observable<Sessie[]>;
 
   constructor(private http: HttpClient) {}
 
