@@ -1,4 +1,18 @@
-<div class="container" >
-  <app-pagina-creatie *ngFor='let page of excercise.pages; let i = index' [page]='page' [position]='i' (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)' class="kid"></app-pagina-creatie>
+<div  class="container" >
+  <app-pagina-creatie *ngFor='let page of excercise.pages; let i = index' 
+    [page]='page' 
+    [position]='i' 
+    [viewBeingDragged]='dragging'
+    [viewBeingDragged] = 'dragging'
+    (newPage)='addPage($event)' 
+    (changedPage)='saveChangedPage($event)' 
+    (deletedPage)='deletePage($event)' 
+    (enableDragView)='dragging = $event'
+    (changePagePos)='changePagePos($event)'
+    class="kid">
+  </app-pagina-creatie >
   <app-pagina-creatie [position]='excercise.pages.length' (newPage)='addPage($event)' [isLastElement]='true' class="kid"></app-pagina-creatie>
 </div>
+<!-- <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let timePeriod of timePeriods" cdkDrag>{{timePeriod}}</div>
+  </div> -->

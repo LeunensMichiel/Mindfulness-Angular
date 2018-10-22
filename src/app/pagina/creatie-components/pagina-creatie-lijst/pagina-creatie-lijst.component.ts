@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewportRuler,ScrollDispatcher, ScrollDispatchModule} from '@angular/cdk/scrolling'
 import { Page, TextPage } from 'src/app/models/page.model';
 import { Excercise } from 'src/app/models/excercise.model';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pagina-creatie-lijst',
@@ -10,10 +11,19 @@ import { Excercise } from 'src/app/models/excercise.model';
 })
 export class PaginaCreatieLijstComponent implements OnInit {
   excercise:Excercise = new Excercise();
+  public dragging = false;
   constructor() { }
 
   ngOnInit() {
     this.excercise = new Excercise();
+  }
+
+  dragStarted(event){
+    this.dragging = true;
+  }
+
+  dragEnded(event){
+    this.dragging = false;
   }
 
   addPage(page:Page){
@@ -32,5 +42,11 @@ export class PaginaCreatieLijstComponent implements OnInit {
     this.excercise.pages[page.position]= page;
     console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title );
     console.log(this.excercise.pages);
+  }
+
+  changePagePos(positions){
+    console.log(positions);
+    this.excercise.changePagePosition(positions.startPos, positions.endPos);
+    console.log(this.excercise.pages); 
   }
 }

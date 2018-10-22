@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { Page, TextPage, AudioPage, InputPage } from 'src/app/models/page.model';
 
 @Component({
@@ -10,10 +10,14 @@ export class PaginaCreatieComponent implements OnInit {
   @Input() page: Page = null;
   @Input() position: number = 0;
   @Input() isLastElement = false;
+  @Input() viewBeingDragged = false;
   @Output() newPage = new EventEmitter<Page>();
   @Output() changedPage = new EventEmitter<Page>();
+  @Output() changePagePos = new EventEmitter<any>();
   @Output() deletedPage = new EventEmitter<number>();
+  @Output() enableDragView = new EventEmitter<boolean>();
   public inputChoiceActive = true;
+  public clicked = false;
 
   constructor() { }
 
@@ -37,6 +41,19 @@ export class PaginaCreatieComponent implements OnInit {
     this.newPage.emit(newPage);
   }
 
+  dragStarted(event){
+    console.log("DRAGSTARTCHECK");
+    this.clicked = true;
+    this.enableDragView.emit(true);
+    event.dataTransfer.setData("text", this.position);
+  }
+
+  dragEnded(event){
+    console.log("DRAGENDCHECK");
+    this.clicked = false;
+    this.enableDragView.emit(false);
+  }
+
   deletePage(){
     console.log("PAGE AT POSITON " + this.page.position + " DELETED.")
     this.deletedPage.emit(this.page.position);
@@ -51,5 +68,20 @@ export class PaginaCreatieComponent implements OnInit {
   public selectInputType(event) {
     this.inputChoiceActive = !this.inputChoiceActive;
   }
+  
+  drop(ev: any) {
+    ev.preventDefault();
+    event.stopPropagation();
+    var data:DataTransfer = ev.dataTransfer;
+    console.log(data.getData("text"));
+    this.changePagePos.emit({
+      "startPos":data.getData("text"),
+      "endPos":this.position
+    });
+  }
 
+  allowDrop(ev) {
+    ev.preventDefault();
+    event.stopPropagation();
+  }
 }

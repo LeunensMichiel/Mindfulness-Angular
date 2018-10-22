@@ -19,6 +19,7 @@ import { AudioPaginaCreatieComponent } from './pagina/creatie-components/audio-p
 import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-pagina-creatie/input-pagina-creatie.component';
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf
     MatTabsModule,
     MatButtonToggleModule,
     ScrollDispatchModule,
-    MatInputModule
+    MatInputModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
