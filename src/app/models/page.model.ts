@@ -46,7 +46,7 @@ export class TextPage implements Page {
     }
 
     public deletePar(position: number){
-        this.paragraphs.splice(position += 1, 1);
+        this.paragraphs.splice(position, 1);
         this.paragraphs
             .filter( par => par.position >= position)
             .forEach( par => par.position -= 1); 
@@ -60,6 +60,10 @@ export class TextPage implements Page {
             return true;
         }
         return false;
+    }
+
+    public changePar(par:Paragraph){
+        this.paragraphs[par.position] = par;
     }
 
     toString(): string {

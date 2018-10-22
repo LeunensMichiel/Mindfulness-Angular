@@ -1,9 +1,10 @@
 .segment {
-    min-height: 80vh;
+    min-height: 85vh;
     min-width: 75vh;
     border-radius: 0%;
     margin-top: 5%;
     float: left;
+    padding: 0;
 }
 .inputField {
     float: left;
@@ -17,6 +18,15 @@
     margin-top: 40vh;
 }
 
+.cardContent {
+    padding: 3%
+}
+
 .mat-button-toggle-group {
     visibility: visible;
+}
+
+.closeButton {
+    float: right;
+    z-index: 1;
 }

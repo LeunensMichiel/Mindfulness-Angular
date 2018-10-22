@@ -21,7 +21,7 @@ export class Excercise {
     }
 
     public deletePage(position: number){
-        this.pages.splice(position += 1, 1);
+        this.pages.splice(position , 1);
         this.pages
             .filter( page => page.position >= position )
             .forEach( p => p.position -= 1);

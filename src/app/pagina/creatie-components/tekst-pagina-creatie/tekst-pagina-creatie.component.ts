@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { TextPage, Page } from 'src/app/models/page.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { TextPage, Page } from 'src/app/models/page.model';
   templateUrl: './tekst-pagina-creatie.component.html',
   styleUrls: ['./tekst-pagina-creatie.component.css']
 })
-export class TekstPaginaCreatieComponent implements OnInit,DoCheck {
+export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
   @Input() textPage:TextPage = null;
   @Output() changedPage = new EventEmitter<Page>();
   title:string = "";
@@ -31,9 +31,22 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck {
     this.changedPage.emit(this.textPage);
   }
 
+  changePar(par){
+    this.textPage.changePar(par);
+    console.log(this.textPage.paragraphs);
+    console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
+    this.changedPage.emit(this.textPage);
+  }
+
   changeParPos(positions){
     console.log(positions);
     console.log(this.textPage.changeParPosition(positions.startPos, positions.endPos));
+    this.changedPage.emit(this.textPage);
+  }
+
+  deletePar(position){
+    console.log("TEXTPAGE ON POSITON " + this.textPage.position + " CHANGED.")
+    this.textPage.deletePar(position);
     this.changedPage.emit(this.textPage);
   }
 }
