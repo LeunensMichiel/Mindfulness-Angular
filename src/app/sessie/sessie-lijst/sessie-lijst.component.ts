@@ -30,81 +30,86 @@ export class SessieErrorStateMatcher implements ErrorStateMatcher {
   encapsulation: ViewEncapsulation.None
 })
 export class SessieLijstComponent implements OnInit {
-  private _sessies: Sessie[] = [];
+  private _sessies: Sessie[];
   public creating: Boolean = false;
   public newSes: FormGroup;
   public matcher = new SessieErrorStateMatcher();
+  public errorMsg: string;
+
 
   constructor(private _sessieDataService: SessieDataService, public dialog: MatDialog,
     public snackBar: MatSnackBar, private _fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    // this._sessieDataService.sessies.subscribe(
-    //   sessies => (this._sessies = sessies),
-    //   (error: HttpErrorResponse) => {
-    //     this.errorMsg = `Error ${
-    //       error.status
-    //       } while trying to retrieve recipes: ${error.error}`;
-    //   }
-    // ); 
+    this._sessieDataService.sessies.subscribe(
+      sessies => (this._sessies = sessies),
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve recipes: ${error.error}`;
+      }
+    ); 
     this.newSes = this._fb.group({
-      number: [this.sessies.length + 2, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
+      number: [5, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
       title: ['', Validators.required]
     }
 
     );
-    this._sessies = this._sessieDataService.sessies;
+    // this._sessies = this._sessieDataService.sessies;
   }
 
   addSessie() {
-    // this._sessieDataService.addNewSessie(new Sessie("hey", this._sessies.length + 1)).subscribe(
-    //   () => {
-    //     this.snackBar.open("Sessie successfully added!");
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "",
-    // {
-    //   duration: 3000,
-    // });
-    //   }
-    // );
-
-    let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
-    this._sessieDataService.addNewSessie(sessie);
-    this.snackBar.open("Sessie " + sessie.get_nr() + ": " + sessie.get_title() + " added!", "",
-      {
-        duration: 3000,
-      });
+    this._sessieDataService.addNewSessie(new Sessie(this.newSes.value.title)).subscribe(
+      () => {
+        this.snackBar.open("Sessie successfully added!");
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", { duration: 3000,
+    });
     this.creating = false;
     this.sesReset();
-  }
-
-  removeSessie(sessie: Sessie) {
-    let remove: Boolean = false;
-    const dialogRef = this.dialog.open(RemoveSessieDialog, {
-      width: '250px'
-    });
-
-    dialogRef.afterClosed().subscribe(
-      data => {
-        if (data) {
-          // this._sessieDataService.removeSessie(sessie).subscribe(
-          //   () => {
-          //     this.snackBar.open("Sessie successfully removed!");
-          //   },
-          //   (error: HttpErrorResponse) => {
-          //     this.snackBar.open(`Error ${error.status} while removing sessie: ${error.error}`, "",
-          // {
-          //   duration: 3000,
-          // });
-          //   }
-          // );
-          this._sessieDataService.removeSessie(sessie);
-        }
-      },
+      }
     );
+
+    // JARNE
+    //-------
+    
+    // let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
+    // this._sessieDataService.addNewSessie(sessie);
+    // this.snackBar.open("Sessie " + sessie.get_nr() + ": " + sessie.get_title() + " added!", "",
+    //   {
+    //     duration: 3000,
+    //   });
+    // this.creating = false;
+    // this.sesReset();
   }
+
+  // removeSessie(sessie: Sessie) {
+  //   let remove: Boolean = false;
+  //   const dialogRef = this.dialog.open(RemoveSessieDialog, {
+  //     width: '250px'
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(
+  //     data => {
+  //       if (data) {
+  //         // this._sessieDataService.removeSessie(sessie).subscribe(
+  //         //   () => {
+  //         //     this.snackBar.open("Sessie successfully removed!");
+  //         //   },
+  //         //   (error: HttpErrorResponse) => {
+  //         //     this.snackBar.open(`Error ${error.status} while removing sessie: ${error.error}`, "",
+  //         // {
+  //         //   duration: 3000,
+  //         // });
+  //         //   }
+  //         // );
+  //         this._sessieDataService.removeSessie(sessie);
+  //       }
+  //     },
+  //   );
+  // }
 
   get sessies() {
     return this._sessies;

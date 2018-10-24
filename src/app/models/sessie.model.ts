@@ -8,9 +8,9 @@ export class Sessie {
 
   // private _categorie: Categorie;
 
-  constructor(title: string, nr: number /*, oefeningen?: string[]*/) {
+  constructor(title: string, /*nr: number , oefeningen?: string[]*/) {
     this._title = title;
-    this._nr = nr;
+    //this._nr = nr;
     /*this._oefeningen = oefeningen || new Array();
     // this._categorie = categorie;*/
   }
@@ -58,7 +58,7 @@ export class Sessie {
   static fromJSON(json: any): Sessie {
     const ses = new Sessie(
     json.title,
-    json.nr
+    //json.nr
       //json.oefeningen.map(Exercise.fromJSON),
     );
     ses._id = json._id;
@@ -69,7 +69,7 @@ export class Sessie {
     return {
       _id: this._id,
       title: this._title,
-      nr: this._nr
+      //nr: this._nr
     };
   }
 }
