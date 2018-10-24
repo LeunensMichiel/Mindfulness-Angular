@@ -3,10 +3,29 @@
     min-height: 200px;
 }
 
-/* .delbutton {
-    visibility: hidden;
-} */
+.icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+}
 
-.button:hover .delbutton{
-    visibility: visible;
+.del {
+    right: -25px;
+    top: -25px;
+}
+
+.edit {
+    right: -60px;
+    top: 25px;
+}
+
+.five {
+    bottom: -60px;
+    left: 50px;
+}
+
+.six {
+    left: -25px;
+    bottom: -25px;
 }

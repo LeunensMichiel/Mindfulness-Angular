@@ -16,12 +16,19 @@
         </button>
     </mat-card-actions>
 </mat-card> -->
-<button class="delbutton" mat-fab style="float: right; float: top;"
-    matTooltip="Remove sessie" (click)="removeSessie()">
-  <i class="material-icons">
-      delete_outline
-  </i>
-</button>
-<button class="button" mat-fab color="primary">
-  <h2>{{sessie.nr}}</h2>
+
+
+<button class="button" mat-fab color="primary" (click)="showIcons = !showIcons">
+    <h2>{{sessie._nr}}</h2>
+    <h3>{{sessie._title}}</h3>
+    <button mat-fab *ngIf='showIcons' class="icon del" matTooltip="Remove sessie" (click)="removeSessie()">
+        <i class="material-icons">
+            delete_outline
+        </i>
+    </button>
+    <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie">
+        <i class="material-icons">
+            edit
+        </i>
+    </button>
 </button>

@@ -10,6 +10,7 @@ export class SessieComponent implements OnInit {
 
   @Input() public sessie: Sessie;
   @Output() public deleteSessie = new EventEmitter<Sessie>();
+  public showIcons: Boolean = false;
 
   constructor() { }
 

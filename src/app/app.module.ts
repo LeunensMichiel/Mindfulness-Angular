@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { OefeningCreatieComponent } from './oefening/oefening-creatie/oefening-creatie.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
 import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing-module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule }         from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatGridListModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [SessieDataService],
   bootstrap: [AppComponent],
