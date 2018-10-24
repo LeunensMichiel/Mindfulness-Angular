@@ -6,7 +6,7 @@ import { Page, TextPage, AudioPage, InputPage } from 'src/app/models/page.model'
   templateUrl: './pagina-creatie.component.html',
   styleUrls: ['./pagina-creatie.component.css']
 })
-export class PaginaCreatieComponent implements OnInit {
+export class PaginaCreatieComponent implements OnInit, OnChanges {
   @Input() page: Page = null;
   @Input() position: number = 0;
   @Input() isLastElement = false;
@@ -18,10 +18,14 @@ export class PaginaCreatieComponent implements OnInit {
   @Output() enableDragView = new EventEmitter<boolean>();
   public inputChoiceActive = true;
   public clicked = false;
-
+  public dragging = this.viewBeingDragged && (!this.clicked)
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes:SimpleChanges){
+    console.log(changes);
   }
 
   public addPage(value) {
@@ -44,6 +48,7 @@ export class PaginaCreatieComponent implements OnInit {
   dragStarted(event){
     console.log("DRAGSTARTCHECK");
     this.clicked = true;
+    console.log(this.clicked);
     this.enableDragView.emit(true);
     event.dataTransfer.setData("text", this.position);
   }
@@ -51,6 +56,7 @@ export class PaginaCreatieComponent implements OnInit {
   dragEnded(event){
     console.log("DRAGENDCHECK");
     this.clicked = false;
+    console.log(this.clicked);
     this.enableDragView.emit(false);
   }
 

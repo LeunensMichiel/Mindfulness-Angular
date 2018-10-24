@@ -1,4 +1,4 @@
-<div *ngIf='viewBeingDragged && !clicked; then draggingView else standardView'></div>
+<div *ngIf='(!clicked && viewBeingDragged); then draggingView else standardView'></div>
 <ng-template #draggingView>
   <div draggable="true" (dragstart)='dragStarted($event)' class="dragContainer">
     <mat-card id="dndList" (drop)='drop($event)' (dragover)='allowDrop($event)' class="draggingView">

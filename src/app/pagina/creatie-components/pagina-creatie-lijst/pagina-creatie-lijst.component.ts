@@ -49,4 +49,9 @@ export class PaginaCreatieLijstComponent implements OnInit {
     this.excercise.changePagePosition(positions.startPos, positions.endPos);
     console.log(this.excercise.pages); 
   }
+
+  enableDragging($event){
+    this.dragging = $event;
+    console.log(this.dragging);
+  }
 }
