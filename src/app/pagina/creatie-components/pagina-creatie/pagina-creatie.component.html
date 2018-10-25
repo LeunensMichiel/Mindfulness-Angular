@@ -12,7 +12,7 @@
   </div>
 </ng-template>
 <ng-template #standardView>
-  <div draggable="true" (dragstart)='dragStarted($event)' (dragend)='dragEnded($event)'>
+  <div [@pageTrigger]="changeAnimation? 'in':'out'" draggable="true" (dragstart)='dragStarted($event)' (dragend)='dragEnded($event)'>
     <mat-card class="inputField">
       <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
         <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true'>

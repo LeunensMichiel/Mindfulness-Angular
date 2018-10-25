@@ -3,6 +3,7 @@ import {ViewportRuler,ScrollDispatcher, ScrollDispatchModule} from '@angular/cdk
 import { Page, TextPage } from 'src/app/models/page.model';
 import { Exercise } from 'src/app/models/exercise.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-pagina-creatie-lijst',
@@ -17,12 +18,23 @@ export class PaginaCreatieLijstComponent implements OnInit {
    */
   exercise:Exercise = new Exercise();
   public dragging = false;
-  constructor() { }
+  constructor(public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.exercise = new Exercise();
   }
   
+  /**
+   * Deze methode toont een snackbar als er een verandering gebeurt.
+   * 
+   * @param message Boodschap die word getoond.
+   */
+  openSnackbar(message){
+    this.snackBar.open(message, 'ok', {
+      duration: 1500
+    });
+  }
+
   /**
    * Deze methode word opgeroepen door de newPage emitter en voegt een nieuwe page
    * toe aan de excercise.
@@ -31,6 +43,7 @@ export class PaginaCreatieLijstComponent implements OnInit {
    */
   addPage(page:Page){
     this.exercise.addPage(page.position, page);
+    this.openSnackbar("Pagina toegevoegd!");
   }
 
   /**
@@ -44,6 +57,7 @@ export class PaginaCreatieLijstComponent implements OnInit {
     this.exercise.deletePage(position);
     console.log("PAGE AT POSITION " + position + " DELETED.");
     console.log(this.exercise.pages);
+    this.openSnackbar("Pagina verwijderd!");
   }
 
   /**
@@ -69,5 +83,6 @@ export class PaginaCreatieLijstComponent implements OnInit {
     console.log(positions);
     this.exercise.changePagePosition(positions.startPos, positions.endPos);
     console.log(this.exercise.pages); 
+    this.openSnackbar("Pagina van positie veranderd!");
   }
 }

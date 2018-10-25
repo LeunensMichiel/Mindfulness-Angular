@@ -1,10 +1,31 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { Page, TextPage, AudioPage, InputPage } from 'src/app/models/page.model';
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 @Component({
   selector: 'app-pagina-creatie',
   templateUrl: './pagina-creatie.component.html',
-  styleUrls: ['./pagina-creatie.component.css']
+  styleUrls: ['./pagina-creatie.component.css'],
+  animations: [
+    trigger('pageTrigger', [
+      state('in', style({ transform: 'translateX(0)' })),
+      state('out', style({ transform: 'translateX(0)' })),
+      transition('void => *', [
+        style({ transform: 'translateX(-50%)', opacity: 0.5}),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ]),
+      transition('* => out', [
+        style({ transform: 'translateX(0)', opacity: 1}),
+        animate('300ms ease-out', style({ opacity: 0, transform: 'translateX(50%)' }))
+      ])
+    ])
+  ]
 })
 export class PaginaCreatieComponent implements OnInit {
   /**
@@ -28,6 +49,7 @@ export class PaginaCreatieComponent implements OnInit {
   @Output() changePagePos = new EventEmitter<any>();
   @Output() deletedPage = new EventEmitter<number>();
   @Output() enableDragView = new EventEmitter<boolean>();
+  changeAnimation = true;
   public inputChoiceActive = true;
   public clicked = false;
   public dragging = this.viewBeingDragged && (!this.clicked)
@@ -76,6 +98,7 @@ export class PaginaCreatieComponent implements OnInit {
    * naar het exercise-object.
    */
   deletePage(){
+    this.changeAnimation = false;
     console.log("PAGE AT POSITON " + this.page.position + " DELETED.")
     this.deletedPage.emit(this.page.position);
     return false;

@@ -26,12 +26,9 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    *                                       | audio-pagina-creatie
    */
 
-  constructor(public snackBar: MatSnackBar) { }
+  constructor() { }
 
   ngOnInit() { 
-    this.snackBar.open('Message archived', 'ok', {
-      duration: 1000
-    });
   }
 
   //================== METHODES ==================
