@@ -60,6 +60,7 @@ export class SessieLijstComponent implements OnInit {
   }
 
   addSessie() {
+    //werkt nog niet helemaal door databank fout, aanpassingen nodig in backend project, code hier juist wel
     this._sessieDataService.addNewSessie(new Sessie(this.newSes.value.title)).subscribe(
       () => {
         this.snackBar.open("Sessie successfully added!");
@@ -72,7 +73,7 @@ export class SessieLijstComponent implements OnInit {
       }
     );
 
-    // JARNE
+    // JARNE -> copy paste naar hierboven
     //-------
     
     // let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
