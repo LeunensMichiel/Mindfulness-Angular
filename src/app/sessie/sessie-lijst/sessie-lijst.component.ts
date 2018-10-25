@@ -49,7 +49,7 @@ export class SessieLijstComponent implements OnInit {
           error.status
           } while trying to retrieve recipes: ${error.error}`;
       }
-    ); 
+    );
     this.newSes = this._fb.group({
       number: [5, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
       title: ['', Validators.required]
@@ -65,16 +65,17 @@ export class SessieLijstComponent implements OnInit {
         this.snackBar.open("Sessie successfully added!");
       },
       (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", { duration: 3000,
-    });
-    this.creating = false;
-    this.sesReset();
+        this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", {
+          duration: 3000,
+        });
+        this.creating = false;
+        this.sesReset();
       }
     );
 
     // JARNE
     //-------
-    
+
     // let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
     // this._sessieDataService.addNewSessie(sessie);
     // this.snackBar.open("Sessie " + sessie.get_nr() + ": " + sessie.get_title() + " added!", "",
