@@ -26,7 +26,7 @@ export class Excercise {
             .filter( page => page.position >= position )
             .forEach( p => p.position -= 1);
     }
-
+//verandering
     public changePagePosition(startPosition: number, endPosition: number){
         if (startPosition != endPosition){
             if (startPosition < endPosition){
