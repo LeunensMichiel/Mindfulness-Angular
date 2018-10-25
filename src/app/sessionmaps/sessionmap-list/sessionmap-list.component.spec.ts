@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SessieToevoegenComponent } from './sessie-toevoegen.component';
+import { SessionmapListComponent } from './sessionmap-list.component';
 
-describe('SessieToevoegenComponent', () => {
-  let component: SessieToevoegenComponent;
-  let fixture: ComponentFixture<SessieToevoegenComponent>;
+describe('SessionmapListComponent', () => {
+  let component: SessionmapListComponent;
+  let fixture: ComponentFixture<SessionmapListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SessieToevoegenComponent ]
+      declarations: [ SessionmapListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SessieToevoegenComponent);
+    fixture = TestBed.createComponent(SessionmapListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

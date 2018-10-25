@@ -1,0 +1,15 @@
+<mat-drawer-container class="courses">
+  <mat-drawer mode="side" opened>
+    <mat-list>
+      <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]"  >
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <h4>{{sesmap.titleCourse}}</h4>
+      </a>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

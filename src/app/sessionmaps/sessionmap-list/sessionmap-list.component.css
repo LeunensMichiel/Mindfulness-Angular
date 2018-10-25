@@ -1,0 +1,9 @@
+.mat-list {
+  background-color: gray;
+  min-height: 90vh;
+  width: 250px;
+}
+.courses {
+  width: 100%;
+  min-height: 90vh;
+}
