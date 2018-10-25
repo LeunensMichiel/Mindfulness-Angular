@@ -33,7 +33,6 @@ import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-p
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {SessieToevoegenComponent} from '../../mindfulnessapp/src/app/sessie/sessie-toevoegen/sessie-toevoegen.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import {SessieToevoegenComponent} from '../../mindfulnessapp/src/app/sessie/sess
     SessionmapListComponent,
     SessionmapCreatieComponent,
     SessionmapDetailComponent,
-    SessieToevoegenComponent,
     PaginaCreatieComponent,
     PaginaCreatieLijstComponent,
     AudioPaginaCreatieComponent,

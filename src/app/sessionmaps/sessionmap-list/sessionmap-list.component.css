@@ -1,9 +1,18 @@
 .mat-list {
   background-color: gray;
-  min-height: 90vh;
-  width: 250px;
+  height: 100%;
+  width: 300px;
 }
+
 .courses {
   width: 100%;
-  min-height: 90vh;
+  height: 100%;
+}
+
+.mat-list > a {
+  text-decoration: none;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }
