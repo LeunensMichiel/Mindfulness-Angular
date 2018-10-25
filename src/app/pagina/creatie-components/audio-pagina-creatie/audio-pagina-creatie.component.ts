@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, EventEmitter, Output } from '@angular/core';
 import { AudioPage, Page } from 'src/app/models/page.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-audio-pagina-creatie',
@@ -25,9 +26,13 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    *                                       | audio-pagina-creatie
    */
 
-  constructor() { }
+  constructor(public snackBar: MatSnackBar) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.snackBar.open('Message archived', 'ok', {
+      duration: 1000
+    });
+  }
 
   //================== METHODES ==================
 
