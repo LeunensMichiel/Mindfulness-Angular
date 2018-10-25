@@ -1,6 +1,42 @@
 <div class="titel">
-  <h1>SESSIES</h1>
+  <h1>OVERZICHT SESSIES</h1>
 </div>
-<div *ngFor='let ses of sessies'>
-  <app-sessie [sessie]='ses'></app-sessie>
-</div>
+<mat-grid-list class="sessie-grid" cols="4" rowHeight="fit" gutterSize='25px'>
+  <mat-grid-tile *ngFor='let localSessie of sessies'>
+    <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)"></app-sessie>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf='!creating'>
+    <button class="button" mat-fab color="primary" (click)='creating = !creating'>
+      <h2>+</h2>
+    </button>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf='creating'>
+    <button class="createButton" [disableRipple]="true" mat-fab color="primary">
+      <form class="ui form" [formGroup]='newSes' (ngSubmit)='addSessie()'>
+        <mat-form-field>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Number" autocomplete="off" formControlName='number'>
+          <mat-error *ngIf="newSes.get('number').hasError('number') && !number.hasError('required')">
+            Please enter a valid number
+          </mat-error>
+        </mat-form-field>
+        <button mat-fab class="icon check" type="submit">
+          <i class="material-icons">
+            check
+          </i>
+        </button>
+        <button mat-fab class="icon cross" (click)="creating = !creating; sesReset()">
+          <i class="material-icons">
+            clear
+          </i>
+        </button>
+        <br>
+        <mat-form-field>
+          <input matInput [errorStateMatcher]="matcher" placeholder="Title" autocomplete="off" formControlName='title'>
+          <mat-error *ngIf="newSes.get('title').hasError('title') && !title.hasError('required')">
+            Please enter a valid title
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
