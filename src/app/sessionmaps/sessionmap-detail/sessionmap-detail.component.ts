@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Sessionmap } from 'src/app/models/sessionmap.model';
+import {ActivatedRoute} from '@angular/router';
+import {SessionmapDataService} from '../sessionmap-data.service';
 
 @Component({
   selector: 'app-sessionmap-detail',
@@ -8,11 +10,17 @@ import { Sessionmap } from 'src/app/models/sessionmap.model';
 })
 export class SessionmapDetailComponent implements OnInit {
 
-  @Input() public sesmap: Sessionmap;
+  @Input() _sesmap: Sessionmap;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
+
+  get sesmap(): Sessionmap {
+    return this._sesmap;
+  }
 
   ngOnInit() {
+    this.route.data.subscribe(item =>
+      this._sesmap = item['sesmap']);
   }
 
 }

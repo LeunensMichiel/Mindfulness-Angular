@@ -1,6 +1,4 @@
-<div class="titel">
-  <h1>OVERZICHT SESSIES</h1>
-</div>
+
 <mat-grid-list class="sessie-grid" cols="4" rowHeight="fit" gutterSize='25px'>
   <mat-grid-tile *ngFor='let localSessie of sessies'>
     <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)"></app-sessie>

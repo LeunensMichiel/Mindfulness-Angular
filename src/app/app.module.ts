@@ -24,6 +24,7 @@ import {SessionmapListComponent} from './sessionmaps/sessionmap-list/sessionmap-
 import {SessionmapCreatieComponent} from './sessionmaps/sessionmap-creatie/sessionmap-creatie.component';
 import {SessionmapDetailComponent} from './sessionmaps/sessionmap-detail/sessionmap-detail.component';
 import {SessionmapDataService} from './sessionmaps/sessionmap-data.service';
+import {Sessionmapresolver} from './sessionmaps/sessionmapresolver';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import {SessionmapDataService} from './sessionmaps/sessionmap-data.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SessieDataService, SessionmapDataService],
+  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
   bootstrap: [AppComponent],
   entryComponents: [RemoveSessieDialog]
 })

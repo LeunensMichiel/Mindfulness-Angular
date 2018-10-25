@@ -17,4 +17,10 @@ export class SessionmapDataService {
       .get(`${this._appUrl}/sessionmaps`)
       .pipe(map((list: any[]): Sessionmap[] => list.map(Sessionmap.fromJSON)));
   }
+
+  getsesmap(id: string): Observable<Sessionmap> {
+    return this.http
+      .get(`${this._appUrl}/sessionmap/${id}`)
+      .pipe(map(Sessionmap.fromJSON));
+  }
 }
