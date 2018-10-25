@@ -7,15 +7,38 @@ import { TextPage, Page } from 'src/app/models/page.model';
   styleUrls: ['./tekst-pagina-creatie.component.css']
 })
 export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
+  /**
+   * VARIABELEN:
+   * changedpage: de emitter die de gewijzigde page naar pagina-creatie stuurt.
+   * Die op zijn beurt naar de pagina-creatielijst stuurt waar ze dan word opgeslaan
+   * in de databank
+   */
   @Input() textPage:TextPage = null;
   @Output() changedPage = new EventEmitter<Page>();
   title:string = "";
 
+  /**
+   * GIDS:
+   * pagina-creatie-lijst |
+   *                      | pagina-creatie |
+   *                                       | tekst-pagina-creatie
+   */
   constructor() { }
 
   ngOnInit() {
   }
+
+  //================== METHODES ==================
   
+  //------------ TEXTPAGE ATTRIBUTEN WIJZIGINGEN ------------
+
+  /**$
+   * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
+   * dus elke keer als de gebruiker iets wijzigt in de .html.
+   * Als deze wijzigingen verschillend zijn van de attributen van de lokale pagina
+   * worden deze de nieuwe waarden van de pagina. De pagina word dan geëmit om 
+   * te worden opgeslagen in het exercise-object
+   */
   ngDoCheck(): void{
     if (this.textPage.title != this.title){
       this.textPage.title = this.title;
@@ -24,6 +47,14 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
     }
   }
 
+  //------------ TEXTPAGE PARAGRAPHS WIJZIGINGEN ------------
+
+  /**
+   * een nieuwe paragraph word toegevoegd op een bepaalde locatie 
+   * in de textpage paragraphs array. De gewijzigde tekstpagina word dan geëmit
+   * om op te slaan in de exercise.
+   * @param par De paragraph die word toegevoegd aan de paragraphs array
+   */
   addPar(par){
     this.textPage.addPar(par.position, par);
     console.log(this.textPage.paragraphs);
@@ -31,19 +62,34 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
     this.changedPage.emit(this.textPage);
   }
 
+  /**
+   * Een pargraaf in de paragraphs array word verwijderd. De originele word verwijderd
+   * en de nieuwe versie word toegevoegd op zijn originele locatie.
+   * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
+   * @param par De gewijzigde pargraph.
+   */
   changePar(par){
     this.textPage.changePar(par);
     console.log(this.textPage.paragraphs);
     console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
     this.changedPage.emit(this.textPage);
   }
-
+  /**
+   * De paragraph op de startpositie en op de eindpositie worden van plaats verwisselt.
+   * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
+   * @param positions een Json object met de start en eindpositie.
+   */
   changeParPos(positions){
     console.log(positions);
     console.log(this.textPage.changeParPosition(positions.startPos, positions.endPos));
     this.changedPage.emit(this.textPage);
   }
 
+  /**
+   * De paragraph op de gegeven positie word verwijderd.
+   * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
+   * @param position de positie van de te verwijderen paragraph.
+   */
   deletePar(position){
     console.log("TEXTPAGE ON POSITON " + this.textPage.position + " CHANGED.")
     this.textPage.deletePar(position);

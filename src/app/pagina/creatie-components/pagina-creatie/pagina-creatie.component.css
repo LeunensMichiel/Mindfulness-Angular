@@ -1,6 +1,6 @@
 .segment {
     min-height: 85vh;
-    min-width: 75vh;
+    min-width: 40vw;
     border-radius: 0%;
     margin-top: 5%;
     float: left;

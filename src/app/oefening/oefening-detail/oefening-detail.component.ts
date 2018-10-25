@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { Excercise } from 'src/app/models/excercise.model';
+import { Exercise } from 'src/app/models/exercise.model';
 
 @Component({
   selector: 'app-oefening-detail',
@@ -7,7 +7,7 @@ import { Excercise } from 'src/app/models/excercise.model';
   styleUrls: ['./oefening-detail.component.css']
 })
 export class OefeningDetailComponent implements OnInit {
-  @Input() excersice: Excercise
+  @Input() excersice: Exercise
   public dropdownVisible = false;
 
   constructor() { }

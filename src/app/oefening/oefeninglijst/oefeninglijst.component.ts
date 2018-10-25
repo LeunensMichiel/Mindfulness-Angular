@@ -1,4 +1,4 @@
-import { Excercise } from "../../models/excercise.model";
+import { Exercise } from "../../models/exercise.model";
 import { Component, OnInit, Input } from "@angular/core";
 import { OefeningDetailComponent } from "../oefening-detail/oefening-detail.component";
 import { TextPage, AudioPage, InputPage } from "src/app/models/page.model";
@@ -13,10 +13,10 @@ export class OefeninglijstComponent implements OnInit {
   inputPage:InputPage = new InputPage();
   textPage:TextPage = new TextPage();
   audioPage:AudioPage = new AudioPage();
-  excersice:Excercise = new Excercise();
+  excersice:Exercise = new Exercise();
   par:Paragraph =  new Paragraph();
   imgPar:Paragraph =  new Paragraph();
-  public oefeningen:Excercise[]
+  public oefeningen:Exercise[]
   
 
   constructor() {
