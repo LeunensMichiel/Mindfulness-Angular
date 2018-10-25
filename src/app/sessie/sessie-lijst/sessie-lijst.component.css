@@ -38,3 +38,7 @@
 .mat-form-field-ripple {
     background-color: white !important;
 }
+
+.mat-grid-list {
+    height: 25vh;
+}

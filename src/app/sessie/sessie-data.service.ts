@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class SessieDataService {
 
-  private readonly _appUrl = '/API/sessionmap';
+  private readonly _appUrl = '/API';
   // private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {
@@ -18,7 +18,7 @@ export class SessieDataService {
 
   get sessies(): Observable<Sessie[]> {
     return this.http
-      .get(`/API/sessionmaps`)
+      .get(`${this._appUrl}/sessies`)
       .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJSON)));
   }
 
