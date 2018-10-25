@@ -61,7 +61,7 @@ export class SessieLijstComponent implements OnInit {
 
   addSessie() {
     //werkt nog niet helemaal door databank fout, aanpassingen nodig in backend project, code hier juist wel
-    this._sessieDataService.addNewSessie(new Sessie(this.newSes.value.title)).subscribe(
+    this._sessieDataService.addNewSessie(new Sessie(this.newSes.value.title, 4)).subscribe(
       () => {
         this.snackBar.open("Sessie successfully added!");
       },

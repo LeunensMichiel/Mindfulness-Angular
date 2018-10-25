@@ -2,11 +2,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { SessieLijstComponent } from '../sessie/sessie-lijst/sessie-lijst.component';
 import { OefeninglijstComponent } from '../oefening/oefeninglijst/oefeninglijst.component';
+import {SessionmapListComponent} from '../sessionmaps/sessionmap-list/sessionmap-list.component';
 
 const appRoutes: Routes = [
-    { path: 'sessie-list', component: SessieLijstComponent },
+    { path: 'course-list', component: SessionmapListComponent },
     { path: 'oefening-list', component: OefeninglijstComponent },
-    { path: '', redirectTo: 'sessie-list', pathMatch: 'full'}/*,
+    { path: '', redirectTo: 'course-list', pathMatch: 'full'}/*,
     { path: '**', component: PageNotFoundComponent}*/
   
   ];

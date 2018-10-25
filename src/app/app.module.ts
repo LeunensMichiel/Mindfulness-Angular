@@ -16,10 +16,14 @@ import { SessieLijstComponent, RemoveSessieDialog } from './sessie/sessie-lijst/
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing-module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule }from '@angular/forms';
+import {InvoerPaginaDetailComponent} from './pagina/invoer-pagina-detail/invoer-pagina-detail.component';
+import {SessionmapListComponent} from './sessionmaps/sessionmap-list/sessionmap-list.component';
+import {SessionmapCreatieComponent} from './sessionmaps/sessionmap-creatie/sessionmap-creatie.component';
+import {SessionmapDetailComponent} from './sessionmaps/sessionmap-detail/sessionmap-detail.component';
+import {SessionmapDataService} from './sessionmaps/sessionmap-data.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +34,13 @@ import { FormsModule, ReactiveFormsModule }from '@angular/forms';
     OefeninglijstComponent,
     TekstPaginaDetailComponent,
     AudioPaginaDetailComponent,
+    InvoerPaginaDetailComponent,
     SessieComponent,
     SessieLijstComponent,
-    RemoveSessieDialog
+    RemoveSessieDialog,
+    SessionmapListComponent,
+    SessionmapCreatieComponent,
+    SessionmapDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +63,7 @@ import { FormsModule, ReactiveFormsModule }from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SessieDataService],
+  providers: [SessieDataService, SessionmapDataService],
   bootstrap: [AppComponent],
   entryComponents: [RemoveSessieDialog]
 })

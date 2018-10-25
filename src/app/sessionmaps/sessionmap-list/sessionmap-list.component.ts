@@ -20,7 +20,7 @@ export class SessionmapListComponent implements OnInit {
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
-        } while trying to retrieve recipes: ${error.error}`;
+        } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
   }
