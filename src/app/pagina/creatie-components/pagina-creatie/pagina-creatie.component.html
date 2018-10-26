@@ -1,6 +1,6 @@
 <div *ngIf='(!clicked && viewBeingDragged); then draggingView else standardView'></div>
 <ng-template #draggingView>
-  <div  class="dragContainer">
+  <div class="dragContainer">
     <mat-card id="dndList" (drop)='drop($event)' (dragover)='allowDrop($event)' class="draggingView">
       <p>
         {{page.position}}
@@ -37,6 +37,10 @@
         <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
         <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
       </div>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
     </mat-card>
   </div>
 </ng-template>

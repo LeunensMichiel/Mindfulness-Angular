@@ -27,8 +27,8 @@ export class Exercise {
             .forEach( p => p.position -= 1);
     }
 
-    public changePagePosition(startPosition: number, endPosition: number){
-        if (startPosition != endPosition){
+    public changePagePosition(startPos: number, endPos: number){
+        /* if (startPosition != endPosition)
             if (startPosition < endPosition){
                 this.pages
                     .filter( page => page.position > startPosition && page.position <= endPosition)
@@ -41,6 +41,14 @@ export class Exercise {
             }    
             this.pages[startPosition].position = endPosition;
             this.pages.sort((a, b) => a.position - b.position);
+        } */
+
+        if(startPos != endPos && endPos >= 0 && endPos < this.pages.length){
+            this.pages[startPos].position = endPos;
+            this.pages[endPos].position = startPos;
+            this.pages.sort((a, b) => a.position - b.position);
+            return true;
         }
+        return false;
     }
 }

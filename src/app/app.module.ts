@@ -27,13 +27,12 @@ import {SessionmapDataService} from './sessionmaps/sessionmap-data.service';
 import {Sessionmapresolver} from './sessionmaps/sessionmapresolver';
 import { PaginaCreatieComponent } from './pagina/creatie-components/pagina-creatie/pagina-creatie.component';
 import { PaginaCreatieLijstComponent } from './pagina/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
-import { ScrollDispatchModule, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { AudioPaginaCreatieComponent } from './pagina/creatie-components/audio-pagina-creatie/audio-pagina-creatie.component';
 import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-pagina-creatie/input-pagina-creatie.component';
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {SessieToevoegenComponent} from '../../mindfulnessapp/src/app/sessie/sessie-toevoegen/sessie-toevoegen.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import {SessieToevoegenComponent} from '../../mindfulnessapp/src/app/sessie/sess
     SessionmapListComponent,
     SessionmapCreatieComponent,
     SessionmapDetailComponent,
-    SessieToevoegenComponent,
     PaginaCreatieComponent,
     PaginaCreatieLijstComponent,
     AudioPaginaCreatieComponent,
