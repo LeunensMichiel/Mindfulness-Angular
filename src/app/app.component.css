@@ -33,4 +33,7 @@
          `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
-  
+h1>a {
+  text-decoration: none;
+  color: white;
+}

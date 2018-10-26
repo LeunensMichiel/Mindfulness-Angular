@@ -1,5 +1,15 @@
 <mat-drawer-container class="courses">
   <mat-drawer mode="side" opened>
+    <mat-toolbar color="primary">
+        <span>Lessen</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+    </mat-toolbar>
     <mat-list>
       <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]"  >
         <mat-icon mat-list-icon>folder</mat-icon>
