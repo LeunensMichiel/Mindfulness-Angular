@@ -20,6 +20,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing-module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule }         from '@angular/forms';
+import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule, ReactiveFormsModule }         from '@angular/forms';
     AudioPaginaDetailComponent,
     SessieComponent,
     SessieLijstComponent,
-    RemoveSessieDialog
+    RemoveSessieDialog,
+    SessieToevoegenComponent
   ],
   imports: [
     BrowserModule,

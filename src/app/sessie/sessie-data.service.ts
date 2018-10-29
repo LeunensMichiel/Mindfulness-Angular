@@ -10,23 +10,23 @@ import { map } from 'rxjs/operators';
 export class SessieDataService {
 
   private readonly _appUrl = '/API';
-  // private _sessies: Sessie[] = new Array();
+  private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {
     // this._sessies.push(new Sessie("Sessie 1", 1));
   }
 
-  get sessies(): Observable<Sessie[]> {
-    return this.http
-      .get(`${this._appUrl}/sessies`)
-      .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJSON)));
-  }
+  // get sessies(): Observable<Sessie[]> {
+  //   return this.http
+  //     .get(`${this._appUrl}/sessies`)
+  //     .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJSON)));
+  // }
 
-  addNewSessie(ses: Sessie): Observable<Sessie> {
-    return this.http
-      .post(`/API/sessionmaps`, ses)
-      .pipe(map(Sessie.fromJSON));
-  }
+  // addNewSessie(ses: Sessie): Observable<Sessie> {
+  //   return this.http
+  //     .post(`/API/sessionmaps`, ses)
+  //     .pipe(map(Sessie.fromJSON));
+  // }
 
   // removeSessie(ses: Sessie): Observable<Sessie> {
   //   return this.http
@@ -45,18 +45,18 @@ export class SessieDataService {
       .pipe(map(Sessie.fromJSON));
   }
 
-  // get sessies(): Sessie[] {
-  //   return this._sessies.sort(this.compare);
-  // }
+  get sessies(): Sessie[] {
+    return this._sessies.sort(this.compare);
+  }
 
-  // addNewSessie(ses: Sessie): void {
-  //   this._sessies.push(ses);
-  // }
+  addNewSessie(ses: Sessie): void {
+    this._sessies.push(ses);
+  }
 
-  // removeSessie(ses: Sessie): void {
-  //   this._sessies.splice(this._sessies.indexOf(ses), 1);
+  removeSessie(ses: Sessie): void {
+    this._sessies.splice(this._sessies.indexOf(ses), 1);
     
-  // }
+  }
 
   compare(a: Sessie, b: Sessie) {
     if (a.get_nr < b.get_nr)
