@@ -2,10 +2,16 @@
     min-height: 85vh;
     min-width: 40vw;
     border-radius: 0%;
-    margin-top: 5%;
     float: left;
     padding: 0;
+    display: block;
+    margin-top: 5%;
 }
+
+.segmentParent {
+    transform: translateX(0);
+}
+
 .inputField {
     float: left;
     max-width: 56px;
@@ -19,7 +25,20 @@
 }
 
 .cardContent {
-    padding: 3%
+    padding: 3%;
+}
+
+.footerContainer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footerButtons {
+    float: none;
+    display: table;
+    margin-top: auto;
+    margin: 0px auto
 }
 
 .mat-button-toggle-group {

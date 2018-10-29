@@ -11,13 +11,9 @@ export class Exercise {
         this.pages[0].position = 0;
     }
 
-    public addPage(position: number, page: Page){
-        this.pages
-            .filter( page => page.position >= position )
-            .forEach( p => p.position += 1);
-        page.position = position;
-        this.pages.splice(position += 1, 0, page);
-        this.pages.sort((a, b) => a.position - b.position);
+    public addPage(page: Page){
+        page.position = this.pages.length;
+        this.pages.push(page);
     }
 
     public deletePage(position: number){
@@ -27,22 +23,8 @@ export class Exercise {
             .forEach( p => p.position -= 1);
     }
 
-    public changePagePosition(startPos: number, endPos: number){
-        /* if (startPosition != endPosition)
-            if (startPosition < endPosition){
-                this.pages
-                    .filter( page => page.position > startPosition && page.position <= endPosition)
-                    .forEach( p => p.position--);
-            } 
-            if (startPosition > endPosition){
-                this.pages
-                    .filter( page => page.position >= endPosition && page.position < startPosition)
-                    .forEach( p => p.position++);
-            }    
-            this.pages[startPosition].position = endPosition;
-            this.pages.sort((a, b) => a.position - b.position);
-        } */
-
+    public changePagePosition(startPos: number, direction: number){
+        var endPos = (startPos + direction);
         if(startPos != endPos && endPos >= 0 && endPos < this.pages.length){
             this.pages[startPos].position = endPos;
             this.pages[endPos].position = startPos;

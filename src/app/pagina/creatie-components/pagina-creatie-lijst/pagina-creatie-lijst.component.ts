@@ -1,14 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewportRuler,ScrollDispatcher, ScrollDispatchModule} from '@angular/cdk/scrolling'
-import { Page, TextPage } from 'src/app/models/page.model';
+import { Page, TextPage, AudioPage, InputPage } from 'src/app/models/page.model';
 import { Exercise } from 'src/app/models/exercise.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material';
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  group,
+  query
+  // ...
+} from '@angular/animations';
 @Component({
   selector: 'app-pagina-creatie-lijst',
   templateUrl: './pagina-creatie-lijst.component.html',
-  styleUrls: ['./pagina-creatie-lijst.component.css']
+  styleUrls: ['./pagina-creatie-lijst.component.css'],
+  animations: [
+    trigger('shrinkOut', [
+      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0)' }))]),
+      transition(':decrement', [style({ transform: 'translateX(100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
+      transition(':enter', [style({ width: 0, overflow: 'hidden' }), animate('1s ease-out', style({ width: '*' }))]),
+      transition(':leave', [style({ width: '*', overflow: 'hidden'}), animate('300ms ease-out', style({ width: 0}))])
+    ])
+  ]
 })
 export class PaginaCreatieLijstComponent implements OnInit {
   /**
@@ -41,10 +58,10 @@ export class PaginaCreatieLijstComponent implements OnInit {
    * 
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
-  addPage(page:Page){
+  /* addPage(page:Page){
     this.exercise.addPage(page.position, page);
     this.openSnackbar("Pagina toegevoegd!");
-  }
+  } */
 
   /**
    * Deze methode word opgeroepen door de deletedPage emitter en verwijderd een page
@@ -59,6 +76,23 @@ export class PaginaCreatieLijstComponent implements OnInit {
     console.log(this.exercise.pages);
     this.openSnackbar("Pagina verwijderd!");
   }
+
+  public addPage(value) {
+    var newPage = null;
+    switch (value) {
+      case "text":
+        newPage = new TextPage();
+        break;
+      case "audio":
+        newPage = new AudioPage();
+        break;
+      case "input":
+        newPage = new InputPage();
+        break;
+    }
+    this.exercise.addPage(newPage);
+  }
+
 
   /**
    * Deze methode word opgeroepen door de changedPage emitter en veranderd een page
@@ -81,8 +115,7 @@ export class PaginaCreatieLijstComponent implements OnInit {
    */
   changePagePos(positions){
     console.log(positions);
-    this.exercise.changePagePosition(positions.startPos, positions.endPos);
-    console.log(this.exercise.pages); 
-    this.openSnackbar("Pagina van positie veranderd!");
+    this.exercise.changePagePosition(positions.startPos, positions.direction);
+    console.log(this.exercise.pages);
   }
 }
