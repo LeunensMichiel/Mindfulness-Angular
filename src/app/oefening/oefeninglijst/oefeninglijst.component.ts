@@ -34,7 +34,7 @@ export class OefeninglijstComponent implements OnInit {
     this.audioPage.title = "Audio Pagina";
     this.inputPage.title = "Input Pagina";
     this.inputPage.input = "Wat is jouw ervaring?"
-    this.textPage.paragraphs = [
+    this.textPage.items = [
       this.par,
       this.par,
       this.par,
@@ -46,7 +46,7 @@ export class OefeninglijstComponent implements OnInit {
       this.par,
       this.par
     ]
-    this.excersice.pages = [
+    this.excersice.items = [
       this.inputPage,
       this.textPage,
       this.textPage,

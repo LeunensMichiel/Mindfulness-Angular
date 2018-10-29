@@ -1,14 +1,16 @@
 import { Page, TextPage } from "./page.model";
+import { GenericCollection } from "./GenericCollection.model";
 
-export class Exercise {
+export class Exercise extends GenericCollection {
     title:string;
     pages:Page[];
 
     constructor(
     ){
+        super();
         this.title = "";
-        this.pages = [new TextPage()];
-        this.pages[0].position = 0;
+        this.items = [new TextPage()];
+        this.items[0].position = 0;
     }
 
     public addPage(page: Page){

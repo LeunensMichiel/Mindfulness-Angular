@@ -1,5 +1,5 @@
-<div  class="container" >
-  <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of exercise.pages; let i = index'
+<div  class="container" (keydown)="onKeydown($event)" tabindex="0" >
+  <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of exercise.items; let i = index'
     [page]='page' 
     [_position]='i' 
     [viewBeingDragged]='dragging'

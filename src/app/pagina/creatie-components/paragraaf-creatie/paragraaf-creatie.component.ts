@@ -65,11 +65,11 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    */
   changeParPosition(direction){
     var endPos = this.position;
-    endPos = (direction == "up")?endPos-= 1:endPos+= 1;
+    endPos = (direction == "up")?endPos = -1:endPos = 1;
     this.changedParPos.emit(
       {
         "startPos":this.position,
-        "endPos":endPos
+        "direction":endPos
       }
     )
   }

@@ -1,12 +1,12 @@
 <form>
   <mat-card-title>
     <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="{{textPage.title}}" (change)='title = $event.currentTarget.value'>
+      <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value'>
     </mat-form-field>
   </mat-card-title>
   <mat-divider [inset]='true'></mat-divider>
   <div class="paragraphContainer">
-    <app-paragraaf-creatie @shrinkParagraphs (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.paragraphs; let i = index'>
+    <app-paragraaf-creatie @shrinkParagraphs (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.items; let i = index'>
 
     </app-paragraaf-creatie>
     <div class="typeSelectParent">
