@@ -1,7 +1,7 @@
 .paragraph {
     margin-top: 2%;
-    overflow-y: scroll;
-    height: 47em;
+    overflow-y: hidden;
+    min-height: 50vh;
     
 }
 

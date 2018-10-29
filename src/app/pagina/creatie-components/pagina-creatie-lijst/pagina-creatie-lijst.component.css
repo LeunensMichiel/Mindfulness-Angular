@@ -1,0 +1,7 @@
+.container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.container > .kid {
+    display: inline-block;
+}  

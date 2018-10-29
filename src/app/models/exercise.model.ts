@@ -1,4 +1,4 @@
-import { Page } from './page.model';
+import { Page, TextPage } from "./page.model";
 
 export class Exercise {
     title:string;
@@ -7,7 +7,8 @@ export class Exercise {
     constructor(
     ){
         this.title = "";
-        this.pages = []
+        this.pages = [new TextPage()];
+        this.pages[0].position = 0;
     }
 
     public addPage(position: number, page: Page){
@@ -16,17 +17,18 @@ export class Exercise {
             .forEach( p => p.position += 1);
         page.position = position;
         this.pages.splice(position += 1, 0, page);
+        this.pages.sort((a, b) => a.position - b.position);
     }
 
     public deletePage(position: number){
-        this.pages.splice(position += 1, 1);
+        this.pages.splice(position , 1);
         this.pages
             .filter( page => page.position >= position )
             .forEach( p => p.position -= 1);
     }
 
-    public changePagePosition(startPosition: number, endPosition: number){
-        if (startPosition != endPosition){
+    public changePagePosition(startPos: number, endPos: number){
+        /* if (startPosition != endPosition)
             if (startPosition < endPosition){
                 this.pages
                     .filter( page => page.position > startPosition && page.position <= endPosition)
@@ -39,6 +41,14 @@ export class Exercise {
             }    
             this.pages[startPosition].position = endPosition;
             this.pages.sort((a, b) => a.position - b.position);
+        } */
+
+        if(startPos != endPos && endPos >= 0 && endPos < this.pages.length){
+            this.pages[startPos].position = endPos;
+            this.pages[endPos].position = startPos;
+            this.pages.sort((a, b) => a.position - b.position);
+            return true;
         }
+        return false;
     }
 }
