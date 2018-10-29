@@ -20,10 +20,10 @@ import {
   styleUrls: ['./pagina-creatie-lijst.component.css'],
   animations: [
     trigger('shrinkOut', [
-      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0)' }))]),
+      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
       transition(':decrement', [style({ transform: 'translateX(100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
-      transition(':enter', [style({ width: 0, overflow: 'hidden' }), animate('1s ease-out', style({ width: '*' }))]),
-      transition(':leave', [style({ width: '*', overflow: 'hidden'}), animate('300ms ease-out', style({ width: 0}))])
+      transition(':enter', [style({ width: 0, opacity: 0, overflow: 'hidden' }), animate('500ms ease-out', style({ width: '*', opacity: 1 }))]),
+      transition(':leave', [style({ width: '*',opacity: 1, overflow: 'hidden'}), animate('500ms ease-out', style({ width: 0, opacity: 0}))])
     ])
   ]
 })

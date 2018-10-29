@@ -58,19 +58,6 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   //------------ PARAGRAPH WIJZIGINGEN ------------
 
   /**
-   * Een nieuwe paragraaf word toegevoegd aan het einde van de lijst.
-   * De paragraaf word dan geëmit naar het Tekst-Pagina object.
-   * @param type verwijst naar het type pargraaf dat word gecreert. 
-   * Waarde is altijd "text" of "image".
-   */
-  addPar(type){
-    var newPar = new Paragraph();
-    newPar.position = this.position;
-    newPar.type = type;
-    this.newPar.emit(newPar);
-  }
-
-  /**
    * De paragraph op de startpositie en op de eindpositie worden van plaats verwisselt.
    * De gewijzigde Paragrafen word dan geëmit en toegevoegd aan de Tekst-Pagina.
    * @param direction Toont de richting aan van de verplaatsing.

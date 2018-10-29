@@ -1,10 +1,23 @@
 import { Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { TextPage, Page } from 'src/app/models/page.model';
-
+import { Paragraph } from 'src/app/models/paragraph.model';
+import {
+  trigger,
+  style,
+  animate,
+  transition
+  // ...
+} from '@angular/animations';
 @Component({
   selector: 'app-tekst-pagina-creatie',
   templateUrl: './tekst-pagina-creatie.component.html',
-  styleUrls: ['./tekst-pagina-creatie.component.css']
+  styleUrls: ['./tekst-pagina-creatie.component.css'],
+  animations: [
+    trigger('shrinkParagraphs', [
+      transition(':enter', [style({ height: 0, overflow: 'hidden' }), animate('1s ease-out', style({ height: '*' }))]),
+      transition(':leave', [style({ height: '*', overflow: 'hidden'}), animate('1s ease-out', style({ height: 0}))])
+    ])
+  ]
 })
 export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
   /**
@@ -55,8 +68,11 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * om op te slaan in de exercise.
    * @param par De paragraph die word toegevoegd aan de paragraphs array
    */
-  addPar(par){
-    this.textPage.addPar(par.position, par);
+  addPar(type){
+    var newPar = new Paragraph();
+    newPar.position = this.textPage.paragraphs.length;
+    newPar.type = type;
+    this.textPage.addPar(newPar.position, newPar);
     console.log(this.textPage.paragraphs);
     console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
     this.changedPage.emit(this.textPage);
