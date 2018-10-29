@@ -31,7 +31,9 @@ export class SessieLijstComponent implements OnInit {
     // );
     this._sessies = this._sessieDataService.sessies;
   }
-
+  /*
+    
+  */
   removeSessie(sessie: Sessie) {
     let remove: Boolean = false;
     const dialogRef = this.dialog.open(RemoveSessieDialog, {
