@@ -83,6 +83,6 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent]
 })
 export class AppModule { }

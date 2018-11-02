@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-sessionmap-creatie',
   templateUrl: './sessionmap-creatie.component.html',
   styleUrls: ['./sessionmap-creatie.component.css']
 })
-export class SessionmapCreatieComponent implements OnInit {
+export class SessionmapCreatieComponent {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<SessionmapCreatieComponent>,
+    @Inject(MAT_DIALOG_DATA) public data) {}
 
-  ngOnInit() {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
+
 
 }
