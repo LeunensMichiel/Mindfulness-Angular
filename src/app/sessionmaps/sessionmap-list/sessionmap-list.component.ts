@@ -4,7 +4,10 @@ import { SessionmapDataService } from '../sessionmap-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
-
+import {Sessie} from '../../models/sessie.model';
+export interface DialogCourseData {
+  lesnaam: string;
+}
 @Component({
   selector: 'app-sessionmap-list',
   templateUrl: './sessionmap-list.component.html',
@@ -14,7 +17,6 @@ export class SessionmapListComponent implements OnInit {
   public errorMsg: string;
   private _sesmaps: Sessionmap[];
   private lesnaam: string;
-  addCourseDialoRef: MatDialogRef<SessionmapCreatieComponent>;
 
 
   constructor(private sessionmapDataService: SessionmapDataService, public dialog : MatDialog) { }
@@ -35,17 +37,27 @@ export class SessionmapListComponent implements OnInit {
   }
 
   onAdd() {
-    this.addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
+    const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
       height: '400px',
       width: '500px',
       data: {
-        lesnaam: ''
+        lesnaam: this.lesnaam
       }
     });
 
-    this.addCourseDialoRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    addCourseDialoRef.afterClosed().subscribe(result => {
       this.lesnaam = result;
+      if (result) {
+        let sesmap: Sessionmap = new Sessionmap(this.lesnaam);
+        this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
+          () => {},
+          (error: HttpErrorResponse) => {
+            this.errorMsg = `Error ${error.status} while adding  ${
+              this.lesnaam
+              }: ${error.error}`;
+          }
+        );
+      }
     });
 
   }

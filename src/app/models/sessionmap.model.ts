@@ -76,7 +76,6 @@ export class Sessionmap {
       _id: this._id,
       titleCourse: this._titleCourse,
       sessions: this._sessions.map(ses => ses.toJSON())
-
     };
   }
 }
