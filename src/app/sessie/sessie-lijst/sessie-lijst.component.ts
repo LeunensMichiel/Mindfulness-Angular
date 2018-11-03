@@ -58,8 +58,7 @@ export class SessieLijstComponent implements OnInit {
               duration: 3000,
             });
         }
-      },
-    );
+      });
   }
 
   get sessies() {

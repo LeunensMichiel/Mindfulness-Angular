@@ -1,0 +1,23 @@
+
+.audioInputContainer > input {
+    display: none;
+}
+.audioInputContainer {
+    text-align: center;
+}
+i {
+    font-size: 40px;
+    text-align: center;
+    padding-top: 20vh;
+} 
+.titleInput {
+    /*
+    negatieve margin nodig om te compenseren voor de material top padding
+    */
+    margin-top: -1.2em;
+    min-width: 100%;
+    margin-left: auto;
+}
+form {
+    min-width: 100%;
+}

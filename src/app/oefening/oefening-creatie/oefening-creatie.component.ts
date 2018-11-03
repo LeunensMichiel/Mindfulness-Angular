@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./oefening-creatie.component.css']
 })
 export class OefeningCreatieComponent implements OnInit {
+  public inputChoiceActive = true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public selectInputType(event){
+    this.inputChoiceActive = !this.inputChoiceActive;
   }
 
 }

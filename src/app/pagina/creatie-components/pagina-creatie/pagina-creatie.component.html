@@ -1,0 +1,25 @@
+<div [@posAnim]='position' class="segmentParent">
+  <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
+    <div class="closeButton">
+      <button mat-icon-button (click)='deletePage()'>
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div class="cardContent">
+      <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
+      <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
+      <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
+    </div>
+    <div class="footerContainer">
+      <mat-card-actions class="footerButtons">
+        <button mat-button (click)='changePagePosition($event.currentTarget.value)' value="left">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-button [disabled]='true'>{{position}}</button>
+        <button mat-button (click)='changePagePosition($event.currentTarget.value)' value="right">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>

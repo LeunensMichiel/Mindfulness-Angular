@@ -1,4 +1,5 @@
 <div class="paragraph" [ngSwitch]="page.toString()">
   <app-audio-pagina-detail [page]='page' *ngSwitchCase="'audio'"></app-audio-pagina-detail>
   <app-tekst-pagina-detail [page]='page' *ngSwitchCase="'text'"></app-tekst-pagina-detail>
+  <app-invoer-pagina-detail [page]='page' *ngSwitchCase="'invoer'"></app-invoer-pagina-detail>
 </div>

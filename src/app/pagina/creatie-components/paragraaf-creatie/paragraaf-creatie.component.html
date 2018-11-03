@@ -1,0 +1,41 @@
+<!-- <div class="typeSelectParent">
+  <div class="typeSelect">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
+      <mat-button-toggle value="text" (click)='addPar(group.value)'>
+        <mat-icon>text_format</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="image" (click)='addPar(group.value)'>
+        <mat-icon>image</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div> -->
+<mat-card class="parAnimClass">
+  <div class="closeButton">
+    <button mat-icon-button (click)='removePar()'>
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+  <mat-button-toggle-group class='buttonGroup' [vertical]='true' name="fontStyle" aria-label="Font Style" #direction="matButtonToggleGroup">
+    <mat-button-toggle value="up" (click)='changeParPosition(direction.value)'>
+      <mat-icon>arrow_upward</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="down" (click)='changeParPosition(direction.value)'>
+      <mat-icon>arrow_downward</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <div class="paragraph" [ngSwitch]='par.type'>
+    <mat-form-field *ngSwitchCase="'text'">
+      <textarea matInput value="{{par.content}}" (change)='content = $event.currentTarget.value'></textarea>
+    </mat-form-field>
+    <div *ngSwitchCase="'image'" class="imgInputContainer">
+      <div class="imgInputChild">
+        <label for="profile_pic">
+          <i class="material-icons md-18">cloud_upload</i>
+        </label>
+        <input type="file" id="profile_pic" name="profile_pic" (change)='content = $event.target.value.split("\\").pop();'>
+      </div>
+      <p>{{par.content}}</p>
+    </div>
+  </div>
+</mat-card>

@@ -1,11 +1,17 @@
+import { Paragraph } from "./paragraph.model";
+import { GenericCollection, GenericItem } from "./GenericCollection.model";
+
 export interface Page {
     title: string;
     position: number;
 
+    toJson():any;
+    fromJson(json:any):Page;
+
     toString(): string
 }
 
-export class AudioPage implements Page{
+export class AudioPage implements Page, GenericItem{
     position: number;
     title: string;
     fileUrl: string;
@@ -16,23 +22,89 @@ export class AudioPage implements Page{
         this.fileUrl = "";
     }
 
+    toJson() {
+        return {
+            title: this.title,
+            fileUrl: this.fileUrl,
+            position: this.position
+        }
+    }
+
+    fromJson(json: any):Page {
+        const page= new AudioPage()
+        page.title = json.title;
+        page.fileUrl = json.fileUrl;
+        page.position = json.position;
+        return page;
+    }
+
     toString(): string {
         return 'audio';
     }
 }
 
-export class TextPage implements Page {
+export class TextPage extends GenericCollection implements Page, GenericItem  {
     position: number;
     title: string;
     text: string;
 
     constructor(){
+        super();
         this.position = 0;
         this.title = "";
         this.text = "";
+        this.items = [new Paragraph()];
+    }
+
+    toJson() {
+        return {
+            title: this.title,
+            text: this.text,
+            position: this.position,
+            items: this.items.map(it => it.toJson)
+        }
+    }
+    fromJson(json: any):Page {
+        const page = new TextPage();
+        page.position = json.position;
+        page.title = json.title;
+        page.text = json.text;
+        page.items = json.items.map(Paragraph.fromJson);
+        return page;
     }
 
     toString(): string {
         return 'text';
+    }
+}
+
+export class InputPage implements Page, GenericItem {
+    position: number;
+    title: string;
+    input: string;
+
+    constructor(){
+        this.position = 0;
+        this.title = "";
+        this.input = "";
+    }
+
+    toJson() {
+       return {
+           title: this.title,
+           input: this.input,
+           position: this.position
+       }
+    }
+    fromJson(json: any):Page {
+        const page = new InputPage();
+        page.position = json.position;
+        page.title = json.title;
+        page.input = page.input;
+        return page;
+    }
+
+    toString(): string {
+        return 'invoer';
     }
 }
