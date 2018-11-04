@@ -6,14 +6,14 @@
         <button mat-icon-button class="example-icon" (click)="onAdd()">
           <mat-icon>add</mat-icon>
         </button>
-        <button mat-icon-button class="example-icon">
-          <mat-icon>delete</mat-icon>
-        </button>
     </mat-toolbar>
     <mat-list>
-      <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]"  >
+      <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]">
         <mat-icon mat-list-icon>folder</mat-icon>
         <h4>{{sesmap.titleCourse}}</h4>
+        <span><button mat-icon-button (click)="removeSessionMap(sesmap)">
+          <mat-icon>delete</mat-icon>
+        </button></span>
       </a>
     </mat-list>
   </mat-drawer>

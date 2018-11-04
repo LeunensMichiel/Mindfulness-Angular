@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Sessionmap } from 'src/app/models/sessionmap.model';
 import { SessionmapDataService } from '../sessionmap-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
-import {Sessie} from '../../models/sessie.model';
+import {SessionmapDetailComponent} from '../sessionmap-detail/sessionmap-detail.component';
 export interface DialogCourseData {
   lesnaam: string;
 }
@@ -17,7 +17,6 @@ export class SessionmapListComponent implements OnInit {
   public errorMsg: string;
   private _sesmaps: Sessionmap[];
   private lesnaam: string;
-
 
   constructor(private sessionmapDataService: SessionmapDataService, public dialog : MatDialog) { }
 
@@ -59,6 +58,17 @@ export class SessionmapListComponent implements OnInit {
         );
       }
     });
-
   }
+
+  removeSessionMap(course: Sessionmap) {
+    this.sessionmapDataService.deleteSessionMap(course).subscribe(
+      item => (this._sesmaps = this._sesmaps.filter(val => item.id !== val.id)),
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${error.status} while removing courses for ${
+          course.titleCourse
+          }: ${error.error}`;
+      }
+    );
+  }
+
 }

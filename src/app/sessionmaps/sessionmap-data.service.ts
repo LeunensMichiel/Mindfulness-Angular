@@ -30,4 +30,10 @@ export class SessionmapDataService {
       .post(`${this._appUrl}/sessionmap`, sessionmap)
       .pipe(map(Sessionmap.fromJSON));
   }
+
+  deleteSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
+    return this.http
+      .delete(`${this._appUrl}/sessionmap/${sesmap.id}`)
+      .pipe(map(Sessionmap.fromJSON));
+  }
 }
