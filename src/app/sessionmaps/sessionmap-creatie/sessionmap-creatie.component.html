@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>EEN LESGROEP AANMAKEN</h1>
+<h1 mat-dialog-title>EEN LESGROEP {{data.isCreatie ? "AANMAKEN" : "WIJZIGEN"}}</h1>
 <div mat-dialog-content>
   <p>Hoe ga je je lesgroep noemen?</p>
   <mat-form-field>
@@ -7,5 +7,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Annuleer</button>
-  <button mat-button [mat-dialog-close]="data.lesnaam" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.lesnaam" cdkFocusInitial>{{data.isCreatie ? "OK" : "Wijzigen"}}</button>
 </div>

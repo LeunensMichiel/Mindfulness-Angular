@@ -36,4 +36,10 @@ export class SessionmapDataService {
       .delete(`${this._appUrl}/sessionmap/${sesmap.id}`)
       .pipe(map(Sessionmap.fromJSON));
   }
+
+  wijzigSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
+    return this.http
+      .put(`${this._appUrl}/sessionmap/${sesmap.id}/update`, sesmap)
+      .pipe(map(Sessionmap.fromJSON));
+  }
 }

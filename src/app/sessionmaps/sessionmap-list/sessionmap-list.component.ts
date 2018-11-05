@@ -1,13 +1,15 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { Sessionmap } from 'src/app/models/sessionmap.model';
-import { SessionmapDataService } from '../sessionmap-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {Sessionmap} from 'src/app/models/sessionmap.model';
+import {SessionmapDataService} from '../sessionmap-data.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatDialog} from '@angular/material';
 import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
-import {SessionmapDetailComponent} from '../sessionmap-detail/sessionmap-detail.component';
+
 export interface DialogCourseData {
   lesnaam: string;
+  isCreatie: boolean;
 }
+
 @Component({
   selector: 'app-sessionmap-list',
   templateUrl: './sessionmap-list.component.html',
@@ -18,7 +20,8 @@ export class SessionmapListComponent implements OnInit {
   private _sesmaps: Sessionmap[];
   private lesnaam: string;
 
-  constructor(private sessionmapDataService: SessionmapDataService, public dialog : MatDialog) { }
+  constructor(private sessionmapDataService: SessionmapDataService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
@@ -26,7 +29,7 @@ export class SessionmapListComponent implements OnInit {
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
-        } while trying to retrieve sessionmaps: ${error.error}`;
+          } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
   }
@@ -35,27 +38,44 @@ export class SessionmapListComponent implements OnInit {
     return this._sesmaps;
   }
 
-  onAdd() {
+  onAdd(sesmap:Sessionmap, isCreatie: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
       height: '400px',
       width: '500px',
       data: {
-        lesnaam: this.lesnaam
+        lesnaam: this.lesnaam,
+        isCreatie: isCreatie
       }
     });
 
     addCourseDialoRef.afterClosed().subscribe(result => {
       this.lesnaam = result;
+      //Als er iets is ingevuld in de input
       if (result) {
-        let sesmap: Sessionmap = new Sessionmap(this.lesnaam);
-        this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
-          () => {},
-          (error: HttpErrorResponse) => {
-            this.errorMsg = `Error ${error.status} while adding  ${
-              this.lesnaam
-              }: ${error.error}`;
-          }
-        );
+        //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
+        if (isCreatie) {
+          let sesmap: Sessionmap = new Sessionmap(this.lesnaam);
+          this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
+            () => {
+            },
+            (error: HttpErrorResponse) => {
+              this.errorMsg = `Error ${error.status} while adding  ${
+                this.lesnaam
+                }: ${error.error}`;
+            }
+          );
+        } else {
+          sesmap.titleCourse = result;
+          this.sessionmapDataService.wijzigSessionMap(sesmap).subscribe(
+            () => {
+            },
+            (error: HttpErrorResponse) => {
+              this.errorMsg = `Error ${error.status} while editing  ${
+                this.lesnaam
+                }: ${error.error}`;
+            }
+          );
+        }
       }
     });
   }
@@ -70,5 +90,6 @@ export class SessionmapListComponent implements OnInit {
       }
     );
   }
+
 
 }
