@@ -1,8 +1,6 @@
 import { Exercise } from "../../models/exercise.model";
+import { Sessie } from '../../models/sessie.model';
 import { Component, OnInit, Input } from "@angular/core";
-import { OefeningDetailComponent } from "../oefening-detail/oefening-detail.component";
-import { TextPage, AudioPage, InputPage } from "src/app/models/page.model";
-import { Paragraph } from "src/app/models/paragraph.model";
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
@@ -12,24 +10,27 @@ import {
   FormBuilder
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CmdImplementation } from '../../models/Commands/commandImplementation.model';
+import { Cmd } from 'src/app/models/Commands/command.model';
+import { Insert } from 'src/app/models/Commands/insert.model';
+import { GenericItem } from '../../models/GenericCollection.model';
 
 @Component({
   selector: "app-oefeninglijst",
   templateUrl: "./oefeninglijst.component.html",
   styleUrls: ["./oefeninglijst.component.css"]
 })
-export class OefeninglijstComponent implements OnInit {
-  inputPage: InputPage = new InputPage();
-  textPage: TextPage = new TextPage();
-  audioPage: AudioPage = new AudioPage();
-  excersice: Exercise = new Exercise();
-  par: Paragraph = new Paragraph();
-  imgPar: Paragraph = new Paragraph();
-  private _oefeningen: Exercise[];
-  private _newOef: FormGroup;
+export class OefeninglijstComponent extends CmdImplementation implements OnInit {
+  // inputPage: InputPage = new InputPage();
+  // textPage: TextPage = new TextPage();
+  // audioPage: AudioPage = new AudioPage();
+  // excersice: Exercise = new Exercise();
+  // par: Paragraph = new Paragraph();
+  // imgPar: Paragraph = new Paragraph();
+  private _sessie: Sessie;
 
   constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar) {
-
+    super();
   }
 
   ngOnInit() {
@@ -69,7 +70,7 @@ export class OefeninglijstComponent implements OnInit {
     // ]
 
     this._route.data.subscribe(
-      item => (this._oefeningen = item['exercises']),
+      item => (this._sessie = item['sessie']),
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting exercise: ${error.error}`, "",
           {
@@ -77,13 +78,18 @@ export class OefeninglijstComponent implements OnInit {
           });
       }
     );
-
-    this._newOef = new FormGroup({
-      title: new FormControl()
-    });
   }
 
-  get oefeningen(): Exercise[] {
-    return this._oefeningen;
+  addOefening(oef: Exercise) {
+    oef.position = this._sessie.items.length;
+    this.addCommand(new Insert([this._sessie], [oef]));
+  }
+
+  get oefeningen(): GenericItem[] {
+    return this._sessie.items;
+  }
+
+  saveItem() {
+
   }
 }

@@ -16,7 +16,7 @@ export class Insert implements Cmd {
         this.inputItems[0].addItem(this.param[0].position, this.param[0]);
         return true;
     }
-    
+        
     undo() {
         this.inputItems[0].deleteItem(this.param[0].position);
     }
