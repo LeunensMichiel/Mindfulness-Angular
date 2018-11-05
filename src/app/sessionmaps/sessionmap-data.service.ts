@@ -23,4 +23,23 @@ export class SessionmapDataService {
       .get(`${this._appUrl}/sessionmap/${id}`)
       .pipe(map(Sessionmap.fromJSON));
   }
+
+  addNewSessionMap(sessionmap : Sessionmap): Observable<Sessionmap> {
+    console.log(sessionmap);
+    return this.http
+      .post(`${this._appUrl}/sessionmap`, sessionmap)
+      .pipe(map(Sessionmap.fromJSON));
+  }
+
+  deleteSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
+    return this.http
+      .delete(`${this._appUrl}/sessionmap/${sesmap.id}`)
+      .pipe(map(Sessionmap.fromJSON));
+  }
+
+  wijzigSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
+    return this.http
+      .put(`${this._appUrl}/sessionmap/${sesmap.id}/update`, sesmap)
+      .pipe(map(Sessionmap.fromJSON));
+  }
 }

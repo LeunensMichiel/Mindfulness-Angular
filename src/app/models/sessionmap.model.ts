@@ -60,6 +60,7 @@ export class Sessionmap {
     this._sessions = value;
   }
 
+
   static fromJSON(json: any): Sessionmap {
     const sesmap = new Sessionmap(
       json.titleCourse,
@@ -73,7 +74,7 @@ export class Sessionmap {
     return {
       _id: this._id,
       titleCourse: this._titleCourse,
-      sessions: this._sessions.map(ses => ses.toJson())
+      sessions: this._sessions.map(ses => ses.toJSON())
     };
   }
 }
