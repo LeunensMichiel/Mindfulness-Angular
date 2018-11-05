@@ -13,6 +13,7 @@ import { SessieDataService } from "../sessie-data.service";
 })
 export class SessieLijstComponent implements OnInit {
   private _sessies: Sessie[];
+  // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
   public errorMsg: string;
 
@@ -31,15 +32,18 @@ export class SessieLijstComponent implements OnInit {
     // );
     this._sessies = this._sessieDataService.sessies;
   }
+
   /*
-    
+    methode om sessie te verwijderen 
   */
   removeSessie(sessie: Sessie) {
-    let remove: Boolean = false;
+
+    // dialoogvenster openen en inner class gebruiken
     const dialogRef = this.dialog.open(RemoveSessieDialog, {
       width: '250px'
     });
 
+    // RemoveSessieDialog geeft een boolean mee om aan te tonen of ja of nee gedrukt werd
     dialogRef.afterClosed().subscribe(
       data => {
         if (data) {
@@ -69,6 +73,9 @@ export class SessieLijstComponent implements OnInit {
   }
 }
 
+/*
+  Extra klasse voor remove sessie dialoogvenster met zijn eigen html code
+*/
 @Component({
   selector: 'dialog-remove-sessie',
   templateUrl: 'dialog-remove-sessie.html',
