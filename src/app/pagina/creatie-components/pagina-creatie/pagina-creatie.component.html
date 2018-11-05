@@ -1,46 +1,25 @@
-<div *ngIf='(!clicked && viewBeingDragged); then draggingView else standardView'></div>
-<ng-template #draggingView>
-  <div class="dragContainer">
-    <mat-card id="dndList" (drop)='drop($event)' (dragover)='allowDrop($event)' class="draggingView">
-      <p>
-        {{page.position}}
-      </p>
-      <p>
-        {{page.toString()}}
-      </p>
-    </mat-card>
-  </div>
-</ng-template>
-<ng-template #standardView>
-  <div [@pageTrigger]="changeAnimation? 'in':'out'" draggable="true" (dragstart)='dragStarted($event)' (dragend)='dragEnded($event)'>
-    <mat-card class="inputField">
-      <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
-        <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true'>
-          <mat-icon>create</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle (click)='addPage(group.value)' value="audio" [disableRipple]='true'>
-          <mat-icon>music_video</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle (click)='addPage(group.value)' value="input" [disableRipple]='true'>
-          <mat-icon>text_format</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-    </mat-card>
-    <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
-      <div class="closeButton">
-        <button mat-icon-button (click)='deletePage()'>
-          <mat-icon>clear</mat-icon>
+<div [@posAnim]='position' class="segmentParent">
+  <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.toString()" #inputBlock>
+    <div class="closeButton">
+      <button mat-icon-button (click)='deletePage()'>
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div class="cardContent">
+      <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
+      <app-tekst-pagina-creatie (addParagraphCmd)='onNewParCommand($event)' (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
+      <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
+    </div>
+    <div class="footerContainer">
+      <mat-card-actions class="footerButtons">
+        <button mat-button (click)='changePagePosition($event.currentTarget.value)' value="left">
+          <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-      </div>
-      <div class="cardContent">
-        <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
-        <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
-        <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
-      </div>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+        <button mat-button [disabled]='true'>{{position}}</button>
+        <button mat-button (click)='changePagePosition($event.currentTarget.value)' value="right">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
       </mat-card-actions>
-    </mat-card>
-  </div>
-</ng-template>
+    </div>
+  </mat-card>
+</div>

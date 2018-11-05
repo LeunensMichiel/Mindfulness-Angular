@@ -1,19 +1,10 @@
 <div *ngIf="inputChoiceActive; then inputStyleBlock else inputBlock"></div>
 <ng-template #inputStyleBlock>
-  <mat-card class="inputField">
-    <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
-      <mat-button-toggle (click)='selectInputType($event)' value="left" [disableRipple]='true'>
-        <mat-icon>create</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle (click)='selectInputType($event)' value="center" [disableRipple]='true'>
-        <mat-icon>music_video</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle (click)='selectInputType($event)' value="right" [disableRipple]='true'>
-        <mat-icon>text_format</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </mat-card>
-
+  <button mat-stroked-button class="icon check" (click)="addOefening()">
+    <i class="material-icons">
+      plus
+    </i>
+  </button>
 </ng-template>
 <ng-template #inputBlock>
   <mat-card class="segment" #inputBlock>

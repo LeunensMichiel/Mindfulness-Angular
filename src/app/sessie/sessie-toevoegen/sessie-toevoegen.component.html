@@ -1,7 +1,7 @@
 <button class="createButton" [disableRipple]="true" mat-fab color="primary">
   <form class="ui form" [formGroup]='newSes' (ngSubmit)='addSessie()'>
     <mat-form-field>
-      <input matInput [errorStateMatcher]="matcher" [value]="sessieNr() + 1" placeholder="Number" autocomplete="off" formControlName='number'>
+      <input matInput [errorStateMatcher]="matcher" [value]="aantal + 1" placeholder="Number" autocomplete="off" formControlName='number'>
       <mat-error *ngIf="newSes.get('number').hasError('number') && !number.hasError('required')">
         Please enter a valid number
       </mat-error>

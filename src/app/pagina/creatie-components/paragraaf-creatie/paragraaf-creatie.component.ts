@@ -33,6 +33,7 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   constructor() { }
 
   ngOnInit() {
+    this.content = this.par.content;
   }
   
   //================== METHODES ==================
@@ -49,26 +50,13 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   ngDoCheck(){
     if (this.par.content != this.content) {
       console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED")
-      this.par.content = this.content;
       this.changedPar.emit(this.par);
+      this.par.content = this.content;
       console.log(this.content);
     }
   }
 
   //------------ PARAGRAPH WIJZIGINGEN ------------
-
-  /**
-   * Een nieuwe paragraaf word toegevoegd aan het einde van de lijst.
-   * De paragraaf word dan geëmit naar het Tekst-Pagina object.
-   * @param type verwijst naar het type pargraaf dat word gecreert. 
-   * Waarde is altijd "text" of "image".
-   */
-  addPar(type){
-    var newPar = new Paragraph();
-    newPar.position = this.position;
-    newPar.type = type;
-    this.newPar.emit(newPar);
-  }
 
   /**
    * De paragraph op de startpositie en op de eindpositie worden van plaats verwisselt.
@@ -78,11 +66,11 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    */
   changeParPosition(direction){
     var endPos = this.position;
-    endPos = (direction == "up")?endPos-= 1:endPos+= 1;
+    endPos = (direction == "up")?endPos = -1:endPos = 1;
     this.changedParPos.emit(
       {
         "startPos":this.position,
-        "endPos":endPos
+        "direction":endPos
       }
     )
   }

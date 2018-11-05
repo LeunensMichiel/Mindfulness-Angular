@@ -4,3 +4,4 @@
 <div *ngFor='let oefdetail of oefeningen'>
   <app-oefening-detail [excersice]='oefdetail'></app-oefening-detail>
 </div>
+<app-oefening-creatie (newOef)="addOefening($event)"></app-oefening-creatie>

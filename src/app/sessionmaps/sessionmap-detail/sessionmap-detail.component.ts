@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Sessionmap } from 'src/app/models/sessionmap.model';
-import {ActivatedRoute} from '@angular/router';
-import {SessionmapDataService} from '../sessionmap-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { SessionmapDataService } from '../sessionmap-data.service';
 
 @Component({
   selector: 'app-sessionmap-detail',

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Exercise } from '../../models/exercise.model';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
   selector: 'app-oefening-creatie',
@@ -6,15 +13,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./oefening-creatie.component.css']
 })
 export class OefeningCreatieComponent implements OnInit {
-  public inputChoiceActive = true;
+  @Output() public newOef = new EventEmitter<Exercise>();
+  private _newOef: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
+    this._newOef = new FormGroup({
+      title: new FormControl()
+    });
   }
 
-  public selectInputType(event){
-    this.inputChoiceActive = !this.inputChoiceActive;
+  addOefening() {
+    this.newOef.emit(new Exercise());
   }
-
 }

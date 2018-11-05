@@ -42,9 +42,9 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    */
   ngDoCheck(): void {
     if (this.inputPage.title != this.title){
+      this.changedPage.emit(this.inputPage);
       this.inputPage.title = this.title;
       console.log("INPUTPAGE ON POSITION " + this.inputPage.position + " CHANGED.");
-      this.changedPage.emit(this.inputPage);
     }
   }
 }

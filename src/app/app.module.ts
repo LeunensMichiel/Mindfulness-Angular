@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing/app-routing-module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvoerPaginaDetailComponent } from './pagina/invoer-pagina-detail/invoer-pagina-detail.component';
 import { SessionmapListComponent } from './sessionmaps/sessionmap-list/sessionmap-list.component';
@@ -30,7 +31,6 @@ import { AudioPaginaCreatieComponent } from './pagina/creatie-components/audio-p
 import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-pagina-creatie/input-pagina-creatie.component';
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
-import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +82,6 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
     MatInputModule
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
-  bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

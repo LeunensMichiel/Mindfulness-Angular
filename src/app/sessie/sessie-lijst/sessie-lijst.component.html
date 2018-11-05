@@ -9,6 +9,6 @@
     </button>
   </mat-grid-tile>
   <mat-grid-tile *ngIf='creating'>
-    <app-sessie-toevoegen (addSes)='creating = !creating'></app-sessie-toevoegen>
+    <app-sessie-toevoegen (disable)='creating = !creating' [aantal]='sessies.length'></app-sessie-toevoegen>
   </mat-grid-tile>
 </mat-grid-list>
