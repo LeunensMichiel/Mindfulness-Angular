@@ -11,7 +11,7 @@ export class Paragraph implements GenericItem {
         this.type = "text";
     }
 
-    static fromJson(json: any):Paragraph {
+    fromJson(json: any):Paragraph {
         const par = new Paragraph()
         par.position = json.position;
         par.content = json.content;

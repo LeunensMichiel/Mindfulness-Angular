@@ -6,7 +6,7 @@
   </mat-card-title>
   <mat-divider [inset]='true'></mat-divider>
   <div class="paragraphContainer">
-    <app-paragraaf-creatie @shrinkParagraphs (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.items; let i = index'>
+    <app-paragraaf-creatie  (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.items; let i = index'>
 
     </app-paragraaf-creatie>
     <div class="typeSelectParent">

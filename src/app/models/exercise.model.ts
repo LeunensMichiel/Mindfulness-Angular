@@ -1,5 +1,6 @@
-import { Page, TextPage } from "./page.model";
-import { GenericCollection } from "./GenericCollection.model";
+import { Page, TextPage, AudioPage, InputPage } from "./page.model";
+import { GenericCollection, GenericItem } from "./GenericCollection.model";
+import { Paragraph } from "./paragraph.model";
 
 export class Exercise extends GenericCollection {
     title:string;
@@ -13,26 +14,26 @@ export class Exercise extends GenericCollection {
         this.items[0].position = 0;
     }
 
-    public addPage(page: Page){
-        page.position = this.pages.length;
-        this.pages.push(page);
-    }
-
-    public deletePage(position: number){
-        this.pages.splice(position , 1);
-        this.pages
-            .filter( page => page.position >= position )
-            .forEach( p => p.position -= 1);
-    }
-
-    public changePagePosition(startPos: number, direction: number){
-        var endPos = (startPos + direction);
-        if(startPos != endPos && endPos >= 0 && endPos < this.pages.length){
-            this.pages[startPos].position = endPos;
-            this.pages[endPos].position = startPos;
-            this.pages.sort((a, b) => a.position - b.position);
-            return true;
+    toJson() {
+        return {
+            title: this.title,
+            position: this.position,
+            items: this.items.map(it => it.toJson)
         }
-        return false;
+    }
+
+    fromJson(json:any){
+        const ex = new Exercise();
+        ex.title = json.title;
+        ex.position = json.position;
+        ex.items = json.items.map( it => {
+            if ("items" in it) {
+                return new TextPage().fromJson(it);
+            } else if ("fileUrl" in it){
+                return new AudioPage().fromJson(it);
+            }else {
+                return new InputPage().fromJson(it);
+            }
+        });
     }
 }

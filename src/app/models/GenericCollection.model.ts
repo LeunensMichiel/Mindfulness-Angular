@@ -1,4 +1,5 @@
-export class GenericCollection {
+export abstract class GenericCollection implements GenericItem{
+    position: number;
     items: GenericItem[];
 
     public addItem(position: number, item: GenericItem) {
@@ -34,10 +35,14 @@ export class GenericCollection {
     public changeItem(item: GenericItem){
         this.items[item.position]= item;
     }
+
+    abstract toJson();
+    abstract fromJson(json:any);
 }
 
-export interface GenericItem {
+export abstract class GenericItem {
     position: number;
 
-    toJson():any;
+    abstract toJson():any;
+    abstract fromJson(json:any)
 }
