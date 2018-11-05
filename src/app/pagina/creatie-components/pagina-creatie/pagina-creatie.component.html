@@ -7,7 +7,7 @@
     </div>
     <div class="cardContent">
       <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'audio'"></app-audio-pagina-creatie>
-      <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
+      <app-tekst-pagina-creatie (addParagraphCmd)='onNewParCommand($event)' (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'text'"></app-tekst-pagina-creatie>
       <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'invoer'"></app-input-pagina-creatie>
     </div>
     <div class="footerContainer">

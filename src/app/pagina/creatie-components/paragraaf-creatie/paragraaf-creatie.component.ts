@@ -33,6 +33,7 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   constructor() { }
 
   ngOnInit() {
+    this.content = this.par.content;
   }
   
   //================== METHODES ==================
@@ -49,8 +50,8 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   ngDoCheck(){
     if (this.par.content != this.content) {
       console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED")
-      this.par.content = this.content;
       this.changedPar.emit(this.par);
+      this.par.content = this.content;
       console.log(this.content);
     }
   }

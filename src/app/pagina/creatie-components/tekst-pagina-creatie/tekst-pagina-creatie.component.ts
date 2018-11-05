@@ -8,16 +8,22 @@ import {
   transition
   // ...
 } from '@angular/animations';
+import { PaginaCreatieLijstComponent } from '../pagina-creatie-lijst/pagina-creatie-lijst.component';
+import { Cmd } from 'src/app/models/Commands/command.model';
+import { Delete } from 'src/app/models/Commands/delete.model';
+import { Switch } from 'src/app/models/Commands/switch.model';
+import { Update } from 'src/app/models/Commands/update.model';
+import { Insert } from 'src/app/models/Commands/insert.model';
 @Component({
   selector: 'app-tekst-pagina-creatie',
   templateUrl: './tekst-pagina-creatie.component.html',
-  styleUrls: ['./tekst-pagina-creatie.component.css'],
+  styleUrls: ['./tekst-pagina-creatie.component.css']/* ,
   animations: [
     trigger('shrinkParagraphs', [
       transition(':enter', [style({ height: 0, overflow: 'hidden' }), animate('1s ease-out', style({ height: '*' }))]),
       transition(':leave', [style({ height: '*', overflow: 'hidden'}), animate('1s ease-out', style({ height: 0}))])
     ])
-  ]
+  ] */
 })
 export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
   /**
@@ -28,6 +34,7 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    */
   @Input() textPage:TextPage = null;
   @Output() changedPage = new EventEmitter<Page>();
+  @Output() addParagraphCmd = new EventEmitter<Cmd>();
   title:string = "";
 
   /**
@@ -36,7 +43,8 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    *                      | pagina-creatie |
    *                                       | tekst-pagina-creatie
    */
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
     this.title = this.textPage.title;
@@ -58,7 +66,6 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
       console.log(this.textPage);
       this.changedPage.emit(this.textPage);
       this.textPage.title = this.title;
-      console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
     }
   }
 
@@ -74,10 +81,7 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
     var newPar = new Paragraph();
     newPar.position = this.textPage.items.length;
     newPar.type = type;
-    this.textPage.addItem(newPar.position, newPar);
-    console.log(this.textPage.items);
-    console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
-    this.changedPage.emit(this.textPage);
+    this.addParagraphCmd.emit(new Insert([this.textPage], [newPar]));
   }
 
   /**
@@ -87,10 +91,9 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * @param par De gewijzigde pargraph.
    */
   changePar(par){
-    this.textPage.changeItem(par);
-    console.log(this.textPage.items);
-    console.log("TEXTPAGE ON POSITION " + this.textPage.position + " CHANGED.");
-    this.changedPage.emit(this.textPage);
+    var oldPar = new Paragraph().fromJson(par);
+    var newPar = this.textPage.items[oldPar.position];
+    this.addParagraphCmd.emit(new Update([this.textPage], [newPar, oldPar] ))
   }
   /**
    * De paragraph op de startpositie en op de eindpositie worden van plaats verwisselt.
@@ -98,9 +101,7 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * @param positions een Json object met de start en eindpositie.
    */
   changeParPos(positions){
-    console.log(positions);
-    console.log(this.textPage.changeItemPos(positions.startPos, positions.direction));
-    this.changedPage.emit(this.textPage);
+    this.addParagraphCmd.emit(new Switch([this.textPage], positions));
   }
 
   /**
@@ -109,8 +110,6 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * @param position de positie van de te verwijderen paragraph.
    */
   deletePar(position){
-    console.log("TEXTPAGE ON POSITON " + this.textPage.position + " CHANGED.")
-    this.textPage.deleteItem(position);
-    this.changedPage.emit(this.textPage);
+    this.addParagraphCmd.emit(new Delete([this.textPage], [this.textPage.items[position]]));
   }
 }

@@ -10,6 +10,7 @@ import {
   query
   // ...
 } from '@angular/animations';
+import { Cmd } from 'src/app/models/Commands/command.model';
 @Component({
   selector: 'app-pagina-creatie',
   templateUrl: './pagina-creatie.component.html',
@@ -69,6 +70,7 @@ export class PaginaCreatieComponent implements OnInit {
   @Output() changePagePos = new EventEmitter<any>();
   @Output() deletedPage = new EventEmitter<number>();
   @Output() enableDragView = new EventEmitter<boolean>();
+  @Output() addParagraphCmd = new EventEmitter<Cmd>();
   changeAnimation = true;
   public inputChoiceActive = true;
   public clicked = false;
@@ -142,5 +144,9 @@ export class PaginaCreatieComponent implements OnInit {
       "startPos": this.page.position,
       "direction": direction == "left" ?  - 1 :  1
     })
+  }
+
+  onNewParCommand(cmd: Cmd){
+    this.addParagraphCmd.emit(cmd);
   }
 }

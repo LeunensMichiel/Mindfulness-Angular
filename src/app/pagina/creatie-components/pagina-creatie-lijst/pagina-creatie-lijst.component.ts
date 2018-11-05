@@ -7,17 +7,14 @@ import { Delete } from 'src/app/models/Commands/delete.model';
 import { MatSnackBar } from '@angular/material';
 import {
   trigger,
-  state,
   style,
   animate,
-  transition,
-  group,
-  query
-  // ...
+  transition
 } from '@angular/animations';
 import { Insert } from 'src/app/models/Commands/insert.model';
 import { Update } from 'src/app/models/Commands/update.model';
 import { Switch } from 'src/app/models/Commands/switch.model';
+import { CmdImplementation } from 'src/app/models/Commands/commandImplementation.model';
 @Component({
   selector: 'app-pagina-creatie-lijst',
   templateUrl: './pagina-creatie-lijst.component.html',
@@ -31,20 +28,15 @@ import { Switch } from 'src/app/models/Commands/switch.model';
     ])
   ]
 })
-export class PaginaCreatieLijstComponent implements OnInit {
+export class PaginaCreatieLijstComponent extends CmdImplementation implements OnInit {
   /**
    * VARIABELEN:
    * -dragging: Een boolean die aangeeft of de elementen in de lijst standardView
    * of draggingView gebruiken.
    */
-  cmdValue: number;
-  exercise: Exercise = new Exercise();
-  public dragging = false;
-  private cmd: Cmd = null;
-  private commandCache: Cmd[];
+  private exercise: Exercise = new Exercise();
   constructor(public snackBar: MatSnackBar) {
-    this.commandCache = [];
-    this.cmdValue = -1;
+    super();
   }
 
   ngOnInit() {
@@ -56,7 +48,7 @@ export class PaginaCreatieLijstComponent implements OnInit {
    * 
    * @param message Boodschap die word getoond.
    */
-  openSnackbar(message) {
+  private openSnackbar(message) {
     this.snackBar.open(message, 'ok', {
       duration: 1500
     });
@@ -68,26 +60,7 @@ export class PaginaCreatieLijstComponent implements OnInit {
    * 
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
-  /* addPage(page:Page){
-    this.exercise.addPage(page.position, page);
-    this.openSnackbar("Pagina toegevoegd!");
-  } */
-
-  /**
-   * Deze methode word opgeroepen door de deletedPage emitter en verwijderd een page
-   * van de excercise op basis van de positie van die page.
-   * 
-   * @param position De positie van de te verwijderen page in de exercise.
-   */
-  deletePage(position) {
-    this.addCommand(new Delete([this.exercise], [this.exercise.items[position]]));
-    console.log(position)
-    console.log("PAGE AT POSITION " + position + " DELETED.");
-    console.log(this.exercise.items);
-    this.openSnackbar("Pagina verwijderd!");
-  }
-
-  public addPage(value) {
+  private addPage(value) {
     var newPage = null;
     switch (value) {
       case "text":
@@ -104,6 +77,20 @@ export class PaginaCreatieLijstComponent implements OnInit {
     this.addCommand(new Insert([this.exercise], [newPage]));
   }
 
+  /**
+   * Deze methode word opgeroepen door de deletedPage emitter en verwijderd een page
+   * van de excercise op basis van de positie van die page.
+   * 
+   * @param position De positie van de te verwijderen page in de exercise.
+   */
+  private deletePage(position) {
+    this.addCommand(new Delete([this.exercise], [this.exercise.items[position]]));
+    console.log(position)
+    console.log("PAGE AT POSITION " + position + " DELETED.");
+    console.log(this.exercise.items);
+    this.openSnackbar("Pagina verwijderd!");
+  }
+
 
   /**
    * Deze methode word opgeroepen door de changedPage emitter en veranderd een page
@@ -111,10 +98,11 @@ export class PaginaCreatieLijstComponent implements OnInit {
    * 
    * @param page De page met de veranderingen.
    */
-  saveChangedPage(page) {
+  private saveChangedPage(page) {
     console.log("SAVED CHANGED PAGE AT ANCESTOR")
     var oldPage = this.filterPage(page);
     var newPage = this.exercise.items[oldPage.position];
+    console.log(newPage);
     this.addCommand(new Update([this.exercise], [newPage, oldPage]));
     console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
   }
@@ -125,49 +113,13 @@ export class PaginaCreatieLijstComponent implements OnInit {
    * 
    * @param positions een JSON die de eind en start positie bevat
    */
-  changePagePos(positions) {
+  private changePagePos(positions) {
     console.log(positions);
     this.addCommand(new Switch([this.exercise], positions));
     console.log(this.exercise.items);
   }
 
-  addCommand(cmd: Cmd) {
-    if (this.cmdValue < this.commandCache.length - 1) {
-      this.commandCache.length = this.cmdValue + 1
-    }
-    this.commandCache.push(cmd);
-    this.executeCurrentCommand();
-  }
-
-  onKeydown(event) {
-    console.log(event.key);
-    if (event.metaKey) {
-      if(event.key == 'z'){
-        console.log("UNDO");
-        this.undoCurrentCommand();
-      }
-      if(event.key == 'Z'){
-        console.log("REDO");
-        this.executeCurrentCommand();
-      }
-    }
-  }
-
-  executeCurrentCommand() {
-    if (this.cmdValue < this.commandCache.length - 1) {
-      this.cmdValue += 1;
-      this.commandCache[this.cmdValue].execute();
-    }
-  }
-
-  undoCurrentCommand() {
-    if (this.cmdValue >= 0) {
-      this.commandCache[this.cmdValue].undo();
-      this.cmdValue -= 1;
-    }
-  }
-
-  filterPage(page): Page {
+  private filterPage(page): Page {
     if (page.items != undefined) {
       return new TextPage().fromJson(page);
     } else if (page.fileUrl != undefined) {
@@ -176,5 +128,13 @@ export class PaginaCreatieLijstComponent implements OnInit {
       return new InputPage().fromJson(page);
     }
     return null;
+  }
+
+  onNewParCommand(cmd: Cmd){
+    this.addCommand(cmd);
+  }
+
+  saveItem(){
+    console.log("saved");
   }
 }
