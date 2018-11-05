@@ -16,53 +16,47 @@ export class SessieDataService {
     // this._sessies.push(new Sessie("Sessie 1", 1));
   }
 
-  // get sessies(): Observable<Sessie[]> {
-  //   return this.http
-  //     .get(`${this._appUrl}/sessies`)
-  //     .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJSON)));
-  // }
-
-  // addNewSessie(ses: Sessie): Observable<Sessie> {
-  //   return this.http
-  //     .post(`/API/sessionmaps`, ses)
-  //     .pipe(map(Sessie.fromJSON));
-  // }
-
-  // removeSessie(ses: Sessie): Observable<Sessie> {
-  //   return this.http
-  //     .delete(`${this._appUrl}/sesies/${ses.get_id()}`)
-  //     .pipe(map(Sessie.fromJSON));
-  // }
-
- /*  addOefeningToSessie(oef: Exercise, ses: Sessie): Observable<Exercise> {
-    const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
-    return this.http.post(theUrl, oef).pipe(map(Exercise.fromJSON));
+  get sessies(): Observable<any[]> {
+    return this.http
+      .get(`${this._appUrl}/sessies`)
+      .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJson)));
   }
- */
+
+  addNewSessie(ses: Sessie): Observable<Sessie> {
+    return this.http
+      .post(`/API/sessionmaps`, ses)
+      .pipe(map(Sessie.fromJson));
+  }
+
+  removeSessie(ses: Sessie): Observable<Sessie> {
+    return this.http
+      .delete(`${this._appUrl}/sesies/${ses.id}`)
+      .pipe(map(Sessie.fromJson));
+  }
+
+  addOefeningToSessie(oef: Exercise, ses: Sessie): Observable<Exercise> {
+    const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
+    return this.http.post(theUrl, oef).pipe(map(Exercise.fromJson));
+  }
   getSessie(id: string): Observable<Sessie> {
     return this.http
       .get(`${this._appUrl}/sessie/${id}`)
-      .pipe(map(Sessie.fromJSON));
+      .pipe(map(Sessie.fromJson));
   }
 
-  get sessies(): Sessie[] {
-    return this._sessies.sort(this.compare);
-  }
+  // get sessies(): Sessie[] {
+  //   return this._sessies;
+  // }
 
-  addNewSessie(ses: Sessie): void {
-    this._sessies.push(ses);
-  }
+  // addNewSessie(ses: Sessie): void {
+  //   this._sessies.push(ses);
+  // }
 
-  removeSessie(ses: Sessie): void {
-    this._sessies.splice(this._sessies.indexOf(ses), 1);
-    
-  }
+  // removeSessie(ses: Sessie): void {
+  //   this._sessies.splice(this._sessies.indexOf(ses), 1);
+  // }
 
-  compare(a: Sessie, b: Sessie) {
-    if (a.get_nr < b.get_nr)
-      return -1;
-    if (a.get_nr > b.get_nr)
-      return 1;
-    return 0;
-  }
+  // addOefToSessie(oef: Exercise, ses: Sessie) {
+  //   ses.addItem(ses.items.length, oef);
+  // }
 }
