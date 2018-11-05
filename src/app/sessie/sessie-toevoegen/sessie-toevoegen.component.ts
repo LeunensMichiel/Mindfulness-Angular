@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewEncapsulation, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SessieDataService } from "../sessie-data.service";
 import { Sessie } from "../../models/sessie.model";
+import { HttpErrorResponse } from "@angular/common/http";
 
 export class SessieErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,7 +29,8 @@ export class SessieErrorStateMatcher implements ErrorStateMatcher {
   encapsulation: ViewEncapsulation.None
 })
 export class SessieToevoegenComponent implements OnInit {
-  @Output() public addSes = new EventEmitter();
+  @Output() public disable = new EventEmitter();
+  @Input() public aantal: number;
   public newSes: FormGroup;
   public matcher = new SessieErrorStateMatcher();
 
@@ -37,53 +39,37 @@ export class SessieToevoegenComponent implements OnInit {
 
   ngOnInit() {
     this.newSes = this._fb.group({
-      number: [this._sessieDataService.sessies.length + 1, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
+      number: [this.aantal, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
       title: ['', Validators.required]
     }
     );
   }
 
   addSessie() {
-    //werkt nog niet helemaal door databank fout, aanpassingen nodig in backend project, code hier juist wel
-    // this._sessieDataService.addNewSessie(new Sessie(this.newSes.value.title)).subscribe(
-    //   () => {
-    //     this.snackBar.open("Sessie successfully added!");
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", {
-    //       duration: 3000,
-    //     });
-    //     this.creating = false;
-    //     this.sesReset();
-    //   }
-    // );
-
-    // JARNE -> copy paste naar hierboven
-    //-------
-
     let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
     if (this.newSes.valid) {
-      this._sessieDataService.addNewSessie(sessie);
-      this.snackBar.open("Sessie " + sessie.get_nr() + ": " + sessie.get_title() + " added!", "",
-        {
-          duration: 3000,
-        });
-      this.setDisable();
+      this._sessieDataService.addNewSessie(sessie).subscribe(
+        () => {
+          this.snackBar.open("Sessie successfully added!");
+        },
+        (error: HttpErrorResponse) => {
+          this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", {
+            duration: 3000,
+          });
+          this.setDisable();
+        }
+      );
     }
     else {
-      this.snackBar.open("Could not add " + sessie.get_nr() + ": " + sessie.get_title(), "",
+      this.snackBar.open("Please fill in all fields correctly!", "",
         {
           duration: 3000,
         });
     }
-  }
-
-  sessieNr(): Number {
-    return this._sessieDataService.sessies.length;
   }
 
   setDisable() {
     this.newSes.reset();
-    this.addSes.emit();
+    this.disable.emit();
   }
 }

@@ -1,12 +1,25 @@
 <form>
   <mat-card-title>
     <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="{{textPage.title}}" (change)='title = $event.currentTarget.value'>
+      <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value'>
     </mat-form-field>
   </mat-card-title>
   <mat-divider [inset]='true'></mat-divider>
   <div class="paragraphContainer">
-    <app-paragraaf-creatie (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.paragraphs; let i = index'></app-paragraaf-creatie>
-    <app-paragraaf-creatie (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' [position]='textPage.paragraphs.length' [isLastElement]='true'></app-paragraaf-creatie>
+    <app-paragraaf-creatie @shrinkParagraphs (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' [position]='i' [par]='par' *ngFor='let par of textPage.items; let i = index'>
+
+    </app-paragraaf-creatie>
+    <div class="typeSelectParent">
+      <div class="typeSelect">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
+          <mat-button-toggle value="text" (click)='addPar(group.value)'>
+            <mat-icon>text_format</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="image" (click)='addPar(group.value)'>
+            <mat-icon>image</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
   </div>
 </form>

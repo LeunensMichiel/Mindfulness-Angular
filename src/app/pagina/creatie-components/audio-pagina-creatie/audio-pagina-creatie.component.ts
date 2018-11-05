@@ -45,10 +45,10 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    */
   ngDoCheck(): void {
     if (this.audioPage.title != this.title || this.audioPage.fileUrl != this.fileUrl){
+      this.changedPage.emit(this.audioPage);
       this.audioPage.title = this.title;
       this.audioPage.fileUrl = this.fileUrl;
-      console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.")
-      this.changedPage.emit(this.audioPage);
+      console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.");
     }
   } 
 }

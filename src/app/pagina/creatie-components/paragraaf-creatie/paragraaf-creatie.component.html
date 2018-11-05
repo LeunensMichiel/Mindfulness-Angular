@@ -1,4 +1,4 @@
-<div class="typeSelectParent">
+<!-- <div class="typeSelectParent">
   <div class="typeSelect">
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
       <mat-button-toggle value="text" (click)='addPar(group.value)'>
@@ -9,8 +9,8 @@
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>
-</div>
-<mat-card *ngIf='!isLastElement'>
+</div> -->
+<mat-card class="parAnimClass">
   <div class="closeButton">
     <button mat-icon-button (click)='removePar()'>
       <mat-icon>clear</mat-icon>

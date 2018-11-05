@@ -26,9 +26,11 @@
             delete_outline
         </i>
     </button>
-    <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie">
-        <i class="material-icons">
-            edit
-        </i>
-    </button>
+    <a [routerLink]="['oefening-list','sessie._id']">
+        <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie">
+            <i class="material-icons">
+                edit
+            </i>
+        </button>
+    </a>
 </button>

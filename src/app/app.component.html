@@ -12,6 +12,7 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list class="examplelist">
           <a mat-list-item routerLinkActive='active' routerLink="/course-list" >OVERZICHT</a>
+          <a mat-list-item routerLink="/sessie-list" >SESSIES</a>
           <a mat-list-item>FEEDBACK</a>
           <a mat-list-item>INSTELLINGEN</a>
           <a mat-list-item>INLOGGEN</a>
@@ -20,6 +21,7 @@
 
     <mat-sidenav-content>
       <router-outlet></router-outlet>
+      <!-- <app-pagina-creatie-lijst></app-pagina-creatie-lijst> -->
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

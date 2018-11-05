@@ -1,54 +1,103 @@
 import { Page, TextPage } from "./page.model";
+import { GenericCollection, GenericItem } from "./GenericCollection.model";
 
-export class Exercise {
-    title:string;
-    pages:Page[];
+export class Exercise extends GenericCollection implements GenericItem {
+    private _id: string;
+    private _title: string;
+    position: number;
 
-    constructor(
-    ){
-        this.title = "";
-        this.pages = [new TextPage()];
-        this.pages[0].position = 0;
+    constructor(title?: string, pages?: Page) {
+        super();
+        this._title = title || "";
+        this.items = [new TextPage()];
+        this.items[0].position = 0;
     }
 
-    public addPage(position: number, page: Page){
-        this.pages
-            .filter( page => page.position >= position )
-            .forEach( p => p.position += 1);
-        page.position = position;
-        this.pages.splice(position += 1, 0, page);
-        this.pages.sort((a, b) => a.position - b.position);
+    /**
+   * Getter id
+   * @return {string}
+   */
+    public get id(): string {
+        return this._id;
     }
 
-    public deletePage(position: number){
-        this.pages.splice(position , 1);
-        this.pages
-            .filter( page => page.position >= position )
-            .forEach( p => p.position -= 1);
+    /**
+     * Setter id
+     * @param {string} value
+     */
+    public set id(_id: string) {
+        this._id = _id;
     }
 
-    public changePagePosition(startPos: number, endPos: number){
-        /* if (startPosition != endPosition)
-            if (startPosition < endPosition){
-                this.pages
-                    .filter( page => page.position > startPosition && page.position <= endPosition)
-                    .forEach( p => p.position--);
-            } 
-            if (startPosition > endPosition){
-                this.pages
-                    .filter( page => page.position >= endPosition && page.position < startPosition)
-                    .forEach( p => p.position++);
-            }    
-            this.pages[startPosition].position = endPosition;
-            this.pages.sort((a, b) => a.position - b.position);
-        } */
+    /**
+       * Getter title
+       * @return {string}
+       */
+    public get title(): string {
+        return this._title;
+    }
 
-        if(startPos != endPos && endPos >= 0 && endPos < this.pages.length){
-            this.pages[startPos].position = endPos;
-            this.pages[endPos].position = startPos;
-            this.pages.sort((a, b) => a.position - b.position);
+    /**
+     * Setter title
+     * @param {string} value
+     */
+    public set title(_title: string) {
+        this._title = _title;
+    }
+
+    /**
+     * Getter pages
+     * @return {GenericItem[]}
+     */
+    public get pages(): GenericItem[] {
+        return this.items;
+    }
+
+    /**
+     * Setter pages
+     * @param {GenericItem[]} value
+     */
+    public set pages(pages: GenericItem[]) {
+        this.items = pages;
+    }
+
+    public addPage(page: Page) {
+        page.position = this.items.length;
+        this.items.push(page);
+    }
+
+    public deletePage(position: number) {
+        this.items.splice(position, 1);
+        this.items
+            .filter(page => page.position >= position)
+            .forEach(p => p.position -= 1);
+    }
+
+    public changePagePosition(startPos: number, direction: number) {
+        var endPos = (startPos + direction);
+        if (startPos != endPos && endPos >= 0 && endPos < this.items.length) {
+            this.items[startPos].position = endPos;
+            this.items[endPos].position = startPos;
+            this.items.sort((a, b) => a.position - b.position);
             return true;
         }
         return false;
+    }
+
+    static fromJson(json: any): Exercise {
+        const ex = new Exercise(
+            json.title,
+            // json.items.map(Page.fromJson)
+        );
+        ex._id = json._id;
+        return ex;
+    }
+
+    toJson() {
+        return {
+            _id: this._id,
+            title: this._title,
+            pages: this.items.map(page => page.toJson())
+        };
     }
 }
