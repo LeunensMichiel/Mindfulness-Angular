@@ -4,7 +4,6 @@ import { Page, TextPage, AudioPage, InputPage } from 'src/app/models/page.model'
 import { Exercise } from 'src/app/models/exercise.model';
 import { Cmd } from 'src/app/models/Commands/command.model';
 import { Delete } from 'src/app/models/Commands/delete.model';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material';
 import {
   trigger,
