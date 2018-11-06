@@ -1,4 +1,4 @@
-export abstract class GenericCollection implements GenericItem{
+export abstract class GenericCollection implements GenericItem {
     position: number;
     items: GenericItem[];
 
@@ -19,9 +19,9 @@ export abstract class GenericCollection implements GenericItem{
         return item
     }
 
-    public changeItemPos(startPos: number, direction: number){
+    public changeItemPos(startPos: number, direction: number) {
         var endPos = (startPos + direction);
-        if(startPos != endPos && endPos >= 0 && endPos < this.items.length){
+        if (startPos != endPos && endPos >= 0 && endPos < this.items.length) {
             var item = this.items[endPos];
             this.items[endPos] = this.items[startPos];
             this.items[endPos].position = endPos;
@@ -32,17 +32,15 @@ export abstract class GenericCollection implements GenericItem{
         return false;
     }
 
-    public changeItem(item: GenericItem){
-        this.items[item.position]= item;
+    public changeItem(item: GenericItem) {
+        this.items[item.position] = item;
     }
 
     abstract toJson();
-    abstract fromJson(json:any);
 }
 
 export abstract class GenericItem {
     position: number;
 
-    abstract toJson():any;
-    abstract fromJson(json:any)
+    abstract toJson();
 }

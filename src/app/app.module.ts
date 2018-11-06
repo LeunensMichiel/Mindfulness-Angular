@@ -31,6 +31,8 @@ import { AudioPaginaCreatieComponent } from './pagina/creatie-components/audio-p
 import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-pagina-creatie/input-pagina-creatie.component';
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
+import { SessieResolver } from './sessie/sessie-resolver';
+import { OefeningDataService } from './oefening/oefening-data.service';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,7 @@ import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf
     ScrollDispatchModule,
     MatInputModule
   ],
-  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
+  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, OefeningDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

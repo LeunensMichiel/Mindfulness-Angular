@@ -14,6 +14,7 @@ import { CmdImplementation } from '../../models/Commands/commandImplementation.m
 import { Cmd } from 'src/app/models/Commands/command.model';
 import { Insert } from 'src/app/models/Commands/insert.model';
 import { GenericItem } from '../../models/GenericCollection.model';
+import { SessieDataService } from '../../sessie/sessie-data.service';
 
 @Component({
   selector: "app-oefeninglijst",
@@ -29,7 +30,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   // imgPar: Paragraph = new Paragraph();
   private _sessie: Sessie;
 
-  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar) {
+  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar, private _sessieDataService: SessieDataService) {
     super();
   }
 

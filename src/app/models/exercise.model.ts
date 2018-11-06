@@ -1,6 +1,5 @@
 import { Page, TextPage, AudioPage, InputPage } from "./page.model";
 import { GenericCollection, GenericItem } from "./GenericCollection.model";
-import { Paragraph } from "./paragraph.model";
 
 export class Exercise extends GenericCollection implements GenericItem {
     private _id: string;
@@ -84,8 +83,8 @@ export class Exercise extends GenericCollection implements GenericItem {
         }
         return false;
     }
-    
-    fromJson(json: any) {
+
+    static fromJson(json: any): Exercise {
         const ex = new Exercise();
         ex.title = json.title;
         ex.position = json.position;
@@ -98,6 +97,8 @@ export class Exercise extends GenericCollection implements GenericItem {
                 return new InputPage().fromJson(it);
             }
         });
+        ex._id = json._id;
+        return ex
     }
 
     toJson() {
