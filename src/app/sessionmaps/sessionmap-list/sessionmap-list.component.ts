@@ -64,9 +64,9 @@ export class SessionmapListComponent implements OnInit {
                 }: ${error.error}`;
             }
           );
+          this._sesmaps.push(sesmap);
         } else {
           sesmap.titleCourse = result;
-          console.log(sesmap);
           this.sessionmapDataService.wijzigSessionMap(sesmap).subscribe(
             () => {
             },

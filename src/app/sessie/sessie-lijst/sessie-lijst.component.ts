@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Sessie } from "../../models/sessie.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import { SessieDataService } from "../sessie-data.service";
 
 @Component({
@@ -11,26 +11,41 @@ import { SessieDataService } from "../sessie-data.service";
   templateUrl: "./sessie-lijst.component.html",
   styleUrls: ["./sessie-lijst.component.css"]
 })
-export class SessieLijstComponent implements OnInit {
+export class SessieLijstComponent implements OnInit, OnDestroy {
   private _sessies: Sessie[];
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
+  private sesmapid: string;
+  navigationSubscription;
 
   constructor(public dialog: MatDialog, private _sessieDataService: SessieDataService,
-    public snackBar: MatSnackBar) {
+    public snackBar: MatSnackBar, private route: ActivatedRoute, private router : Router) {
   }
 
   ngOnInit(): void {
-    this._sessieDataService.sessies.subscribe(
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.dataophalen();
+      }
+    });
+
+  }
+
+
+  private dataophalen() {
+    this.route.params.subscribe(params => {
+      this.sesmapid = params['courseID'];
+    });
+    this._sessieDataService.sessies(this.sesmapid).subscribe(
       sessies => (this._sessies = sessies),
       (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, "",
+        this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, '',
           {
             duration: 3000,
           });
       }
     );
-    // this._sessies = this._sessieDataService.sessies;
   }
 
   removeSessie(sessie: Sessie) {
@@ -66,6 +81,12 @@ export class SessieLijstComponent implements OnInit {
 
   get sessies() {
     return this._sessies;
+  }
+
+  ngOnDestroy(): void {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 }
 

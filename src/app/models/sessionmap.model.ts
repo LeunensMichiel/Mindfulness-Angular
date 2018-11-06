@@ -47,7 +47,6 @@ export class Sessionmap extends GenericCollection implements GenericItem{
   }
 
   fromJson(json: any) {
-    console.log(json);
     const sesmap = new Sessionmap();
     sesmap._titleCourse = json.titleCourse;
     if (json.hasOwnProperty("sessions")){
@@ -62,7 +61,6 @@ export class Sessionmap extends GenericCollection implements GenericItem{
   }
 
   toJSON() {
-    console.log('TOJSON')
     return {
       _id: this._id,
       titleCourse: this._titleCourse,

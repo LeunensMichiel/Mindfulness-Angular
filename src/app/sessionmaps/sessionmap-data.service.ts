@@ -35,7 +35,6 @@ export class SessionmapDataService {
   }
 
   addNewSessionMap(sessionmap : Sessionmap): Observable<Sessionmap> {
-    console.log(sessionmap.titleCourse);
     return this.http
       .post(`${this._appUrl}/sessionmap`, sessionmap)
       .pipe(map(it => {

@@ -11,15 +11,15 @@ import {Sessionmap} from '../models/sessionmap.model';
 export class SessieDataService {
 
   private readonly _appUrl = '/API';
-  private _sessies: Sessie[] = new Array();
+  // private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {
     // this._sessies.push(new Sessie("Sessie 1", 1));
   }
 
-  get sessies(): Observable<any[]> {
+  sessies(id: string): Observable<Sessie[]> {
     return this.http
-      .get(`${this._appUrl}/sessions`)
+      .get(`${this._appUrl}/sessions/${id}`)
       .pipe(map((list: any[]): Sessie[] =>
         list.map(it => {
         var ses = new Sessie();

@@ -12,7 +12,9 @@ const appRoutes: Routes = [
   {
     path: 'course-list', component: SessionmapListComponent, children: [
       { path: 'course-list/:courseID', component: SessionmapDetailComponent, resolve: { sesmap: Sessionmapresolver } }
-    ]
+    ],
+    //zodat sessies van sesmaps telkens herladen
+    runGuardsAndResolvers: 'paramsChange'
   },
   {
     path: 'sessie-list', component: SessieLijstComponent, children: [
@@ -25,7 +27,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}) //same
   ],
   declarations: [],
   exports: [
