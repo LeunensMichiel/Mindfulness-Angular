@@ -4,49 +4,62 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Sessie } from '../models/sessie.model';
 import { map } from 'rxjs/operators';
+import {Sessionmap} from '../models/sessionmap.model';
 
 
 @Injectable()
 export class SessieDataService {
 
   private readonly _appUrl = '/API';
-  // private _sessies: Sessie[] = new Array();
+  private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {
     // this._sessies.push(new Sessie("Sessie 1", 1));
   }
 
-  get sessies(): Observable<Sessie[]> {
+  get sessies(): Observable<any[]> {
     return this.http
-      .get(`${this._appUrl}/sessies`)
-      .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJSON)));
+      .get(`${this._appUrl}/sessions`)
+      .pipe(map((list: any[]): Sessie[] =>
+        list.map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      })));
   }
 
   addNewSessie(ses: Sessie): Observable<Sessie> {
     return this.http
       .post(`/API/sessionmaps`, ses)
-      .pipe(map(Sessie.fromJSON));
+      .pipe(map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      }));
   }
 
-  // removeSessie(ses: Sessie): Observable<Sessie> {
-  //   return this.http
-  //     .delete(`${this._appUrl}/sesies/${ses.get_id()}`)
-  //     .pipe(map(Sessie.fromJSON));
+  removeSessie(ses: Sessie): Observable<Sessie> {
+    return this.http
+      .delete(`${this._appUrl}/sesies/${ses.id}`)
+      .pipe(map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      }));
+  }
+
+  // addOefeningToSessie(oef: Exercise, ses: Sessie): Observable<Exercise> {
+  //   const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
+  //   return this.http.post(theUrl, oef).pipe(map(Exercise.fromJson));
   // }
-
- /*  addOefeningToSessie(oef: Exercise, ses: Sessie): Observable<Exercise> {
-    const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
-    return this.http.post(theUrl, oef).pipe(map(Exercise.fromJSON));
-  }
- */
   getSessie(id: string): Observable<Sessie> {
     return this.http
       .get(`${this._appUrl}/sessie/${id}`)
-      .pipe(map(Sessie.fromJSON));
+      .pipe(map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      }));
   }
 
   // get sessies(): Sessie[] {
-  //   return this._sessies.sort(this.compare);
+  //   return this._sessies;
   // }
 
   // addNewSessie(ses: Sessie): void {
@@ -55,14 +68,9 @@ export class SessieDataService {
 
   // removeSessie(ses: Sessie): void {
   //   this._sessies.splice(this._sessies.indexOf(ses), 1);
-    
   // }
 
-  compare(a: Sessie, b: Sessie) {
-    if (a.get_nr < b.get_nr)
-      return -1;
-    if (a.get_nr > b.get_nr)
-      return 1;
-    return 0;
-  }
+  // addOefToSessie(oef: Exercise, ses: Sessie) {
+  //   ses.addItem(ses.items.length, oef);
+  // }
 }

@@ -1,0 +1,33 @@
+.mat-form-field-label{
+    color: white !important;
+}
+
+.mat-form-field-underline {
+    background-color: white !important;;
+}
+
+.mat-form-field-ripple {
+    background-color: white !important;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+}
+
+.check {
+    right: -25px;
+    top: -25px;
+}
+
+.cross {
+    right: -60px;
+    top: 25px;
+}
+
+.createButton {
+    min-width: 200px;
+    min-height: 200px;
+}

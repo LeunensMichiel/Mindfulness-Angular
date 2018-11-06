@@ -16,6 +16,6 @@ export class SessieResolver implements Resolve<Sessie> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Sessie> {
-    return this.sessieService.getSessie(route.params['id']);
+    return this.sessieService.getSessie(route.params['sessieID']);
   }
 }

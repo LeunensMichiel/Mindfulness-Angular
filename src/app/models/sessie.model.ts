@@ -1,67 +1,98 @@
 import { Exercise } from "./exercise.model";
-export class Sessie {
+import { GenericCollection, GenericItem } from "./GenericCollection.model";
+import {Paragraph} from './paragraph.model';
+
+export class Sessie extends GenericCollection implements GenericItem {
   private _id: string;
   private _title: string;
-  private _nr: number;
-  private _position: number;
-  private _oefeningen: string[];
   private _admin: string;
+  private _position: number;
 
   // private _categorie: Categorie;
 
-  constructor(title: string, position: number /*, oefeningen?: string[]*/) {
-    this._title = title;
-    this._position = position;
-    /*this._oefeningen = oefeningen || new Array();
+  constructor(title?: string, position?: number) {
+    super();
+    this._title = title || "";
+    this._position = position || 0;
+    this.items = [new Exercise()];
+    this.items[0].position = 0;
     // this._categorie = categorie;*/
   }
 
-  public get_id(): string {
+  /**
+   * Getter id
+   * @return {string}
+   */
+  public get id(): string {
     return this._id;
   }
 
-  public set_id(_id: string): void {
+  /**
+   * Setter id
+   * @param {string} value
+   */
+  public set id(_id: string) {
     this._id = _id;
   }
 
-  public get_title(): string {
+  /**
+     * Getter title
+     * @return {string}
+     */
+  public get title(): string {
     return this._title;
   }
 
-  public set_title(_title: string): void {
+  /**
+   * Setter title
+   * @param {string} value
+   */
+  public set title(_title: string) {
     this._title = _title;
   }
 
-  public get_nr(): number {
-    return this._nr;
+  /**
+   * Getter position
+   * @return {number}
+   */
+  public get position(): number {
+    return this.position;
   }
 
-  public set_nr(_nr: number): void {
-    this._nr = _nr;
+  /**
+   * Setter position
+   * @param {number} value
+   */
+  public set position(pos: number) {
+    this.position = pos;
   }
 
-  public get_oefeningen(): string[] {
-    return this._oefeningen;
-  }
-
-  public set_oefeningen(_oefeningen: string[]): void {
-    this._oefeningen = _oefeningen;
-  }
-
-  public get_admin(): string {
+  /**
+   * Getter admin
+   * @return {string}
+   */
+  public get admin(): string {
     return this._admin;
   }
 
-  public set_admin(_admin: string): void {
+  /**
+   * Setter admin
+   * @param {string} value
+   */
+  public set admin(_admin: string) {
     this._admin = _admin;
   }
+  fromJson(json: any) {
+    const ses = new Sessie();
+    ses._title = json.title;
+    ses._position = json.position;
+    if (json.hasOwnProperty("items")){
+      ses.items = json.items.map(it => {
+        var oef = new Exercise();
+        return oef.fromJson(it);
+      });
+    }
 
-  static fromJSON(json: any): Sessie {
-    const ses = new Sessie(
-    json.title,
-    json.position
-      //json.oefeningen.map(Exercise.fromJSON),
-    );
     ses._id = json._id;
     return ses;
   }
@@ -70,7 +101,8 @@ export class Sessie {
     return {
       _id: this._id,
       title: this._title,
-      position: this._position
+      position: this._position,
+      items: this.items.map(oef => oef.toJSON())
     };
   }
 }

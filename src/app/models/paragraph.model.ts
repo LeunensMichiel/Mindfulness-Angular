@@ -11,23 +11,15 @@ export class Paragraph implements GenericItem {
         this.type = "text";
     }
 
-    public fromJson(json: any) {
-        const par = new Paragraph()
+    fromJson(json: any):Paragraph {
+        const par = new Paragraph();
         par.position = json.position;
         par.content = json.content;
         par.type = json.type;
         return par
     }
 
-    static copyJson(json:any){
-        const par = new Paragraph()
-        par.position = json.position;
-        par.content = json.content;
-        par.type = json.type;
-        return par
-    }
-
-    public toJson():any{
+  toJSON(){
         return {
             position: this.position,
             content: this.content,

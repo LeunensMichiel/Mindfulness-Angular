@@ -1,82 +1,72 @@
 
 import { Sessie } from './sessie.model';
-export class Sessionmap {
+import {GenericCollection, GenericItem} from './GenericCollection.model';
+export class Sessionmap extends GenericCollection implements GenericItem{
   private _id: string;
   private _titleCourse: string;
-  private _sessions: Sessie[];
+  //private _sessions: Sessie[];
 
   // private _categorie: Categorie;
 
-  constructor(titleCourse: string, sessions: Sessie[] = []) {
-        this._titleCourse = titleCourse;
-        this._sessions = sessions;
+  constructor(titleCourse?: string) {
+    super();
+    this._titleCourse = titleCourse || "";
+    this.items = [new Sessie()];
   }
 
+  /**
+   * Getter id
+   * @return {string}
+   */
+  public get id(): string {
+    return this._id;
+  }
 
-    /**
-     * Getter id
-     * @return {string}
-     */
-	public get id(): string {
-		return this._id;
-	}
+  /**
+   * Getter titleCourse
+   * @return {string}
+   */
+  public get titleCourse(): string {
+    return this._titleCourse;
+  }
 
-    /**
-     * Getter titleCourse
-     * @return {string}
-     */
-	public get titleCourse(): string {
-		return this._titleCourse;
-	}
+  /**
+   * Setter id
+   * @param {string} value
+   */
+  public set id(value: string) {
+    this._id = value;
+  }
 
-    /**
-     * Getter sessions
-     * @return {Sessie[]}
-     */
-	public get sessions(): Sessie[] {
-		return this._sessions;
-	}
+  /**
+   * Setter titleCourse
+   * @param {string} value
+   */
+  public set titleCourse(value: string) {
+    this._titleCourse = value;
+  }
 
-    /**
-     * Setter id
-     * @param {string} value
-     */
-	public set id(value: string) {
-		this._id = value;
-	}
+  fromJson(json: any) {
+    console.log(json);
+    const sesmap = new Sessionmap();
+    sesmap._titleCourse = json.titleCourse;
+    if (json.hasOwnProperty("sessions")){
+      sesmap.items = json.sessions.map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      });
+    }
 
-    /**
-     * Setter titleCourse
-     * @param {string} value
-     */
-	public set titleCourse(value: string) {
-		this._titleCourse = value;
-	}
-
-    /**
-     * Setter sessions
-     * @param {Sessie[]} value
-     */
-	public set sessions(value: Sessie[]) {
-		this._sessions = value;
-	}
-
-
-  static fromJSON(json: any): Sessionmap {
-    const sesmap = new Sessionmap(
-    json.titleCourse,
-    json.sessions.map(Sessie.fromJSON)
-    );
     sesmap._id = json._id;
     return sesmap;
   }
 
   toJSON() {
+    console.log('TOJSON')
     return {
       _id: this._id,
       titleCourse: this._titleCourse,
-      sessions: this._sessions.map(ses => ses.toJSON())
-
+      items: this.items.map(ses => ses.toJSON())
     };
   }
 }

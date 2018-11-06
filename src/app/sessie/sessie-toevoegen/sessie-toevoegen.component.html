@@ -1,0 +1,27 @@
+<button class="createButton" [disableRipple]="true" mat-fab color="primary">
+  <form class="ui form" [formGroup]='newSes' (ngSubmit)='addSessie()'>
+    <mat-form-field>
+      <input matInput [errorStateMatcher]="matcher" [value]="aantal + 1" placeholder="Number" autocomplete="off" formControlName='number'>
+      <mat-error *ngIf="newSes.get('number').hasError('number') && !number.hasError('required')">
+        Please enter a valid number
+      </mat-error>
+    </mat-form-field>
+    <button mat-fab class="icon check" type="submit">
+      <i class="material-icons">
+        check
+      </i>
+    </button>
+    <button mat-fab class="icon cross" (click)="setDisable()">
+      <i class="material-icons">
+        clear
+      </i>
+    </button>
+    <br>
+    <mat-form-field>
+      <input matInput [errorStateMatcher]="matcher" placeholder="Title" autocomplete="off" formControlName='title'>
+      <mat-error *ngIf="newSes.get('title').hasError('title') && !title.hasError('required')">
+        Please enter a valid title
+      </mat-error>
+    </mat-form-field>
+  </form>
+</button>
