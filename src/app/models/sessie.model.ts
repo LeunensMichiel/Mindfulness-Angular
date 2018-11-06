@@ -1,18 +1,21 @@
 import { Exercise } from "./exercise.model";
 import { GenericCollection, GenericItem } from "./GenericCollection.model";
+import {Paragraph} from './paragraph.model';
 
 export class Sessie extends GenericCollection implements GenericItem {
   private _id: string;
   private _title: string;
   private _admin: string;
+  private _position: number;
 
   // private _categorie: Categorie;
 
-  constructor(title: string, position: number , oefeningen?: Exercise[]) {
+  constructor(title?: string, position?: number) {
     super();
-    this._title = title;
-    this.position = position;
-    this.items = oefeningen || new Array();
+    this._title = title || "";
+    this._position = position || 0;
+    this.items = [new Exercise()];
+    this.items[0].position = 0;
     // this._categorie = categorie;*/
   }
 
@@ -79,23 +82,27 @@ export class Sessie extends GenericCollection implements GenericItem {
   public set admin(_admin: string) {
     this._admin = _admin;
   }
+  fromJson(json: any) {
+    const ses = new Sessie();
+    ses._title = json.title;
+    ses._position = json.position;
+    if (json.hasOwnProperty("items")){
+      ses.items = json.items.map(it => {
+        var oef = new Exercise();
+        return oef.fromJson(it);
+      });
+    }
 
-  static fromJson(json: any): Sessie {
-    const ses = new Sessie(
-      json.title,
-      json.position,
-      json.oefeningen.map(Exercise.fromJson),
-    );
     ses._id = json._id;
     return ses;
   }
 
-  toJson() {
+  toJSON() {
     return {
       _id: this._id,
       title: this._title,
-      position: this.position,
-      oefeningen: this.items.map(oef => oef.toJson())
+      position: this._position,
+      items: this.items.map(oef => oef.toJSON())
     };
   }
 }

@@ -12,14 +12,14 @@ export class Paragraph implements GenericItem {
     }
 
     fromJson(json: any):Paragraph {
-        const par = new Paragraph()
+        const par = new Paragraph();
         par.position = json.position;
         par.content = json.content;
         par.type = json.type;
         return par
     }
 
-    toJson(){
+  toJSON(){
         return {
             position: this.position,
             content: this.content,

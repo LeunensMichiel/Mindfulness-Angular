@@ -1,15 +1,17 @@
 
 import { Sessie } from './sessie.model';
-export class Sessionmap {
+import {GenericCollection, GenericItem} from './GenericCollection.model';
+export class Sessionmap extends GenericCollection implements GenericItem{
   private _id: string;
   private _titleCourse: string;
-  private _sessions: Sessie[];
+  //private _sessions: Sessie[];
 
   // private _categorie: Categorie;
 
-  constructor(titleCourse: string, sessions: Sessie[] = []) {
-    this._titleCourse = titleCourse;
-    this._sessions = sessions;
+  constructor(titleCourse?: string) {
+    super();
+    this._titleCourse = titleCourse || "";
+    this.items = [new Sessie()];
   }
 
   /**
@@ -29,14 +31,6 @@ export class Sessionmap {
   }
 
   /**
-   * Getter sessions
-   * @return {Sessie[]}
-   */
-  public get sessions(): Sessie[] {
-    return this._sessions;
-  }
-
-  /**
    * Setter id
    * @param {string} value
    */
@@ -52,29 +46,27 @@ export class Sessionmap {
     this._titleCourse = value;
   }
 
-  /**
-   * Setter sessions
-   * @param {Sessie[]} value
-   */
-  public set sessions(value: Sessie[]) {
-    this._sessions = value;
-  }
+  fromJson(json: any) {
+    console.log(json);
+    const sesmap = new Sessionmap();
+    sesmap._titleCourse = json.titleCourse;
+    if (json.hasOwnProperty("sessions")){
+      sesmap.items = json.sessions.map(it => {
+        var ses = new Sessie();
+        return ses.fromJson(it);
+      });
+    }
 
-
-  static fromJSON(json: any): Sessionmap {
-    const sesmap = new Sessionmap(
-      json.titleCourse,
-      json.sessions.map(Sessie.fromJson)
-    );
     sesmap._id = json._id;
     return sesmap;
   }
 
   toJSON() {
+    console.log('TOJSON')
     return {
       _id: this._id,
       titleCourse: this._titleCourse,
-      sessions: this._sessions.map(ses => ses.toJSON())
+      items: this.items.map(ses => ses.toJSON())
     };
   }
 }
