@@ -1,16 +1,28 @@
 <form>
   <mat-card-title>
     <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="tittel" (change)='title = $event.currentTarget.value' >
+      <input matInput class="textInput" value="tittel" (change)='title = $event.currentTarget.value'>
     </mat-form-field>
   </mat-card-title>
   <mat-divider [inset]='true'></mat-divider>
 
   <div class="audioInputContainer">
-    <label for="profile_pic" >
+    <label for="profile_pic">
       <i class="material-icons md-18">cloud_upload</i>
     </label>
-    <input type="file" id="profile_pic" name="profile_pic" (change)='fileUrl = $event.target.value.split("\\").pop();'>
+    <input #fileInput type="file" id="profile_pic" name="profile_pic" (change)='fileUrl = $event.target.value'>
     <p>{{audioPage.fileUrl}}</p>
+    <div *ngIf="playing; then pauseBlock else playBlock"></div>
+    <ng-template #pauseBlock>
+      <button mat-icon-button (click)='pauseAudio()'>
+        <mat-icon>pause</mat-icon>
+      </button>
+    </ng-template>
+    <ng-template #playBlock>
+      <button *ngIf='fileUrl != ""' mat-icon-button (click)='playAudio()'>
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </ng-template>
+
   </div>
 </form>

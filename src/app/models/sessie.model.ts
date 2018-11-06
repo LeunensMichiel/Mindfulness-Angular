@@ -60,7 +60,6 @@ export class Sessie {
     const ses = new Sessie(
     json.title,
     json.position
-    //json.nr
       //json.oefeningen.map(Exercise.fromJSON),
     );
     ses._id = json._id;

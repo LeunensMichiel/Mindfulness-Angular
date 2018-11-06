@@ -43,6 +43,7 @@ export abstract class GenericCollection implements GenericItem{
 export abstract class GenericItem {
     position: number;
 
-    abstract toJson():any;
+    abstract toJson():any 
     abstract fromJson(json:any)
+    
 }

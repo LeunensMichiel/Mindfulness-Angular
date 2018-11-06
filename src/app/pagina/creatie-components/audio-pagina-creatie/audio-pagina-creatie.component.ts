@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { AudioPage, Page } from 'src/app/models/page.model';
 import { MatSnackBar } from '@angular/material';
 
@@ -16,9 +16,13 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    */
   @Input() audioPage:AudioPage = null;
   @Output() changedPage = new EventEmitter<Page>();
+  @ViewChild('fileInput') fileInputRef: ElementRef
   title: string = "";
   fileUrl: string = "";
-
+  audioFile: File;
+  audio:any;
+  playing = false;
+  audioCurrentTime = 0;
   /**
    * GIDS:
    * pagina-creatie-lijst |
@@ -48,7 +52,34 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
       this.changedPage.emit(this.audioPage);
       this.audioPage.title = this.title;
       this.audioPage.fileUrl = this.fileUrl;
+      this.resetAudio()
+      console.log(this.fileUrl)
       console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.");
     }
   } 
+
+  resetAudio(){
+    this.playing = false;
+    if(this.audio != null)
+      this.audio.pause();
+    this.audio = null;
+  }
+
+  playAudio(){
+    this.playing = true;
+    var reader = new FileReader();
+    reader.onload = (e) => {
+      console.log(e)
+      this.audio = new Audio(reader.result.toString());
+      this.audio.currentTime = this.audioCurrentTime;
+      this.audio.play();
+    }
+    reader.readAsDataURL(this.fileInputRef.nativeElement.files[0]);
+  }
+
+  pauseAudio(){
+    this.playing = false;
+    this.audioCurrentTime = this.audio.currentTime;
+    this.audio.pause();
+  }
 }
