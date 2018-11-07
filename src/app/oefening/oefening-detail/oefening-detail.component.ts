@@ -9,6 +9,7 @@ import { Exercise } from 'src/app/models/exercise.model';
 export class OefeningDetailComponent implements OnInit {
   @Input() excersice: Exercise
   @Output() public delOef = new EventEmitter<Exercise>();
+  @Input() _position: number = 0;
   public dropdownVisible = false;
 
   constructor() { }

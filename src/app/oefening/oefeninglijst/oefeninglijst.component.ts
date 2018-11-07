@@ -18,11 +18,25 @@ import { SessieDataService } from '../../sessie/sessie-data.service';
 import { Delete } from "src/app/models/Commands/delete.model";
 import { InputPage, TextPage, AudioPage } from '../../models/page.model';
 import { Paragraph } from '../../models/paragraph.model';
+import {
+  trigger,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: "app-oefeninglijst",
   templateUrl: "./oefeninglijst.component.html",
-  styleUrls: ["./oefeninglijst.component.css"]
+  styleUrls: ["./oefeninglijst.component.css"],
+  animations: [
+    trigger('shrinkOut', [
+      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
+      transition(':decrement', [style({ transform: 'translateX(100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
+      transition(':enter', [style({ width: 0, opacity: 0, overflow: 'hidden' }), animate('500ms ease-out', style({ width: '*', opacity: 1 }))]),
+      transition(':leave', [style({ width: '*', opacity: 1, overflow: 'hidden' }), animate('500ms ease-out', style({ width: 0, opacity: 0 }))])
+    ])
+  ]
 })
 export class OefeninglijstComponent extends CmdImplementation implements OnInit {
   inputPage: InputPage = new InputPage();

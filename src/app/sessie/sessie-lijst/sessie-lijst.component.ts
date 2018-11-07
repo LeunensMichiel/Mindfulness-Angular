@@ -21,15 +21,16 @@ export class SessieLijstComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._sessieDataService.sessies.subscribe(
-      sessies => (this._sessies = sessies),
-      (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, "",
-          {
-            duration: 3000,
-          });
-      }
-    );
+    let sessie = new Sessie("title", 0);
+    // this._sessieDataService.sessies.subscribe(
+    //   sessies => (this._sessies = sessies),
+    //   (error: HttpErrorResponse) => {
+    //     this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, "",
+    //       {
+    //         duration: 3000,
+    //       });
+    //   }
+    // );
     // this._sessies = this._sessieDataService.sessies;
   }
 

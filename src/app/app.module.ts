@@ -33,6 +33,7 @@ import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-p
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieResolver } from './sessie/sessie-resolver';
 import { OefeningDataService } from './oefening/oefening-data.service';
+import { Sessionmap } from './models/sessionmap.model';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { OefeningDataService } from './oefening/oefening-data.service';
     MatInputModule
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, OefeningDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SessionmapCreatieComponent]
 })
 export class AppModule { }
