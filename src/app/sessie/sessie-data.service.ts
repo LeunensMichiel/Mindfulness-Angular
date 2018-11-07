@@ -18,7 +18,7 @@ export class SessieDataService {
 
   get sessies(): Observable<any[]> {
     return this.http
-      .get(`${this._appUrl}/sessies`)
+      .get(`${this._appUrl}/sessions`)
       .pipe(map((list: any[]): Sessie[] => list.map(Sessie.fromJson)));
   }
 
@@ -30,17 +30,23 @@ export class SessieDataService {
 
   removeSessie(ses: Sessie): Observable<Sessie> {
     return this.http
-      .delete(`${this._appUrl}/sesies/${ses.id}`)
+      .delete(`${this._appUrl}/sessions/${ses.id}`)
       .pipe(map(Sessie.fromJson));
   }
 
   addOefeningToSessie(oef: Exercise, ses: Sessie): Observable<Exercise> {
-    const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
+    const theUrl = `${this._appUrl}/sessions/${ses.id}/exercises`;
     return this.http.post(theUrl, oef).pipe(map(Exercise.fromJson));
   }
   getSessie(id: string): Observable<Sessie> {
     return this.http
-      .get(`${this._appUrl}/sessie/${id}`)
+      .get(`${this._appUrl}/session/${id}`)
+      .pipe(map(Sessie.fromJson));
+  }
+
+  updateSessie(ses: Sessie): Observable<Sessie> {
+    return this.http
+      .patch(`${this._appUrl}/sessions/${ses.id}`, ses)
       .pipe(map(Sessie.fromJson));
   }
 

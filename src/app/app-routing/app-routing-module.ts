@@ -8,7 +8,7 @@ import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
 import { SessieResolver } from '../sessie/sessie-resolver';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'sessie-list', pathMatch: 'full' },
+  { path: '', redirectTo: 'oefening-list', pathMatch: 'full' },
   {
     path: 'course-list', component: SessionmapListComponent, children: [
       { path: 'course-list/:courseID', component: SessionmapDetailComponent, resolve: { sesmap: Sessionmapresolver } }

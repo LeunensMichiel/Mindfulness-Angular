@@ -49,22 +49,6 @@ export class Sessie extends GenericCollection implements GenericItem {
   }
 
   /**
-   * Getter position
-   * @return {number}
-   */
-  public get position(): number {
-    return this.position;
-  }
-
-  /**
-   * Setter position
-   * @param {number} value
-   */
-  public set position(pos: number) {
-    this.position = pos;
-  }
-
-  /**
    * Getter admin
    * @return {string}
    */

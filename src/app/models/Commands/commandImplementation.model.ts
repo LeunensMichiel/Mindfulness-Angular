@@ -35,7 +35,7 @@ export abstract class CmdImplementation {
         }
     }
 
-    private undoCurrentCommand() {
+    undoCurrentCommand() {
         if (this.cmdValue >= 0) {
             this.commandCache[this.cmdValue].undo();
             this.cmdValue -= 1;

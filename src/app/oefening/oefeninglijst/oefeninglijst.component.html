@@ -1,7 +1,17 @@
-<div class="titel">
-  <h1>SESSIE</h1>
+<div class="container" (keydown)="onKeydown($event)" tabindex="0">
+  <div class="titel">
+    <h1>Oefeningen van {{_sessie.titel}}</h1>
+  </div>
+  <button mat-fab (click)="undo()">
+    <i class="material-icons">
+      undo
+    </i>
+  </button>
+  <app-oefening-detail [@shrinkOut]='i' *ngFor='let oefdetail of oefeningen; let i = index' [excersice]='oefdetail'
+    (delOef)='removeOefening($event)' [_position]='i' (newOef)='addOef($event)' (enableDragView)='dragging = $event'
+    (addParagraphCmd)='onNewParCommand($event)' class="kid">
+  </app-oefening-detail>
+  <mat-card class="inputField">
+    <app-oefening-creatie (newOef)="addOefening($event)"></app-oefening-creatie>
+  </mat-card>
 </div>
-<div *ngFor='let oefdetail of oefeningen'>
-  <app-oefening-detail [excersice]='oefdetail'></app-oefening-detail>
-</div>
-<app-oefening-creatie (newOef)="addOefening($event)"></app-oefening-creatie>

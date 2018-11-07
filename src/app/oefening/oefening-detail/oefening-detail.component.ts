@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise.model';
 
 @Component({
@@ -8,6 +8,7 @@ import { Exercise } from 'src/app/models/exercise.model';
 })
 export class OefeningDetailComponent implements OnInit {
   @Input() excersice: Exercise
+  @Output() public delOef = new EventEmitter<Exercise>();
   public dropdownVisible = false;
 
   constructor() { }
@@ -23,4 +24,7 @@ export class OefeningDetailComponent implements OnInit {
     console.log(changes);
   }
 
+  removeOefening() {
+    this.delOef.emit(this.excersice);
+  }
 }
