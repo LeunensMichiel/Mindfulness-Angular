@@ -1,7 +1,7 @@
 
 <mat-grid-list class="sessie-grid" cols="4" >
   <mat-grid-tile *ngFor='let localSessie of sessies'>
-    <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)"></app-sessie>
+    <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)" (modifySessie)="editSessie($event)"></app-sessie>
   </mat-grid-tile>
   <mat-grid-tile *ngIf='!creating'>
     <button class="button" mat-fab color="primary" (click)='creating = !creating'>

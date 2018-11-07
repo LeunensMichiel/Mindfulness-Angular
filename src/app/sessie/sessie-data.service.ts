@@ -58,4 +58,12 @@ export class SessieDataService {
       }));
   }
 
+  editSession(sessie: Sessie): Observable<Sessie> {
+    return this.http
+      .put(`${this._appUrl}/session/${sessie.id}`, sessie)
+      .pipe(map(it => {
+        var sMap = new Sessie();
+        return sMap.fromJson(it);
+      }));
+  }
 }

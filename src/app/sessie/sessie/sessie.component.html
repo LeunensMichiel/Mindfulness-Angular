@@ -19,17 +19,22 @@
 
 
 <button class="button" mat-fab color="primary" (click)="showIcons = !showIcons">
-    <h2>{{sessie._nr}}</h2>
-    <h3>{{sessie._title}}</h3>
+    <h2>{{sessie.position}}</h2>
+    <h3>{{sessie.title}}</h3>
     <button mat-fab *ngIf='showIcons' class="icon del" matTooltip="Remove sessie" (click)="removeSessie()">
         <i class="material-icons">
             delete_outline
         </i>
     </button>
+  <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie" (click)="editSessie()">
+        <i class="material-icons">
+            edit
+        </i>
+    </button>
     <a [routerLink]="['oefening-list','sessie._id']">
-        <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie">
+        <button mat-fab *ngIf='showIcons' class="icon eye" matTooltip="View sessie">
             <i class="material-icons">
-                edit
+              remove_red_eye
             </i>
         </button>
     </a>

@@ -10,7 +10,7 @@ import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.c
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
-import { SessieLijstComponent, RemoveSessieDialog } from './sessie/sessie-lijst/sessie-lijst.component';
+import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
@@ -54,7 +54,8 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
     AudioPaginaCreatieComponent,
     InputPaginaCreatieComponent,
     TekstPaginaCreatieComponent,
-    ParagraafCreatieComponent
+    ParagraafCreatieComponent,
+    SessieModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +84,6 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
 })
 export class AppModule { }

@@ -52,6 +52,7 @@ export class SessieToevoegenComponent implements OnInit {
       this._sessieDataService.addNewSessie(sessie).subscribe(
         () => {
           this.snackBar.open("Sessie successfully added!");
+          this.setDisable();
         },
         (error: HttpErrorResponse) => {
           this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", {
