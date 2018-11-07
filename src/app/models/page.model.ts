@@ -5,7 +5,7 @@ export interface Page {
     title: string;
     position: number;
 
-    toJson(): any;
+    toJSON(): any;
     fromJson(json: any): Page;
 
     toString(): string
@@ -22,7 +22,7 @@ export class AudioPage implements Page, GenericItem {
         this.fileUrl = "";
     }
 
-    toJson() {
+  toJSON() {
         return {
             title: this.title,
             fileUrl: this.fileUrl,
@@ -56,12 +56,12 @@ export class TextPage extends GenericCollection implements Page, GenericItem {
         this.items = [new Paragraph()];
     }
 
-    toJson() {
+  toJSON() {
         return {
             title: this.title,
             text: this.text,
             position: this.position,
-            items: this.items.map(it => it.toJson)
+            items: this.items.map(it => it.toJSON)
         }
     }
 
@@ -93,7 +93,7 @@ export class InputPage implements Page, GenericItem {
         this.input = "";
     }
 
-    toJson() {
+  toJSON() {
         return {
             title: this.title,
             input: this.input,

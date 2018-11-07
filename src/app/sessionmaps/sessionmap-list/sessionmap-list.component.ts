@@ -25,7 +25,7 @@ export class SessionmapListComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
-      sesmaps => (this._sesmaps = sesmaps),
+      sesmaps => {this._sesmaps = sesmaps;},
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
@@ -64,6 +64,7 @@ export class SessionmapListComponent implements OnInit {
                 }: ${error.error}`;
             }
           );
+          this._sesmaps.push(sesmap);
         } else {
           sesmap.titleCourse = result;
           this.sessionmapDataService.wijzigSessionMap(sesmap).subscribe(

@@ -101,11 +101,11 @@ export class Exercise extends GenericCollection implements GenericItem {
         return ex
     }
 
-    toJson() {
+  toJSON() {
         return {
             _id: this._id,
             title: this._title,
-            pages: this.items.map(page => page.toJson())
+            pages: this.items.map(page => page.toJSON())
         };
     }
 }

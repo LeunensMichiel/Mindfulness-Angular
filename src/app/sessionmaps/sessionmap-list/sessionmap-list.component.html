@@ -11,8 +11,8 @@
       <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]">
         <mat-icon mat-list-icon>folder</mat-icon>
         <h4>{{sesmap.titleCourse}}</h4>
-        <div class="aligneren">
 
+        <div class="aligneren">
         <button mat-icon-button (click)="onAdd(sesmap, false)">
           <mat-icon>edit</mat-icon>
         </button>

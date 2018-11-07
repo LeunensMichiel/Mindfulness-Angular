@@ -8,24 +8,26 @@ import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
 import { SessieResolver } from '../sessie/sessie-resolver';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'oefening-list', pathMatch: 'full' },
+  { path: '', redirectTo: 'course-list', pathMatch: 'full' },
   {
     path: 'course-list', component: SessionmapListComponent, children: [
       { path: 'course-list/:courseID', component: SessionmapDetailComponent, resolve: { sesmap: Sessionmapresolver } }
-    ]
+    ],
+    //zodat sessies van sesmaps telkens herladen
+    runGuardsAndResolvers: 'paramsChange'
   },
   {
     path: 'sessie-list', component: SessieLijstComponent, children: [
       { path: 'sessie-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } }
     ]
   },
-  { path: 'oefening-list', component: OefeninglijstComponent },
+  { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}) //same
   ],
   declarations: [],
   exports: [
