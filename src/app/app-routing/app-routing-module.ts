@@ -22,12 +22,13 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
+  { path: 'oefening-list', component: OefeninglijstComponent }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}) //same
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }) //same
   ],
   declarations: [],
   exports: [

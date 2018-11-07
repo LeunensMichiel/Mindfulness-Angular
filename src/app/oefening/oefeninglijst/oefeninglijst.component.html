@@ -9,7 +9,7 @@
   </button> -->
   <div *ngFor='let oefdetail of oefeningen; let i = index'>
     <app-oefening-detail [@shrinkOut]='i' [excersice]='oefdetail' (delOef)='removeOefening($event)' [_position]='i'
-      (newOef)='addOef($event)' (enableDragView)='dragging = $event' (addParagraphCmd)='onNewParCommand($event)' class="kid">
+      (newOef)='addOef($event)' class="kid">
     </app-oefening-detail>
 
   </div>

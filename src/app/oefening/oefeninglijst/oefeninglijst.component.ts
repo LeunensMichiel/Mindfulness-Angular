@@ -117,7 +117,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
     updates the current session in the database when the command timer has expired
   */
   saveItem() {
-    this._sessieDataService.updateSessie(this._sessie).subscribe(
+    this._sessieDataService.editSession(this._sessie).subscribe(
       () => {
         this.snackBar.open("Oefening successfully added!");
       },
