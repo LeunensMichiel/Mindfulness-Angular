@@ -10,7 +10,7 @@ import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.c
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
-import { SessieLijstComponent, RemoveSessieDialog } from './sessie/sessie-lijst/sessie-lijst.component';
+import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +31,7 @@ import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-p
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
+import {SessieResolver} from './sessie/sessie-resolver';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
     AudioPaginaCreatieComponent,
     InputPaginaCreatieComponent,
     TekstPaginaCreatieComponent,
-    ParagraafCreatieComponent
+    ParagraafCreatieComponent,
+    SessieModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -81,8 +83,8 @@ import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevo
     ScrollDispatchModule,
     MatInputModule
   ],
-  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver],
+  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
 })
 export class AppModule { }

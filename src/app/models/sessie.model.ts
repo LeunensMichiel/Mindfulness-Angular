@@ -10,7 +10,7 @@ export class Sessie extends GenericCollection implements GenericItem {
 
   // private _categorie: Categorie;
 
-  constructor(title?: string, position?: number) {
+  constructor(title?: string, position?: number, private _sesmapID? : string) {
     super();
     this._title = title || "";
     this._position = position || 0;
@@ -56,7 +56,7 @@ export class Sessie extends GenericCollection implements GenericItem {
    * @return {number}
    */
   public get position(): number {
-    return this.position;
+    return this._position;
   }
 
   /**
@@ -64,9 +64,15 @@ export class Sessie extends GenericCollection implements GenericItem {
    * @param {number} value
    */
   public set position(pos: number) {
-    this.position = pos;
+    this._position = pos;
   }
 
+  public get sesmapID() : string {
+    return this._sesmapID;
+  }
+  public set sesmapID(id: string) {
+    this._sesmapID = id;
+  }
   /**
    * Getter admin
    * @return {string}
@@ -91,6 +97,7 @@ export class Sessie extends GenericCollection implements GenericItem {
         var oef = new Exercise();
         return oef.fromJson(it);
       });
+      ses._sesmapID = json.sessionmap_id;
     }
 
     ses._id = json._id;
@@ -102,7 +109,8 @@ export class Sessie extends GenericCollection implements GenericItem {
       _id: this._id,
       title: this._title,
       position: this._position,
-      items: this.items.map(oef => oef.toJSON())
+      items: this.items.map(oef => oef.toJSON()),
+      sessionmap_id: this._sesmapID
     };
   }
 }

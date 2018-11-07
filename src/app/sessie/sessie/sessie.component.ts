@@ -12,6 +12,7 @@ export class SessieComponent implements OnInit {
 
   @Input() public sessie: Sessie;
   @Output() public deleteSessie = new EventEmitter<Sessie>();
+  @Output() public modifySessie = new EventEmitter<Sessie>();
   public showIcons: Boolean = false;
 
   constructor(private _sessieDataService: SessieDataService) { }
@@ -21,6 +22,10 @@ export class SessieComponent implements OnInit {
 
   removeSessie() {
     this.deleteSessie.emit(this.sessie);
+  }
+
+  editSessie() {
+    this.modifySessie.emit(this.sessie);
   }
 
   addOefening(ex: Exercise) {

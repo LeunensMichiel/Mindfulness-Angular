@@ -11,15 +11,15 @@ import {Sessionmap} from '../models/sessionmap.model';
 export class SessieDataService {
 
   private readonly _appUrl = '/API';
-  private _sessies: Sessie[] = new Array();
+  // private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {
     // this._sessies.push(new Sessie("Sessie 1", 1));
   }
 
-  get sessies(): Observable<any[]> {
+  sessies(id: string): Observable<Sessie[]> {
     return this.http
-      .get(`${this._appUrl}/sessions`)
+      .get(`${this._appUrl}/sessions/${id}`)
       .pipe(map((list: any[]): Sessie[] =>
         list.map(it => {
         var ses = new Sessie();
@@ -29,7 +29,7 @@ export class SessieDataService {
 
   addNewSessie(ses: Sessie): Observable<Sessie> {
     return this.http
-      .post(`/API/sessionmaps`, ses)
+      .post(`${this._appUrl}/session`, ses)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);
@@ -38,7 +38,7 @@ export class SessieDataService {
 
   removeSessie(ses: Sessie): Observable<Sessie> {
     return this.http
-      .delete(`${this._appUrl}/sesies/${ses.id}`)
+      .delete(`${this._appUrl}/session/${ses.id}`)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);
@@ -51,26 +51,19 @@ export class SessieDataService {
   // }
   getSessie(id: string): Observable<Sessie> {
     return this.http
-      .get(`${this._appUrl}/sessie/${id}`)
+      .get(`${this._appUrl}/session/${id}`)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);
       }));
   }
 
-  // get sessies(): Sessie[] {
-  //   return this._sessies;
-  // }
-
-  // addNewSessie(ses: Sessie): void {
-  //   this._sessies.push(ses);
-  // }
-
-  // removeSessie(ses: Sessie): void {
-  //   this._sessies.splice(this._sessies.indexOf(ses), 1);
-  // }
-
-  // addOefToSessie(oef: Exercise, ses: Sessie) {
-  //   ses.addItem(ses.items.length, oef);
-  // }
+  editSession(sessie: Sessie): Observable<Sessie> {
+    return this.http
+      .put(`${this._appUrl}/session/${sessie.id}`, sessie)
+      .pipe(map(it => {
+        var sMap = new Sessie();
+        return sMap.fromJson(it);
+      }));
+  }
 }
