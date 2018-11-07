@@ -51,7 +51,7 @@ export class SessieDataService {
   // }
   getSessie(id: string): Observable<Sessie> {
     return this.http
-      .get(`${this._appUrl}/sessie/${id}`)
+      .get(`${this._appUrl}/session/${id}`)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);

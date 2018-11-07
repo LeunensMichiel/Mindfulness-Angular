@@ -21,7 +21,7 @@ const appRoutes: Routes = [
       { path: 'sessie-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } }
     ]
   },
-  { path: 'oefening-list', component: OefeninglijstComponent },
+  { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 
