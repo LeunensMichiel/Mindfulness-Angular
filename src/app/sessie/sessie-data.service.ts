@@ -29,7 +29,7 @@ export class SessieDataService {
 
   addNewSessie(ses: Sessie): Observable<Sessie> {
     return this.http
-      .post(`/API/sessionmaps`, ses)
+      .post(`${this._appUrl}/session`, ses)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);
@@ -38,7 +38,7 @@ export class SessieDataService {
 
   removeSessie(ses: Sessie): Observable<Sessie> {
     return this.http
-      .delete(`${this._appUrl}/sesies/${ses.id}`)
+      .delete(`${this._appUrl}/session/${ses.id}`)
       .pipe(map(it => {
         var ses = new Sessie();
         return ses.fromJson(it);
@@ -58,19 +58,4 @@ export class SessieDataService {
       }));
   }
 
-  // get sessies(): Sessie[] {
-  //   return this._sessies;
-  // }
-
-  // addNewSessie(ses: Sessie): void {
-  //   this._sessies.push(ses);
-  // }
-
-  // removeSessie(ses: Sessie): void {
-  //   this._sessies.splice(this._sessies.indexOf(ses), 1);
-  // }
-
-  // addOefToSessie(oef: Exercise, ses: Sessie) {
-  //   ses.addItem(ses.items.length, oef);
-  // }
 }

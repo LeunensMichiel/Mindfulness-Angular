@@ -59,18 +59,17 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       data => {
         if (data) {
-          // this._sessieDataService.removeSessie(sessie).subscribe(
-          //   () => {
-          //     this.snackBar.open("Sessie successfully removed!");
-          //   },
-          //   (error: HttpErrorResponse) => {
-          //     this.snackBar.open(`Error ${error.status} while removing sessie: ${error.error}`, "",
-          // {
-          //   duration: 3000,
-          // });
-          //   }
-          // );
-          this._sessieDataService.removeSessie(sessie);
+          this._sessieDataService.removeSessie(sessie).subscribe(
+            item => {this._sessies = this._sessies.filter(val => item.id !== val.id)},
+            (error: HttpErrorResponse) => {
+              this.snackBar.open(`Error ${error.status} while removing courses for ${
+                  sessie.title
+                  }: ${error.error}`, "",
+                {
+                  duration: 3000,
+                });
+            }
+          );
           this.snackBar.open("Sessie " + sessie.position + " removed!", "",
             {
               duration: 3000,
@@ -81,6 +80,10 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
 
   get sessies() {
     return this._sessies;
+  }
+
+  get sesMapID() {
+    return this.sesmapid;
   }
 
   ngOnDestroy(): void {

@@ -31,6 +31,7 @@ export class SessieErrorStateMatcher implements ErrorStateMatcher {
 export class SessieToevoegenComponent implements OnInit {
   @Output() public disable = new EventEmitter();
   @Input() public aantal: number;
+  @Input() sesMapid: string;
   public newSes: FormGroup;
   public matcher = new SessieErrorStateMatcher();
 
@@ -46,7 +47,7 @@ export class SessieToevoegenComponent implements OnInit {
   }
 
   addSessie() {
-    let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number);
+    let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number, this.sesMapid);
     if (this.newSes.valid) {
       this._sessieDataService.addNewSessie(sessie).subscribe(
         () => {
