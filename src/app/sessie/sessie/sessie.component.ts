@@ -10,11 +10,14 @@ import { SessieDataService } from '../sessie-data.service';
 })
 export class SessieComponent implements OnInit {
   @Input() public sessie: Sessie;
+  @Input() public url: string;
   @Output() public deleteSessie = new EventEmitter<Sessie>();
   @Output() public modifySessie = new EventEmitter<Sessie>();
-  public showIcons: Boolean = false;
 
-  constructor(private _sessieDataService: SessieDataService) { }
+  constructor(private _sessieDataService: SessieDataService) {
+    var random =  Math.floor(Math.random() * (14 - 1) + 1);
+    this.url = `/src/assets/images/sessie-${random}.jpg`;
+  }
 
   ngOnInit() {
   }

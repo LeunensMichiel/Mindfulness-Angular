@@ -39,6 +39,7 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
 
   }
 
+
   private dataophalen() {
     this.route.params.subscribe(params => {
       this.sesmapid = params['courseID'];

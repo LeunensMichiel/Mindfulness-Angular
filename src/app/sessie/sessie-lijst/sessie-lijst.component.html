@@ -1,12 +1,12 @@
 
-<mat-grid-list class="sessie-grid" cols="4" >
+<mat-grid-list  cols="3" >
   <mat-grid-tile *ngFor='let localSessie of sessies'>
-    <app-sessie class="sessie" [sessie]='localSessie' (deleteSessie)="removeSessie($event)" (modifySessie)="editSessie($event)"></app-sessie>
+    <app-sessie [sessie]='localSessie' (deleteSessie)="removeSessie($event)" (modifySessie)="editSessie($event)"></app-sessie>
   </mat-grid-tile>
   <mat-grid-tile *ngIf='!creating'>
-    <button class="button" mat-fab color="accent" (click)='creating = !creating'>
-      <h2>+</h2>
-    </button>
+    <div class="float hvr-grow" ><button class="button btn-float" mat-fab color="accent" (click)='creating = !creating'>
+      <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+    </button></div>
   </mat-grid-tile>
   <mat-grid-tile *ngIf='creating'>
     <app-sessie-toevoegen (disable)='creating = !creating' [aantal]='sessies.length' [sesMapid]="sesMapID"></app-sessie-toevoegen>
