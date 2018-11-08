@@ -68,7 +68,6 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
           });
       }
     );
-    this._sessie = new Sessie();
   }
 
   onAdd(ex: Exercise, isCreatie: boolean) {

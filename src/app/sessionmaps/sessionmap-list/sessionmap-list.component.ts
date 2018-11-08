@@ -9,7 +9,7 @@ export interface DialogCourseData {
   lesnaam: string;
   isCreatie: boolean;
 }
-
+  
 @Component({
   selector: 'app-sessionmap-list',
   templateUrl: './sessionmap-list.component.html',

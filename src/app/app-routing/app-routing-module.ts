@@ -23,7 +23,6 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
-  { path: 'oefening-list', component: OefeninglijstComponent },
   { path: 'pagina-list/:oefID', component: PaginaCreatieLijstComponent }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
