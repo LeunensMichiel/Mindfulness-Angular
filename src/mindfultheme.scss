@@ -1,0 +1,75 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mind-app-primary: mat-palette($mat-teal, 200, 100, 400);
+$mind-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+$yellow: #F6F1E4;
+
+$mindfulness-app-theme: mat-light-theme($mind-app-primary, $mind-app-accent);
+
+@function my-mat-light-theme-foreground($color) {
+  @return (
+    base:              black,
+    divider:           $dark-dividers,
+    dividers:          $dark-dividers,
+    disabled:          $dark-disabled-text,
+    disabled-button:   rgba(black, 0.26),
+    disabled-text:     $dark-disabled-text,
+    hint-text:         $dark-disabled-text,
+    secondary-text:    $dark-secondary-text,
+    icon:              rgba(black, 0.54),
+    icons:             rgba(black, 0.54),
+    text:              rgba(black, 0.63),
+    slider-min:        rgba(black, 0.87),
+    slider-off:        rgba(black, 0.26),
+    slider-off-active: rgba(black, 0.38),
+  );
+}
+@function  my-mat-light-theme-background($color) {
+  @return (
+    status-bar: map_get($mat-grey, 300),
+    app-bar:    map_get($mat-grey, 100),
+    background: $yellow,
+    hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+    card:       white,
+    dialog:     white,
+    disabled-button: rgba(black, 0.12),
+    raised-button: white,
+    focused-button: $dark-focused,
+    selected-button: map_get($mat-grey, 300),
+    selected-disabled-button: map_get($mat-grey, 400),
+    disabled-button-toggle: map_get($mat-grey, 200),
+    unselected-chip: map_get($mat-grey, 300),
+    disabled-list-option: map_get($mat-grey, 200),
+  );
+}
+  $my-foreground: my-mat-light-theme-foreground(mat-color($mat-grey, 100));
+  $my-background: my-mat-light-theme-background(mat-color($mat-grey, 100));
+  $mindfulness-app-theme-custom: map-merge($mindfulness-app-theme, (foreground: $my-foreground, background: $my-background));
+
+@include angular-material-theme($mindfulness-app-theme-custom);
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  background-color: $yellow;
+}
+
+h1 {
+  font-size: 5rem;
+  letter-spacing: 5px;
+  margin: 0;
+  padding: 1em 0 1em 0;
+  font-weight: 700;
+}
+
+.titel {
+  text-align: center;
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, $yellow, mat-color($mind-app-primary));  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, $yellow, mat-color($mind-app-primary)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #ffffff;
+}
+.mat-toolbar.mat-primary {
+  color: rgba(#ffffff, 0.87);
+}
