@@ -60,7 +60,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
       this._sesid = params['sessieID'];
     });
     this._sessieDataService.getSessie(this._sesid).subscribe(
-      sessie => { (this._sessie = sessie), console.log(sessie) },
+      sessie => { (this._sessie = sessie) },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting exercises: ${error.error}`, '',
           {
@@ -71,6 +71,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   }
 
   onAdd(ex: Exercise, isCreatie: boolean) {
+    console.log(this._sessie.items);
     const addExDialogRef = this.dialog.open(OefeningCreatieComponent, {
       height: '400px',
       width: '500px',

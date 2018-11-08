@@ -1,4 +1,7 @@
 <div class="container" (keydown)="onKeydown($event)" tabindex="0">
+  <div class="titel">
+    <h1>OVERZICHT {{_sessie.title.toUpperCase()}}</h1>
+  </div>
   <button mat-fab class="undo" (click)="undo()">
     <i class="material-icons">
       undo
@@ -7,7 +10,7 @@
   <app-oefening-detail *ngFor='let oefdetail of _sessie.items; let i = index' [@shrinkOut]='i' [excersice]='oefdetail'
     (delOef)='removeOefening($event)' [_position]='i' (wijzig)='onAdd($event, false)' class="kid">
   </app-oefening-detail>
-  <mat-card class="kid">
+  <mat-card *ngIf='_sessie' class="kid">
     <button mat-fab (click)='onAdd(null, true)'>
       <i class="material-icons">
         add

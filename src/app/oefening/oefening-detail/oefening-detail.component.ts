@@ -21,6 +21,7 @@ export class OefeningDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.excersice.id);
   }
 
   ngOnChange(changes: SimpleChanges) {
