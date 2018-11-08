@@ -85,6 +85,6 @@ import {SessieResolver} from './sessie/sessie-resolver';
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent]
 })
 export class AppModule { }
