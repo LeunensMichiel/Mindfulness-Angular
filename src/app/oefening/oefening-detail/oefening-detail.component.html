@@ -5,7 +5,7 @@
     </button>
     <mat-card *ngIf='dropdownVisible' (mouseleave)='dropdownVisible = false' class="dropdown-content">
       <mat-nav-list>
-        <a [routerLink]='["/pagina-lijst", "excersice.id"]'>
+        <a [routerLink]='["page-list", excersice.id]'>
           <mat-list-item> Wijzigen </mat-list-item>
         </a>
         <mat-list-item (click)='removeOefening()'> Verwijderen</mat-list-item>
