@@ -8,6 +8,7 @@
         <a [routerLink]='["page-list", excersice.id]'>
           <mat-list-item> Wijzigen </mat-list-item>
         </a>
+        <mat-list-item (click)='wijzigen()'> Wijzigen</mat-list-item>
         <mat-list-item (click)='removeOefening()'> Verwijderen</mat-list-item>
       </mat-nav-list>
     </mat-card>

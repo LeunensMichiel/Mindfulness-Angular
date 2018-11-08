@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogCourseData} from '../sessionmap-list/sessionmap-list.component';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogCourseData } from '../sessionmap-list/sessionmap-list.component';
 
 @Component({
   selector: 'app-sessionmap-creatie',
@@ -11,7 +11,7 @@ export class SessionmapCreatieComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SessionmapCreatieComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogCourseData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogCourseData) { }
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -87,6 +87,6 @@ import { PageResolver } from './pagina/page-resolver';
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent]
 })
 export class AppModule { }
