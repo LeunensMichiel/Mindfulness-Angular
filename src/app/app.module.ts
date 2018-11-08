@@ -32,6 +32,8 @@ import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-p
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessieResolver} from './sessie/sessie-resolver';
+import { PageDataService } from './pagina/page-data.service';
+import { PageResolver } from './pagina/page-resolver';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,7 @@ import {SessieResolver} from './sessie/sessie-resolver';
     ScrollDispatchModule,
     MatInputModule
   ],
-  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver],
+  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
   bootstrap: [AppComponent],
   entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
 })

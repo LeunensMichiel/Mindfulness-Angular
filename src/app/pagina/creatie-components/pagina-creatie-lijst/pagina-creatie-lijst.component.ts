@@ -15,6 +15,8 @@ import { Insert } from 'src/app/models/Commands/insert.model';
 import { Update } from 'src/app/models/Commands/update.model';
 import { Switch } from 'src/app/models/Commands/switch.model';
 import { CmdImplementation } from 'src/app/models/Commands/commandImplementation.model';
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-pagina-creatie-lijst',
   templateUrl: './pagina-creatie-lijst.component.html',
@@ -35,12 +37,18 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * of draggingView gebruiken.
    */
   private exercise: Exercise = new Exercise();
-  constructor(public snackBar: MatSnackBar) {
+  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar) {
     super();
   }
 
   ngOnInit() {
     this.exercise = new Exercise();
+    this._route.data.subscribe(
+      item => (this.exercise = item["exercise"]),
+      (error:HttpErrorResponse) => {
+        this.openSnackbar(`Error ${error.status} while getting exercise: ${error.error}`)
+      }
+    )
   }
 
   /**
