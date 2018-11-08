@@ -11,7 +11,7 @@ export class Sessionmap extends GenericCollection implements GenericItem{
   constructor(titleCourse?: string) {
     super();
     this._titleCourse = titleCourse || "";
-    this.items = [new Sessie()];
+    this.items = new Array();
   }
 
   /**

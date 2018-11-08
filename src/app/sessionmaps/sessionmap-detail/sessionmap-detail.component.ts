@@ -10,7 +10,7 @@ import { SessionmapDataService } from '../sessionmap-data.service';
 })
 export class SessionmapDetailComponent implements OnInit {
 
-  @Input() _sesmap: Sessionmap;
+  @Input() public _sesmap: Sessionmap;
 
   constructor(private route: ActivatedRoute) { }
 

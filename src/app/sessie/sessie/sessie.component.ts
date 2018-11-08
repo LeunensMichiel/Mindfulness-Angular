@@ -9,7 +9,6 @@ import { SessieDataService } from '../sessie-data.service';
   styleUrls: ['./sessie.component.css']
 })
 export class SessieComponent implements OnInit {
-
   @Input() public sessie: Sessie;
   @Output() public deleteSessie = new EventEmitter<Sessie>();
   @Output() public modifySessie = new EventEmitter<Sessie>();

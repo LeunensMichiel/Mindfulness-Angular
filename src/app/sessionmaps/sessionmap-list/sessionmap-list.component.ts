@@ -32,6 +32,7 @@ export class SessionmapListComponent implements OnInit {
           } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
+    this._sesmaps = new Array();
   }
 
   get sesmaps() {

@@ -14,11 +14,31 @@ import { CmdImplementation } from '../../models/Commands/commandImplementation.m
 import { Cmd } from 'src/app/models/Commands/command.model';
 import { Insert } from 'src/app/models/Commands/insert.model';
 import { GenericItem } from '../../models/GenericCollection.model';
+import { SessieDataService } from '../../sessie/sessie-data.service';
+import { Delete } from "src/app/models/Commands/delete.model";
+import { InputPage, TextPage, AudioPage } from '../../models/page.model';
+import { Paragraph } from '../../models/paragraph.model';
+import {
+  trigger,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: "app-oefeninglijst",
   templateUrl: "./oefeninglijst.component.html",
-  styleUrls: ["./oefeninglijst.component.css"]
+  styleUrls: ["./oefeninglijst.component.css"],
+  animations: [
+    trigger('shrinkOut', [
+      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
+      transition(':decrement', [style({ transform: 'translateX(100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))]),
+      transition(':enter', [style({ width: 0, opacity: 0, overflow: 'hidden' }), animate('500ms ease-out', style({ width: '*', opacity: 1 }))]),
+      transition(':leave', [style({ width: '*', opacity: 1, overflow: 'hidden' }), animate('500ms ease-out', style({ width: 0, opacity: 0 }))])
+    ])
+  ]
 })
 export class OefeninglijstComponent extends CmdImplementation implements OnInit {
   // inputPage: InputPage = new InputPage();
@@ -28,8 +48,9 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   // par: Paragraph = new Paragraph();
   // imgPar: Paragraph = new Paragraph();
   private _sessie: Sessie;
+  private _sesid: string;
 
-  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private _route: ActivatedRoute, public snackBar: MatSnackBar, private _sessieDataService: SessieDataService) {
     super();
   }
 
@@ -65,14 +86,17 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
     //   this.textPage,
     //   this.audioPage
     // ]
-    // this._oefeningen = [
-    //   this.excersice
-    // ]
+    // this.excersice.title = "title";
+    // this._sessie = new Sessie("title", 0);
+    // this._sessie.addItem(0, this.excersice);
 
-    this._route.data.subscribe(
-      item => (this._sessie = item['sessie']),
+    this._route.params.subscribe(params => {
+      this._sesid = params['sessieID'];
+    });
+    this._sessieDataService.getSessie(this._sesid).subscribe(
+      sessie => (this._sessie = sessie),
       (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while getting exercise: ${error.error}`, "",
+        this.snackBar.open(`Error ${error.status} while getting exercises: ${error.error}`, '',
           {
             duration: 3000,
           });
@@ -80,16 +104,82 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
     );
   }
 
-  addOefening(oef: Exercise) {
+  /*
+     
+  */
+  addOefening() {
+    let oef = new Exercise();
     oef.position = this._sessie.items.length;
     this.addCommand(new Insert([this._sessie], [oef]));
+  }
+
+  removeOefening(oef: Exercise) {
+    // dialoogvenster openen en inner class gebruiken (toont niet)
+    // const dialogRef = this.dialog.open(RemoveExerciseDialog, {
+    //   width: '250px'
+    // });
+
+    // dialogRef.afterClosed().subscribe(
+    //   data => {
+    //     if (data) {
+    //       this.addCommand(new Delete([this._sessie], [oef]));
+    //       this.snackBar.open("Exercise " + oef.title + " removed!", "",
+    //         {
+    //           duration: 3000,
+    //         });
+    //     }
+    //   });
+    this.addCommand(new Delete([this._sessie], [oef]));
+    this.snackBar.open("Exercise " + oef.title + " removed!", "",
+      {
+        duration: 3000,
+      });
   }
 
   get oefeningen(): GenericItem[] {
     return this._sessie.items;
   }
 
+  /*
+    updates the current session in the database when the command timer has expired
+  */
   saveItem() {
+    this._sessieDataService.editSession(this._sessie).subscribe(
+      () => {
+        this.snackBar.open("Oefening successfully added!");
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} while saving session: ${error.error}`, "", {
+          duration: 3000,
+        });
+      }
+    );
+  }
 
+  /*
+    remove last action from the command cache
+  */
+  undo() {
+    this.undoCurrentCommand();
+  }
+}
+
+/*
+  Extra klasse voor remove oefening dialoogvenster met zijn eigen html code
+*/
+@Component({
+  selector: 'dialog-remove-exercise',
+  templateUrl: 'dialog-remove-exercise.html',
+})
+export class RemoveExerciseDialog {
+
+  constructor(public dialogRef: MatDialogRef<RemoveExerciseDialog>) { }
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+
+  onYesClick(): void {
+    this.dialogRef.close(true);
   }
 }

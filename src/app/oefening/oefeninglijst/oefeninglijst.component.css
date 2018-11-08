@@ -1,0 +1,39 @@
+.container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.container > .kid {
+    display: inline-block;
+    margin: 5% 5%;
+}  
+
+[tabindex] {
+    outline: none;
+  }
+
+.inputField {
+    display: inline-block;
+    max-width: 56px;
+    max-height: 500px;
+    padding: 0%;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    margin-bottom: 40vh;
+    margin-top: 40vh;
+}
+
+.container > * {
+    vertical-align: middle;
+}
+
+.segment {
+    width: 40vw;
+    border-radius: 0%;
+    margin: 5%;
+}
+
+.undo {
+    position: absolute;
+    right: 0;
+    margin: 5px; 
+}

@@ -85,7 +85,7 @@ export class Exercise extends GenericCollection implements GenericItem {
         return false;
     }
 
-    fromJson(json: any) {
+    fromJson(json: any): Exercise {
         const ex = new Exercise();
         ex._title = json.title;
         ex.position = json.position;

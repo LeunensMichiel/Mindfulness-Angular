@@ -1,21 +1,19 @@
 import { Exercise } from "./exercise.model";
 import { GenericCollection, GenericItem } from "./GenericCollection.model";
-import {Paragraph} from './paragraph.model';
+import { Paragraph } from './paragraph.model';
 
 export class Sessie extends GenericCollection implements GenericItem {
   private _id: string;
   private _title: string;
   private _admin: string;
   private _position: number;
-
   // private _categorie: Categorie;
 
-  constructor(title?: string, position?: number, private _sesmapID? : string) {
+  constructor(title?: string, position?: number, private _sesmapID?: string) {
     super();
     this._title = title || "";
+    this.items = new Array();
     this._position = position || 0;
-    this.items = [new Exercise()];
-    this.items[0].position = 0;
     // this._categorie = categorie;*/
   }
 
@@ -47,8 +45,8 @@ export class Sessie extends GenericCollection implements GenericItem {
    * Setter title
    * @param {string} value
    */
-  public set title(_title: string) {
-    this._title = _title;
+  public set title(title: string) {
+    this._title = title;
   }
 
   /**
@@ -67,7 +65,7 @@ export class Sessie extends GenericCollection implements GenericItem {
     this._position = pos;
   }
 
-  public get sesmapID() : string {
+  public get sesmapID(): string {
     return this._sesmapID;
   }
   public set sesmapID(id: string) {
@@ -92,7 +90,7 @@ export class Sessie extends GenericCollection implements GenericItem {
     const ses = new Sessie();
     ses._title = json.title;
     ses._position = json.position;
-    if (json.hasOwnProperty("items")){
+    if (json.hasOwnProperty("items")) {
       ses.items = json.items.map(it => {
         var oef = new Exercise();
         return oef.fromJson(it);
