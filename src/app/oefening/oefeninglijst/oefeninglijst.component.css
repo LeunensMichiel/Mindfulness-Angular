@@ -4,7 +4,7 @@
 }
 .container > .kid {
     display: inline-block;
-    margin: 0 5%;
+    margin: 5% 5%;
 }  
 
 [tabindex] {
@@ -24,4 +24,16 @@
 
 .container > * {
     vertical-align: middle;
+}
+
+.segment {
+    width: 40vw;
+    border-radius: 0%;
+    margin: 5%;
+}
+
+.undo {
+    position: absolute;
+    right: 0;
+    margin: 5px; 
 }

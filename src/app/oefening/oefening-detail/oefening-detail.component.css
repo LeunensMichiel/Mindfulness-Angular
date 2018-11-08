@@ -1,7 +1,7 @@
 .segment {
-    width: 40%;
+    width: 40vw;
     border-radius: 0%;
-    margin: 5% auto;
+    margin: 5%;
 }
 .tabGroup {
     max-height: 75vh;

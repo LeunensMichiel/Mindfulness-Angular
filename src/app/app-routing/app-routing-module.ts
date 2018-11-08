@@ -6,6 +6,7 @@ import { SessionmapListComponent } from '../sessionmaps/sessionmap-list/sessionm
 import { SessionmapDetailComponent } from '../sessionmaps/sessionmap-detail/sessionmap-detail.component';
 import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
 import { SessieResolver } from '../sessie/sessie-resolver';
+import { PaginaCreatieLijstComponent } from '../pagina/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'course-list', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
-  { path: 'oefening-list', component: OefeninglijstComponent }
+  { path: 'oefening-list', component: OefeninglijstComponent },
+  { path: 'pagina-list/:oefID', component: PaginaCreatieLijstComponent }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 

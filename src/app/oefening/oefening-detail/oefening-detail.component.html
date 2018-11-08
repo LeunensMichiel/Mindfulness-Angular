@@ -5,15 +5,15 @@
     </button>
     <mat-card *ngIf='dropdownVisible' (mouseleave)='dropdownVisible = false' class="dropdown-content">
       <mat-nav-list>
-        <a [routerLink]='["", ""]'>
+        <a [routerLink]='["/pagina-lijst", "excersice.id"]'>
           <mat-list-item> Wijzigen </mat-list-item>
         </a>
-        <mat-list-item (click)='removeOefening()'> Verwijderen </mat-list-item>
+        <mat-list-item (click)='removeOefening()'> Verwijderen</mat-list-item>
       </mat-nav-list>
     </mat-card>
   </div>
   <mat-card-header>
-    <div class="cardTitle">Oefening 1</div>
+    <div class="cardTitle">{{excersice.title}}</div>
   </mat-card-header>
   <mat-divider [inset]='true' class="divider"></mat-divider>
   <mat-card-content class="content">
