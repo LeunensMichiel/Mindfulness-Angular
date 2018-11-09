@@ -166,8 +166,13 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   changePos() {
     throw new Error("Method not implemented.");
   }
-  update() {
-    throw new Error("Method not implemented.");
+  update(cmd:Cmd) {
+    console.log(this.filterJson(cmd.param[0]));
+    this.pageDataService.updatePage(this.filterJson(cmd.param[0]))
+      .subscribe(
+        succes => console.log(succes),
+        error => console.log(error)
+      )
   }
 
   filterJson(json: any) {

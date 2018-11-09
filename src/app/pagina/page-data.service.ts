@@ -39,6 +39,16 @@ export class PageDataService {
         console.log(it);
       }));
   }
+
+  updatePage(page:Page){
+    return this.http
+      .put(`${this._appUrl}/page/${page._id}`, page)
+      .pipe(map(
+        it => {
+          return this.filterJson(it);
+        }
+      ))
+  }
   
   filterJson(json: any) {
     if ("items" in json) {

@@ -22,6 +22,9 @@ export abstract class CmdImplementation {
             case "DELETE":
                 this.removeItem(cmd);
                 break;
+            case "UPDATE":
+                this.update(cmd);
+                break;
         }
         this.executeCurrentCommand();
     }

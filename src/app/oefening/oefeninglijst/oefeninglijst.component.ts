@@ -167,16 +167,16 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
     this.undoCurrentCommand();
   }
   addItem() {
-    throw new Error("Method not implemented.");
+    console.log("ADD_ITEM");
   }
   removeItem() {
-    throw new Error("Method not implemented.");
+    console.log("REMOVE_ITEM");
   }
   changePos() {
-    throw new Error("Method not implemented.");
+    console.log("CHANGE_POSITION");
   }
   update() {
-    throw new Error("Method not implemented.");
+    console.log("UPDATE_ITEM");
   }
 }
 
