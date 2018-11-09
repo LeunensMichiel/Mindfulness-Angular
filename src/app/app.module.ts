@@ -20,7 +20,7 @@ import {
 } from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
-import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
+import {OefeninglijstComponent, RemoveExerciseDialog} from './oefening/oefeninglijst/oefeninglijst.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
@@ -74,7 +74,8 @@ import {NgsRevealModule} from 'ngx-scrollreveal';
     InputPaginaCreatieComponent,
     TekstPaginaCreatieComponent,
     ParagraafCreatieComponent,
-    SessieModifyComponent
+    SessieModifyComponent,
+    RemoveExerciseDialog
   ],
   imports: [
     BrowserModule,
@@ -106,6 +107,6 @@ import {NgsRevealModule} from 'ngx-scrollreveal';
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent, RemoveExerciseDialog]
 })
 export class AppModule { }

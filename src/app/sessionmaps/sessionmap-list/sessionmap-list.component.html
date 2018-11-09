@@ -8,9 +8,9 @@
         </button>
     </mat-toolbar>
     <mat-list>
-      <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]" class="hvr-sweep-to-right">
+      <a mat-list-item matRipple *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]" class="hvr-sweep-to-right" >
         <mat-icon mat-list-icon>folder</mat-icon>
-        <h4 class="sessionmap">{{sesmap.titleCourse}}</h4>
+        <h4 class="sessionmap" >{{sesmap.titleCourse}}</h4>
 
         <div class="aligneren">
         <button mat-icon-button (click)="onAdd(sesmap, false)" class="hvr-grow">
