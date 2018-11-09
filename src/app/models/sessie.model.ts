@@ -88,6 +88,7 @@ export class Sessie extends GenericCollection implements GenericItem {
   }
   fromJson(json: any) {
     const ses = new Sessie();
+    console.log(json);
     ses._title = json.title;
     ses._position = json.position;
     if (json.hasOwnProperty("items")) {
@@ -95,9 +96,8 @@ export class Sessie extends GenericCollection implements GenericItem {
         var oef = new Exercise();
         return oef.fromJson(it);
       });
-      ses._sesmapID = json.sessionmap_id;
     }
-
+    ses._sesmapID = json.sessionmap_id;
     ses._id = json._id;
     return ses;
   }

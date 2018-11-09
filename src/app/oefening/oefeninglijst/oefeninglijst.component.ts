@@ -50,17 +50,25 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   private _sessie: Sessie;
   private _sesid: string;
   private _naam: string;
+  public items: Exercise[];
 
   constructor(public dialog: MatDialog, private _route: ActivatedRoute, public snackBar: MatSnackBar, private _sessieDataService: SessieDataService) {
     super();
   }
 
   ngOnInit() {
+    this._sessie = new Sessie();
     this._route.params.subscribe(params => {
       this._sesid = params['sessieID'];
     });
+    console.log(this._sesid);
     this._sessieDataService.getSessie(this._sesid).subscribe(
-      sessie => { (this._sessie = sessie), console.log(sessie) },
+      sessie => {
+        console.log(sessie);
+        (this._sessie = sessie);
+
+        console.log("CHECK");
+      },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting exercises: ${error.error}`, '',
           {
@@ -68,10 +76,20 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
           });
       }
     );
-    this._sessie = new Sessie();
+    this._sessieDataService.getSessieExercises(this._sesid).subscribe(
+      exercises => {
+        this._sessie.items = exercises;
+      },
+      (error) => {
+        console.log("WTF");
+        console.log(error);
+      }
+    );
+    console.log(this._sessie);
   }
 
   onAdd(ex: Exercise, isCreatie: boolean) {
+    console.log(this.items);
     const addExDialogRef = this.dialog.open(OefeningCreatieComponent, {
       height: '400px',
       width: '500px',

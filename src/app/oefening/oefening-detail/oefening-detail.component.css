@@ -1,16 +1,22 @@
 .segment {
-    width: 40vw;
+    min-height: 85vh;
+    min-width: 40vw;
     border-radius: 0%;
-    margin: 5%;
+    float: left;
+    display: block;
+    margin-top: 5%;
+    padding: 0%;
 }
-.tabGroup {
-    max-height: 75vh;
-}
+
 .cardTitle {
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2%;
     font-size: 1.5em;
+}
+
+.content {
+    padding: 3%;
 }
 
 .icon_button {
