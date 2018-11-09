@@ -17,6 +17,7 @@ import { Switch } from 'src/app/models/Commands/switch.model';
 import { CmdImplementation } from 'src/app/models/Commands/commandImplementation.model';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PageDataService } from '../../page-data.service';
 @Component({
   selector: 'app-pagina-creatie-lijst',
   templateUrl: './pagina-creatie-lijst.component.html',
@@ -37,7 +38,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * of draggingView gebruiken.
    */
   private exercise: Exercise = new Exercise();
-  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar) {
+  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar, private pageDataService: PageDataService) {
     super();
   }
 
@@ -45,7 +46,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     this.exercise = new Exercise();
     this._route.data.subscribe(
       item => (this.exercise = item["exercise"]),
-      (error:HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         this.openSnackbar(`Error ${error.status} while getting exercise: ${error.error}`)
       }
     )
@@ -69,6 +70,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
   private addPage(value) {
+    console.log(this.exercise);
     var newPage = null;
     switch (value) {
       case "text":
@@ -128,21 +130,55 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   }
 
   private filterPage(page): Page {
-    if (page.items != undefined) {
-      return new TextPage().fromJson(page);
-    } else if (page.fileUrl != undefined) {
-      return new AudioPage().fromJson(page);
-    } else {
-      return new InputPage().fromJson(page);
+    switch (page.constructor.name) {
+      case "TextPage":
+        return new TextPage().fromJson(page);
+      case "AudioPage":
+        return new AudioPage().fromJson(page);
+      case "InputPage":
+        return new InputPage().fromJson(page);
     }
     return null;
   }
 
-  onNewParCommand(cmd: Cmd){
+  onNewParCommand(cmd: Cmd) {
     this.addCommand(cmd);
   }
 
-  saveItem(){
+  saveItem() {
     console.log("saved");
+  }
+
+  addItem(cmd: Cmd): any {
+    this.pageDataService.addPageToExercise(cmd.inputItems[0]._id, this.filterJson(cmd.param[0]))
+      .subscribe(
+        success => this.exercise.items[success.position]._id = success._id,
+        error => console.log(error)
+      );
+  }
+  removeItem(cmd: Cmd) {
+    this.pageDataService.removePage(this.filterJson(cmd.param[0])._id)
+      .subscribe(
+        success => console.log(success),
+        error => console.log(error)
+      )
+  }
+  changePos() {
+    throw new Error("Method not implemented.");
+  }
+  update() {
+    throw new Error("Method not implemented.");
+  }
+
+  filterJson(json: any) {
+    console.log(json.constructor.name);
+    switch (json.constructor.name) {
+      case "TextPage":
+        return new TextPage().fromJson(json);
+      case "AudioPage":
+        return new AudioPage().fromJson(json);
+      case "InputPage":
+        return new InputPage().fromJson(json);
+    }
   }
 }

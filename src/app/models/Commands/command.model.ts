@@ -7,4 +7,6 @@ export interface Cmd {
     execute():boolean;
 
     undo();
+
+    toString();
 }

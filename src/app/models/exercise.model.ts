@@ -3,7 +3,7 @@ import { GenericCollection, GenericItem } from "./GenericCollection.model";
 import { Paragraph } from "./paragraph.model";
 
 export class Exercise extends GenericCollection implements GenericItem {
-    private _id: string;
+    _id: string;
     private _title: string;
     position: number;
 
@@ -91,13 +91,14 @@ export class Exercise extends GenericCollection implements GenericItem {
         ex.position = json.position;
         if (json.hasOwnProperty("pages")) {
             ex.items = json.pages.map(it => {
-                if (typeof it != 'string' ){
-                    if ("items" in it) {
-                        return new TextPage().fromJson(it);
-                    } else if ("fileUrl" in it) {
-                        return new AudioPage().fromJson(it);
-                    } else {
-                        return new InputPage().fromJson(it);
+                if (typeof it != 'string') {
+                    switch (it.type) {
+                        case "TEXT":
+                            return new TextPage().fromJson(it);
+                        case "AUDIO":
+                            return new AudioPage().fromJson(it);
+                        case "INPUT":
+                            return new InputPage().fromJson(it);
                     }
                 }
             });

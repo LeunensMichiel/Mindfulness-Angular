@@ -10,6 +10,7 @@ export class Insert implements Cmd {
         this.inputItems = inputItems;
         this.param = param;
         this.extraParam = null;
+        console.log(param);
     }
 
     execute(): boolean {
@@ -19,5 +20,9 @@ export class Insert implements Cmd {
         
     undo() {
         this.inputItems[0].deleteItem(this.param[0].position);
+    }
+
+    toString():String{
+        return "INSERT";
     }
 }

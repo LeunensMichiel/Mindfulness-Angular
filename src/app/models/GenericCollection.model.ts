@@ -1,4 +1,5 @@
 export abstract class GenericCollection implements GenericItem {
+    _id:String;
     position: number;
     items: GenericItem[];
 
@@ -41,6 +42,7 @@ export abstract class GenericCollection implements GenericItem {
 }
 
 export abstract class GenericItem {
+    _id:String;
     position: number;
 
     abstract toJSON(): any;

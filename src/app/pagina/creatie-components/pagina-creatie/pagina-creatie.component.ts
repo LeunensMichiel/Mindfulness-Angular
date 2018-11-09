@@ -85,6 +85,7 @@ export class PaginaCreatieComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.page.constructor.name);
   }
 
   //================== METHODES ==================
