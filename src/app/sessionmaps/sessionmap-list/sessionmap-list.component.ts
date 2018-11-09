@@ -41,8 +41,6 @@ export class SessionmapListComponent implements OnInit {
 
   onAdd(sesmap: Sessionmap, isCreatie: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
-      height: '400px',
-      width: '500px',
       data: {
         lesnaam: this.lesnaam,
         isCreatie: isCreatie

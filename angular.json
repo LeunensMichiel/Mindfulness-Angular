@@ -27,6 +27,7 @@
               "src/mindfultheme.scss"
             ],
             "scripts": [
+              "./node_modules/scrollreveal/dist/scrollreveal.js"
             ]
           },
           "configurations": {

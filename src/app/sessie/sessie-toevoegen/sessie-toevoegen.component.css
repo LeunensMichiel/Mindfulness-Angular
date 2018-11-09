@@ -1,33 +1,22 @@
-.mat-form-field-label{
-    color: white !important;
-}
-
-.mat-form-field-underline {
-    background-color: white !important;;
-}
-
-.mat-form-field-ripple {
-    background-color: white !important;
-}
-
-.icon {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    position: absolute;
-}
-
-.check {
-    right: -25px;
-    top: -25px;
-}
-
-.cross {
-    right: -60px;
-    top: 25px;
-}
 
 .createButton {
     min-width: 200px;
     min-height: 200px;
+}
+
+.toevoeg-card {
+  width: 400px;
+  margin: 1em;
+  height: 370px;
+}
+
+.example-header-image {
+  background-image: url('/assets/images/android-chrome-512x512.png');
+  background-size: cover;
+}
+
+.kaart-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
 }

@@ -3,10 +3,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { OefeningCreatieComponent } from './oefening/oefening-creatie/oefening-creatie.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule, MatCardModule, MatTabsModule, MatSnackBarModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatListModule,
+  MatCardModule,
+  MatTabsModule,
+  MatSnackBarModule,
+  MatButtonToggleModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatExpansionModule
+} from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
-import { OefeninglijstComponent } from './oefening/oefeninglijst/oefeninglijst.component';
+import {OefeninglijstComponent, RemoveExerciseDialog} from './oefening/oefeninglijst/oefeninglijst.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
@@ -32,8 +46,10 @@ import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-p
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessieResolver} from './sessie/sessie-resolver';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
+import {NgsRevealModule} from 'ngx-scrollreveal';
 
 @NgModule({
   declarations: [
@@ -58,7 +74,8 @@ import { PageResolver } from './pagina/page-resolver';
     InputPaginaCreatieComponent,
     TekstPaginaCreatieComponent,
     ParagraafCreatieComponent,
-    SessieModifyComponent
+    SessieModifyComponent,
+    RemoveExerciseDialog
   ],
   imports: [
     BrowserModule,
@@ -83,10 +100,13 @@ import { PageResolver } from './pagina/page-resolver';
     MatSnackBarModule,
     MatButtonToggleModule,
     ScrollDispatchModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    FlexLayoutModule,
+    NgsRevealModule
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent, RemoveExerciseDialog]
 })
 export class AppModule { }

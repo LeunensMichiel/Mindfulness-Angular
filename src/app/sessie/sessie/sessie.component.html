@@ -1,41 +1,22 @@
-<!-- <mat-card class="segment">
-    <mat-card-header>
-        <mat-card-title>Sessie {{sessie.nr}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="content">
-        <p>
-            sessie nummer: {{sessie.nr}}
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>EDIT</button>
-        <button mat-flat-button>
-            <i class="material-icons">
-                delete_outline
-            </i>
-        </button>
-    </mat-card-actions>
-</mat-card> -->
-
-
-<button class="button" mat-fab color="primary" (click)="showIcons = !showIcons">
-    <h2>{{sessie.position}}</h2>
-    <h3>{{sessie.title}}</h3>
-    <button mat-fab *ngIf='showIcons' class="icon del" matTooltip="Remove sessie" (click)="removeSessie()">
-        <i class="material-icons">
-            delete_outline
-        </i>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      {{sessie.title.toLocaleUpperCase()}}
+    </mat-card-title>
+    <mat-card-subtitle>{{sessie.position}}</mat-card-subtitle>
+    
+    <div><button mat-icon-button (click)="editSessie()">
+      <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
     </button>
-  <button mat-fab *ngIf='showIcons' class="icon edit" matTooltip="Edit sessie" (click)="editSessie()">
-        <i class="material-icons">
-            edit
-        </i>
-    </button>
-    <a [routerLink]="['/oefening-list', sessie.id]">
-        <button mat-fab *ngIf='showIcons' class="icon eye" matTooltip="View sessie">
-            <i class="material-icons">
-              remove_red_eye
-            </i>
-        </button>
+    <button mat-icon-button (click)="removeSessie()" class="hvr-grow">
+      <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
+    </button></div>
+  </mat-card-header>
+  <img mat-card-image src="{{url}}" alt="Calm Foto">
+  <mat-card-actions>
+    <a [routerLink]="['/oefening-list',sessie.id]" mat-icon-button color="accent" class="hvr-grow">
+      <mat-icon aria-label="Example icon-button with an eye icon">remove_red_eye</mat-icon>
     </a>
-</button>
+  </mat-card-actions>
+</mat-card>

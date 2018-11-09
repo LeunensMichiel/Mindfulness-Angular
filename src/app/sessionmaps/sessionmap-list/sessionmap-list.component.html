@@ -3,21 +3,21 @@
     <mat-toolbar color="primary" >
         <span>Lessen</span>
         <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon" (click)="onAdd(null, true)">
+        <button mat-icon-button class="example-icon" (click)="onAdd(null, true)" class="hvr-grow">
           <mat-icon>add</mat-icon>
         </button>
     </mat-toolbar>
     <mat-list>
-      <a mat-list-item *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]">
+      <a mat-list-item matRipple *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]" class="hvr-sweep-to-right" >
         <mat-icon mat-list-icon>folder</mat-icon>
-        <h4>{{sesmap.titleCourse}}</h4>
+        <h4 class="sessionmap" >{{sesmap.titleCourse}}</h4>
 
         <div class="aligneren">
-        <button mat-icon-button (click)="onAdd(sesmap, false)">
+        <button mat-icon-button (click)="onAdd(sesmap, false)" class="hvr-grow">
           <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-icon-button (click)="removeSessionMap(sesmap)">
+        <button mat-icon-button (click)="removeSessionMap(sesmap)" class="hvr-grow">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
