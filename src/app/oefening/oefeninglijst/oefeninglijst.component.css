@@ -11,7 +11,13 @@
 [tabindex] {
     outline: none;
   }
-
+  
+  #invisible {
+      visibility: hidden;
+  }
+.button {
+    visibility: visible;
+}
 .inputField {
     display: inline-block;
     max-width: 56px;
