@@ -166,6 +166,18 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   undo() {
     this.undoCurrentCommand();
   }
+  addItem() {
+    throw new Error("Method not implemented.");
+  }
+  removeItem() {
+    throw new Error("Method not implemented.");
+  }
+  changePos() {
+    throw new Error("Method not implemented.");
+  }
+  update() {
+    throw new Error("Method not implemented.");
+  }
 }
 
 /*

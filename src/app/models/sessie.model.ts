@@ -3,7 +3,7 @@ import { GenericCollection, GenericItem } from "./GenericCollection.model";
 import { Paragraph } from './paragraph.model';
 
 export class Sessie extends GenericCollection implements GenericItem {
-  private _id: string;
+  _id: string;
   private _title: string;
   private _admin: string;
   private _position: number;

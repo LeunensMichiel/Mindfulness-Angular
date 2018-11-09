@@ -21,4 +21,8 @@ export class Switch implements Cmd {
     undo() {
         this.inputItems[0].changeItemPos(this.extraParam.startPos, this.extraParam.direction);
     }  
+
+    toString():String{
+        return "SWITCH";
+    }
 }

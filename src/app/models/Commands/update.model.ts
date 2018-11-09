@@ -11,6 +11,7 @@ export class Update implements Cmd {
         this.inputItems = inputItems;
         this.param = param;
         this.extraParam = null
+        console.log(param);
     }
 
     execute(): boolean {
@@ -21,4 +22,8 @@ export class Update implements Cmd {
     undo() {
         this.inputItems[0].changeItem(this.param[1]);
     }  
+
+    toString():String {
+        return "UPDATE";
+    }
 }

@@ -2,6 +2,7 @@ import { Paragraph } from "./paragraph.model";
 import { GenericCollection, GenericItem } from "./GenericCollection.model";
 
 export interface Page {
+    _id: String;
     title: string;
     position: number;
 
@@ -12,6 +13,7 @@ export interface Page {
 }
 
 export class AudioPage implements Page, GenericItem {
+    _id: String;
     position: number;
     title: string;
     fileUrl: string;
@@ -22,8 +24,10 @@ export class AudioPage implements Page, GenericItem {
         this.fileUrl = "";
     }
 
-  toJSON() {
+    toJSON() {
         return {
+            type: "AUDIO",
+            _id: this._id,
             title: this.title,
             fileUrl: this.fileUrl,
             position: this.position
@@ -32,6 +36,7 @@ export class AudioPage implements Page, GenericItem {
 
     fromJson(json: any): Page {
         const page = new AudioPage()
+        page._id = json._id;
         page.title = json.title;
         page.fileUrl = json.fileUrl;
         page.position = json.position;
@@ -44,6 +49,7 @@ export class AudioPage implements Page, GenericItem {
 }
 
 export class TextPage extends GenericCollection implements Page, GenericItem {
+    _id: String;
     position: number;
     title: string;
     text: string;
@@ -56,8 +62,10 @@ export class TextPage extends GenericCollection implements Page, GenericItem {
         this.items = [new Paragraph()];
     }
 
-  toJSON() {
+    toJSON() {
         return {
+            type: "TEXT",
+            _id: this._id,
             title: this.title,
             text: this.text,
             position: this.position,
@@ -67,13 +75,16 @@ export class TextPage extends GenericCollection implements Page, GenericItem {
 
     fromJson(json: any): Page {
         const page = new TextPage();
+        page._id = json._id;
         page.position = json.position;
         page.title = json.title;
         page.text = json.text;
-        page.items = json.items.map(it => {
-            var par = new Paragraph();
-            return par.fromJson(it);
-        });
+        if (json.hasOwnProperty("items")) {
+            page.items = json.items.map(it => {
+                var par = new Paragraph();
+                return par.fromJson(it);
+            });
+        }
         return page;
     }
 
@@ -83,6 +94,7 @@ export class TextPage extends GenericCollection implements Page, GenericItem {
 }
 
 export class InputPage implements Page, GenericItem {
+    _id: String;
     position: number;
     title: string;
     input: string;
@@ -93,8 +105,10 @@ export class InputPage implements Page, GenericItem {
         this.input = "";
     }
 
-  toJSON() {
+    toJSON() {
         return {
+            type: "INPUT",
+            _id: this._id,
             title: this.title,
             input: this.input,
             position: this.position
@@ -102,6 +116,7 @@ export class InputPage implements Page, GenericItem {
     }
     fromJson(json: any): Page {
         const page = new InputPage();
+        page._id = json._id;
         page.position = json.position;
         page.title = json.title;
         page.input = page.input;

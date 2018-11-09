@@ -15,6 +15,14 @@ export abstract class CmdImplementation {
             this.commandCache.length = this.cmdValue + 1
         }
         this.commandCache.push(cmd);
+        switch(cmd.toString()){
+            case "INSERT": 
+                this.addItem(cmd);
+                break;
+            case "DELETE":
+                this.removeItem(cmd);
+                break;
+        }
         this.executeCurrentCommand();
     }
 
@@ -57,4 +65,8 @@ export abstract class CmdImplementation {
     }
     
     abstract saveItem();
+    abstract addItem(cmd:Cmd):any;
+    abstract removeItem(cmd:Cmd);
+    abstract changePos(cmd:Cmd);
+    abstract update(cmd:Cmd);
 }

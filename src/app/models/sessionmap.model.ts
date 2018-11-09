@@ -2,7 +2,7 @@
 import { Sessie } from './sessie.model';
 import {GenericCollection, GenericItem} from './GenericCollection.model';
 export class Sessionmap extends GenericCollection implements GenericItem{
-  private _id: string;
+  _id: string;
   private _titleCourse: string;
   //private _sessions: Sessie[];
 
