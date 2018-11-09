@@ -46,6 +46,7 @@ import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-p
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessieResolver} from './sessie/sessie-resolver';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import {SessieResolver} from './sessie/sessie-resolver';
     MatButtonToggleModule,
     ScrollDispatchModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    FlexLayoutModule
   ],
   providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver],
   bootstrap: [AppComponent],

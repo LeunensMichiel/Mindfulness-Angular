@@ -14,7 +14,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-
+.sessionmap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  display: inline-block;
+}
 .hvr-sweep-to-right {
   /*display: inline-block;*/
   vertical-align: middle;
