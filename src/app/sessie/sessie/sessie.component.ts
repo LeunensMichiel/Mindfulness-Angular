@@ -16,7 +16,8 @@ export class SessieComponent implements OnInit {
 
   constructor(private _sessieDataService: SessieDataService) {
     var random =  Math.floor(Math.random() * (14 - 1) + 1);
-    this.url = `/src/assets/images/sessie-${random}.jpg`;
+    this.url = `assets/images/sessie-${random}.jpg`;
+
   }
 
   ngOnInit() {

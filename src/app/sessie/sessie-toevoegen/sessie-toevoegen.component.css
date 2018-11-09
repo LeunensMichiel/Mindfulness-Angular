@@ -10,7 +10,7 @@
 }
 
 .example-header-image {
-  background-image: url('/src/assets/images/android-chrome-512x512.png');
+  background-image: url('/assets/images/android-chrome-512x512.png');
   background-size: cover;
 }
 
