@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Sessie } from '../models/sessie.model';
 import { map } from 'rxjs/operators';
-import {Sessionmap} from '../models/sessionmap.model';
+import { Sessionmap } from '../models/sessionmap.model';
 
 
 @Injectable()
@@ -22,9 +22,9 @@ export class SessieDataService {
       .get(`${this._appUrl}/sessions/${id}`)
       .pipe(map((list: any[]): Sessie[] =>
         list.map(it => {
-        var ses = new Sessie();
-        return ses.fromJson(it);
-      })));
+          var ses = new Sessie();
+          return ses.fromJson(it);
+        })));
   }
 
   addNewSessie(ses: Sessie): Observable<Sessie> {
@@ -54,8 +54,23 @@ export class SessieDataService {
       .get(`${this._appUrl}/session/${id}`)
       .pipe(map(it => {
         var ses = new Sessie();
+
         return ses.fromJson(it);
       }));
+  }
+
+  getSessieExercises(session_id: string): Observable<Exercise[]> {
+    console.log("CHECK");
+    return this.http
+      .get(`${this._appUrl}/exercise/${session_id}`)
+      .pipe(map((list: any[]): Exercise[] =>
+        list.map(
+          it => {
+            var ex = new Exercise();
+            console.log(ex.fromJson(it));
+            return ex.fromJson(it);
+          }
+        )));
   }
 
   editSession(sessie: Sessie): Observable<Sessie> {

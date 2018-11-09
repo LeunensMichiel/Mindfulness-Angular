@@ -47,6 +47,9 @@ import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessieResolver} from './sessie/sessie-resolver';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { PageDataService } from './pagina/page-data.service';
+import { PageResolver } from './pagina/page-resolver';
+import {NgsRevealModule} from 'ngx-scrollreveal';
 
 @NgModule({
   declarations: [
@@ -98,10 +101,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     ScrollDispatchModule,
     MatInputModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgsRevealModule
   ],
-  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver],
+  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent]
+  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Page, TextPage } from 'src/app/models/page.model';
+import { GenericItem } from 'src/app/models/GenericCollection.model';
 
 @Component({
   selector: 'app-tekst-pagina-detail',
@@ -12,6 +13,7 @@ export class TekstPaginaDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

@@ -1,5 +1,6 @@
 import { Page, TextPage, AudioPage, InputPage } from "./page.model";
 import { GenericCollection, GenericItem } from "./GenericCollection.model";
+import { Paragraph } from "./paragraph.model";
 
 export class Exercise extends GenericCollection implements GenericItem {
     private _id: string;
@@ -9,7 +10,7 @@ export class Exercise extends GenericCollection implements GenericItem {
     constructor(title?: string, pages?: Page) {
         super();
         this._title = title || "";
-        this.items = [new TextPage()];
+        this.items = [new TextPage(), new AudioPage()];
         this.items[0].position = 0;
     }
 
@@ -86,22 +87,27 @@ export class Exercise extends GenericCollection implements GenericItem {
 
     fromJson(json: any): Exercise {
         const ex = new Exercise();
-        ex.title = json.title;
+        ex._title = json.title;
         ex.position = json.position;
-        ex.items = json.items.map(it => {
-            if ("items" in it) {
-                return new TextPage().fromJson(it);
-            } else if ("fileUrl" in it) {
-                return new AudioPage().fromJson(it);
-            } else {
-                return new InputPage().fromJson(it);
-            }
-        });
+        if (json.hasOwnProperty("pages")) {
+            ex.items = json.pages.map(it => {
+                if (typeof it != 'string' ){
+                    if ("items" in it) {
+                        return new TextPage().fromJson(it);
+                    } else if ("fileUrl" in it) {
+                        return new AudioPage().fromJson(it);
+                    } else {
+                        return new InputPage().fromJson(it);
+                    }
+                }
+            });
+        }
+
         ex._id = json._id;
-        return ex
+        return ex;
     }
 
-  toJSON() {
+    toJSON() {
         return {
             _id: this._id,
             title: this._title,

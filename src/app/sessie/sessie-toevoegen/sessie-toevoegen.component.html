@@ -1,9 +1,9 @@
-<mat-card class="example-card">
+<mat-card class="toevoeg-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>SESSIE AANMAKEN</mat-card-title>
   </mat-card-header>
-  <mat-card-content [formGroup]='newSes' class="example-container">
+  <mat-card-content [formGroup]='newSes' class="kaart-container">
       <mat-form-field>
         <input matInput [errorStateMatcher]="matcher" [value]="aantal + 1" placeholder="Vul het sessie nr. in:" autocomplete="off" formControlName='number' required>
         <mat-error *ngIf="newSes.get('number').invalid">

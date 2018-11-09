@@ -56,8 +56,6 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
   }
   editSessie(sessie: Sessie) {
     const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, {
-      height: '400px',
-      width: '500px',
       data: {
         sessienaam: this.sessienaam
       }
@@ -88,7 +86,6 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
 
     // dialoogvenster openen en inner class gebruiken
     const dialogRef = this.dialog.open(RemoveSessieDialog, {
-      width: '250px'
     });
     // RemoveSessieDialog geeft een boolean mee om aan te tonen of ja of nee gedrukt werd
     dialogRef.afterClosed().subscribe(

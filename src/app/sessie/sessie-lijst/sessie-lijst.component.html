@@ -1,6 +1,6 @@
 
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start stretch">
-  <div *ngFor='let localSessie of sessies'>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center" >
+  <div *ngFor='let localSessie of sessies' [ngsReveal]="{ reset: true, distance: '250px', scale: 0.85}" >
     <app-sessie [sessie]='localSessie' (deleteSessie)="removeSessie($event)" (modifySessie)="editSessie($event)"></app-sessie>
   </div>
   <div *ngIf='creating'>

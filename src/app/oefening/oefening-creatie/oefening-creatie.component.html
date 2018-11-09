@@ -1,13 +1,11 @@
-<div *ngIf="inputChoiceActive; then inputStyleBlock else inputBlock"></div>
-<ng-template #inputStyleBlock>
-  <button mat-stroked-button class="icon check" (click)="addOefening()">
-    <i class="material-icons">
-      plus
-    </i>
-  </button>
-</ng-template>
-<ng-template #inputBlock>
-  <mat-card class="segment" #inputBlock>
-
-  </mat-card>
-</ng-template>
+<h1 mat-dialog-title>EEN OEFENING {{data.isCreatie ? "AANMAKEN" : "WIJZIGEN"}}</h1>
+<div mat-dialog-content>
+  <p>Hoe ga je je oefening noemen?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.naam">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuleer</button>
+  <button mat-button [mat-dialog-close]="data.naam" cdkFocusInitial>{{data.isCreatie ? "OK" : "Wijzigen"}}</button>
+</div>

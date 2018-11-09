@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Sessionmap} from 'src/app/models/sessionmap.model';
-import {SessionmapDataService} from '../sessionmap-data.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {MatDialog} from '@angular/material';
-import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
+import { Component, OnInit } from '@angular/core';
+import { Sessionmap } from 'src/app/models/sessionmap.model';
+import { SessionmapDataService } from '../sessionmap-data.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { SessionmapCreatieComponent } from '../sessionmap-creatie/sessionmap-creatie.component';
 
 export interface DialogCourseData {
   lesnaam: string;
@@ -25,7 +25,7 @@ export class SessionmapListComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
-      sesmaps => {this._sesmaps = sesmaps;},
+      sesmaps => { this._sesmaps = sesmaps; },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
@@ -39,10 +39,8 @@ export class SessionmapListComponent implements OnInit {
     return this._sesmaps;
   }
 
-  onAdd(sesmap:Sessionmap, isCreatie: boolean) {
+  onAdd(sesmap: Sessionmap, isCreatie: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
-      height: '400px',
-      width: '500px',
       data: {
         lesnaam: this.lesnaam,
         isCreatie: isCreatie

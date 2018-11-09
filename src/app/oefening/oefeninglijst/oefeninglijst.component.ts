@@ -25,7 +25,13 @@ import {
   transition
 } from '@angular/animations';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { OefeningCreatieComponent } from '../oefening-creatie/oefening-creatie.component';
+import { Update } from "src/app/models/Commands/update.model";
 
+export interface DialogExerciseData {
+  naam: string;
+  isCreatie: boolean;
+}
 
 @Component({
   selector: "app-oefeninglijst",
@@ -41,60 +47,28 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
   ]
 })
 export class OefeninglijstComponent extends CmdImplementation implements OnInit {
-  // inputPage: InputPage = new InputPage();
-  // textPage: TextPage = new TextPage();
-  // audioPage: AudioPage = new AudioPage();
-  // excersice: Exercise = new Exercise();
-  // par: Paragraph = new Paragraph();
-  // imgPar: Paragraph = new Paragraph();
   private _sessie: Sessie;
   private _sesid: string;
+  private _naam: string;
+  public items: Exercise[];
 
   constructor(public dialog: MatDialog, private _route: ActivatedRoute, public snackBar: MatSnackBar, private _sessieDataService: SessieDataService) {
     super();
   }
 
   ngOnInit() {
-    // this.textPage.text = "Heey, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis diam. Pellentesque ut neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. In ac felis quis tortor malesuada pretium. Pellentesque auctor neque nec urna. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Aenean viverra rhoncus pede. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Phasellus a est. Phasellus magna. In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Curabitur a felis in nunc fringilla tristique. Morbi mattis ullamcorper velit. Phasellus gravida semper nisi. Nullam vel sem. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Sed hendrerit. Morbi ac felis. Nunc egestas, augue at pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede. Donec interdum, metus et hendrerit aliquet, dolor diam sagittis ligula, eget egestas libero turpis vel mi. Nunc nulla. Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Donec venenatis vulputate lorem. Morbi nec metus. Phasellus blandit leo ut odio. Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. In auctor lobortis lacus. Quisque libero metus, condimentum nec, tempor a, commodo mollis, magna. Vestibulum ullamcorper mauris at ligula. Fusce fermentum. Nullam cursus lacinia erat. Praesent blandit laoreet nibh.";
-    // this.par.content = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui."
-    // this.par.type = "text"
-    // this.imgPar.content = "https://imgflip.com/s/meme/Doge.jpg"
-    // this.imgPar.type = "img"
-    // this.textPage.title = "Tekst Pagina"
-    // this.audioPage.fileUrl = "AudioFile";
-    // this.audioPage.title = "Audio Pagina";
-    // this.inputPage.title = "Input Pagina";
-    // this.inputPage.input = "Wat is jouw ervaring?"
-    // this.textPage.items = [
-    //   this.par,
-    //   this.par,
-    //   this.par,
-    //   this.imgPar,
-    //   this.par,
-    //   this.par,
-    //   this.par,
-    //   this.par,
-    //   this.par,
-    //   this.par
-    // ]
-    // this.excersice.items = [
-    //   this.inputPage,
-    //   this.textPage,
-    //   this.textPage,
-    //   this.textPage,
-    //   this.textPage,
-    //   this.textPage,
-    //   this.audioPage
-    // ]
-    // this.excersice.title = "title";
-    // this._sessie = new Sessie("title", 0);
-    // this._sessie.addItem(0, this.excersice);
-
+    this._sessie = new Sessie();
     this._route.params.subscribe(params => {
       this._sesid = params['sessieID'];
     });
+    console.log(this._sesid);
     this._sessieDataService.getSessie(this._sesid).subscribe(
-      sessie => (this._sessie = sessie),
+      sessie => {
+        console.log(sessie);
+        (this._sessie = sessie);
+
+        console.log("CHECK");
+      },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting exercises: ${error.error}`, '',
           {
@@ -102,15 +76,44 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
           });
       }
     );
+    this._sessieDataService.getSessieExercises(this._sesid).subscribe(
+      exercises => {
+        this._sessie.items = exercises;
+      },
+      (error) => {
+        console.log("WTF");
+        console.log(error);
+      }
+    );
+    console.log(this._sessie);
   }
 
-  /*
-     
-  */
-  addOefening() {
-    let oef = new Exercise();
-    oef.position = this._sessie.items.length;
-    this.addCommand(new Insert([this._sessie], [oef]));
+  onAdd(ex: Exercise, isCreatie: boolean) {
+    console.log(this.items);
+    const addExDialogRef = this.dialog.open(OefeningCreatieComponent, {
+      height: '400px',
+      width: '500px',
+      data: {
+        naam: this._naam,
+        isCreatie: isCreatie
+      }
+    });
+
+    addExDialogRef.afterClosed().subscribe(result => {
+      this._naam = result;
+      //Als er iets is ingevuld in de input
+      if (result) {
+        //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
+        if (isCreatie) {
+          let oef = new Exercise(this._naam);
+          oef.position = this._sessie.items.length;
+          this.addCommand(new Insert([this._sessie], [oef]));
+        } else {
+          ex.title = result;
+          this.addCommand(new Update([this._sessie], [ex]));
+        }
+      }
+    });
   }
 
   removeOefening(oef: Exercise) {
@@ -146,12 +149,13 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   saveItem() {
     this._sessieDataService.editSession(this._sessie).subscribe(
       () => {
-        this.snackBar.open("Oefening successfully added!");
+        this.snackBar.open("Oefeningen opgeslaan!");
       },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while saving session: ${error.error}`, "", {
           duration: 3000,
         });
+        console.log(error);
       }
     );
   }

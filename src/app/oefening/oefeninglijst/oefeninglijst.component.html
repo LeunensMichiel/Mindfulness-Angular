@@ -4,11 +4,11 @@
       undo
     </i>
   </button>
-  <app-oefening-detail *ngFor='let oefdetail of oefeningen; let i = index' [@shrinkOut]='i' [excersice]='oefdetail'
-    (delOef)='removeOefening($event)' [_position]='i' (newOef)='addOef($event)' class="kid">
+  <app-oefening-detail *ngFor='let oefdetail of _sessie.items; let i = index' [@shrinkOut]='i' [excersice]='oefdetail'
+    (delOef)='removeOefening($event)' [_position]='i' (wijzig)='onAdd($event, false)' class="kid">
   </app-oefening-detail>
   <mat-card class="kid">
-    <button mat-fab (click)='addOefening()'>
+    <button mat-fab (click)='onAdd(null, true)'>
       <i class="material-icons">
         add
       </i>
