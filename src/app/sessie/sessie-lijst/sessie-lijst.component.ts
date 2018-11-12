@@ -7,6 +7,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SessieDataService } from "../sessie-data.service";
 import { DialogCourseData } from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
 import { SessionmapCreatieComponent } from '../../sessionmaps/sessionmap-creatie/sessionmap-creatie.component';
+import { Observable } from 'rxjs';
 
 export interface DialogCourseData {
   sessienaam: string;
@@ -19,6 +20,7 @@ export interface DialogCourseData {
 })
 export class SessieLijstComponent implements OnInit, OnDestroy {
   private _sessies: Sessie[];
+  private _mysessions$ : Observable<Sessie[]>;
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
   private sesmapid: string;
@@ -45,7 +47,9 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
       this.sesmapid = params['courseID'];
     });
     this._sessieDataService.sessies(this.sesmapid).subscribe(
-      sessies => (this._sessies = sessies),
+
+      sessies => {this._sessies = sessies;       console.log(sessies);
+    },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, '',
           {
