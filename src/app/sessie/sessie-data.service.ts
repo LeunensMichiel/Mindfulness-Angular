@@ -10,7 +10,7 @@ import { Sessionmap } from '../models/sessionmap.model';
 @Injectable()
 export class SessieDataService {
 
-  private readonly _appUrl = '/API';
+  private readonly _appUrl = '/API/session';
   // private _sessies: Sessie[] = new Array();
 
   constructor(private http: HttpClient) {

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class PageDataService {
 
-  private readonly _appUrl = '/API';
+  private readonly _appUrl = '/API/page';
 
   constructor(private http: HttpClient) { }
 

@@ -8,19 +8,10 @@ import { Page } from '../models/page.model';
 @Injectable({
   providedIn: 'root'
 })
-export class OefeningDataService {
-  private readonly _appUrl = '/API';
+export class ExerciseDataService {
+  private readonly _appUrl = '/API/exercise';
 
   constructor(private http: HttpClient) { }
-
-  get oefeningen(): Observable<any[]> {
-    return this.http
-      .get(`${this._appUrl}/oefeningen`)
-      .pipe(map((list: any[]): Exercise[] => list.map(it => {
-        var oef = new Exercise();
-        return oef.fromJson(it);
-      })));
-  }
 
   removeOefening(ses: Exercise): Observable<Exercise> {
     return this.http
@@ -29,6 +20,20 @@ export class OefeningDataService {
         var oef = new Exercise();
         return oef.fromJson(it);
       }));
+  }
+
+  getExercisesFromSession(session_id: string): Observable<Exercise[]> {
+    console.log("CHECK");
+    return this.http
+      .get(`${this._appUrl}/exercises/${session_id}`)
+      .pipe(map((list: any[]): Exercise[] =>
+        list.map(
+          it => {
+            var ex = new Exercise();
+            console.log(ex.fromJson(it));
+            return ex.fromJson(it);
+          }
+        )));
   }
 
   addOefeningToSessie(page: Page, ses: Exercise): Observable<Exercise> {

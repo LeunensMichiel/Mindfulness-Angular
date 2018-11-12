@@ -50,6 +50,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
 import {NgsRevealModule} from 'ngx-scrollreveal';
+import {ExerciseDataService} from './oefening/exercise-data.service';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,15 @@ import {NgsRevealModule} from 'ngx-scrollreveal';
     FlexLayoutModule,
     NgsRevealModule
   ],
-  providers: [SessieDataService, SessionmapDataService, Sessionmapresolver, SessieResolver, PageDataService, PageResolver],
+  providers: [
+    SessieDataService,
+    SessionmapDataService,
+    Sessionmapresolver,
+    SessieResolver,
+    PageDataService,
+    PageResolver,
+    ExerciseDataService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent, RemoveExerciseDialog]
 })

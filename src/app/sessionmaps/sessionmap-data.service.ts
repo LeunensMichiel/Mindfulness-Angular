@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SessionmapDataService {
-  private readonly _appUrl = '/API';
+  private readonly _appUrl = '/API/sessionmap';
 
   constructor(private http: HttpClient) { }
 
