@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Sessionmap } from 'src/app/models/sessionmap.model';
-import { SessionmapDataService } from '../sessionmap-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
-import { SessionmapCreatieComponent } from '../sessionmap-creatie/sessionmap-creatie.component';
+import {Component, OnInit} from '@angular/core';
+import {Sessionmap} from 'src/app/models/sessionmap.model';
+import {SessionmapDataService} from '../sessionmap-data.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MatDialog} from '@angular/material';
+import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
 
 export interface DialogCourseData {
   lesnaam: string;
@@ -25,7 +25,9 @@ export class SessionmapListComponent implements OnInit {
 
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
-      sesmaps => { this._sesmaps = sesmaps; },
+      sesmaps => {
+        this._sesmaps = sesmaps;
+      },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
@@ -55,7 +57,8 @@ export class SessionmapListComponent implements OnInit {
         if (isCreatie) {
           let sesmap: Sessionmap = new Sessionmap(this.lesnaam);
           this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
-            () => {
+            sesmap => {
+              this._sesmaps.push(sesmap);
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while adding  ${
@@ -63,7 +66,6 @@ export class SessionmapListComponent implements OnInit {
                 }: ${error.error}`;
             }
           );
-          this._sesmaps.push(sesmap);
         } else {
           sesmap.titleCourse = result;
           this.sessionmapDataService.wijzigSessionMap(sesmap).subscribe(
