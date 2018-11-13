@@ -1,43 +1,42 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Sessie } from "../../models/sessie.model";
-import { HttpErrorResponse } from "@angular/common/http";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { SessieDataService } from "../sessie-data.service";
-import { DialogCourseData } from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
-import { SessionmapCreatieComponent } from '../../sessionmaps/sessionmap-creatie/sessionmap-creatie.component';
-import { Observable } from 'rxjs';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Sessie} from '../../models/sessie.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {SessieDataService} from '../sessie-data.service';
+import {DialogCourseData} from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
+import {SessionmapCreatieComponent} from '../../sessionmaps/sessionmap-creatie/sessionmap-creatie.component';
+import {Observable} from 'rxjs';
 
 export interface DialogCourseData {
   sessienaam: string;
 }
 
 @Component({
-  selector: "app-sessie-lijst",
-  templateUrl: "./sessie-lijst.component.html",
-  styleUrls: ["./sessie-lijst.component.css"]
+  selector: 'app-sessie-lijst',
+  templateUrl: './sessie-lijst.component.html',
+  styleUrls: ['./sessie-lijst.component.css']
 })
 export class SessieLijstComponent implements OnInit, OnDestroy {
-  private _sessies: Sessie[];
-  private _mysessions$ : Observable<Sessie[]>;
+  @Input() public sessions: Sessie[];
+  private _mysessions$: Observable<Sessie[]>;
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
   private sesmapid: string;
-  private sessienaam: string;
   navigationSubscription;
 
   constructor(public dialog: MatDialog, private _sessieDataService: SessieDataService,
-    public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
+              public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.dataophalen();
-      }
-    });
+    // this.navigationSubscription = this.router.events.subscribe((e: any) => {
+    //   // If it is a NavigationEnd event re-initalise the component
+    //   if (e instanceof NavigationEnd) {
+    //     this.dataophalen();
+    //   }
+    // });
 
   }
 
@@ -47,9 +46,10 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
       this.sesmapid = params['courseID'];
     });
     this._sessieDataService.sessies(this.sesmapid).subscribe(
-
-      sessies => {this._sessies = sessies;       console.log(sessies);
-    },
+      sessies => {
+        this.sessions = sessies;
+        console.log(sessies);
+      },
       (error: HttpErrorResponse) => {
         this.snackBar.open(`Error ${error.status} while getting sessies: ${error.error}`, '',
           {
@@ -58,26 +58,25 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
       }
     );
   }
-  editSessie(sessie: Sessie) {
+
+  editSession(session: Sessie) {
     const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, {
       data: {
-        sessienaam: this.sessienaam
+        sessienaam: session.title
       }
     });
     modifyCourseDialoRef.afterClosed().subscribe(result => {
-      this.sessienaam = result;
+
       if (result) {
-        sessie.title = result;
-        sessie.sesmapID = this.sesmapid;
-        this._sessieDataService.editSession(sessie).subscribe(
+        session.title = result;
+        this._sessieDataService.editSession(session).subscribe(
           () => {
 
           },
-          //TODO SKERE ERRORMESSAGE WORDT SWS GETOOND
           (error: HttpErrorResponse) => {
             this.snackBar.open(`Error ${error.status} while editing session for ${
-              sessie.title
-              }: ${error.error}`, "",
+                session.title
+                }: ${error.error}`, '',
               {
                 duration: 10000,
               });
@@ -86,27 +85,29 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
       }
     });
   }
-  removeSessie(sessie: Sessie) {
+
+  removeSession(sessie: Sessie) {
 
     // dialoogvenster openen en inner class gebruiken
-    const dialogRef = this.dialog.open(RemoveSessieDialog, {
-    });
+    const dialogRef = this.dialog.open(RemoveSessieDialog, {});
     // RemoveSessieDialog geeft een boolean mee om aan te tonen of ja of nee gedrukt werd
     dialogRef.afterClosed().subscribe(
       data => {
         if (data) {
           this._sessieDataService.removeSessie(sessie).subscribe(
-            item => { this._sessies = this._sessies.filter(val => item.id !== val.id) },
+            item => {
+              this.sessions = this.sessions.filter(val => item.id !== val.id);
+            },
             (error: HttpErrorResponse) => {
               this.snackBar.open(`Error ${error.status} while removing session for ${
-                sessie.title
-                }: ${error.error}`, "",
+                  sessie.title
+                  }: ${error.error}`, '',
                 {
                   duration: 3000,
                 });
             }
           );
-          this.snackBar.open("Sessie " + sessie.position + " removed!", "",
+          this.snackBar.open('Sessie ' + sessie.position + ' removed!', '',
             {
               duration: 3000,
             });
@@ -115,7 +116,7 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
   }
 
   get sessies() {
-    return this._sessies;
+    return this.sessions;
   }
 
   get sesMapID() {
@@ -138,7 +139,8 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
 })
 export class RemoveSessieDialog {
 
-  constructor(public dialogRef: MatDialogRef<RemoveSessieDialog>) { }
+  constructor(public dialogRef: MatDialogRef<RemoveSessieDialog>) {
+  }
 
   onNoClick(): void {
     this.dialogRef.close(false);
@@ -157,7 +159,8 @@ export class SessieModifyComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SessieModifyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogCourseData) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogCourseData) {
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

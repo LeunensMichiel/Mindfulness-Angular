@@ -52,7 +52,7 @@ export class SessionmapDataService {
       }));
   }
 
-  wijzigSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
+  updateSessionMap(sesmap: Sessionmap): Observable<Sessionmap> {
     return this.http
       .put(`${this._appUrl}/sessionmap/${sesmap.id}/update`, sesmap)
       .pipe(map(it => {

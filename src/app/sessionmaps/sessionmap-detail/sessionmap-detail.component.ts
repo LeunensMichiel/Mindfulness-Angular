@@ -10,17 +10,14 @@ import { SessionmapDataService } from '../sessionmap-data.service';
 })
 export class SessionmapDetailComponent implements OnInit {
 
-  @Input() public _sesmap: Sessionmap;
+  @Input() public sessionmap: Sessionmap;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor() { }
 
-  get sesmap(): Sessionmap {
-    return this._sesmap;
-  }
 
   ngOnInit() {
-    this.route.data.subscribe(item =>
-      this._sesmap = item['sesmap']);
+    // this.route.data.subscribe(item =>
+    //   this._sesmap = item['sesmap']);
   }
 
 }

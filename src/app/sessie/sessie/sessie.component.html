@@ -2,20 +2,22 @@
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>
-      {{sessie.title.toLocaleUpperCase()}}
+      {{session.title.toLocaleUpperCase()}}
     </mat-card-title>
-    <mat-card-subtitle>{{sessie.position}}</mat-card-subtitle>
-    
-    <div><button mat-icon-button (click)="editSessie()">
-      <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
-    </button>
-    <button mat-icon-button (click)="removeSessie()" class="hvr-grow">
-      <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
-    </button></div>
+    <!--<mat-card-subtitle>{{session.position}}</mat-card-subtitle>-->
+
+    <div>
+      <button mat-icon-button (click)="editSessie()">
+        <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="removeSessie()" class="hvr-grow">
+        <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
   <img mat-card-image src="{{url}}" alt="Calm Foto">
   <mat-card-actions>
-    <a [routerLink]="['/oefening-list',sessie.id]" mat-icon-button color="accent" class="hvr-grow">
+    <a [routerLink]="['/oefening-list',session.id]" mat-icon-button color="accent" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with an eye icon">remove_red_eye</mat-icon>
     </a>
   </mat-card-actions>

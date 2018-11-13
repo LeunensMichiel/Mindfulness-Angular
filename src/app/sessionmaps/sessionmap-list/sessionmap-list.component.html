@@ -1,30 +1,29 @@
 <mat-drawer-container class="courses">
   <mat-drawer mode="side" opened>
-    <mat-toolbar color="primary" >
-        <span>Lessen</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon" (click)="onAdd(null, true)" class="hvr-grow">
-          <mat-icon>add</mat-icon>
-        </button>
+    <mat-toolbar color="primary">
+      <span>Lessen</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button class="example-icon" (click)="onAdd(true)" class="hvr-grow">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onAdd(false)" class="hvr-grow">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="removeSessionMap()" class="hvr-grow">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-toolbar>
     <mat-list>
-      <a mat-list-item matRipple *ngFor='let sesmap of sesmaps' routerLinkActive='active' [routerLink]="['course-list', sesmap.id]" class="hvr-sweep-to-right" >
+      <a mat-list-item matRipple *ngFor='let sesmap of sesmaps; let i = index' routerLinkActive='active'
+         ngClass="{{selectedSessionmap == sesmap ?  'active' : ''}} hvr-sweep-to-right"
+         (click)="selectSessionmap(i)">
         <mat-icon mat-list-icon>folder</mat-icon>
-        <h4 class="sessionmap" >{{sesmap.titleCourse}}</h4>
-
-        <div class="aligneren">
-        <button mat-icon-button (click)="onAdd(sesmap, false)" class="hvr-grow">
-          <mat-icon>edit</mat-icon>
-        </button>
-
-        <button mat-icon-button (click)="removeSessionMap(sesmap)" class="hvr-grow">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
+        <h4 class="sessionmap"> {{sesmap.titleCourse}}</h4>
       </a>
     </mat-list>
+
   </mat-drawer>
   <mat-drawer-content>
-    <router-outlet></router-outlet>
+    <app-sessionmap-detail *ngIf="selectedSessionmap" [sessionmap]="selectedSessionmap"></app-sessionmap-detail>
   </mat-drawer-content>
 </mat-drawer-container>

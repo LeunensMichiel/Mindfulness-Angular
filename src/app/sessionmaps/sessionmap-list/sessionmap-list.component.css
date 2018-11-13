@@ -2,9 +2,11 @@
   width: 300px;
   padding-top: 0;
 }
+
 .mat-list .mat-list-item.mat-list-item-with-avatar, .mat-list .mat-list-option.mat-list-item-with-avatar, .mat-nav-list .mat-list-item.mat-list-item-with-avatar, .mat-nav-list .mat-list-option.mat-list-item-with-avatar, .mat-selection-list .mat-list-item.mat-list-item-with-avatar, .mat-selection-list .mat-list-option.mat-list-item-with-avatar {
   height: 75px;
 }
+
 .courses {
   width: 100%;
   height: 100%;
@@ -17,12 +19,14 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
 .sessionmap {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
   display: inline-block;
 }
+
 .hvr-sweep-to-right {
   /*display: inline-block;*/
   vertical-align: middle;
@@ -35,6 +39,7 @@
   -webkit-transition-duration: 0.1s;
   transition-duration: 0.1s;
 }
+
 .hvr-sweep-to-right:before {
   content: "";
   position: absolute;
@@ -55,10 +60,16 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
 .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
   color: white;
 }
+
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
+}
+
+.active {
+  background: #B2DFDB;
 }

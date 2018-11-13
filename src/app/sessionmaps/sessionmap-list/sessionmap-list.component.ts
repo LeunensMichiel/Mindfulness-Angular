@@ -17,8 +17,8 @@ export interface DialogCourseData {
 })
 export class SessionmapListComponent implements OnInit {
   public errorMsg: string;
-  private _sesmaps: Sessionmap[];
-  private lesnaam: string;
+  private _sessionmaps: Sessionmap[];
+  private _selectedSessionmap: Sessionmap;
 
   constructor(private sessionmapDataService: SessionmapDataService, public dialog: MatDialog) {
   }
@@ -26,7 +26,7 @@ export class SessionmapListComponent implements OnInit {
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
       sesmaps => {
-        this._sesmaps = sesmaps;
+        this._sessionmaps = sesmaps;
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -34,47 +34,50 @@ export class SessionmapListComponent implements OnInit {
           } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
-    this._sesmaps = new Array();
+    this._sessionmaps = new Array();
   }
 
   get sesmaps() {
-    return this._sesmaps;
+    return this._sessionmaps;
   }
 
-  onAdd(sesmap: Sessionmap, isCreatie: boolean) {
+  get selectedSessionmap() {
+    return this._selectedSessionmap;
+  }
+
+  onAdd(isCreatie: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
       data: {
-        lesnaam: this.lesnaam,
+        lesnaam: this._selectedSessionmap.titleCourse,
         isCreatie: isCreatie
       }
     });
 
     addCourseDialoRef.afterClosed().subscribe(result => {
-      this.lesnaam = result;
       //Als er iets is ingevuld in de input
       if (result) {
         //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
         if (isCreatie) {
-          let sesmap: Sessionmap = new Sessionmap(this.lesnaam);
+          let sesmap: Sessionmap = new Sessionmap(result);
           this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
             sesmap => {
-              this._sesmaps.push(sesmap);
+              this._sessionmaps.push(sesmap);
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while adding  ${
-                this.lesnaam
+                result
                 }: ${error.error}`;
             }
           );
         } else {
-          sesmap.titleCourse = result;
-          this.sessionmapDataService.wijzigSessionMap(sesmap).subscribe(
+          this.selectedSessionmap.titleCourse = result;
+          this.sessionmapDataService.updateSessionMap(this._selectedSessionmap).subscribe(
             () => {
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while editing  ${
-                this.lesnaam
-                }: ${error.error}`;
+                result                
+              }: ${error.error}`;
             }
           );
         }
@@ -82,16 +85,20 @@ export class SessionmapListComponent implements OnInit {
     });
   }
 
-  removeSessionMap(course: Sessionmap) {
-    this.sessionmapDataService.deleteSessionMap(course).subscribe(
-      item => (this._sesmaps = this._sesmaps.filter(val => item.id !== val.id)),
+  removeSessionMap() {
+    this.sessionmapDataService.deleteSessionMap(this._selectedSessionmap).subscribe(
+      item => (this._sessionmaps = this._sessionmaps.filter(val => item.id !== val.id)),
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${error.status} while removing courses for ${
-          course.titleCourse
+          this._selectedSessionmap.titleCourse
           }: ${error.error}`;
       }
     );
   }
 
+  selectSessionmap(sessionmap_id: number) {
+
+    this._selectedSessionmap = this._sessionmaps[sessionmap_id];
+  }
 
 }

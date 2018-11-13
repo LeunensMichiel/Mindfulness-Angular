@@ -9,12 +9,12 @@ import { SessieDataService } from '../sessie-data.service';
   styleUrls: ['./sessie.component.css']
 })
 export class SessieComponent implements OnInit {
-  @Input() public sessie: Sessie;
+  @Input() public session: Sessie;
   @Input() public url: string;
-  @Output() public deleteSessie = new EventEmitter<Sessie>();
-  @Output() public modifySessie = new EventEmitter<Sessie>();
+  @Output() public deleteSession = new EventEmitter<Sessie>();
+  @Output() public modifySession = new EventEmitter<Sessie>();
 
-  constructor(private _sessieDataService: SessieDataService) {
+  constructor(private _sessionDataService: SessieDataService) {
     var random =  Math.floor(Math.random() * (14 - 1) + 1);
     this.url = `assets/images/sessie-${random}.jpg`;
 
@@ -24,11 +24,11 @@ export class SessieComponent implements OnInit {
   }
 
   removeSessie() {
-    this.deleteSessie.emit(this.sessie);
+    this.deleteSession.emit(this.session);
   }
 
   editSessie() {
-    this.modifySessie.emit(this.sessie);
+    this.modifySession.emit(this.session);
   }
 
   addOefening(ex: Exercise) {

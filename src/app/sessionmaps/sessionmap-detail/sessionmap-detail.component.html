@@ -1,4 +1,4 @@
 <div class="titel  mat-elevation-z6" >
-  <h1><span class="vet">OVERZICHT </span>{{sesmap.titleCourse.toUpperCase()}}</h1>
+  <h1><span class="vet">OVERZICHT </span>{{sessionmap.titleCourse.toUpperCase()}}</h1>
 </div>
-<app-sessie-lijst></app-sessie-lijst>
+<app-sessie-lijst [sessions]="sessionmap.items"></app-sessie-lijst>
