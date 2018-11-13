@@ -1,0 +1,9 @@
+<div>
+  groepen-list works!
+  <mat-list>
+    <a mat-list-item matRipple *ngFor='let group of groups'>
+      <div> <h3>{{group.name}}</h3> </div>
+      <div> <h2>{{group.sessionmap_id}}</h2> </div>
+    </a>
+  </mat-list>
+</div>
