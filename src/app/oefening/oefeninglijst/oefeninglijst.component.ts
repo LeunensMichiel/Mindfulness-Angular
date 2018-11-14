@@ -1,5 +1,5 @@
 import {Exercise} from '../../models/exercise.model';
-import {Sessie} from '../../models/sessie.model';
+import {Session} from '../../models/sessie.model';
 import {Component, OnInit, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -48,7 +48,7 @@ export interface DialogExerciseData {
   ]
 })
 export class OefeninglijstComponent extends CmdImplementation implements OnInit {
-  private _sessie: Sessie;
+  private _sessie: Session;
   private _sesid: string;
   private _naam: string;
   public items: Exercise[];
@@ -58,7 +58,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   }
 
   ngOnInit() {
-    this._sessie = new Sessie();
+    this._sessie = new Session();
     this._route.params.subscribe(params => {
       this._sesid = params['sessieID'];
     });

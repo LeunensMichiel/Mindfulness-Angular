@@ -5,12 +5,6 @@
   </mat-card-header>
   <mat-card-content [formGroup]='newSes' class="kaart-container">
       <mat-form-field>
-        <input matInput [errorStateMatcher]="matcher" [value]="aantal + 1" placeholder="Vul het sessie nr. in:" autocomplete="off" formControlName='number' required>
-        <mat-error *ngIf="newSes.get('number').invalid">
-          Voeg een correct nummer toe
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
         <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off" formControlName='title' required>
         <mat-error *ngIf="newSes.get('title').invalid">
           Geen geldige titel

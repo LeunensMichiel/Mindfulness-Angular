@@ -1,20 +1,19 @@
-import { Exercise } from "./exercise.model";
-import { GenericCollection, GenericItem } from "./GenericCollection.model";
-import { Paragraph } from './paragraph.model';
+import {Exercise} from './exercise.model';
+import {GenericCollection, GenericItem} from './GenericCollection.model';
 
-export class Sessie extends GenericCollection implements GenericItem {
+export class Session extends GenericCollection implements GenericItem {
   _id: string;
   private _title: string;
   private _admin: string;
   private _position: number;
+
   // private _categorie: Categorie;
 
-  constructor(title?: string, position?: number, private _sesmapID?: string) {
+  constructor(title: string = '', position: number = 0) {
     super();
-    this._title = title || "";
+    this._title = title;
+    this._position = position;
     this.items = new Array();
-    this._position = position || 0;
-    // this._categorie = categorie;*/
   }
 
   /**
@@ -27,23 +26,23 @@ export class Sessie extends GenericCollection implements GenericItem {
 
   /**
    * Setter id
-   * @param {string} value
+   * @param _id value
    */
   public set id(_id: string) {
     this._id = _id;
   }
 
   /**
-     * Getter title
-     * @return {string}
-     */
+   * Getter title
+   * @return {string}
+   */
   public get title(): string {
     return this._title;
   }
 
   /**
    * Setter title
-   * @param {string} value
+   * @param title value
    */
   public set title(title: string) {
     this._title = title;
@@ -59,18 +58,12 @@ export class Sessie extends GenericCollection implements GenericItem {
 
   /**
    * Setter position
-   * @param {number} value
+   * @param pos value
    */
   public set position(pos: number) {
     this._position = pos;
   }
 
-  public get sesmapID(): string {
-    return this._sesmapID;
-  }
-  public set sesmapID(id: string) {
-    this._sesmapID = id;
-  }
   /**
    * Getter admin
    * @return {string}
@@ -86,18 +79,18 @@ export class Sessie extends GenericCollection implements GenericItem {
   public set admin(_admin: string) {
     this._admin = _admin;
   }
+
   fromJson(json: any) {
-    const ses = new Sessie();
-    console.log(json);
-    ses._title = json.title;
-    ses._position = json.position;
-    if (json.hasOwnProperty("items")) {
+    const ses = new Session(
+      json.title,
+      json.position
+    );
+    if (json.hasOwnProperty('items')) {
       ses.items = json.items.map(it => {
         var oef = new Exercise();
         return oef.fromJson(it);
       });
     }
-    ses._sesmapID = json.sessionmap_id;
     ses._id = json._id;
     return ses;
   }
@@ -108,7 +101,6 @@ export class Sessie extends GenericCollection implements GenericItem {
       title: this._title,
       position: this._position,
       items: this.items.map(oef => oef.toJSON()),
-      sessionmap_id: this._sesmapID
     };
   }
 }

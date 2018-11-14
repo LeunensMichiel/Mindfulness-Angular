@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Sessie } from '../../models/sessie.model';
+import { Session } from '../../models/sessie.model';
 import { Exercise } from '../../models/exercise.model';
 import { SessieDataService } from '../sessie-data.service';
 
@@ -9,10 +9,10 @@ import { SessieDataService } from '../sessie-data.service';
   styleUrls: ['./sessie.component.css']
 })
 export class SessieComponent implements OnInit {
-  @Input() public session: Sessie;
+  @Input() public session: Session;
   @Input() public url: string;
-  @Output() public deleteSession = new EventEmitter<Sessie>();
-  @Output() public modifySession = new EventEmitter<Sessie>();
+  @Output() public deleteSession = new EventEmitter<Session>();
+  @Output() public modifySession = new EventEmitter<Session>();
 
   constructor(private _sessionDataService: SessieDataService) {
     var random =  Math.floor(Math.random() * (14 - 1) + 1);

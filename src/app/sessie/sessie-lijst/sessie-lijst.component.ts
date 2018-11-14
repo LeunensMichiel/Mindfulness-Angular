@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
-import {Sessie} from '../../models/sessie.model';
+import {Session} from '../../models/sessie.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -19,8 +19,8 @@ export interface DialogCourseData {
   styleUrls: ['./sessie-lijst.component.css']
 })
 export class SessieLijstComponent implements OnInit, OnDestroy {
-  @Input() public sessions: Sessie[];
-  private _mysessions$: Observable<Sessie[]>;
+  @Input() public sessions: Session[];
+  private _mysessions$: Observable<Session[]>;
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
   private sesmapid: string;
@@ -59,7 +59,7 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
     );
   }
 
-  editSession(session: Sessie) {
+  editSession(session: Session) {
     const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, {
       data: {
         sessienaam: session.title
@@ -86,7 +86,7 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeSession(sessie: Sessie) {
+  removeSession(sessie: Session) {
 
     // dialoogvenster openen en inner class gebruiken
     const dialogRef = this.dialog.open(RemoveSessieDialog, {});
@@ -107,7 +107,7 @@ export class SessieLijstComponent implements OnInit, OnDestroy {
                 });
             }
           );
-          this.snackBar.open('Sessie ' + sessie.position + ' removed!', '',
+          this.snackBar.open('Session ' + sessie.position + ' removed!', '',
             {
               duration: 3000,
             });

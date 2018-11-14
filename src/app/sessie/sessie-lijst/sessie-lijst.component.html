@@ -1,10 +1,10 @@
 
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center" >
-  <div *ngFor='let localSessie of sessies' [ngsReveal]="{ reset: true, distance: '250px', scale: 0.85}" >
+  <div *ngFor='let localSessie of sessies'>
     <app-sessie [session]='localSessie' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
   </div>
   <div *ngIf='creating'>
-    <app-sessie-toevoegen (disable)='creating = !creating' [aantal]='sessies.length' [sesMapid]="sesMapID"></app-sessie-toevoegen>
+    <app-sessie-toevoegen (disable)='creating = !creating' [numberOfSessions]='sessies.length' [sesMapid]="sesMapID"></app-sessie-toevoegen>
   </div>
 </div>
 <div *ngIf='!creating'>

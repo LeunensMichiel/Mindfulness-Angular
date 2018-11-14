@@ -4,18 +4,18 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Sessie } from '../models/sessie.model';
+import { Session } from '../models/sessie.model';
 import { Observable } from 'rxjs';
 import { SessieDataService } from './sessie-data.service';
 
 @Injectable()
-export class SessieResolver implements Resolve<Sessie> {
+export class SessieResolver implements Resolve<Session> {
   constructor(private sessieService: SessieDataService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Sessie> {
+  ): Observable<Session> {
     return this.sessieService.getSessie(route.params['sessieID']);
   }
 }

@@ -1,10 +1,10 @@
 
-import { Sessie } from './sessie.model';
+import { Session } from './sessie.model';
 import {GenericCollection, GenericItem} from './GenericCollection.model';
 export class Sessionmap extends GenericCollection implements GenericItem{
   _id: string;
   private _titleCourse: string;
-  //private _sessions: Sessie[];
+  //private _sessions: Session[];
 
   // private _categorie: Categorie;
 
@@ -51,7 +51,7 @@ export class Sessionmap extends GenericCollection implements GenericItem{
     sesmap._titleCourse = json.titleCourse;
     if (json.hasOwnProperty("sessions")){
       sesmap.items = json.sessions.map(it => {
-        var ses = new Sessie();
+        var ses = new Session();
         return ses.fromJson(it);
       });
     }

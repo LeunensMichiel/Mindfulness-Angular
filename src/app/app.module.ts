@@ -49,7 +49,6 @@ import {SessieResolver} from './sessie/sessie-resolver';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
-import {NgsRevealModule} from 'ngx-scrollreveal';
 import {ExerciseDataService} from './oefening/exercise-data.service';
 
 @NgModule({
@@ -103,8 +102,7 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
     ScrollDispatchModule,
     MatInputModule,
     MatExpansionModule,
-    FlexLayoutModule,
-    NgsRevealModule
+    FlexLayoutModule
   ],
   providers: [
     SessieDataService,

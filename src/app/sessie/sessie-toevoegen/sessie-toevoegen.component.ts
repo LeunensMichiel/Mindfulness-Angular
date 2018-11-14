@@ -12,7 +12,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SessieDataService } from "../sessie-data.service";
-import { Sessie } from "../../models/sessie.model";
+import { Session } from "../../models/sessie.model";
 import { HttpErrorResponse } from "@angular/common/http";
 
 export class SessieErrorStateMatcher implements ErrorStateMatcher {
@@ -30,7 +30,7 @@ export class SessieErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SessieToevoegenComponent implements OnInit {
   @Output() public disable = new EventEmitter();
-  @Input() public aantal: number;
+  @Input() public numberOfSessions: number;
   @Input() sesMapid: string;
   public newSes: FormGroup;
   public matcher = new SessieErrorStateMatcher();
@@ -40,18 +40,17 @@ export class SessieToevoegenComponent implements OnInit {
 
   ngOnInit() {
     this.newSes = this._fb.group({
-      number: [this.aantal, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
       title: ['', Validators.required]
     }
     );
   }
 
   addSessie() {
-    let sessie = new Sessie(this.newSes.value.title, this.newSes.value.number, this.sesMapid);
+    let sessie = new Session(this.newSes.value.title, this.numberOfSessions);
     if (this.newSes.valid) {
       this._sessieDataService.addNewSessie(sessie).subscribe(
         () => {
-          this.snackBar.open("Sessie successfully added!");
+          this.snackBar.open("Session successfully added!");
           this.setDisable();
         },
         (error: HttpErrorResponse) => {
