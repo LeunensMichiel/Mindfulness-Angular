@@ -52,6 +52,8 @@ import { PageResolver } from './pagina/page-resolver';
 import {NgsRevealModule} from 'ngx-scrollreveal';
 import {ExerciseDataService} from './oefening/exercise-data.service';
 import { GroepenListComponent } from './groepen/groepen-list/groepen-list.component';
+import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
+import { GroepComponent } from './groepen/groep/groep.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { GroepenListComponent } from './groepen/groepen-list/groepen-list.compon
     ParagraafCreatieComponent,
     SessieModifyComponent,
     RemoveExerciseDialog,
-    GroepenListComponent
+    GroepenListComponent,
+    GroepCreatieComponent,
+    GroepComponent
   ],
   imports: [
     BrowserModule,

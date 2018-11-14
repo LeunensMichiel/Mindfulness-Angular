@@ -1,9 +1,21 @@
-<div>
-  groepen-list works!
-  <mat-list>
-    <a mat-list-item matRipple *ngFor='let group of groups'>
-      <div> <h3>{{group.name}}</h3> </div>
-      <div> <h2>{{group.sessionmap_id}}</h2> </div>
-    </a>
-  </mat-list>
+
+
+
+<div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center" >
+  
+  <div *ngFor='let group of groups'>
+    <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
+  </div>
 </div>
+
+<div *ngIf='creating' class="creatiebtn">
+  <app-groep-creatie (disable)='creating = !creating'></app-groep-creatie>
+</div>
+
+<div *ngIf='!creating' class="creatiebtn">
+  <button mat-fab color="accent" (click)='creating = !creating'>
+    <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+  </button>
+</div>
+
+

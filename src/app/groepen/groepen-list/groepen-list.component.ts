@@ -3,6 +3,7 @@ import {Group} from 'src/app/models/group.model';
 import {GroepenDataService} from '../groepen-data.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog} from '@angular/material';
+import { SessieDataService } from '../../sessie/sessie-data.service';
 
 @Component({
   selector: 'app-groepen-list',
@@ -13,6 +14,7 @@ export class GroepenListComponent implements OnInit {
   public errorMsg: string;
   private _groups: Group[];
 
+//  constructor(private groepenDataService: GroepenDataService, private sessieDataService:SessieDataService, public dialog: MatDialog) { }
   constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -32,4 +34,11 @@ export class GroepenListComponent implements OnInit {
   get groups(){
     return this._groups;
   }
+
+  /*
+  get sessienaam(id:string){
+    this.sessieDataService.getSessie(id).subscribe(
+        group.sessienaam = this.sessienaam;
+    );
+  } */
 }

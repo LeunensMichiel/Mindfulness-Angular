@@ -4,6 +4,7 @@ export class Group{
     _id:string;
     _name:string;
     _sessionmap_id:string;
+    _sessie_naam:string;
 
     constructor(name?:string,sessionmap_id?:string){
         //super();
@@ -33,6 +34,14 @@ export class Group{
 
     public set sessionmap_id(value:string){
         this._sessionmap_id = value;
+    }
+
+    public set sessie_naam(value:string){
+        this._sessie_naam = value;
+    }
+
+    public get sessie_naam():string{
+        return this._sessie_naam;
     }
 
     fromJson(json:any){

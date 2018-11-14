@@ -25,5 +25,14 @@ export class GroepenDataService {
       )
     ));
   }
-  
+
+  addNewGroup(group:Group):Observable<Group>
+  {
+    return this.http
+      .post(`${this._appUrl}/group`, group)
+      .pipe(map(it => {
+        var group= new Group();
+        return group.fromJson(it);
+      }));
+  }
 }
