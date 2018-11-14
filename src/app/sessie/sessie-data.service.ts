@@ -2,7 +2,7 @@ import { Exercise } from 'src/app/models/exercise.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Session } from '../models/sessie.model';
+import { Session } from '../models/session.model';
 import { map } from 'rxjs/operators';
 import { Sessionmap } from '../models/sessionmap.model';
 
@@ -22,25 +22,28 @@ export class SessieDataService {
       .get(`${this._appUrl}/sessions/${id}`)
       .pipe(map((list: any[]): Session[] =>
         list.map(it => {
-          var ses = new Session();
+          const ses = new Session();
           return ses.fromJson(it);
         })));
   }
 
-  addNewSessie(ses: Session): Observable<Session> {
+  addNewSession(session: Session, sessionmap_id: string): Observable<Session> {
+    let sessionJson = session.toJSON();
+
+
     return this.http
-      .post(`${this._appUrl}/session`, ses)
+      .post(`${this._appUrl}/session`, {...sessionJson, sessionmap_id: sessionmap_id})
       .pipe(map(it => {
-        var ses = new Session();
+        const ses = new Session();
         return ses.fromJson(it);
       }));
   }
 
-  removeSessie(ses: Session): Observable<Session> {
+  removeSession(ses: Session): Observable<Session> {
     return this.http
       .delete(`${this._appUrl}/session/${ses.id}`)
       .pipe(map(it => {
-        var ses = new Session();
+        const ses = new Session();
         return ses.fromJson(it);
       }));
   }
@@ -53,7 +56,7 @@ export class SessieDataService {
     return this.http
       .get(`${this._appUrl}/session/${id}`)
       .pipe(map(it => {
-        var ses = new Session();
+        const ses = new Session();
 
         return ses.fromJson(it);
       }));
@@ -66,18 +69,18 @@ export class SessieDataService {
       .pipe(map((list: any[]): Exercise[] =>
         list.map(
           it => {
-            var ex = new Exercise();
+            const ex = new Exercise();
             console.log(ex.fromJson(it));
             return ex.fromJson(it);
           }
         )));
   }
 
-  editSession(sessie: Session): Observable<Session> {
+  editSession(session: Session): Observable<Session> {
     return this.http
-      .put(`${this._appUrl}/session/${sessie.id}`, sessie)
+      .put(`${this._appUrl}/session/${session.id}`, session)
       .pipe(map(it => {
-        var sMap = new Session();
+        const sMap = new Session();
         return sMap.fromJson(it);
       }));
   }

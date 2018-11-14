@@ -4,7 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-import { Session } from '../models/sessie.model';
+import { Session } from '../models/session.model';
 import { Observable } from 'rxjs';
 import { SessieDataService } from './sessie-data.service';
 

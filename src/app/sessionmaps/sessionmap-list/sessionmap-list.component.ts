@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material';
 import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creatie.component';
 
 export interface DialogCourseData {
-  lesnaam: string;
+  sessionmap_title: string;
   isCreatie: boolean;
 }
 
@@ -26,7 +26,7 @@ export class SessionmapListComponent implements OnInit {
   ngOnInit(): void {
     this.sessionmapDataService.sesmaps.subscribe(
       sesmaps => {
-        this._sessionmaps = sesmaps;
+        this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -48,7 +48,7 @@ export class SessionmapListComponent implements OnInit {
   onAdd(isCreatie: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
       data: {
-        lesnaam: this._selectedSessionmap.titleCourse,
+        sessionmap_title: this._selectedSessionmap.titleCourse,
         isCreatie: isCreatie
       }
     });
@@ -62,6 +62,8 @@ export class SessionmapListComponent implements OnInit {
           this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
             sesmap => {
               this._sessionmaps.push(sesmap);
+              this._sessionmaps = this._sessionmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while adding  ${

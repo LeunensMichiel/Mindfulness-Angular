@@ -1,5 +1,5 @@
 
-import { Session } from './sessie.model';
+import { Session } from './session.model';
 import {GenericCollection, GenericItem} from './GenericCollection.model';
 export class Sessionmap extends GenericCollection implements GenericItem{
   _id: string;

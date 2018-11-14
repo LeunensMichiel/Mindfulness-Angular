@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Session } from '../../models/sessie.model';
+import { Session } from '../../models/session.model';
 import { Exercise } from '../../models/exercise.model';
 import { SessieDataService } from '../sessie-data.service';
 

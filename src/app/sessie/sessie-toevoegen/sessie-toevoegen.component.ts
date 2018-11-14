@@ -4,15 +4,13 @@ import {
   FormControl,
   Validators,
   FormBuilder,
-  FormArray,
   FormGroupDirective,
   NgForm
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { SessieDataService } from "../sessie-data.service";
-import { Session } from "../../models/sessie.model";
+import { Session } from "../../models/session.model";
 import { HttpErrorResponse } from "@angular/common/http";
 
 export class SessieErrorStateMatcher implements ErrorStateMatcher {
@@ -30,39 +28,28 @@ export class SessieErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SessieToevoegenComponent implements OnInit {
   @Output() public disable = new EventEmitter();
+  @Output() public addSession = new EventEmitter();
   @Input() public numberOfSessions: number;
-  @Input() sesMapid: string;
-  public newSes: FormGroup;
+  public newSession: FormGroup;
   public matcher = new SessieErrorStateMatcher();
 
-  constructor(private _fb: FormBuilder, private _sessieDataService: SessieDataService,
+  constructor(private _fb: FormBuilder, private _sessionDataService: SessieDataService,
     public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.newSes = this._fb.group({
+    this.newSession = this._fb.group({
       title: ['', Validators.required]
     }
     );
   }
 
-  addSessie() {
-    let sessie = new Session(this.newSes.value.title, this.numberOfSessions);
-    if (this.newSes.valid) {
-      this._sessieDataService.addNewSessie(sessie).subscribe(
-        () => {
-          this.snackBar.open("Session successfully added!");
-          this.setDisable();
-        },
-        (error: HttpErrorResponse) => {
-          this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, "", {
-            duration: 3000,
-          });
-          this.setDisable();
-        }
-      );
+  onSubmit() {
+    if (this.newSession.valid) {
+      let session = new Session(this.newSession.value.title, this.numberOfSessions);
+      this.addSession.emit(session);
     }
     else {
-      this.snackBar.open("Please fill in all fields correctly!", "",
+      this.snackBar.open("Vul alle velden correct in, aub", "",
         {
           duration: 3000,
         });
@@ -70,7 +57,7 @@ export class SessieToevoegenComponent implements OnInit {
   }
 
   setDisable() {
-    this.newSes.reset();
+    this.newSession.reset();
     this.disable.emit();
   }
 }

@@ -1,5 +1,5 @@
 import {Exercise} from '../../models/exercise.model';
-import {Session} from '../../models/sessie.model';
+import {Session} from '../../models/session.model';
 import {Component, OnInit, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';

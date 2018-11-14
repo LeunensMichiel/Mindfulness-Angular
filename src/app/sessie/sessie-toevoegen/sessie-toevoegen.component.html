@@ -3,16 +3,16 @@
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>SESSIE AANMAKEN</mat-card-title>
   </mat-card-header>
-  <mat-card-content [formGroup]='newSes' class="kaart-container">
+  <mat-card-content [formGroup]='newSession' class="kaart-container">
       <mat-form-field>
         <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off" formControlName='title' required>
-        <mat-error *ngIf="newSes.get('title').invalid">
+        <mat-error *ngIf="newSession.get('title').invalid">
           Geen geldige titel
         </mat-error>
       </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-icon-button (click)="addSessie()" class="hvr-grow">
+    <button mat-icon-button (click)="onSubmit()" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with a check icon">check</mat-icon>
     </button>
     <button mat-icon-button (click)="setDisable()" class="hvr-grow">

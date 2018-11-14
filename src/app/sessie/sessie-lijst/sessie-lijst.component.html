@@ -1,10 +1,12 @@
-
+<div class="titel" >
+  <h1><span class="vet">OVERZICHT </span>{{sessionmap.titleCourse.toUpperCase()}}</h1>
+</div>
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center" >
-  <div *ngFor='let localSessie of sessies'>
-    <app-sessie [session]='localSessie' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
+  <div *ngFor='let session of sessionmap.items'>
+    <app-sessie [session]='session' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
   </div>
   <div *ngIf='creating'>
-    <app-sessie-toevoegen (disable)='creating = !creating' [numberOfSessions]='sessies.length' [sesMapid]="sesMapID"></app-sessie-toevoegen>
+    <app-sessie-toevoegen (disable)='creating = !creating' (addSession)="addSession($event)" [numberOfSessions]='sessionmap.items.length'></app-sessie-toevoegen>
   </div>
 </div>
 <div *ngIf='!creating'>
