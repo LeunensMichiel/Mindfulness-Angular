@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 import { SessieDataService } from './sessie-data.service';
 
 @Injectable()
-export class SessieResolver implements Resolve<Session> {
-  constructor(private sessieService: SessieDataService) {}
+export class SessionResolver implements Resolve<Session> {
+  constructor(private sessionDataService: SessieDataService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Session> {
-    return this.sessieService.getSessie(route.params['sessieID']);
+    return this.sessionDataService.getSession(route.params['sessionID']);
   }
 }

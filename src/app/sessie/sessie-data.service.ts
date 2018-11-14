@@ -52,7 +52,7 @@ export class SessieDataService {
   //   const theUrl = `${this._appUrl}/sessies/${ses.id}/oefeningen`;
   //   return this.http.post(theUrl, oef).pipe(map(Exercise.fromJson));
   // }
-  getSessie(id: string): Observable<Session> {
+  getSession(id: string): Observable<Session> {
     return this.http
       .get(`${this._appUrl}/session/${id}`)
       .pipe(map(it => {

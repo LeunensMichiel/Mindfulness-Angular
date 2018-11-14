@@ -1,32 +1,22 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { SessieLijstComponent } from '../sessie/sessie-lijst/sessie-lijst.component';
-import { OefeninglijstComponent } from '../oefening/oefeninglijst/oefeninglijst.component';
+import { ExerciseListComponent } from '../oefening/exercise-list/exercise-list.component';
 import { SessionmapListComponent } from '../sessionmaps/sessionmap-list/sessionmap-list.component';
 import { SessionmapDetailComponent } from '../sessionmaps/sessionmap-detail/sessionmap-detail.component';
 import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
-import { SessieResolver } from '../sessie/sessie-resolver';
+import { SessionResolver } from '../sessie/session-resolver.service';
 import { PaginaCreatieLijstComponent } from '../pagina/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
 import { OefeningDetailComponent } from '../oefening/oefening-detail/oefening-detail.component';
 import { PageResolver } from '../pagina/page-resolver';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'course-list', pathMatch: 'full' },
-  {
-    path: 'course-list', component: SessionmapListComponent, children: [
-      { path: 'course-list/:courseID', component: SessionmapDetailComponent, resolve: { sesmap: Sessionmapresolver } }
-    ],
-    //zodat sessies van sesmaps telkens herladen
-    runGuardsAndResolvers: 'paramsChange'
-  },
-  {
-    path: 'sessie-list', component: SessieLijstComponent, children: [
-      { path: 'sessie-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } }
-    ]
-  },
-  { path: 'oefening-list/:sessieID', component: OefeninglijstComponent, resolve: { sessie: SessieResolver } },
+  { path: 'course-list', component: SessionmapListComponent},
+  { path: 'sessie-list', component: SessieLijstComponent},
+  { path: 'exercise-list/:sessionID', component: ExerciseListComponent, resolve: { session: SessionResolver } },
   { path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: { exercise: PageResolver} },
-  { path: 'oefening-list', component: OefeninglijstComponent }
+  { path: 'oefening-list', component: ExerciseListComponent }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 

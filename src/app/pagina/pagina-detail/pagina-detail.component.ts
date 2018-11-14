@@ -7,7 +7,7 @@ import { Page } from 'src/app/models/page.model';
   styleUrls: ['./pagina-detail.component.css']
 })
 export class PaginaDetailComponent implements OnInit {
-  @Input() public page: Page
+  @Input() public page: Page;
 
   constructor() { }
 

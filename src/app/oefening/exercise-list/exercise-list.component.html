@@ -1,10 +1,5 @@
 <div class="container" (keydown)="onKeydown($event)" tabindex="0">
- <!--  <button mat-fab class="undo" (click)="undo()">
-    <i class="material-icons">
-      undo
-    </i>
-  </button> -->
-  <app-oefening-detail *ngFor='let oefdetail of _sessie.items; let i = index' [@shrinkOut]='i' [excersice]='oefdetail'
+  <app-oefening-detail *ngFor='let exerciseDetail of _session.items; let i = index' [@shrinkOut]='i' [excersice]='exerciseDetail'
     (delOef)='removeOefening($event)' [_position]='i' (wijzig)='onAdd($event, false)' class="kid">
   </app-oefening-detail>
     <button class="kid" mat-fab (click)='onAdd(null, true)'>

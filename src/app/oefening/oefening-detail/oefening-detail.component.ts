@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { Exercise } from 'src/app/models/exercise.model';
-import { OefeningCreatieComponent } from '../oefening-creatie/oefening-creatie.component';
 
 @Component({
   selector: 'app-oefening-detail',

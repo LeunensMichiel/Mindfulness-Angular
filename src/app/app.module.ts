@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { OefeningCreatieComponent } from './oefening/oefening-creatie/oefening-creatie.component';
+import { ExerciseCreationComponent } from './oefening/exercise-creation/exercise-creation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -20,7 +20,7 @@ import {
 } from '@angular/material';
 import { OefeningDetailComponent } from './oefening/oefening-detail/oefening-detail.component';
 import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.component';
-import {OefeninglijstComponent, RemoveExerciseDialog} from './oefening/oefeninglijst/oefeninglijst.component';
+import {ExerciseListComponent, RemoveExerciseDialog} from './oefening/exercise-list/exercise-list.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
 import { SessieComponent } from './sessie/sessie/sessie.component';
@@ -45,7 +45,7 @@ import { InputPaginaCreatieComponent } from './pagina/creatie-components/input-p
 import { TekstPaginaCreatieComponent } from './pagina/creatie-components/tekst-pagina-creatie/tekst-pagina-creatie.component';
 import { ParagraafCreatieComponent } from './pagina/creatie-components/paragraaf-creatie/paragraaf-creatie.component';
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
-import {SessieResolver} from './sessie/sessie-resolver';
+import {SessionResolver} from './sessie/session-resolver.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
@@ -54,10 +54,10 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
 @NgModule({
   declarations: [
     AppComponent,
-    OefeningCreatieComponent,
+    ExerciseCreationComponent,
     OefeningDetailComponent,
     PaginaDetailComponent,
-    OefeninglijstComponent,
+    ExerciseListComponent,
     TekstPaginaDetailComponent,
     AudioPaginaDetailComponent,
     InvoerPaginaDetailComponent,
@@ -108,12 +108,17 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
     SessieDataService,
     SessionmapDataService,
     Sessionmapresolver,
-    SessieResolver,
+    SessionResolver,
     PageDataService,
     PageResolver,
     ExerciseDataService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [RemoveSessieDialog, SessionmapCreatieComponent, SessieModifyComponent, OefeningCreatieComponent, RemoveExerciseDialog]
+  entryComponents: [
+    RemoveSessieDialog,
+    SessionmapCreatieComponent,
+    SessieModifyComponent,
+    ExerciseCreationComponent,
+    RemoveExerciseDialog]
 })
 export class AppModule { }

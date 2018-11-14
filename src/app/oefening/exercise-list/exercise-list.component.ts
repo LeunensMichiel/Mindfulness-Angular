@@ -1,6 +1,6 @@
 import {Exercise} from '../../models/exercise.model';
 import {Session} from '../../models/session.model';
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {
@@ -25,19 +25,19 @@ import {
   transition
 } from '@angular/animations';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {OefeningCreatieComponent} from '../oefening-creatie/oefening-creatie.component';
+import {ExerciseCreationComponent} from '../exercise-creation/exercise-creation.component';
 import {Update} from 'src/app/models/Commands/update.model';
 import {ExerciseDataService} from '../exercise-data.service';
 
 export interface DialogExerciseData {
-  naam: string;
+  exercise_title: string;
   isCreatie: boolean;
 }
 
 @Component({
   selector: 'app-oefeninglijst',
-  templateUrl: './oefeninglijst.component.html',
-  styleUrls: ['./oefeninglijst.component.css'],
+  templateUrl: './exercise-list.component.html',
+  styleUrls: ['./exercise-list.component.css'],
   animations: [
     trigger('shrinkOut', [
       transition(':increment', [style({transform: 'translateX(-100%)'}), animate('500ms ease-out', style({transform: 'translateX(0%)'}))]),
@@ -47,70 +47,47 @@ export interface DialogExerciseData {
     ])
   ]
 })
-export class OefeninglijstComponent extends CmdImplementation implements OnInit {
-  private _sessie: Session;
+export class ExerciseListComponent extends CmdImplementation implements OnInit {
+  private _session: Session;
   private _sesid: string;
   private _naam: string;
   public items: Exercise[];
 
-  constructor(public dialog: MatDialog, private _route: ActivatedRoute, public snackBar: MatSnackBar, private _exerciseDataService: ExerciseDataService, private _sessionDataService: SessieDataService) {
+  constructor(public dialog: MatDialog,
+              private _route: ActivatedRoute,
+              public snackBar: MatSnackBar,
+              private _exerciseDataService: ExerciseDataService,
+              private _sessionDataService: SessieDataService) {
     super();
   }
 
   ngOnInit() {
-    this._sessie = new Session();
-    this._route.params.subscribe(params => {
-      this._sesid = params['sessieID'];
-    });
-    console.log(this._sesid);
-    this._sessionDataService.getSessie(this._sesid).subscribe(
-      sessie => {
-        console.log(sessie);
-        (this._sessie = sessie);
-
-        console.log('CHECK');
-      },
-      (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while getting exercises: ${error.error}`, '',
-          {
-            duration: 3000,
-          });
-      }
-    );
-    this._exerciseDataService.getExercisesFromSession(this._sesid).subscribe(
-      exercises => {
-        this._sessie.items = exercises;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    console.log(this._sessie);
+    this._route.data.subscribe(item =>
+      this._session = item['session']);
   }
 
   onAdd(ex: Exercise, isCreatie: boolean) {
-    console.log(this.items);
-    const addExDialogRef = this.dialog.open(OefeningCreatieComponent, {
+    console.log(this._session.items);
+    const addExDialogRef = this.dialog.open(ExerciseCreationComponent, {
       height: '400px',
       width: '500px',
       data: {
-        naam: this._naam,
+        exercise_title: this._naam,
         isCreatie: isCreatie
       }
     });
 
     addExDialogRef.afterClosed().subscribe(result => {
-      this._naam = result;
       //Als er iets is ingevuld in de input
       if (result) {
         //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
         if (isCreatie) {
-          let oef = new Exercise(this._naam);
-          oef.position = this._sessie.items.length;
-          this.addCommand(new Insert([this._sessie], [oef]));
+          let oef = new Exercise(result);
+          oef.position = this._session.items.length;
+          this.addCommand(new Insert([this._session], [oef]));
         } else {
           ex.title = result;
-          this.addCommand(new Update([this._sessie], [ex]));
+          this.addCommand(new Update([this._session], [ex]));
         }
       }
     });
@@ -132,7 +109,7 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
     //         });
     //     }
     //   });
-    this.addCommand(new Delete([this._sessie], [oef]));
+    this.addCommand(new Delete([this._session], [oef]));
     this.snackBar.open('Exercise ' + oef.title + ' removed!', '',
       {
         duration: 3000,
@@ -140,14 +117,14 @@ export class OefeninglijstComponent extends CmdImplementation implements OnInit 
   }
 
   get oefeningen(): GenericItem[] {
-    return this._sessie.items;
+    return this._session.items;
   }
 
   /*
     updates the current session in the database when the command timer has expired
   */
   saveItem() {
-    this._sessionDataService.editSession(this._sessie).subscribe(
+    this._sessionDataService.editSession(this._session).subscribe(
       () => {
         this.snackBar.open('Oefeningen opgeslaan!');
       },

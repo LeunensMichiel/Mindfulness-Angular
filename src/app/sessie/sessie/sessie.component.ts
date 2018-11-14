@@ -31,7 +31,4 @@ export class SessieComponent implements OnInit {
     this.modifySession.emit(this.session);
   }
 
-  addOefening(ex: Exercise) {
-    // this._sessieDataService.addOefToSessie(this.sessie, ex);
-  }
 }

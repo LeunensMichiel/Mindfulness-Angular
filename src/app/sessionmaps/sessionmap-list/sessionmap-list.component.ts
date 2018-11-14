@@ -27,6 +27,9 @@ export class SessionmapListComponent implements OnInit {
     this.sessionmapDataService.sesmaps.subscribe(
       sesmaps => {
         this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+        if (sesmaps.length !== 0) {
+          this._selectedSessionmap = this._sessionmaps[0];
+        }
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -78,8 +81,8 @@ export class SessionmapListComponent implements OnInit {
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while editing  ${
-                result                
-              }: ${error.error}`;
+                result
+                }: ${error.error}`;
             }
           );
         }
