@@ -1,0 +1,21 @@
+
+
+
+<div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
+  
+  <div *ngFor='let group of groups'>
+    <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
+  </div>
+</div>
+
+<div *ngIf='creating' class="creatiebtn">
+  <app-groep-creatie (disable)='creating = !creating'></app-groep-creatie>
+</div>
+
+<div *ngIf='!creating' class="creatiebtn">
+  <button mat-fab color="accent" (click)='creating = !creating'>
+    <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+  </button>
+</div>
+
+

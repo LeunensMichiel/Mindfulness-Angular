@@ -9,6 +9,7 @@ import { SessionResolver } from '../sessie/session-resolver.service';
 import { PaginaCreatieLijstComponent } from '../pagina/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
 import { OefeningDetailComponent } from '../oefening/oefening-detail/oefening-detail.component';
 import { PageResolver } from '../pagina/page-resolver';
+import { GroepenListComponent } from '../groepen/groepen-list/groepen-list.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'course-list', pathMatch: 'full' },
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
   { path: 'sessie-list', component: SessieLijstComponent},
   { path: 'exercise-list/:sessionID', component: ExerciseListComponent, resolve: { session: SessionResolver } },
   { path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: { exercise: PageResolver} },
-  { path: 'oefening-list', component: ExerciseListComponent }
+  { path: 'oefening-list', component: ExerciseListComponent },
+  {path:'groepen-list', component: GroepenListComponent}
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 

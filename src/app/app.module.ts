@@ -50,6 +50,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
 import {ExerciseDataService} from './oefening/exercise-data.service';
+import { GroepenListComponent } from './groepen/groepen-list/groepen-list.component';
+import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
+import { GroepComponent } from './groepen/groep/groep.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,10 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
     TekstPaginaCreatieComponent,
     ParagraafCreatieComponent,
     SessieModifyComponent,
-    RemoveExerciseDialog
+    RemoveExerciseDialog,
+    GroepenListComponent,
+    GroepCreatieComponent,
+    GroepComponent
   ],
   imports: [
     BrowserModule,
