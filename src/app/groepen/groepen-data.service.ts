@@ -19,7 +19,7 @@ export class GroepenDataService {
     .pipe(map((list:any[]): Group[] =>
       list.map(
         it => {
-          var g = new Group();
+          const g = new Group();
           return g.fromJson(it);
         }
       )
@@ -31,7 +31,7 @@ export class GroepenDataService {
     return this.http
       .post(`${this._appUrl}/group`, group)
       .pipe(map(it => {
-        var group= new Group();
+        const group= new Group();
         return group.fromJson(it);
       }));
   }

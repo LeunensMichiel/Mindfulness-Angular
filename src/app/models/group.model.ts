@@ -6,7 +6,7 @@ export class Group{
     _sessionmap_id:string;
     _sessie_naam:string;
 
-    constructor(name?:string,sessionmap_id?:string){
+    constructor(name:string = '',sessionmap_id:string = ''){
         //super();
         this._name = name;
         this._sessionmap_id = sessionmap_id;
@@ -45,9 +45,12 @@ export class Group{
     }
 
     fromJson(json:any){
-        const group = new Group();
-        group._name = json.name;
-        group._sessionmap_id = json.sessionmap_id;
+        const group = new Group(
+            json.name,
+            json.sessionmap_id
+        );
+        //group._name = json.name;
+        //group._sessionmap_id = json.sessionmap_id;
         group._id = json._id;
         return group;
     }

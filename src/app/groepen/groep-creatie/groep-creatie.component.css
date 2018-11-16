@@ -1,17 +1,11 @@
-
-.createButton {
-    min-width: 200px;
-    min-height: 200px;
-}
-
-.toevoeg-card {
-  width: 400px;
-  margin: 1em;
-  height: 370px;
-}
-
 .kaart-container {
   display: flex;
   flex-direction: column;
   margin-top: 80px;
+}
+
+.toevoeg-card {
+  width: 300px;
+  margin: 1em;
+  height: 370px;
 }
