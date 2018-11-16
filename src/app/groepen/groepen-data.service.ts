@@ -35,4 +35,13 @@ export class GroepenDataService {
         return group.fromJson(it);
       }));
   }
+
+  editGroup(group: Group): Observable<Group> {
+    return this.http
+      .put(`${this._appUrl}/group/${group.id}`, group)
+      .pipe(map(it => {
+        const gr = new Group();
+        return gr.fromJson(it);
+      }));
+  }
 }
