@@ -53,6 +53,7 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,10 @@ import { GroepComponent } from './groepen/groep/groep.component';
     ScrollDispatchModule,
     MatInputModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     SessieDataService,

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Group } from '../models/group.model';
 import { map } from 'rxjs/operators';
+import { Sessionmap } from '../models/sessionmap.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,18 @@ export class GroepenDataService {
         const gr = new Group();
         return gr.fromJson(it);
       }));
+  }
+
+  get sesmaps(): Observable<Sessionmap[]> {
+    return this.http
+      .get(`${this._appUrl}/group/sessionmaps`)
+      .pipe(map((list:any[]): Sessionmap[] =>
+        list.map(
+          it => {
+            var sMap = new Sessionmap();
+            return sMap.fromJson(it);
+          }
+        )
+      ));
   }
 }

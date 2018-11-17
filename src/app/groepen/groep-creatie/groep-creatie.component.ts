@@ -5,6 +5,9 @@ import { Group } from '../../models/group.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service';
+import { Sessionmap } from '../../models/sessionmap.model';
+import { Observable } from 'rxjs';
 
 export class GroupErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,18 +25,43 @@ export class GroepCreatieComponent implements OnInit {
   @Output() public disable = new EventEmitter();
   public newGroup:FormGroup;
   public matcher = new GroupErrorStateMatcher();
+  private _sessionmaps:Sessionmap[];
+  public errorMsg: string;
 
   constructor(
     private fb: FormBuilder,
     private _groupDataService: GroepenDataService,
+    private _sessionmapDataService:SessionmapDataService,
     public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+  
+    this._groupDataService.sesmaps.subscribe(
+      sesmaps => {
+        this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+        console.log(this._sessionmaps);
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessionmaps: ${error.error}`;
+      }
+    );
+    this._sessionmaps = new Array();
+
+    /*
+    this._sessionmaps.forEach(function(){
+      console.log(this._titleCourse);
+    })  */
+
     this.newGroup = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(1)]],
-      sessiemapnaam: ['', [Validators.required, Validators.minLength(2)]]
+      name: ['', [Validators.required, Validators.minLength(1)]]
     });
+  }
+
+  get sesmaps() {
+    return this._sessionmaps;
   }
 
   addGroup(){
