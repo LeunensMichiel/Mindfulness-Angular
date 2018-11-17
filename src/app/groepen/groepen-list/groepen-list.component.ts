@@ -39,7 +39,7 @@ export class GroepenListComponent implements OnInit {
     return this._groups;
   }
 
-  editSession(group: Group) {
+  editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
         group_name: group.name
@@ -65,6 +65,31 @@ export class GroepenListComponent implements OnInit {
     });
   }
 
+  removeGroup(group: Group) {
+    const dialogRef = this.dialog.open(RemoveGroupDialog, {});
+    // RemoveSessieDialog geeft een boolean mee om aan te tonen of ja of nee gedrukt werd
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data) {
+          this.groepenDataService.removeGroup(group).subscribe(
+            item => {},
+            (error: HttpErrorResponse) => {
+              this.snackBar.open(`Error ${error.status} tijdens het verwijderen van de groep ${
+                  group.name
+                  }: ${error.error}`, '',
+                {
+                  duration: 3000,
+                });
+            }
+          );
+          this.snackBar.open('Groep ' + group.name + ' is succesvol verwijderd!', '',
+            {
+              duration: 3000,
+            });
+        }
+      });
+  }
+
   /*
   get sessienaam(id:string){
     this.sessieDataService.getSessie(id).subscribe(
@@ -87,6 +112,24 @@ export class GroupModifyComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'dialog-remove-group',
+  templateUrl: 'dialog-remove-group.html',
+})
+export class RemoveGroupDialog {
+
+  constructor(public dialogRef: MatDialogRef<RemoveGroupDialog>) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+
+  onYesClick(): void {
+    this.dialogRef.close(true);
   }
 }
 

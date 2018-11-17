@@ -44,4 +44,13 @@ export class GroepenDataService {
         return gr.fromJson(it);
       }));
   }
+
+  removeGroup(gr: Group): Observable<Group> {
+    return this.http
+      .delete(`${this._appUrl}/group/${gr.id}`)
+      .pipe(map(it => {
+        const gr = new Group();
+        return gr.fromJson(it);
+      }));
+  }
 }

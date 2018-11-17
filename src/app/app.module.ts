@@ -50,7 +50,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
 import {ExerciseDataService} from './oefening/exercise-data.service';
-import { GroepenListComponent } from './groepen/groepen-list/groepen-list.component';
+import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 
@@ -81,7 +81,9 @@ import { GroepComponent } from './groepen/groep/groep.component';
     RemoveExerciseDialog,
     GroepenListComponent,
     GroepCreatieComponent,
-    GroepComponent
+    GroepComponent,
+    GroupModifyComponent,
+    RemoveGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -125,6 +127,8 @@ import { GroepComponent } from './groepen/groep/groep.component';
     SessionmapCreatieComponent,
     SessieModifyComponent,
     ExerciseCreationComponent,
-    RemoveExerciseDialog]
+    RemoveExerciseDialog,
+    GroupModifyComponent,
+    RemoveGroupDialog]
 })
 export class AppModule { }
