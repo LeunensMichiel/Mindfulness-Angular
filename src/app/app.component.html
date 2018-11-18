@@ -9,14 +9,17 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
+                 fixedTopGap="56">
       <mat-nav-list class="examplelist">
-          <a mat-list-item routerLinkActive='active' routerLink="/course-list" >OVERZICHT</a>
-          <a mat-list-item routerLink="/sessie-list" >SESSIES</a>
-          <a mat-list-item routerLink="/oefening-list" >OEFENINGEN</a>
-          <a mat-list-item>FEEDBACK</a>
-          <a mat-list-item>INSTELLINGEN</a>
-          <a mat-list-item>INLOGGEN</a>
+        <a mat-list-item routerLinkActive='active' routerLink="/course-list">Cursussen</a>
+        <a mat-list-item>FEEDBACK</a>
+        <a mat-list-item>INSTELLINGEN</a>
+        <a mat-list-item *ngIf='(currentUser | async) else loginlink' class="item" routerLinkActive='active'
+           routerLink="/logout">{{currentUser|async}} LOGUIT</a>
+        <ng-template #loginlink>
+          <a mat-list-item routerLinkActive='active' routerLink="/login">INLOGGEN</a>
+        </ng-template>
       </mat-nav-list>
     </mat-sidenav>
 

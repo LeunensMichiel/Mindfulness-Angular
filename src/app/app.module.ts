@@ -50,6 +50,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
 import {ExerciseDataService} from './oefening/exercise-data.service';
+import {AuthGuardService} from './user/auth-guard.service';
+import {AuthenticationService} from './user/authentication.service';
+import {UserModule} from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,7 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
   ],
   imports: [
     BrowserModule,
+    UserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -111,7 +115,9 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
     SessionResolver,
     PageDataService,
     PageResolver,
-    ExerciseDataService
+    ExerciseDataService,
+    AuthGuardService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
