@@ -11,7 +11,7 @@
         </mat-error>
       </mat-form-field>
         <mat-form-field>
-            <mat-select placeholder="Cursus">
+            <mat-select placeholder="Cursus" [(value)]="selected" formControlName='dropdown'>
               <mat-option *ngFor="let ses of sesmaps" [value]="ses._id">
                 {{ses.titleCourse}}
               </mat-option>
