@@ -10,12 +10,12 @@ import { SessieDataService } from './sessie-data.service';
 
 @Injectable()
 export class SessionResolver implements Resolve<Session> {
-  constructor(private sessionDataService: SessieDataService) {}
+  constructor(private _sessionDataService: SessieDataService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Session> {
-    return this.sessionDataService.getSession(route.params['sessionID']);
+    return this._sessionDataService.getSession(route.params['sessionID']);
   }
 }

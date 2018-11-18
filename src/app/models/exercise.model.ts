@@ -5,13 +5,11 @@ import { Paragraph } from "./paragraph.model";
 export class Exercise extends GenericCollection implements GenericItem {
     _id: string;
     private _title: string;
-    position: number;
 
-    constructor(title?: string, pages?: Page) {
+    constructor(title: string = "", position: number = 0) {
         super();
-        this._title = title || "";
-        this.items = [new TextPage(), new AudioPage()];
-        this.items[0].position = 0;
+        this._title = title;
+        this.position = position;
     }
 
     /**
@@ -24,7 +22,7 @@ export class Exercise extends GenericCollection implements GenericItem {
 
     /**
      * Setter id
-     * @param {string} value
+     * @param _id value
      */
     public set id(_id: string) {
         this._id = _id;
@@ -40,7 +38,7 @@ export class Exercise extends GenericCollection implements GenericItem {
 
     /**
      * Setter title
-     * @param {string} value
+     * @param _title value
      */
     public set title(_title: string) {
         this._title = _title;
@@ -56,7 +54,7 @@ export class Exercise extends GenericCollection implements GenericItem {
 
     /**
      * Setter pages
-     * @param {GenericItem[]} value
+     * @param pages value
      */
     public set pages(pages: GenericItem[]) {
         this.items = pages;
@@ -85,10 +83,8 @@ export class Exercise extends GenericCollection implements GenericItem {
         return false;
     }
 
-    fromJson(json: any): Exercise {
-        const ex = new Exercise();
-        ex._title = json.title;
-        ex.position = json.position;
+    static fromJson(json: any): Exercise {
+        const ex = new Exercise(json.title, json.position);
         if (json.hasOwnProperty("pages")) {
             ex.items = json.pages.map(it => {
                 if (typeof it != 'string') {
@@ -112,7 +108,9 @@ export class Exercise extends GenericCollection implements GenericItem {
         return {
             _id: this._id,
             title: this._title,
-            pages: this.items.map(page => page.toJSON())
+            position: this.position
+          // TODO add tojson for pages
+            // pages: this.items.map(page => page.toJSON())
         };
     }
 }

@@ -5,19 +5,19 @@
     </button>
     <mat-card *ngIf='dropdownVisible' (mouseleave)='dropdownVisible = false' class="dropdown-content">
       <mat-nav-list>
-        <a [routerLink]='["/page-list", excersice.id]'>
+        <a [routerLink]='["/page-list", exercise.id]'>
           <mat-list-item> Wijzigen </mat-list-item>
         </a>
-        <mat-list-item (click)='removeOefening()'> Verwijderen</mat-list-item>
+        <mat-list-item (click)="removeExercise()"> Verwijderen</mat-list-item>
       </mat-nav-list>
     </mat-card>
   </div>
   <mat-card-header>
-    <div class="cardTitle">{{excersice.title}}</div>
+    <div class="cardTitle">{{exercise.title}}</div>
   </mat-card-header>
   <div class="content">
     <mat-tab-group mat-stretch-tabs headerPosition="below" class="tabGroup">
-      <mat-tab class="pageDetailContent" *ngFor="let page of excersice.pages" label="{{page.title}}">
+      <mat-tab class="pageDetailContent" *ngFor="let page of pages" label="{{page.title}}">
         <app-pagina-detail [page]="page"></app-pagina-detail>
       </mat-tab>
     </mat-tab-group>

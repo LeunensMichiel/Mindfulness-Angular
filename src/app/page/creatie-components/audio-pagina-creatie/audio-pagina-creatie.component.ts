@@ -11,8 +11,8 @@ import { UploadService } from '../../upload.service';
 export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   /**
    * VARIABELEN:
-   * changedpage: de emitter die de gewijzigde page naar pagina-creatie stuurt.
-   * Die op zijn beurt naar de pagina-creatielijst stuurt waar ze dan word opgeslaan
+   * changedpage: de emitter die de gewijzigde page naar page-creatie stuurt.
+   * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
   @Input() audioPage:AudioPage = null;
@@ -26,9 +26,9 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   audioCurrentTime = 0;
   /**
    * GIDS:
-   * pagina-creatie-lijst |
-   *                      | pagina-creatie |
-   *                                       | audio-pagina-creatie
+   * page-creatie-lijst |
+   *                      | page-creatie |
+   *                                       | audio-page-creatie
    */
 
   constructor(private _uploadDataService: UploadService) { }
@@ -44,8 +44,8 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    * METHODES:
    * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
    * dus elke keer als de gebruiker iets wijzigt in de .html.
-   * Als deze wijzigingen verschillend zijn van de attributen van de lokale pagina
-   * worden deze de nieuwe waarden van de pagina. De pagina word dan geëmit om 
+   * Als deze wijzigingen verschillend zijn van de attributen van de lokale page
+   * worden deze de nieuwe waarden van de page. De page word dan geëmit om
    * te worden opgeslagen in het exercise-object
    */
   ngDoCheck(): void {

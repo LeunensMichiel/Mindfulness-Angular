@@ -7,7 +7,7 @@ import {SessionmapCreatieComponent} from '../sessionmap-creatie/sessionmap-creat
 
 export interface DialogCourseData {
   sessionmap_title: string;
-  isCreatie: boolean;
+  isCreation: boolean;
 }
 
 @Component({
@@ -48,11 +48,11 @@ export class SessionmapListComponent implements OnInit {
     return this._selectedSessionmap;
   }
 
-  onAdd(isCreatie: boolean) {
+  onAdd(isCreation: boolean) {
     const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
       data: {
         sessionmap_title: this._selectedSessionmap.titleCourse,
-        isCreatie: isCreatie
+        isCreation: isCreation
       }
     });
 
@@ -60,7 +60,7 @@ export class SessionmapListComponent implements OnInit {
       //Als er iets is ingevuld in de input
       if (result) {
         //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
-        if (isCreatie) {
+        if (isCreation) {
           let sesmap: Sessionmap = new Sessionmap(result);
           this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
             sesmap => {

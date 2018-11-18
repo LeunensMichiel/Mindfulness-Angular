@@ -31,7 +31,7 @@ import {ExerciseDataService} from '../exercise-data.service';
 
 export interface DialogExerciseData {
   exercise_title: string;
-  isCreatie: boolean;
+  isCreation: boolean;
 }
 
 @Component({
@@ -47,89 +47,57 @@ export interface DialogExerciseData {
     ])
   ]
 })
-export class ExerciseListComponent extends CmdImplementation implements OnInit {
+export class ExerciseListComponent implements OnInit {
   private _session: Session;
-  private _sesid: string;
   private _naam: string;
   public items: Exercise[];
 
   constructor(public dialog: MatDialog,
               private _route: ActivatedRoute,
               public snackBar: MatSnackBar,
-              private _exerciseDataService: ExerciseDataService,
-              private _sessionDataService: SessieDataService) {
-    super();
-  }
+              private _exerciseDataService: ExerciseDataService
+  ) {}
 
   ngOnInit() {
-    this._route.data.subscribe(item =>
-      this._session = item['session']);
+    this._route.data.subscribe(item =>{
+      this._session = item['session'];
+    });
+
   }
 
-  onAdd(ex: Exercise, isCreatie: boolean) {
-    console.log(this._session.items);
+  onAdd(ex: Exercise, isCreation: boolean) {
     const addExDialogRef = this.dialog.open(ExerciseCreationComponent, {
       height: '400px',
       width: '500px',
       data: {
         exercise_title: this._naam,
-        isCreatie: isCreatie
+        isCreation: isCreation
       }
     });
 
     addExDialogRef.afterClosed().subscribe(result => {
-      //Als er iets is ingevuld in de input
-      if (result) {
-        //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
-        if (isCreatie) {
-          let oef = new Exercise(result);
-          oef.position = this._session.items.length;
-          this.addCommand(new Insert([this._session], [oef]));
+
+      if (result) { // This checks if there has been a input
+        // We use for creation and updating of a exercise the same dialog
+        if (isCreation) {
+          let ex = new Exercise(result);
+          ex.position = this._session.items.length;
+          this.addExercise(ex);
         } else {
           ex.title = result;
-          this.addCommand(new Update([this._session], [ex]));
+          this.updateExercise(ex);
         }
       }
     });
   }
 
-  removeOefening(oef: Exercise) {
-    // dialoogvenster openen en inner class gebruiken (toont niet)
-    // const dialogRef = this.dialog.open(RemoveExerciseDialog, {
-    //   width: '250px'
-    // });
-
-    // dialogRef.afterClosed().subscribe(
-    //   data => {
-    //     if (data) {
-    //       this.addCommand(new Delete([this._sessie], [oef]));
-    //       this.snackBar.open("Exercise " + oef.title + " removed!", "",
-    //         {
-    //           duration: 3000,
-    //         });
-    //     }
-    //   });
-    this.addCommand(new Delete([this._session], [oef]));
-    this.snackBar.open('Exercise ' + oef.title + ' removed!', '',
-      {
-        duration: 3000,
-      });
-  }
-
-  get oefeningen(): GenericItem[] {
-    return this._session.items;
-  }
-
-  /*
-    updates the current session in the database when the command timer has expired
-  */
-  saveItem() {
-    this._sessionDataService.editSession(this._session).subscribe(
+  updateExercise(exercise: Exercise) {
+    this._exerciseDataService.updateExercise(exercise).subscribe(
       () => {
-        this.snackBar.open('Oefeningen opgeslaan!');
+        this.snackBar.open('Oefeningen gewijzigd!');
       },
       (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while saving session: ${error.error}`, '', {
+        this.snackBar.open(`Error ${error.status} tijdens het opslaan van oefening: ${error.error}`, '', {
           duration: 3000,
         });
         console.log(error);
@@ -137,32 +105,59 @@ export class ExerciseListComponent extends CmdImplementation implements OnInit {
     );
   }
 
-  /*
-    remove last action from the command cache
-  */
-  undo() {
-    this.undoCurrentCommand();
+  addExercise(exercise: Exercise) {
+    this._exerciseDataService.addExerciseToSession(exercise, this._session.id).subscribe(
+      result => {
+        this._session.addItem(result.position, result);
+        this.snackBar.open('Oefeningen opgeslaan!', '', {
+          duration: 3000,
+        });
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} tijdens het opslaan van oefening: ${error.error}`, '', {
+          duration: 3000,
+        });
+        console.log(error);
+      }
+    );
   }
 
-  addItem() {
-    console.log('ADD_ITEM');
+  removeExercise(exercise: Exercise) {
+    // dialoogvenster openen en inner class gebruiken (toont niet)
+    const dialogRef = this.dialog.open(RemoveExerciseDialog, {
+      height: '250px',
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data) {
+          this._exerciseDataService.removeExercise(exercise).subscribe(
+            result => {
+              this._session.deleteItem(result.position);
+              this.snackBar.open('Oefeningen verwijderd!', '', {
+                duration: 3000,
+              });
+            },
+            (error: HttpErrorResponse) => {
+              this.snackBar.open(`Error ${error.status} tijdens het verwijderen van oefening: ${error.error}`, '', {
+                duration: 3000,
+              });
+              console.log(error);
+            }
+          )
+        }
+      });
   }
 
-  removeItem() {
-    console.log('REMOVE_ITEM');
+  get exercises(): GenericItem[] {
+    return this._session.items;
   }
 
-  changePos() {
-    console.log('CHANGE_POSITION');
-  }
-
-  update() {
-    console.log('UPDATE_ITEM');
-  }
 }
 
 /*
-  Extra klasse voor remove oefening dialoogvenster met zijn eigen html code
+  Extra klasse voor remove exercise dialoogvenster met zijn eigen html code
 */
 @Component({
   selector: 'dialog-remove-exercise',

@@ -53,8 +53,8 @@ export class PaginaCreatieComponent implements OnInit {
    * VARIABELEN:
    * -newPage: emit nieuwe Pagina naar de exercise.
    * -changedPage: emit een veranderde Pagina naar de exercise.
-   * -changedPagePos: emit start en eind positie van een pagina die word verplaatst.
-   * -deletePage: emit de positie van een te verwijderen pagina.
+   * -changedPagePos: emit start en eind positie van een page die word verplaatst.
+   * -deletePage: emit de positie van een te verwijderen page.
    * -enableDragView: emit een boolean waardoor alle element in de lijst veranderen
    * naar hun draggingView.
    * -dragging: deze boolean bepaalt of het huidige element wel of niet veranderd naar
@@ -79,8 +79,8 @@ export class PaginaCreatieComponent implements OnInit {
 
   /**
    * GIDS:
-   * pagina-creatie-lijst |
-   *                      | pagina-creatie
+   * page-creatie-lijst |
+   *                      | page-creatie
    */
   constructor() { }
 
@@ -97,9 +97,9 @@ export class PaginaCreatieComponent implements OnInit {
   //------------ PAGE OPERATIES ------------
 
   /**
-   * Een nieuwe pagina word toegevoegd. De positie van de nieuwe pagina word
-   * deze positie en positie van de orignele pagina word opgeteld met 1.
-   * De nieuwe pagina word geëmit naar het excercise object.
+   * Een nieuwe page word toegevoegd. De positie van de nieuwe page word
+   * deze positie en positie van de orignele page word opgeteld met 1.
+   * De nieuwe page word geëmit naar het excercise object.
    * @param value bepaalt welke soort page word toegevoegd.
    * Waarde is altijd "text", "audio" of "input".
    */
@@ -121,7 +121,7 @@ export class PaginaCreatieComponent implements OnInit {
   }
 
   /**
-   * De huidige pagina word verwijderd. Dit gebeurt door de positie te emiiten
+   * De huidige page word verwijderd. Dit gebeurt door de positie te emiiten
    * naar het exercise-object.
    */
   deletePage() {
@@ -133,7 +133,7 @@ export class PaginaCreatieComponent implements OnInit {
 
   /**
    * De veranderingen aan de bepaalde page worden geëmit naar de exercise.
-   * @param page De nieuwe op te slagen pagina.
+   * @param page De nieuwe op te slagen page.
    */
   public saveChangedPage(page) {
     console.log("EMIT CHANGED PAGE ");

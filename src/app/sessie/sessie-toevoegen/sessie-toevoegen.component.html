@@ -3,7 +3,7 @@
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>SESSIE AANMAKEN</mat-card-title>
   </mat-card-header>
-  <mat-card-content [formGroup]='newSession' class="kaart-container">
+  <mat-card-content [formGroup]='newSession' class="card-container">
       <mat-form-field>
         <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off" formControlName='title' required>
         <mat-error *ngIf="newSession.get('title').invalid">

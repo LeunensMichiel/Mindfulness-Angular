@@ -68,8 +68,9 @@ export class TextPage extends GenericCollection implements Page, GenericItem {
             _id: this._id,
             title: this.title,
             text: this.text,
-            position: this.position,
-            items: this.items.map(it => it.toJSON)
+            position: this.position
+          //TODO add toJSON for paragraph
+            // items: this.items.map(it => it.toJSON)
         }
     }
 

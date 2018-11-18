@@ -1,15 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { SessieLijstComponent } from '../sessie/sessie-lijst/sessie-lijst.component';
-import { ExerciseListComponent } from '../oefening/exercise-list/exercise-list.component';
+import { ExerciseListComponent } from '../exercise/exercise-list/exercise-list.component';
 import { SessionmapListComponent } from '../sessionmaps/sessionmap-list/sessionmap-list.component';
 import { SessionmapDetailComponent } from '../sessionmaps/sessionmap-detail/sessionmap-detail.component';
 import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
 import { SessionResolver } from '../sessie/session-resolver.service';
-import { PaginaCreatieLijstComponent } from '../pagina/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
-import { OefeningDetailComponent } from '../oefening/oefening-detail/oefening-detail.component';
-import { PageResolver } from '../pagina/page-resolver';
+import { PaginaCreatieLijstComponent } from '../page/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
+import { ExerciseDetailComponent } from '../exercise/exercise-detail/exercise-detail.component';
 import {AuthGuardService} from '../user/auth-guard.service';
+import {ExerciseResolver} from '../exercise/exercise-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'course-list', pathMatch: 'full' },
@@ -19,8 +19,7 @@ const appRoutes: Routes = [
     component: SessionmapListComponent
   },
   { path: 'exercise-list/:sessionID', component: ExerciseListComponent, resolve: { session: SessionResolver } },
-  { path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: { exercise: PageResolver} },
-  { path: 'oefening-list', component: ExerciseListComponent }
+  { path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: { exercise: ExerciseResolver} }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];
 

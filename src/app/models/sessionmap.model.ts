@@ -46,13 +46,12 @@ export class Sessionmap extends GenericCollection implements GenericItem{
     this._titleCourse = value;
   }
 
-  fromJson(json: any) {
+  static fromJson(json: any) {
     const sesmap = new Sessionmap();
     sesmap._titleCourse = json.titleCourse;
     if (json.hasOwnProperty("sessions")){
       sesmap.items = json.sessions.map(it => {
-        var ses = new Session();
-        return ses.fromJson(it);
+        return Session.fromJson(it);
       });
     }
 
@@ -64,7 +63,6 @@ export class Sessionmap extends GenericCollection implements GenericItem{
     return {
       _id: this._id,
       titleCourse: this._titleCourse,
-      items: this.items.map(ses => ses.toJSON())
     };
   }
 }

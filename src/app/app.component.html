@@ -12,7 +12,7 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'over'" [fixedInViewport]="mobileQuery.matches"
                  fixedTopGap="56">
       <mat-nav-list class="examplelist">
-        <a mat-list-item routerLinkActive='active' routerLink="/course-list">Cursussen</a>
+        <a mat-list-item routerLinkActive='active' routerLink="/course-list">CURSUSSEN</a>
         <a mat-list-item>FEEDBACK</a>
         <a mat-list-item>INSTELLINGEN</a>
         <a mat-list-item *ngIf='(currentUser | async) else loginlink' class="item" routerLinkActive='active'

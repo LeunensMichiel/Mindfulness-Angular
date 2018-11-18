@@ -1,6 +1,6 @@
-import { Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
-import { TextPage, Page } from 'src/app/models/page.model';
-import { Paragraph } from 'src/app/models/paragraph.model';
+import {Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges} from '@angular/core';
+import {TextPage, Page} from 'src/app/models/page.model';
+import {Paragraph} from 'src/app/models/paragraph.model';
 import {
   trigger,
   style,
@@ -8,12 +8,13 @@ import {
   transition
   // ...
 } from '@angular/animations';
-import { PaginaCreatieLijstComponent } from '../pagina-creatie-lijst/pagina-creatie-lijst.component';
-import { Cmd } from 'src/app/models/Commands/command.model';
-import { Delete } from 'src/app/models/Commands/delete.model';
-import { Switch } from 'src/app/models/Commands/switch.model';
-import { Update } from 'src/app/models/Commands/update.model';
-import { Insert } from 'src/app/models/Commands/insert.model';
+import {PaginaCreatieLijstComponent} from '../pagina-creatie-lijst/pagina-creatie-lijst.component';
+import {Cmd} from 'src/app/models/Commands/command.model';
+import {Delete} from 'src/app/models/Commands/delete.model';
+import {Switch} from 'src/app/models/Commands/switch.model';
+import {Update} from 'src/app/models/Commands/update.model';
+import {Insert} from 'src/app/models/Commands/insert.model';
+
 @Component({
   selector: 'app-tekst-pagina-creatie',
   templateUrl: './tekst-pagina-creatie.component.html',
@@ -25,44 +26,44 @@ import { Insert } from 'src/app/models/Commands/insert.model';
     ])
   ] */
 })
-export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
+export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
   /**
    * VARIABELEN:
-   * changedpage: de emitter die de gewijzigde page naar pagina-creatie stuurt.
-   * Die op zijn beurt naar de pagina-creatielijst stuurt waar ze dan word opgeslaan
+   * changedpage: de emitter die de gewijzigde page naar page-creatie stuurt.
+   * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
-  @Input() textPage:TextPage = null;
+  @Input() textPage: TextPage = null;
   @Output() changedPage = new EventEmitter<Page>();
   @Output() addParagraphCmd = new EventEmitter<Cmd>();
-  title:string = "";
+  title: string = '';
 
   /**
    * GIDS:
-   * pagina-creatie-lijst |
-   *                      | pagina-creatie |
-   *                                       | tekst-pagina-creatie
+   * page-creatie-lijst |
+   *                      | page-creatie |
+   *                                       | tekst-page-creatie
    */
   constructor() {
-   }
+  }
 
   ngOnInit() {
     this.title = this.textPage.title;
   }
 
   //================== METHODES ==================
-  
+
   //------------ TEXTPAGE ATTRIBUTEN WIJZIGINGEN ------------
 
   /**$
    * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
    * dus elke keer als de gebruiker iets wijzigt in de .html.
-   * Als deze wijzigingen verschillend zijn van de attributen van de lokale pagina
-   * worden deze de nieuwe waarden van de pagina. De pagina word dan geëmit om 
+   * Als deze wijzigingen verschillend zijn van de attributen van de lokale page
+   * worden deze de nieuwe waarden van de page. De page word dan geëmit om
    * te worden opgeslagen in het exercise-object
    */
-  ngDoCheck(): void{
-    if (this.textPage.title != this.title){
+  ngDoCheck(): void {
+    if (this.textPage.title != this.title) {
       console.log(this.textPage);
       this.changedPage.emit(this.textPage);
       this.textPage.title = this.title;
@@ -72,12 +73,12 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
   //------------ TEXTPAGE PARAGRAPHS WIJZIGINGEN ------------
 
   /**
-   * een nieuwe paragraph word toegevoegd op een bepaalde locatie 
+   * een nieuwe paragraph word toegevoegd op een bepaalde locatie
    * in de textpage paragraphs array. De gewijzigde tekstpagina word dan geëmit
    * om op te slaan in de exercise.
    * @param par De paragraph die word toegevoegd aan de paragraphs array
    */
-  addPar(type){
+  addPar(type) {
     var newPar = new Paragraph();
     newPar.position = this.textPage.items.length;
     newPar.type = type;
@@ -90,17 +91,18 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
    * @param par De gewijzigde pargraph.
    */
-  changePar(par){
+  changePar(par) {
     var oldPar = new Paragraph().fromJson(par);
     var newPar = this.textPage.items[oldPar.position];
-    this.addParagraphCmd.emit(new Update([this.textPage], [newPar, oldPar] ))
+    this.addParagraphCmd.emit(new Update([this.textPage], [newPar, oldPar]));
   }
+
   /**
    * De paragraph op de startpositie en op de eindpositie worden van plaats verwisselt.
    * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
    * @param positions een Json object met de start en eindpositie.
    */
-  changeParPos(positions){
+  changeParPos(positions) {
     this.addParagraphCmd.emit(new Switch([this.textPage], positions));
   }
 
@@ -109,7 +111,7 @@ export class TekstPaginaCreatieComponent implements OnInit,DoCheck{
    * De gewijzigde textpagina word dan geëmit en toegevoegd aan de exercise.
    * @param position de positie van de te verwijderen paragraph.
    */
-  deletePar(position){
+  deletePar(position) {
     this.addParagraphCmd.emit(new Delete([this.textPage], [this.textPage.items[position]]));
   }
 }

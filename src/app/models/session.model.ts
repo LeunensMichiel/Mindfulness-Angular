@@ -80,15 +80,14 @@ export class Session extends GenericCollection implements GenericItem {
     this._admin = _admin;
   }
 
-  fromJson(json: any) {
+  static fromJson(json: any) {
     const ses = new Session(
       json.title,
       json.position
     );
-    if (json.hasOwnProperty('items')) {
-      ses.items = json.items.map(it => {
-        var oef = new Exercise();
-        return oef.fromJson(it);
+    if (json.hasOwnProperty('exercises')) {
+      ses.items = json.exercises.map(it => {
+        return Exercise.fromJson(it);
       });
     }
     ses._id = json._id;
@@ -100,7 +99,6 @@ export class Session extends GenericCollection implements GenericItem {
       _id: this._id,
       title: this._title,
       position: this._position,
-      items: this.items.map(oef => oef.toJSON()),
     };
   }
 }

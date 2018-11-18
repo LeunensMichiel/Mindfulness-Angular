@@ -9,8 +9,8 @@ import { Paragraph } from 'src/app/models/paragraph.model';
 export class ParagraafCreatieComponent implements OnInit, DoCheck {
   /**
    * VARIABELEN:
-   * -newPar: De emitter die de nieuwe paragraph naar tekst-pagina-creatie stuurt.
-   * -changedRar: De emitter die de gewijzigde paragraph naar tekst-pagina-creatie stuurt.
+   * -newPar: De emitter die de nieuwe paragraph naar tekst-page-creatie stuurt.
+   * -changedRar: De emitter die de gewijzigde paragraph naar tekst-page-creatie stuurt.
    * -changedParPos: De emitter die de posities van de te wisselen pargrafen doorstuurt.
    * -deletePar: De emitter die de positie van de te verwijderen paragraph doorstuurt.
    */
@@ -25,9 +25,9 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
 
   /**
    * GIDS:
-   * pagina-creatie-lijst |
-   *                      | pagina-creatie |
-   *                                       | tekst-pagina-creatie | 
+   * page-creatie-lijst |
+   *                      | page-creatie |
+   *                                       | tekst-page-creatie | 
    *                                                              | paragraaf-creatie
    */
   constructor() { }
@@ -45,7 +45,7 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * dus elke keer als de gebruiker iets wijzigt in de .html.
    * Als deze wijzigingen verschillend zijn van de attributen van de lokale pargraaf
    * worden deze de nieuwe waarden van de paragraaf. De paragraaf word dan geëmit om 
-   * te worden opgeslagen in het pagina-object
+   * te worden opgeslagen in het page-object
    */
   ngDoCheck(){
     if (this.par.content != this.content) {
