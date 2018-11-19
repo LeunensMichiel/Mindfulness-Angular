@@ -50,11 +50,6 @@ export class GroepCreatieComponent implements OnInit {
     );
     this._sessionmaps = new Array();
 
-    /*
-    this._sessionmaps.forEach(function(){
-      console.log(this._titleCourse);
-    })  */
-
     this.newGroup = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1)]],
       dropdown: ['', [Validators.required]]
@@ -68,14 +63,8 @@ export class GroepCreatieComponent implements OnInit {
   addGroup(){
     let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
     
-    /*
     if(this.newGroup.valid){
-      console.log(group);
-      console.log(group.name);
-      console.log(group.sessionmap_id);
-    } */
-    
-    if(this.newGroup.valid){
+      console.log("log1: " + this.newGroup.value.dropdown);
       this._groupDataService.addNewGroup(group)
       .subscribe(
         () => {

@@ -33,7 +33,7 @@ export class GroepenDataService {
       .post(`${this._appUrl}/group`, group)
       .pipe(map(it => {
         const group= new Group();
-        return group.fromJson(it);
+        return group.fromJsonAdd(it);
       }));
   }
 

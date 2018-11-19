@@ -4,6 +4,7 @@ import {GroepenDataService} from '../groepen-data.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { SessieDataService } from '../../sessie/sessie-data.service';
+import { Sessionmap } from '../../models/sessionmap.model';
 
 export interface DialogGroupData {
   group_name: string;
@@ -17,6 +18,8 @@ export interface DialogGroupData {
 export class GroepenListComponent implements OnInit {
   public errorMsg: string;
   private _groups: Group[];
+
+  private _sessionmaps:Sessionmap[];
 
 //  constructor(private groepenDataService: GroepenDataService, private sessieDataService:SessieDataService, public dialog: MatDialog) { }
   constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
@@ -33,10 +36,27 @@ export class GroepenListComponent implements OnInit {
       }
     );
     this._groups = new Array(); 
+
+    this.groepenDataService.sesmaps.subscribe(
+      sesmaps => {
+        this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+        console.log(this._sessionmaps);
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessionmaps: ${error.error}`;
+      }
+    );
+    this._sessionmaps = new Array();
   }
 
   get groups(){
     return this._groups;
+  }
+
+  get sesmaps() {
+    return this._sessionmaps;
   }
 
   editGroup(group: Group) {
