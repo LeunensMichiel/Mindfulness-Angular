@@ -4,12 +4,12 @@
 <div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
   
   <div *ngFor='let group of groups'>
-    <app-groep [group]='group' [sesmaps]='sesmaps' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
+    <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
   </div>
 </div>
 
 <div *ngIf='creating' class="creatiebtn">
-  <app-groep-creatie (disable)='creating = !creating'></app-groep-creatie>
+  <app-groep-creatie (addedGroup)="addGroup($event)" (disable)='creating = !creating'></app-groep-creatie>
 </div>
 
 <div *ngIf='!creating' class="creatiebtn">

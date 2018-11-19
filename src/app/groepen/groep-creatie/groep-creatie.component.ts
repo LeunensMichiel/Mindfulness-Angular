@@ -23,6 +23,7 @@ export class GroupErrorStateMatcher implements ErrorStateMatcher {
 })
 export class GroepCreatieComponent implements OnInit {
   @Output() public disable = new EventEmitter();
+  @Output() public addedGroup = new EventEmitter();
   public newGroup:FormGroup;
   public matcher = new GroupErrorStateMatcher();
   private _sessionmaps:Sessionmap[];
@@ -40,7 +41,6 @@ export class GroepCreatieComponent implements OnInit {
     this._groupDataService.sesmaps.subscribe(
       sesmaps => {
         this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
-        console.log(this._sessionmaps);
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -60,14 +60,15 @@ export class GroepCreatieComponent implements OnInit {
     return this._sessionmaps;
   }
 
-  addGroup(){
-    let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
-    
+  addGroup(){    
     if(this.newGroup.valid){
-      console.log("log1: " + this.newGroup.value.dropdown);
+      let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
+
       this._groupDataService.addNewGroup(group)
       .subscribe(
-        () => {
+        result => {
+          console.log(group);
+          this.addedGroup.emit(group);
           this.snackBar.open("De groep is succesvol toegevoegd!", "", 
           {
             duration: 3000,

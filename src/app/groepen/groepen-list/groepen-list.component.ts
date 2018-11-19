@@ -21,7 +21,6 @@ export class GroepenListComponent implements OnInit {
 
   private _sessionmaps:Sessionmap[];
 
-//  constructor(private groepenDataService: GroepenDataService, private sessieDataService:SessieDataService, public dialog: MatDialog) { }
   constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -40,7 +39,6 @@ export class GroepenListComponent implements OnInit {
     this.groepenDataService.sesmaps.subscribe(
       sesmaps => {
         this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
-        console.log(this._sessionmaps);
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -59,6 +57,10 @@ export class GroepenListComponent implements OnInit {
     return this._sessionmaps;
   }
 
+  addGroup(group: Group) {
+    this.groups.push(group);
+  }
+
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
@@ -67,7 +69,6 @@ export class GroepenListComponent implements OnInit {
     });
     modifyGroupDialoRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         group.name = result;
         this.groepenDataService.editGroup(group).subscribe(
           () => {
@@ -110,12 +111,6 @@ export class GroepenListComponent implements OnInit {
       });
   }
 
-  /*
-  get sessienaam(id:string){
-    this.sessieDataService.getSessie(id).subscribe(
-        group.sessienaam = this.sessienaam;
-    );
-  } */
 }
 
 

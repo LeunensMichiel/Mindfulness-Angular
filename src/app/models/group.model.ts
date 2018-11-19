@@ -9,10 +9,10 @@ export class Group{
     _sessie_naam:string;
     _sessionmap_id:string;
 
-    constructor(name:string = '',sessionmap_id:string = ''){
+    constructor(name:string = '',sessionmap:Sessionmap = null){
         //super();
         this._name = name;
-        this._sessionmap_id = sessionmap_id;
+        this._sessionmap = sessionmap;
     }
 
     public get id():string{
@@ -55,26 +55,10 @@ export class Group{
         return this._sessie_naam;
     }
 
-    
-    fromJsonAdd(json:any){
-        const group = new Group(
-            json.name,
-            json.sessionmap_id
-        );
-        //group._name = json.name;
-        //group._sessionmap_id = json.sessionmap_id;
-        group._id = json._id;
-        console.log(json);
-        console.log(json.sessionmap_id);
-        console.log(group);
-        return group;
-    } 
-
     fromJson(json:any){
         const group = new Group(
             json.name
         );
-        console.log(json);
         if(json.hasOwnProperty('sessionmap_id')){
             var sesmap = new Sessionmap();
             group.sessionmap = sesmap.fromJson(json.sessionmap_id);
@@ -87,7 +71,7 @@ export class Group{
         return{
             _id:this._id,
             name:this._name,
-            sessionmap_id:this._sessionmap_id
+            sessionmap:this._sessionmap.toJSON()
         };
     }
 }
