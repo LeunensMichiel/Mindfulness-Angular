@@ -1,7 +1,7 @@
 <div class="titel" >
   <h1><span class="vet">OVERZICHT </span>{{sessionmap.titleCourse.toUpperCase()}}</h1>
 </div>
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center" >
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="20px"  fxLayoutAlign="center">
   <div *ngFor='let session of sessionmap.items'>
     <app-sessie [session]='session' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
   </div>

@@ -23,7 +23,7 @@ import { PaginaDetailComponent } from './pagina/pagina-detail/pagina-detail.comp
 import {ExerciseListComponent, RemoveExerciseDialog} from './oefening/exercise-list/exercise-list.component';
 import { TekstPaginaDetailComponent } from './pagina/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './pagina/audio-pagina-detail/audio-pagina-detail.component';
-import { SessieComponent } from './sessie/sessie/sessie.component';
+import { SessieComponent, QrDialog } from './sessie/sessie/sessie.component';
 import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -53,6 +53,7 @@ import {ExerciseDataService} from './oefening/exercise-data.service';
 import { GroepenListComponent } from './groepen/groepen-list/groepen-list.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
+import {NgxQRCodeModule} from 'ngx-qrcode2'
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { GroepComponent } from './groepen/groep/groep.component';
     RemoveExerciseDialog,
     GroepenListComponent,
     GroepCreatieComponent,
-    GroepComponent
+    GroepComponent,
+    QrDialog
   ],
   imports: [
     BrowserModule,
@@ -108,7 +110,8 @@ import { GroepComponent } from './groepen/groep/groep.component';
     ScrollDispatchModule,
     MatInputModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxQRCodeModule
   ],
   providers: [
     SessieDataService,
@@ -125,6 +128,8 @@ import { GroepComponent } from './groepen/groep/groep.component';
     SessionmapCreatieComponent,
     SessieModifyComponent,
     ExerciseCreationComponent,
-    RemoveExerciseDialog]
+    RemoveExerciseDialog,
+  SessieComponent,
+  QrDialog]
 })
 export class AppModule { }

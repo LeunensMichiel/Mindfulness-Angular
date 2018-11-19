@@ -4,6 +4,10 @@
   margin: 1em;
 }
 
+.card{
+  margin-bottom: 20px;
+}
+
 .example-header-image {
   background-image: url('/assets/images/android-chrome-512x512.png');
   background-size: cover;
@@ -12,9 +16,8 @@
 .mat-card-header {
   justify-content: flex-start;
 }
-.mat-card-image {
-  margin-bottom: 0;
-}
+
 .mat-card-header div:last-child {
   margin-left: auto;
 }
+
