@@ -6,6 +6,7 @@ import { SessionmapListComponent } from '../sessionmaps/sessionmap-list/sessionm
 import { SessionmapDetailComponent } from '../sessionmaps/sessionmap-detail/sessionmap-detail.component';
 import { Sessionmapresolver } from '../sessionmaps/sessionmapresolver';
 import { SessionResolver } from '../sessie/session-resolver.service';
+import { GroepenListComponent } from '../groepen/groepen-list/groepen-list.component';
 import { PaginaCreatieLijstComponent } from '../page/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
 import { ExerciseDetailComponent } from '../exercise/exercise-detail/exercise-detail.component';
 import {AuthGuardService} from '../user/auth-guard.service';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     component: SessionmapListComponent
   },
   { path: 'exercise-list/:sessionID', component: ExerciseListComponent, resolve: { session: SessionResolver } },
+  {path:'groepen-list', component: GroepenListComponent},
   { path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: { exercise: ExerciseResolver} }
   /*{ path: '**', component: PageNotFoundComponent}*/
 ];

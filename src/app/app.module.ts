@@ -18,12 +18,12 @@ import {
   MatInputModule,
   MatExpansionModule
 } from '@angular/material';
+import { SessieComponent, QrDialog } from './sessie/sessie/sessie.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
 import { PaginaDetailComponent } from './page/pagina-detail/pagina-detail.component';
 import {ExerciseListComponent, RemoveExerciseDialog} from './exercise/exercise-list/exercise-list.component';
 import { TekstPaginaDetailComponent } from './page/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './page/audio-pagina-detail/audio-pagina-detail.component';
-import { SessieComponent } from './sessie/sessie/sessie.component';
 import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -47,6 +47,12 @@ import { ParagraafCreatieComponent } from './page/creatie-components/paragraaf-c
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessionResolver} from './sessie/session-resolver.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
+
+import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
+import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
+import { GroepComponent } from './groepen/groep/groep.component';
+import {MatSelectModule} from '@angular/material/select';
+import {NgxQRCodeModule} from 'ngx-qrcode2';
 import { PageDataService } from './page/page-data.service';
 import {ExerciseDataService} from './exercise/exercise-data.service';
 import {AuthGuardService} from './user/auth-guard.service';
@@ -78,7 +84,14 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     TekstPaginaCreatieComponent,
     ParagraafCreatieComponent,
     SessieModifyComponent,
-    RemoveExerciseDialog
+    RemoveExerciseDialog,
+    GroepenListComponent,
+    GroepCreatieComponent,
+    GroepComponent,
+    QrDialog,
+    GroepComponent,
+    GroupModifyComponent,
+    RemoveGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -106,7 +119,12 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     ScrollDispatchModule,
     MatInputModule,
     MatExpansionModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxQRCodeModule,
+    FlexLayoutModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     SessieDataService,
@@ -125,6 +143,11 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     SessionmapCreatieComponent,
     SessieModifyComponent,
     ExerciseCreationComponent,
-    RemoveExerciseDialog]
+    RemoveExerciseDialog,
+    SessieComponent,
+    QrDialog,
+    RemoveExerciseDialog,
+    GroupModifyComponent,
+    RemoveGroupDialog]
 })
 export class AppModule { }

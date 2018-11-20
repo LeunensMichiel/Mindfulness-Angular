@@ -1,0 +1,10 @@
+
+  <div mat-dialog-content>
+    <ngx-qrcode qrc-element-type="string" [qrc-value]= "sessionId" [qrc-element-type]="img" fxLayoutAlign="center"></ngx-qrcode>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="center">
+    <button mat-button (click)="onDownloadClick()">
+      <mat-icon aria-label="save icon">save_alt</mat-icon>
+    </button>
+    <button mat-button (click)="onNoClick()">OK</button>
+  </div>
