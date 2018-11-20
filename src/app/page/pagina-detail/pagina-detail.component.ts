@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Page } from 'src/app/models/page.model';
+import {Page, TypePage} from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-pagina-detail',
@@ -12,6 +12,11 @@ export class PaginaDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.page);
+  }
+
+  getTypePageEnum() {
+    return TypePage;
   }
 
 }

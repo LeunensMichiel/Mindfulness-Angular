@@ -1,5 +1,5 @@
-<div class="paragraph" [ngSwitch]="page.toString()">
-  <app-audio-pagina-detail [page]='page' *ngSwitchCase="'audio'"></app-audio-pagina-detail>
-  <app-tekst-pagina-detail [page]='page' *ngSwitchCase="'text'"></app-tekst-pagina-detail>
-  <app-invoer-pagina-detail [page]='page' *ngSwitchCase="'invoer'"></app-invoer-pagina-detail>
+<div class="paragraph" [ngSwitch]="page.type">
+  <app-audio-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().AUDIO"></app-audio-pagina-detail>
+  <app-tekst-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().TEXT"></app-tekst-pagina-detail>
+  <app-invoer-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().INPUT"></app-invoer-pagina-detail>
 </div>

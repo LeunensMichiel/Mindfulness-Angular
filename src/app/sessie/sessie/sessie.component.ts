@@ -14,8 +14,8 @@ export class SessieComponent implements OnInit {
   @Output() public deleteSession = new EventEmitter<Session>();
   @Output() public modifySession = new EventEmitter<Session>();
 
-  constructor(private _sessionDataService: SessieDataService) {
-    var random =  Math.floor(Math.random() * (14 - 1) + 1);
+  constructor() {
+    let random =  Math.floor(Math.random() * (14 - 1) + 1);
     this.url = `assets/images/sessie-${random}.jpg`;
 
   }
@@ -23,11 +23,11 @@ export class SessieComponent implements OnInit {
   ngOnInit() {
   }
 
-  removeSessie() {
+  removeSession() {
     this.deleteSession.emit(this.session);
   }
 
-  editSessie() {
+  editSession() {
     this.modifySession.emit(this.session);
   }
 

@@ -33,7 +33,7 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
-  @Input() textPage: TextPage = null;
+  @Input() textPage: TextPage;
   @Output() changedPage = new EventEmitter<Page>();
   @Output() addParagraphCmd = new EventEmitter<Cmd>();
   title: string = '';
@@ -64,9 +64,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    */
   ngDoCheck(): void {
     if (this.textPage.title != this.title) {
-      console.log(this.textPage);
-      this.changedPage.emit(this.textPage);
       this.textPage.title = this.title;
+      this.changedPage.emit(this.textPage);
     }
   }
 
@@ -79,10 +78,9 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param par De paragraph die word toegevoegd aan de paragraphs array
    */
   addPar(type) {
-    var newPar = new Paragraph();
-    newPar.position = this.textPage.items.length;
-    newPar.type = type;
-    this.addParagraphCmd.emit(new Insert([this.textPage], [newPar]));
+    let newPar = new Paragraph(this.textPage.list.items.length, type);
+    this.textPage.list.addItem(newPar);
+    this.changedPage.emit(this.textPage);
   }
 
   /**
@@ -92,9 +90,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param par De gewijzigde pargraph.
    */
   changePar(par) {
-    var oldPar = new Paragraph().fromJson(par);
-    var newPar = this.textPage.items[oldPar.position];
-    this.addParagraphCmd.emit(new Update([this.textPage], [newPar, oldPar]));
+    this.textPage.list.changeItem(par);
+    this.changedPage.emit(this.textPage);
   }
 
   /**
@@ -103,7 +100,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param positions een Json object met de start en eindpositie.
    */
   changeParPos(positions) {
-    this.addParagraphCmd.emit(new Switch([this.textPage], positions));
+    this.textPage.list.changeItemPos(positions.startPos, positions.direction);
+    this.changedPage.emit(this.textPage);
   }
 
   /**
@@ -112,6 +110,7 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param position de positie van de te verwijderen paragraph.
    */
   deletePar(position) {
-    this.addParagraphCmd.emit(new Delete([this.textPage], [this.textPage.items[position]]));
+    this.textPage.list.deleteItem(position);
+    this.changedPage.emit(this.textPage);
   }
 }

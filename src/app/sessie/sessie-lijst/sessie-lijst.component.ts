@@ -7,6 +7,7 @@ import {SessieDataService} from '../sessie-data.service';
 import {DialogCourseData} from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
 import {Observable} from 'rxjs';
 import {Sessionmap} from '../../models/sessionmap.model';
+import {GenericItem} from '../../models/GenericCollection.model';
 
 export interface DialogCourseData {
   session_title: string;
@@ -28,12 +29,17 @@ export class SessieLijstComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.sessionmap);
+  }
+
+  getSessions() {
+    return this.sessionmap.sessions;
   }
 
   addSession(session: Session) {
     this._sessionDataService.addNewSession(session, this.sessionmap.id).subscribe(
       result => {
-        this.sessionmap.items.push(result);
+        this.sessionmap.sessions.addItem(result);
         this.snackBar.open('Session successfully added!');
         this.creating = false;
       },
@@ -89,7 +95,7 @@ export class SessieLijstComponent implements OnInit {
         if (data) {
           this._sessionDataService.removeSession(session).subscribe(
             item => {
-              this.sessionmap.deleteItem(session.position);
+              this.sessionmap.sessions.deleteItem(session.position);
               // this.sessionmap.items = this.sessionmap.items.filter(val => item.id !== val.id);
             },
             (error: HttpErrorResponse) => {

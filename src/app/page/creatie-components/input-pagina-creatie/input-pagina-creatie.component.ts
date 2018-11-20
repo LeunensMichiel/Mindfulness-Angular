@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, DoCheck} from '@angular/core';
-import {Page, InputPage} from 'src/app/models/page.model';
+import {Page} from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-input-pagina-creatie',
@@ -13,7 +13,7 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
-  @Input() inputPage: InputPage = null;
+  @Input() inputPage: Page;
   @Output() changedPage = new EventEmitter<Page>();
   title: string = '';
 
@@ -24,9 +24,13 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    *                                       | input-page-creatie
    */
   constructor() {
+
+
   }
 
   ngOnInit() {
+    console.log(this.inputPage);
+    this.title = this.inputPage.title;
   }
 
   //================== METHODES ==================
@@ -43,8 +47,8 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    */
   ngDoCheck(): void {
     if (this.inputPage.title != this.title) {
-      this.changedPage.emit(this.inputPage);
       this.inputPage.title = this.title;
+      this.changedPage.emit(this.inputPage);
       console.log('INPUTPAGE ON POSITION ' + this.inputPage.position + ' CHANGED.');
     }
   }

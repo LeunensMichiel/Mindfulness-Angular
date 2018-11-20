@@ -15,7 +15,7 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
-  @Input() audioPage:AudioPage = null;
+  @Input() audioPage:AudioPage;
   @Output() changedPage = new EventEmitter<Page>();
   @ViewChild('fileInput') fileInputRef: ElementRef
   title: string = "";
@@ -33,7 +33,10 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
 
   constructor(private _uploadDataService: UploadService) { }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.title = this.audioPage.title;
+    this.fileUrl = this.audioPage.fileUrl;
+
   }
 
   //================== METHODES ==================
@@ -50,11 +53,11 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    */
   ngDoCheck(): void {
     if (this.audioPage.title != this.title || this.audioPage.fileUrl != this.fileUrl){
-      this.changedPage.emit(this.audioPage);
       this.audioPage.title = this.title;
       this.audioPage.fileUrl = this.fileUrl;
+      this.changedPage.emit(this.audioPage);
       this._uploadDataService.upload(this.fileInputRef.nativeElement.files[0]);
-      this.resetAudio()
+      this.resetAudio();
       console.log(this.fileUrl)
       console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.");
     }

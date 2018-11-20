@@ -1,29 +1,23 @@
-import { Cmd } from "./command.model"
-import { GenericCollection, GenericItem } from "../GenericCollection.model";
-import { TextPage } from "../page.model";
+import {Cmd, TypeCmd} from './command.model';
+import {GenericCollection, GenericItem, GenericItemWithList} from '../GenericCollection.model';
 
-export class Update implements Cmd {
-    param: GenericItem[];    
-    extraParam: any;
-    inputItems: GenericCollection[];
 
-    constructor(inputItems: GenericCollection[], param:any[]){
-        this.inputItems = inputItems;
-        this.param = param;
-        this.extraParam = null
-        console.log(param);
-    }
+export class Update extends Cmd {
 
-    execute(): boolean {
-        this.inputItems[0].changeItem(this.param[0]);
-        return true;
-    }
-    
-    undo() {
-        this.inputItems[0].changeItem(this.param[1]);
-    }  
 
-    toString():String {
-        return "UPDATE";
-    }
+  constructor(inputItem: GenericItemWithList, param: any[]) {
+    super(inputItem, TypeCmd.UPDATE, param);
+    console.log(param);
+  }
+
+  execute(): boolean {
+    this.inputItem.list.changeItem(this.param[0]);
+    return true;
+  }
+
+  undo() {
+    this.inputItem.list.changeItem(this.param[1]);
+  }
+
+
 }

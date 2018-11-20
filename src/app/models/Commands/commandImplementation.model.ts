@@ -1,7 +1,7 @@
 import { Cmd } from "./command.model";
 
 export abstract class CmdImplementation {
-    private commandCache: Cmd[]
+    private commandCache: Cmd[];
     private cmdValue: number;
     private timer = null;
 

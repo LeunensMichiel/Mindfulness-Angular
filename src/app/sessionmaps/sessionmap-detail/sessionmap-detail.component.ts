@@ -16,8 +16,7 @@ export class SessionmapDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.route.data.subscribe(item =>
-    //   this._sesmap = item['sesmap']);
+
   }
 
 }

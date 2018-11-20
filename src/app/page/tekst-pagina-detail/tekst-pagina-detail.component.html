@@ -1,8 +1,9 @@
+<p class="title">{{page.title}}</p>
 <div *ngFor='let par of page.paragraphs'>
   <div [ngSwitch]='par.type'>
-    <p *ngSwitchCase="'text'">
+    <p *ngSwitchCase="'TEXT'">
       {{par.content}}
     </p>
-    <img class="image" *ngSwitchCase="'img'" src="{{par.content}}">
+    <img class="image" *ngSwitchCase="'IMG'" src="{{par.content}}">
   </div>
 </div>

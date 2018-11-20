@@ -1,32 +1,58 @@
-import { GenericItem } from "./GenericCollection.model";
+import {GenericItem} from './GenericCollection.model';
 
-export class Paragraph implements GenericItem {
-    _id:String;
-    public position: number;
-    public content: string;
-    public type:string;
+export enum TypeParagraph {
+  TEXT ,
+  IMAGE
+}
 
-    constructor(){
-        this.content = "";
-        this.position = 0;
-        this.type = "text";
+export class Paragraph extends GenericItem {
+  private _description: string;
+  private _type: TypeParagraph;
+
+  constructor(position: number = 0, type: TypeParagraph = TypeParagraph.TEXT, description: string = '') {
+    super(position);
+    this._description = description;
+    this._type = type;
+  }
+
+  get description(): string {
+    return this._description;
+  }
+
+  set description(value: string) {
+    this._description = value;
+  }
+
+  get type(): TypeParagraph {
+    return this._type;
+  }
+
+  set type(value: TypeParagraph) {
+    this._type = value;
+  }
+
+  static fromJSON(json: any): Paragraph {
+    let type = undefined;
+    switch (type) {
+      case "TEXT":
+        type = TypeParagraph.TEXT;
+        break;
+      case "IMAGE":
+        type = TypeParagraph.IMAGE;
     }
 
-    fromJson(json: any):Paragraph {
-        const par = new Paragraph();
-        par._id = json._id;
-        par.position = json.position;
-        par.content = json.content;
-        par.type = json.type;
-        return par
-    }
 
-  toJSON(){
-        return {
-            _id: this._id,
-            position: this.position,
-            content: this.content,
-            type: this.type
-        }
-    }
+    return  new Paragraph(json.position, type, json.description);
+  }
+
+  toJSON() {
+
+    return {
+      description: this._description,
+      form_type: this._type,
+      ...super.toJSON()
+    };
+  }
+
+
 }

@@ -47,8 +47,9 @@ export class SessieDataService {
 
 
   editSession(session: Session): Observable<Session> {
+    console.log(session);
     return this.http
-      .put(`${this._appUrl}/session/${session.id}`, session)
+      .put(`${this._appUrl}/session/${session.id}`, session.toJSON())
       .pipe(map(it => {
         return Session.fromJson(it);
       }));

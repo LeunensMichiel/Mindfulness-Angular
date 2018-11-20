@@ -3,30 +3,16 @@ import {Session} from '../../models/session.model';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder
-} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {CmdImplementation} from '../../models/Commands/commandImplementation.model';
-import {Cmd} from 'src/app/models/Commands/command.model';
-import {Insert} from 'src/app/models/Commands/insert.model';
 import {GenericItem} from '../../models/GenericCollection.model';
-import {SessieDataService} from '../../sessie/sessie-data.service';
-import {Delete} from 'src/app/models/Commands/delete.model';
-import {InputPage, TextPage, AudioPage} from '../../models/page.model';
-import {Paragraph} from '../../models/paragraph.model';
 import {
   trigger,
   style,
   animate,
   transition
 } from '@angular/animations';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ExerciseCreationComponent} from '../exercise-creation/exercise-creation.component';
-import {Update} from 'src/app/models/Commands/update.model';
 import {ExerciseDataService} from '../exercise-data.service';
 
 export interface DialogExerciseData {
@@ -61,6 +47,7 @@ export class ExerciseListComponent implements OnInit {
   ngOnInit() {
     this._route.data.subscribe(item =>{
       this._session = item['session'];
+      console.log(this._session);
     });
 
   }
@@ -81,7 +68,7 @@ export class ExerciseListComponent implements OnInit {
         // We use for creation and updating of a exercise the same dialog
         if (isCreation) {
           let ex = new Exercise(result);
-          ex.position = this._session.items.length;
+          ex.position = this._session.list.items.length;
           this.addExercise(ex);
         } else {
           ex.title = result;
@@ -108,7 +95,7 @@ export class ExerciseListComponent implements OnInit {
   addExercise(exercise: Exercise) {
     this._exerciseDataService.addExerciseToSession(exercise, this._session.id).subscribe(
       result => {
-        this._session.addItem(result.position, result);
+        this._session.list.addItem(result);
         this.snackBar.open('Oefeningen opgeslaan!', '', {
           duration: 3000,
         });
@@ -134,7 +121,7 @@ export class ExerciseListComponent implements OnInit {
         if (data) {
           this._exerciseDataService.removeExercise(exercise).subscribe(
             result => {
-              this._session.deleteItem(result.position);
+              this._session.list.deleteItem(result.position);
               this.snackBar.open('Oefeningen verwijderd!', '', {
                 duration: 3000,
               });
@@ -151,7 +138,7 @@ export class ExerciseListComponent implements OnInit {
   }
 
   get exercises(): GenericItem[] {
-    return this._session.items;
+    return this._session.list.items;
   }
 
 }

@@ -17,7 +17,7 @@ export class ExerciseDetailComponent implements OnInit {
   constructor(private _exerciseDataService: ExerciseDataService) { }
 
   ngOnInit() {
-
+    console.log(this.exercise);
   }
 
   public hideDropdown(event) {
@@ -25,7 +25,7 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   get pages() {
-    return this.exercise.items;
+    return this.exercise.list.items;
   }
 
 

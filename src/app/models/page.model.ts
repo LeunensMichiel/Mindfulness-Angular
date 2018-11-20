@@ -1,130 +1,145 @@
-import { Paragraph } from "./paragraph.model";
-import { GenericCollection, GenericItem } from "./GenericCollection.model";
+import {Paragraph} from './paragraph.model';
+import {GenericCollection, GenericItem, GenericItemWithList} from './GenericCollection.model';
 
-export interface Page {
-    _id: String;
-    title: string;
-    position: number;
+export class Page extends GenericItemWithList {
+  private _type: TypePage;
 
-    toJSON(): any;
-    fromJson(json: any): Page;
+  constructor(position: number = 0, title: string = '', type: TypePage = TypePage.INPUT) {
+    super(position, title);
+    this._type = type;
+  }
 
-    toString(): string
+  get type(): TypePage {
+    return this._type;
+  }
+
+  set type(value: TypePage) {
+    this._type = value;
+  }
+
+  static fromJSON(json: any) {
+    let page = new Page(json.position, json.title);
+    page.id = json._id;
+    return page;
+
+  }
+
+  toJSON() {
+    return {
+      type: this.type,
+      ...super.toJSON()
+    };
+  }
+
+  toString(): string {
+    return TypePage[this.type];
+  }
 }
 
-export class AudioPage implements Page, GenericItem {
-    _id: String;
-    position: number;
-    title: string;
-    fileUrl: string;
-
-    constructor() {
-        this.position = 0;
-        this.title = "";
-        this.fileUrl = "";
-    }
-
-    toJSON() {
-        return {
-            type: "AUDIO",
-            _id: this._id,
-            title: this.title,
-            fileUrl: this.fileUrl,
-            position: this.position
-        }
-    }
-
-    fromJson(json: any): Page {
-        const page = new AudioPage()
-        page._id = json._id;
-        page.title = json.title;
-        page.fileUrl = json.fileUrl;
-        page.position = json.position;
-        return page;
-    }
-
-    toString(): string {
-        return 'audio';
-    }
+export enum TypePage {
+  AUDIO,
+  INPUT,
+  TEXT
 }
 
-export class TextPage extends GenericCollection implements Page, GenericItem {
-    _id: String;
-    position: number;
-    title: string;
-    text: string;
+export class AudioPage extends Page {
+  private _fileUrl: string;
 
-    constructor() {
-        super();
-        this.position = 0;
-        this.title = "";
-        this.text = "";
-        this.items = [new Paragraph()];
-    }
+  constructor(position: number = 0, title: string = '', fileUrl: string = '') {
+    super(position, title, TypePage.AUDIO);
+    this._fileUrl = fileUrl;
+  }
 
-    toJSON() {
-        return {
-            type: "TEXT",
-            _id: this._id,
-            title: this.title,
-            text: this.text,
-            position: this.position
-          //TODO add toJSON for paragraph
-            // items: this.items.map(it => it.toJSON)
-        }
-    }
+  get fileUrl(): string {
+    return this._fileUrl;
+  }
 
-    fromJson(json: any): Page {
-        const page = new TextPage();
-        page._id = json._id;
-        page.position = json.position;
-        page.title = json.title;
-        page.text = json.text;
-        if (json.hasOwnProperty("items")) {
-            page.items = json.items.map(it => {
-                var par = new Paragraph();
-                return par.fromJson(it);
-            });
-        }
-        return page;
-    }
+  set fileUrl(value: string) {
+    this._fileUrl = value;
+  }
 
-    toString(): string {
-        return 'text';
-    }
+  toJSON() {
+    return {
+      fileUrl: this._fileUrl,
+      ...super.toJSON()
+    };
+  }
+
+  static fromJSON(json: any): Page {
+    let page = new AudioPage(json.position, json.title, json._fileUrl);
+    page.id = json._id;
+    return page;
+  }
+
+
 }
 
-export class InputPage implements Page, GenericItem {
-    _id: String;
-    position: number;
-    title: string;
-    input: string;
+export class TextPage extends Page {
 
-    constructor() {
-        this.position = 0;
-        this.title = "";
-        this.input = "";
-    }
 
-    toJSON() {
-        return {
-            type: "INPUT",
-            _id: this._id,
-            title: this.title,
-            input: this.input,
-            position: this.position
-        }
-    }
-    fromJson(json: any): Page {
-        const page = new InputPage();
-        page._id = json._id;
-        page.position = json.position;
-        page.title = json.title;
-        page.input = page.input;
-        return page;
-    }
+  constructor(position: number = 0, title: string = '') {
+    super(position, title, TypePage.TEXT);
+  }
 
-    toString(): string {
-        return 'invoer';
+  toJSON() {
+
+    return {
+      ...super.toJSON(),
+      paragraphs: this.list.items.map(it => {
+        let par = it as Paragraph;
+        return par.toJSON();
+      })
+    };
+  }
+
+  static fromJSON(json: any): Page {
+    let page = new TextPage(json.position, json.title);
+    page.id = json._id;
+    console.log(page);
+    if (json.hasOwnProperty('paragraphs')) {
+      if (json.paragraphs.length !== 0) {
+        page.list = new GenericCollection(json.paragraphs.map(it => {
+          return Paragraph.fromJSON(it);
+        }));
+      }
+
     }
+    return page;
+  }
+
+
 }
+
+// export class InputPage extends Page {
+//
+//   constructor(position: number = 0, title: string: ''
+//
+// ) {
+//   super();
+//
+// }
+//
+// toJSON();
+// {
+//   return {
+//     type: 'INPUT',
+//     _id: this._id,
+//     title: this.title,
+//     position: this.position
+//   };
+// }
+//
+// fromJson(json
+// :
+// any;
+// ):
+// Page;
+// {
+//   const page = new InputPage();
+//   page._id = json._id;
+//   page.position = json.position;
+//   page.title = json.title;
+//   return page;
+// }
+//
+// }

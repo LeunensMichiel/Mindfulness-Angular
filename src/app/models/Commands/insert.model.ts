@@ -1,28 +1,21 @@
-import { Cmd } from "./command.model"
-import { GenericCollection, GenericItem } from "../GenericCollection.model";
+import {Cmd, TypeCmd} from './command.model';
+import {GenericCollection, GenericItem, GenericItemWithList} from '../GenericCollection.model';
 
-export class Insert implements Cmd {
-    param: GenericItem[];    
-    extraParam: any;
-    inputItems: GenericCollection[];
+export class Insert extends Cmd {
 
-    constructor(inputItems: GenericCollection[], param:any[]){
-        this.inputItems = inputItems;
-        this.param = param;
-        this.extraParam = null;
+
+    constructor(inputItem: GenericItemWithList, param:any[]){
+       super(inputItem, TypeCmd.INSERT, param);
         console.log(param);
     }
 
     execute(): boolean {
-        this.inputItems[0].addItem(this.param[0].position, this.param[0]);
+        this.inputItem.list.addItem(this.param[0]);
         return true;
     }
         
     undo() {
-        this.inputItems[0].deleteItem(this.param[0].position);
+        this.inputItem.list.deleteItem(this.param[0].position);
     }
 
-    toString():String{
-        return "INSERT";
-    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
-import { Paragraph } from 'src/app/models/paragraph.model';
+import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
 
 @Component({
   selector: 'app-paragraaf-creatie',
@@ -15,13 +15,17 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * -deletePar: De emitter die de positie van de te verwijderen paragraph doorstuurt.
    */
   @Input() par:Paragraph = new Paragraph();
-  @Input() position:number = 0
+  @Input() position:number = 0;
   @Input() isLastElement = false;
   @Output() newPar = new EventEmitter<Paragraph>();
   @Output() changedParPos = new EventEmitter<any>();
   @Output() changedPar = new EventEmitter<Paragraph>();
   @Output() deletePar = new EventEmitter<number>();
   content:string = "";
+
+  getTypeParagraphEnum() {
+    return TypeParagraph;
+  }
 
   /**
    * GIDS:
@@ -33,7 +37,8 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   constructor() { }
 
   ngOnInit() {
-    this.content = this.par.content;
+    console.log(this.par);
+    this.content = this.par.description;
   }
   
   //================== METHODES ==================
@@ -48,10 +53,10 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * te worden opgeslagen in het page-object
    */
   ngDoCheck(){
-    if (this.par.content != this.content) {
-      console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED")
+    if (this.par.description != this.content) {
+      console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED");
+      this.par.description = this.content;
       this.changedPar.emit(this.par);
-      this.par.content = this.content;
       console.log(this.content);
     }
   }
@@ -65,12 +70,12 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * Waarde is altijd "up" of "down".
    */
   changeParPosition(direction){
-    var endPos = this.position;
-    endPos = (direction == "up")?endPos = -1:endPos = 1;
+    let endPos = this.position;
+    (direction == "up")?endPos = -1:endPos = 1;
     this.changedParPos.emit(
       {
-        "startPos":this.position,
-        "direction":endPos
+        startPos:this.position,
+        direction:endPos
       }
     )
   }

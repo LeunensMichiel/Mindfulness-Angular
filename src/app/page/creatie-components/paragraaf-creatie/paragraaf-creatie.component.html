@@ -25,17 +25,17 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
   <div class="paragraph" [ngSwitch]='par.type'>
-    <mat-form-field *ngSwitchCase="'text'">
-      <textarea matInput value="{{par.content}}" (change)='content = $event.currentTarget.value'></textarea>
+    <mat-form-field *ngSwitchCase="getTypeParagraphEnum().TEXT">
+      <textarea matInput value="{{par.description}}" (change)='content = $event.currentTarget.value'></textarea>
     </mat-form-field>
-    <div *ngSwitchCase="'image'" class="imgInputContainer">
+    <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
       <div class="imgInputChild">
         <label for="profile_pic">
           <i class="material-icons md-18">cloud_upload</i>
         </label>
         <input type="file" id="profile_pic" name="profile_pic" (change)='content = $event.target.value.split("\\").pop();'>
       </div>
-      <p>{{par.content}}</p>
+      <p>{{par.description}}</p>
     </div>
   </div>
 </mat-card>

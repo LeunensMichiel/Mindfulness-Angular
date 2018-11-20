@@ -13,11 +13,14 @@ export class SessionmapDataService {
   constructor(private http: HttpClient) { }
 
   get sesmaps(): Observable<Sessionmap[]> {
+    console.log('test');
     return this.http
       .get(`${this._appUrl}/sessionmaps`)
       .pipe(map((list:any[]): Sessionmap[] =>
         list.map(
           it => {
+            console.log(it);
+
             return Sessionmap.fromJson(it);
           }
         )

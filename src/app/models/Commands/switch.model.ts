@@ -1,28 +1,31 @@
-import { Cmd } from "./command.model"
-import { GenericCollection, GenericItem } from "../GenericCollection.model";
-import { TextPage } from "../page.model";
+import {Cmd, TypeCmd} from './command.model';
+import {GenericItemWithList} from '../GenericCollection.model';
 
-export class Switch implements Cmd {
-    param: GenericItem[];    
-    extraParam: any;
-    inputItems: GenericCollection[];
+export class Switch extends Cmd {
+  private _extraParam: any;
 
-    constructor(inputItems: GenericCollection[], extraParam: any){
-        this.inputItems = inputItems;
-        this.param = null;
-        this.extraParam = extraParam;
-    }
 
-    execute(): boolean {
-        this.inputItems[0].changeItemPos(this.extraParam.startPos, this.extraParam.direction);
-        return true;
-    }
-    
-    undo() {
-        this.inputItems[0].changeItemPos(this.extraParam.startPos, this.extraParam.direction);
-    }  
+  constructor(inputItem: GenericItemWithList, extraParam: any) {
+    super(inputItem, TypeCmd.SWITCH);
+    this._extraParam = extraParam;
+  }
 
-    toString():String{
-        return "SWITCH";
-    }
+  get extraParam(): any {
+    return this._extraParam;
+  }
+
+  set extraParam(value: any) {
+    this._extraParam = value;
+  }
+
+  execute(): boolean {
+    this.inputItem[0].changeItemPos(this._extraParam.startPos, this._extraParam.direction);
+    return true;
+  }
+
+  undo() {
+    this.inputItem[0].changeItemPos(this._extraParam.startPos, this._extraParam.direction);
+  }
+
+
 }

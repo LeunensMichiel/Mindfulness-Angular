@@ -1,14 +1,14 @@
 <div [@posAnim]='position' class="segmentParent">
-  <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.constructor.name" #inputBlock>
+  <mat-card *ngIf='!isLastElement' class="segment" [ngSwitch]="page.type" #inputBlock>
     <div class="closeButton">
       <button mat-icon-button (click)='deletePage()'>
         <mat-icon>clear</mat-icon>
       </button>
     </div>
     <div class="cardContent">
-      <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="'AudioPage'"></app-audio-pagina-creatie>
-      <app-tekst-pagina-creatie (addParagraphCmd)='onNewParCommand($event)' (changedPage)='saveChangedPage($event)' [textPage]='page' *ngSwitchCase="'TextPage'"></app-tekst-pagina-creatie>
-      <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="'InputPage'"></app-input-pagina-creatie>
+      <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' [audioPage]='page' *ngSwitchCase="getTypePage().AUDIO"></app-audio-pagina-creatie>
+      <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' (addParagraphCmd)='onNewParCommand($event)'  [textPage]='page' *ngSwitchCase="getTypePage().TEXT"></app-tekst-pagina-creatie>
+      <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page' *ngSwitchCase="getTypePage().INPUT"></app-input-pagina-creatie>
     </div>
     <div class="footerContainer">
       <mat-card-actions class="footerButtons">
