@@ -61,6 +61,19 @@ export class GroepenListComponent implements OnInit {
     this.groups.push(group);
   }
 
+  verwijderGroup(group:Group){
+    let index = -1;
+    let grups = this.groups;
+    this.groups.forEach(function(item){
+      if(group._id == item._id){
+        index = grups.indexOf(item);
+      }
+    })
+    if(index > -1){
+      this.groups.splice(index,1);
+    }
+  }
+
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
@@ -93,7 +106,9 @@ export class GroepenListComponent implements OnInit {
       data => {
         if (data) {
           this.groepenDataService.removeGroup(group).subscribe(
-            item => {},
+            item => {
+              this.verwijderGroup(item);
+            },
             (error: HttpErrorResponse) => {
               this.snackBar.open(`Error ${error.status} tijdens het verwijderen van de groep ${
                   group.name
