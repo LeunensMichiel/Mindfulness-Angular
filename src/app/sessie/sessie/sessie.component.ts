@@ -43,7 +43,7 @@ export class SessieComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(QrDialog, {
       width: '250px',
-      data: {sessionId: this.session._id, sessionName: this.session.title}
+      data: {sessionId: this.session.id, sessionName: this.session.title}
     });
 
     dialogRef.afterClosed().subscribe(result => {

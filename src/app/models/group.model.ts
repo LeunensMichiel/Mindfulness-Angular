@@ -60,8 +60,7 @@ export class Group{
             json.name
         );
         if(json.hasOwnProperty('sessionmap_id')){
-            var sesmap = new Sessionmap();
-            group.sessionmap = sesmap.fromJson(json.sessionmap_id);
+            group.sessionmap = Sessionmap.fromJson(json.sessionmap_id);
         }
         group._id = json._id;
         return group;

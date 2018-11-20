@@ -61,8 +61,7 @@ export class GroepenDataService {
       .pipe(map((list:any[]): Sessionmap[] =>
         list.map(
           it => {
-            var sMap = new Sessionmap();
-            return sMap.fromJson(it);
+            return Sessionmap.fromJson(it);
           }
         )
       ));
