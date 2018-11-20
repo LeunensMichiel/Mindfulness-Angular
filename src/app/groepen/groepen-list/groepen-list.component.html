@@ -9,7 +9,7 @@
 </div>
 
 <div *ngIf='creating' class="creatiebtn">
-  <app-groep-creatie (disable)='creating = !creating'></app-groep-creatie>
+  <app-groep-creatie (addedGroup)="addGroup($event)" (disable)='creating = !creating'></app-groep-creatie>
 </div>
 
 <div *ngIf='!creating' class="creatiebtn">

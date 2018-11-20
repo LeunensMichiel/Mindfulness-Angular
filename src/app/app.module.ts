@@ -50,10 +50,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageDataService } from './pagina/page-data.service';
 import { PageResolver } from './pagina/page-resolver';
 import {ExerciseDataService} from './oefening/exercise-data.service';
-import { GroepenListComponent } from './groepen/groepen-list/groepen-list.component';
+import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
-import {NgxQRCodeModule} from 'ngx-qrcode2'
+import {MatSelectModule} from '@angular/material/select';
+import {NgxQRCodeModule} from 'ngx-qrcode2';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,10 @@ import {NgxQRCodeModule} from 'ngx-qrcode2'
     GroepenListComponent,
     GroepCreatieComponent,
     GroepComponent,
-    QrDialog
+    QrDialog,
+    GroepComponent,
+    GroupModifyComponent,
+    RemoveGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -111,7 +115,11 @@ import {NgxQRCodeModule} from 'ngx-qrcode2'
     MatInputModule,
     MatExpansionModule,
     FlexLayoutModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    FlexLayoutModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     SessieDataService,
@@ -129,7 +137,10 @@ import {NgxQRCodeModule} from 'ngx-qrcode2'
     SessieModifyComponent,
     ExerciseCreationComponent,
     RemoveExerciseDialog,
-  SessieComponent,
-  QrDialog]
+    SessieComponent,
+    QrDialog,
+    RemoveExerciseDialog,
+    GroupModifyComponent,
+    RemoveGroupDialog]
 })
 export class AppModule { }

@@ -1,15 +1,18 @@
+import { Sessionmap } from "./sessionmap.model";
+
 // eventuele imports
 
 export class Group{
     _id:string;
     _name:string;
-    _sessionmap_id:string;
+    _sessionmap:Sessionmap;
     _sessie_naam:string;
+    _sessionmap_id:string;
 
-    constructor(name:string = '',sessionmap_id:string = ''){
+    constructor(name:string = '',sessionmap:Sessionmap = null){
         //super();
         this._name = name;
-        this._sessionmap_id = sessionmap_id;
+        this._sessionmap = sessionmap;
     }
 
     public get id():string{
@@ -20,8 +23,16 @@ export class Group{
         return this._name;
     }
 
+    public get sessionmap():Sessionmap{
+        return this._sessionmap;
+    }
+
     public get sessionmap_id():string{
         return this._sessionmap_id;
+    }
+
+    public set ses_id(value:string){
+        this._sessionmap_id = value;
     }
 
     public set id(value:string){
@@ -32,8 +43,8 @@ export class Group{
         this._name = value;
     }
 
-    public set sessionmap_id(value:string){
-        this._sessionmap_id = value;
+    public set sessionmap(value:Sessionmap){
+        this._sessionmap = value;
     }
 
     public set sessie_naam(value:string){
@@ -46,11 +57,12 @@ export class Group{
 
     fromJson(json:any){
         const group = new Group(
-            json.name,
-            json.sessionmap_id
+            json.name
         );
-        //group._name = json.name;
-        //group._sessionmap_id = json.sessionmap_id;
+        if(json.hasOwnProperty('sessionmap_id')){
+            var sesmap = new Sessionmap();
+            group.sessionmap = sesmap.fromJson(json.sessionmap_id);
+        }
         group._id = json._id;
         return group;
     }
@@ -59,7 +71,7 @@ export class Group{
         return{
             _id:this._id,
             name:this._name,
-            sessionmap_id:this._sessionmap_id
+            sessionmap:this._sessionmap.toJSON()
         };
     }
 }

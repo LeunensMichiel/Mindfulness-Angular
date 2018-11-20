@@ -5,6 +5,9 @@ import { Group } from '../../models/group.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service';
+import { Sessionmap } from '../../models/sessionmap.model';
+import { Observable } from 'rxjs';
 
 export class GroupErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,28 +23,51 @@ export class GroupErrorStateMatcher implements ErrorStateMatcher {
 })
 export class GroepCreatieComponent implements OnInit {
   @Output() public disable = new EventEmitter();
+  @Output() public addedGroup = new EventEmitter();
   public newGroup:FormGroup;
   public matcher = new GroupErrorStateMatcher();
+  private _sessionmaps:Sessionmap[];
+  public errorMsg: string;
 
   constructor(
     private fb: FormBuilder,
     private _groupDataService: GroepenDataService,
+    private _sessionmapDataService:SessionmapDataService,
     public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+  
+    this._groupDataService.sesmaps.subscribe(
+      sesmaps => {
+        this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessionmaps: ${error.error}`;
+      }
+    );
+    this._sessionmaps = new Array();
+
     this.newGroup = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1)]],
-      sessiemapnaam: ['', [Validators.required, Validators.minLength(2)]]
+      dropdown: ['', [Validators.required]]
     });
   }
 
-  addGroup(){
-    let group = new Group(this.newGroup.value.name, this.newGroup.value.sessiemapnaam);
+  get sesmaps() {
+    return this._sessionmaps;
+  }
+
+  addGroup(){    
     if(this.newGroup.valid){
+      let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
+
       this._groupDataService.addNewGroup(group)
       .subscribe(
-        () => {
+        result => {
+          this.addedGroup.emit(group);
           this.snackBar.open("De groep is succesvol toegevoegd!", "", 
           {
             duration: 3000,

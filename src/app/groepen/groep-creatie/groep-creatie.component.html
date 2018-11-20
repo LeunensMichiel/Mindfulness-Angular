@@ -10,12 +10,13 @@
           Vul een unieke groepsnaam in
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
-        <input matInput [errorStateMatcher]="matcher" placeholder="Vul de gewenste sessiemapid in:" autocomplete="off" formControlName='sessiemapnaam' required>
-        <mat-error *ngIf="newGroup.get('sessiemapnaam').invalid">
-          Geef een geldige sessiemapnaam
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Cursus" [(value)]="selected" formControlName='dropdown'>
+              <mat-option *ngFor="let ses of sesmaps" [value]="ses">
+                {{ses.titleCourse}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button (click)="addGroup()" class="hvr-grow">
