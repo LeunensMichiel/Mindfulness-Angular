@@ -59,6 +59,7 @@ import {AuthGuardService} from './user/auth-guard.service';
 import {AuthenticationService} from './user/authentication.service';
 import {UserModule} from './user/user.module';
 import {ExerciseResolver} from './exercise/exercise-resolver.service';
+import {basehttpInterceptorProviders, httpInterceptorProviders} from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -127,6 +128,8 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     MatFormFieldModule
   ],
   providers: [
+    basehttpInterceptorProviders,
+    httpInterceptorProviders,
     SessieDataService,
     SessionmapDataService,
     Sessionmapresolver,

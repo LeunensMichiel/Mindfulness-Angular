@@ -26,7 +26,7 @@ export class Page extends GenericItemWithList {
 
   toJSON() {
     return {
-      type: this.type,
+      type: TypePage[this.type],
       ...super.toJSON()
     };
   }

@@ -6,7 +6,7 @@
     <app-sessie [session]='session' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
   </div>
   <div *ngIf='creating'>
-    <app-sessie-toevoegen (disable)='creating = !creating' (addSession)="addSession($event)" [numberOfSessions]='sessionmap.items.length'></app-sessie-toevoegen>
+    <app-sessie-toevoegen (disable)='creating = !creating' (addSession)="addSession($event)" [numberOfSessions]='sessionmap.sessions.length'></app-sessie-toevoegen>
   </div>
 </div>
 <div *ngIf='!creating'>

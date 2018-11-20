@@ -33,7 +33,7 @@ export class SessieLijstComponent implements OnInit {
   }
 
   getSessions() {
-    return this.sessionmap.sessions;
+    return this.sessionmap.sessions.items;
   }
 
   addSession(session: Session) {

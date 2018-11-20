@@ -145,7 +145,10 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   addItem(cmd: Cmd): any {
     this.pageDataService.addPageToExercise(cmd.inputItem.id, this.convertPage(cmd.param[0]))
       .subscribe(
-        success => this.exercise.list.items[success.position].id = success.id,
+        success => {
+          console.log(success);
+          this.exercise.list.items[success.position].id = success.id
+        },
         error => console.log(error)
       );
   }
