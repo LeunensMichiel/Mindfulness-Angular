@@ -67,6 +67,7 @@ export class GroepCreatieComponent implements OnInit {
       this._groupDataService.addNewGroup(group)
       .subscribe(
         result => {
+          group.id = result.id;
           this.addedGroup.emit(group);
           this.snackBar.open("De groep is succesvol toegevoegd!", "", 
           {
