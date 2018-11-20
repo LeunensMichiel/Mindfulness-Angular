@@ -63,10 +63,10 @@ export class GroepCreatieComponent implements OnInit {
   addGroup(){    
     if(this.newGroup.valid){
       let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
-
       this._groupDataService.addNewGroup(group)
       .subscribe(
         result => {
+          group.id = result.id;
           this.addedGroup.emit(group);
           this.snackBar.open("De groep is succesvol toegevoegd!", "", 
           {
