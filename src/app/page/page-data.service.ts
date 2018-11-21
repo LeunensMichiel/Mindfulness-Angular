@@ -28,6 +28,8 @@ export class PageDataService {
       );
   }
 
+
+
   removePage(page_id: String) {
     return this.http
       .delete(`${this._appUrl}/page/${page_id}`)

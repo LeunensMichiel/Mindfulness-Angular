@@ -49,12 +49,22 @@ export class SessionmapListComponent implements OnInit {
   }
 
   onAdd(isCreation: boolean) {
-    const addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
-      data: {
-        sessionmap_title: this._selectedSessionmap.titleCourse,
-        isCreation: isCreation
-      }
-    });
+    let addCourseDialoRef;
+    if (isCreation) {
+      addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
+        data: {
+          sessionmap_title: "",
+          isCreation: isCreation
+        }
+      });
+    } else {
+      addCourseDialoRef = this.dialog.open(SessionmapCreatieComponent, {
+        data: {
+          sessionmap_title: this._selectedSessionmap.titleCourse,
+          isCreation: isCreation
+        }
+      });
+    }
 
     addCourseDialoRef.afterClosed().subscribe(result => {
       //Als er iets is ingevuld in de input
