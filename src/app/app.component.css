@@ -35,5 +35,13 @@
   }
 h1>a {
   text-decoration: none;
-  color: white;
+  color: rgb(90, 90, 89);
 }
+
+.mat-icon{
+  font-weight: 700;
+}
+
+ .example-toolbar{
+  color: rgb(90, 90, 89);
+} 
