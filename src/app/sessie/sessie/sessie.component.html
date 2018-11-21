@@ -1,31 +1,41 @@
 <mat-card class="card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    <mat-card-title class="vet">
       {{session.title.toLocaleUpperCase()}}
     </mat-card-title>
     <!--<mat-card-subtitle>{{session.position}}</mat-card-subtitle>-->
 
-    <div>
-      <button mat-icon-button (click)="editSession()">
-        <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
-      </button>
-      <button mat-icon-button (click)="removeSession()" class="hvr-grow">
-        <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
-      </button>
-<!--     <button mat-icon-button [routerLink]="['/exercise-list',session.id]" class="hvr-grow"> 
-         <mat-icon aria-label="Example icon-button with an eye icon">remove_red_eye</mat-icon>
-      </button>-->
-        <button mat-button (click)="openDialog()" class="hvr-grow">
-          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-            <path fill="#000000" d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V21H11V17H15V15H17V13H15V11M19,19V15H17V19H19M15,3H21V9H15V3M17,5V7H19V5H17M3,3H9V9H3V3M5,5V7H7V5H5M3,15H9V21H3V15M5,17V19H7V17H5Z" />
-        </svg>
-        </button>
-        
-    </div>
+    
   </mat-card-header>
   <img [routerLink]="['/exercise-list',session.id]" class="example-card" mat-card-image src="{{url}}" alt="Calm Foto">
-
+  <mat-card-content >
+      <p>
+        Dit is een test beschrijving van een sessie. Hier kunt u extra informatie kwijt over de sessie zodat alles duidelijker word.
+      </p>
+    </mat-card-content>
+  <mat-card-actions fxLayoutAlign="center">
+      <!-- <div>
+          <button mat-icon-button (click)="editSession()">
+            <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="removeSession()" class="hvr-grow">
+            <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
+          </button>
+          <button mat-button (click)="openDialog()">
+              <svg style="width:26px;height:26px" viewBox="0 0 26 26">
+                <path fill= "rgb(90, 90, 89)" d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V21H11V17H15V15H17V13H15V11M19,19V15H17V19H19M15,3H21V9H15V3M17,5V7H19V5H17M3,3H9V9H3V3M5,5V7H7V5H5M3,15H9V21H3V15M5,17V19H7V17H5Z" />
+            </svg>
+          </button>
+            
+        </div> -->
+        <div class="button-row">
+            <button mat-flat-button (click)="editSession()" class="vet">WIJZIG</button>
+            <button mat-flat-button (click)="removeSession()" class="vet">VERWIJDER</button>
+            <button mat-flat-button (click)="openDialog()" class="vet">QR-CODE</button>
+        </div>
+        
+  </mat-card-actions>
 
 </mat-card>
 

@@ -3,7 +3,7 @@
 
 $mind-app-primary: mat-palette($mat-teal, 200, 100, 400);
 $mind-app-accent:  mat-palette($mat-orange, A200, A100, A400);
-$yellow: #F6F1E4;
+$yellow: whitesmoke;
 
 $mindfulness-app-theme: mat-light-theme($mind-app-primary, $mind-app-accent);
 
@@ -51,7 +51,6 @@ $mindfulness-app-theme: mat-light-theme($mind-app-primary, $mind-app-accent);
 
 body {
   font-family: 'Roboto', sans-serif;
-  color: white;
   background-color: $yellow;
 }
 
@@ -69,11 +68,10 @@ body {
 
 .titel {
   text-align: center;
-  background-color: #0F2027;  /* fallback for old browsers */
+  // background-color: #0F2027;  /* fallback for old browsers */
 
-  background: -webkit-linear-gradient(to top, $yellow, mat-color($mind-app-primary));  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, $yellow, mat-color($mind-app-primary)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: #ffffff;
+  // background: -webkit-linear-gradient(to top, $yellow, mat-color($mind-app-primary));  /* Chrome 10-25, Safari 5.1-6 */
+  // background: linear-gradient(to top, $yellow, mat-color($mind-app-primary)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .mat-toolbar.mat-primary {
   color: rgba(#ffffff, 0.87);

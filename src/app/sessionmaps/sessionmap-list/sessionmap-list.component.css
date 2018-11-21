@@ -72,4 +72,14 @@
 
 .active {
   background: #B2DFDB;
+  /* background: rgb(187,217,206); */
+}
+
+.mat-icon{
+  font-weight: 700;
+}
+
+.mat-toolbar{
+  color: rgb(90, 90, 89);
+  background: #ffffff;
 }
