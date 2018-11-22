@@ -2,9 +2,12 @@
   <app-exercise-detail *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i' [exercise]='exerciseDetail'
     (deletedExercise)='removeExercise($event)' [_position]='i' (modifiedExercise)='onAdd($event, false)' class="kid">
   </app-exercise-detail>
-    <button class="kid" mat-fab (click)='onAdd(null, true)'>
+  <div class="float">
+    <button class="kid btn-float" mat-fab (click)='onAdd(null, true)'>
       <i class="material-icons">
         add
       </i>
     </button>
+  </div>
+    
 </div>
