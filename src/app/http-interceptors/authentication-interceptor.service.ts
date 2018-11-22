@@ -12,8 +12,10 @@ export class AuthenticationInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(this.authenticationDataService.token);
     if(this.authenticationDataService.user$) {
       const clonedRequest = req.clone({
+
         headers: req.headers.set('Authorization', `Bearer ${this.authenticationDataService.token}`)
       });
       return next.handle(clonedRequest);

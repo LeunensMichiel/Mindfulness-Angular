@@ -11,6 +11,6 @@ export class DownloadService {
   constructor(private httpClient: HttpClient) { }
 
   getFile(fileUrl: String): Observable<Blob> {
-    return this.httpClient.post(this._appUrl, {path: fileUrl}, {responseType: 'blob'});
+    return this.httpClient.post(`${this._appUrl}`, {path: fileUrl}, {responseType: 'blob'});
   }
 }
