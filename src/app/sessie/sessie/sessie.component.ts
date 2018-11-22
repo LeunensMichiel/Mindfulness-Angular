@@ -78,7 +78,6 @@ export class SessieComponent implements OnInit {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.image = (reader.result.toString()).split(',')[1];
-      console.log(this.image);
     }, false);
 
     if (image) {

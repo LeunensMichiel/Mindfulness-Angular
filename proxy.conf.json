@@ -1,6 +1,6 @@
 {
   "/API": {
-    "target": "http://localhost:3000",
+    "target": "http://projecten3studserver03.westeurope.cloudapp.azure.com:3000",
     "secure": false
   },
   "/files": {
