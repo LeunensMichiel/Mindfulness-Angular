@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Group } from '../models/group.model';
 import { map } from 'rxjs/operators';
 import { Sessionmap } from '../models/sessionmap.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,18 @@ export class GroepenDataService {
         list.map(
           it => {
             return Sessionmap.fromJson(it);
+          }
+        )
+      ));
+  }
+
+  getEmails(group:Group):Observable<User[]>{
+    return this.http
+    .get(`${this._appUrl}/group/getUsers/${group.id}`)
+    .pipe(map((list:any[]): User[] =>
+        list.map(
+          it => {
+            return User.fromJson(it);
           }
         )
       ));
