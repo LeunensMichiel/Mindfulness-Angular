@@ -14,6 +14,24 @@
    
   </mat-card-header>
   <mat-card-content> 
+    <div *ngIf="usersLeeg()">
+      <p>Nog geen groepsleden</p></div>
+    <div *ngIf="!usersLeeg()">
+      <mat-accordion class="exppanel">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Groepsleden
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+              <mat-list role="list">
+                  <mat-list-item *ngFor="let user of users" role="listitem">{{user._email}}</mat-list-item>
+                </mat-list>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
     <div><h4>{{group.sessionmap.titleCourse}}</h4></div>
   </mat-card-content>
 </mat-card>
