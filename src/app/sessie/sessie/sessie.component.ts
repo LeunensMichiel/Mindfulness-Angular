@@ -3,6 +3,7 @@ import { Session } from '../../models/session.model';
 import { Exercise } from '../../models/exercise.model';
 import { SessieDataService } from '../sessie-data.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DownloadService} from '../../download.service';
 
 export interface DialogData {
   sessionId: string;
@@ -17,19 +18,26 @@ export interface DialogData {
 export class SessieComponent implements OnInit {
   @Input() public session: Session;
   @Input() public url: string;
+  public isImageLoading: Boolean = true;
+  public image: any;
   @Output() public deleteSession = new EventEmitter<Session>();
   @Output() public modifySession = new EventEmitter<Session>();
 
   sessionId : string;
   sessionName : string;
 
-  constructor( public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private _downloadService: DownloadService) {
     let random =  Math.floor(Math.random() * (14 - 1) + 1);
     this.url = `assets/images/sessie-${random}.jpg`;
 
   }
 
   ngOnInit() {
+    console.log(this.session);
+    if (this.session.pathImage) {
+      this.showImage(this.session.pathImage)
+
+    }
   }
 
   removeSession() {
@@ -49,6 +57,33 @@ export class SessieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  showImage(imagePath: string) {
+    this.isImageLoading = true;
+
+    this._downloadService.getFile(imagePath).subscribe(
+      data => {
+        this.createImageFromBlob(data);
+        this.isImageLoading = false;
+      },
+      error => {
+        this.isImageLoading = false;
+        console.log(error);
+      }
+    );
+  }
+
+  private createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.image = (reader.result.toString()).split(',')[1];
+      console.log(this.image);
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
 

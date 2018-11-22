@@ -59,7 +59,7 @@ export class Sessionmap {
     if (json.hasOwnProperty('sessions')) {
 
       sesmap.sessions = new GenericCollection(json.sessions.map(it => {
-        return Session.fromJson(it);
+        return Session.fromJSON(it);
       }));
     }
 

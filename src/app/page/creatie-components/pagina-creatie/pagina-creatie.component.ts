@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
 import {Page, TextPage, AudioPage, TypePage} from 'src/app/models/page.model';
 import {
   trigger,
@@ -10,7 +10,8 @@ import {
   query
   // ...
 } from '@angular/animations';
-import { Cmd } from 'src/app/models/Commands/command.model';
+import {Cmd} from 'src/app/models/Commands/command.model';
+
 @Component({
   selector: 'app-pagina-creatie',
   templateUrl: './pagina-creatie.component.html',
@@ -43,8 +44,8 @@ import { Cmd } from 'src/app/models/Commands/command.model';
       ]))
     ]) */
     trigger('posAnim', [
-      transition(':increment', [style({ transform: 'translateX(-100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0)' }))]),
-      transition(':decrement', [style({ transform: 'translateX(100%)' }), animate('500ms ease-out', style({ transform: 'translateX(0%)' }))])
+      transition(':increment', [style({transform: 'translateX(-100%)'}), animate('500ms ease-out', style({transform: 'translateX(0)'}))]),
+      transition(':decrement', [style({transform: 'translateX(100%)'}), animate('500ms ease-out', style({transform: 'translateX(0%)'}))])
     ])
   ]
 })
@@ -61,12 +62,13 @@ export class PaginaCreatieComponent implements OnInit {
    * hun draggingView. Het is het element dat word gedragged dat niet veranderd, alle
    * andere element veranderen wel.
    */
-  @Input() page: Page = null;
+  @Input() page: Page;
   @Input() _position: number = 0;
   @Input() isLastElement = false;
   @Input() viewBeingDragged = false;
   @Output() newPage = new EventEmitter<Page>();
   @Output() changedPage = new EventEmitter<Page>();
+  @Output() onFileAddedToPage = new EventEmitter<Page>();
   @Output() changePagePos = new EventEmitter<any>();
   @Output() deletedPage = new EventEmitter<number>();
   @Output() enableDragView = new EventEmitter<boolean>();
@@ -74,7 +76,7 @@ export class PaginaCreatieComponent implements OnInit {
   changeAnimation = true;
   public inputChoiceActive = true;
   public clicked = false;
-  public dragging = this.viewBeingDragged && (!this.clicked)
+  public dragging = this.viewBeingDragged && (!this.clicked);
   public draggable = false;
 
   /**
@@ -82,7 +84,8 @@ export class PaginaCreatieComponent implements OnInit {
    * page-creatie-lijst |
    *                      | page-creatie
    */
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     console.log(this.page.constructor.name);
@@ -90,7 +93,7 @@ export class PaginaCreatieComponent implements OnInit {
 
   //================== METHODES ==================
 
-  public get position(){
+  public get position() {
     return this.page.position;
   }
 
@@ -107,21 +110,26 @@ export class PaginaCreatieComponent implements OnInit {
    * @param value bepaalt welke soort page word toegevoegd.
    * Waarde is altijd "text", "audio" of "input".
    */
-   addPage(value) {
+  addPage(value) {
     var newPage = null;
     switch (value) {
-      case "text":
+      case 'text':
         newPage = new TextPage();
         break;
-      case "audio":
+      case 'audio':
         newPage = new AudioPage();
         break;
-      case "input":
+      case 'input':
         newPage = new Page();
         break;
     }
     newPage.position = this.position;
     this.newPage.emit(newPage);
+  }
+
+  public fileAddedToPage(page) {
+    console.log('FILE ADDED TO PAGE' + page.toString());
+    this.onFileAddedToPage.emit(page);
   }
 
   /**
@@ -130,7 +138,7 @@ export class PaginaCreatieComponent implements OnInit {
    */
   deletePage() {
     this.changeAnimation = false;
-    console.log("PAGE AT POSITON " + this.page.position + " DELETED.")
+    console.log('PAGE AT POSITON ' + this.page.position + ' DELETED.');
     this.deletedPage.emit(this.page.position);
     return false;
   }
@@ -140,18 +148,19 @@ export class PaginaCreatieComponent implements OnInit {
    * @param page De nieuwe op te slagen page.
    */
   public saveChangedPage(page) {
-    console.log("EMIT CHANGED PAGE ");
+    console.log('EMIT CHANGED PAGE ');
     this.changedPage.emit(page);
   }
 
+
   changePagePosition(direction) {
     this.changePagePos.emit({
-      "startPos": this.page.position,
-      "direction": direction == "left" ?  - 1 :  1
-    })
+      'startPos': this.page.position,
+      'direction': direction == 'left' ? -1 : 1
+    });
   }
 
-  onNewParCommand(cmd: Cmd){
+  onNewParCommand(cmd: Cmd) {
     console.log(cmd);
     this.addParagraphCmd.emit(cmd);
   }

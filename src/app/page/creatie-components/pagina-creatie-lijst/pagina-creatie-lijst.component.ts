@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PageDataService } from '../../page-data.service';
 import {GenericItem} from '../../../models/GenericCollection.model';
+import {SwitchObjectWithoutSave} from '../../../models/Commands/switchObjectWithoutSave';
 @Component({
   selector: 'app-pagina-creatie-lijst',
   templateUrl: './pagina-creatie-lijst.component.html',
@@ -74,6 +75,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
   private addPage(value) {
+    console.log(value);
     console.log(this.exercise);
     var newPage = null;
     switch (value) {
@@ -88,6 +90,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
         break;
     }
     newPage.position = this.exercise.list.items.length;
+    console.log(newPage);
     this.addCommand(new Insert(this.exercise, [newPage]));
   }
 
@@ -98,8 +101,9 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param position De positie van de te verwijderen page in de exercise.
    */
   private deletePage(position) {
+
     this.addCommand(new Delete(this.exercise, [this.exercise.list.items[position]]));
-    console.log(position)
+    console.log(position);
     console.log("PAGE AT POSITION " + position + " DELETED.");
     console.log(this.exercise.list.items);
     this.openSnackbar("Pagina verwijderd!");
@@ -120,6 +124,17 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     console.log(oldPage);
     this.addCommand(new Update(this.exercise, [oldPage, newPage]));
     console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
+  }
+
+  private fileAddedToPage(page) {
+    console.log("SAVED CHANGED PAGE AT ANCESTOR");
+    let newPage = this.convertPage(page);
+    console.log(newPage);
+    let oldPage = this.exercise.list.items[newPage.position];
+    console.log(oldPage);
+    this.addCommand(new SwitchObjectWithoutSave(this.exercise, [oldPage, newPage]));
+    console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
+
   }
 
   /**
@@ -173,6 +188,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   }
 
   convertPage(page: any) {
+    console.log(page);
     console.log(page.type);
     switch (page.type) {
       case TypePage.TEXT:

@@ -19,12 +19,12 @@ export class Switch extends Cmd {
   }
 
   execute(): boolean {
-    this.inputItem[0].changeItemPos(this._extraParam.startPos, this._extraParam.direction);
+    this.inputItem.list.changeItemPos(this._extraParam.startPos, this._extraParam.direction);
     return true;
   }
 
   undo() {
-    this.inputItem[0].changeItemPos(this._extraParam.startPos, this._extraParam.direction);
+    this.inputItem.list.changeItemPos(this._extraParam.startPos, this._extraParam.direction);
   }
 
 

@@ -1,4 +1,4 @@
-<form>
+<form *ngIf="!currentFileUpload">
   <mat-card-title>
     <mat-form-field class="titleInput">
       <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value'>
@@ -10,8 +10,8 @@
     <label for="profile_pic">
       <i class="material-icons md-18">cloud_upload</i>
     </label>
-    <input #fileInput type="file" id="profile_pic" name="profile_pic" (change)='fileUrl = $event.target.value'>
-    <p>{{audioPage.fileUrl}}</p>
+    <input #fileInput type="file" id="profile_pic" name="profile_pic" (change)='selectFile($event)'>
+    <p>{{audioPage.pathAudio}}</p>
     <div *ngIf="playing; then pauseBlock else playBlock"></div>
     <ng-template #pauseBlock>
       <button mat-icon-button (click)='pauseAudio()'>
@@ -19,10 +19,17 @@
       </button>
     </ng-template>
     <ng-template #playBlock>
-      <button *ngIf='fileUrl != ""' mat-icon-button (click)='playAudio()'>
+      <button *ngIf='pathAudio != ""' mat-icon-button (click)='playAudio()'>
         <mat-icon>play_arrow</mat-icon>
       </button>
     </ng-template>
 
   </div>
 </form>
+
+
+<div *ngIf="currentFileUpload" class="progress">
+  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+       aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+    {{progress.percentage}}%</div>
+</div>

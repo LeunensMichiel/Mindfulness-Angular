@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, EventEmitt
 import { AudioPage, Page } from 'src/app/models/page.model';
 import { MatSnackBar } from '@angular/material';
 import { UploadService } from '../../upload.service';
+import {PageDataService} from '../../page-data.service';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-audio-pagina-creatie',
@@ -10,6 +12,13 @@ import { UploadService } from '../../upload.service';
 })
 export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   /**
+   * Article we used for file upload:
+   *
+   * Sauce: https://grokonez.com/frontend/angular/angular-6/angular-6-upload-files-download-files-to-node-js-restapis-server-express-multer-bootstrap
+   */
+
+
+  /**
    * VARIABELEN:
    * changedpage: de emitter die de gewijzigde page naar page-creatie stuurt.
    * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
@@ -17,13 +26,18 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    */
   @Input() audioPage:AudioPage;
   @Output() changedPage = new EventEmitter<Page>();
-  @ViewChild('fileInput') fileInputRef: ElementRef
+  @Output() onFileAddedToPage = new EventEmitter<Page>();
+  @ViewChild('fileInput') fileInputRef: ElementRef;
   title: string = "";
-  fileUrl: string = "";
+  pathAudio: string = "";
   audioFile: File;
   audio:any;
   playing = false;
   audioCurrentTime = 0;
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: {percentage: number} = {percentage: 0};
+
   /**
    * GIDS:
    * page-creatie-lijst |
@@ -31,11 +45,11 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    *                                       | audio-page-creatie
    */
 
-  constructor(private _uploadDataService: UploadService) { }
+  constructor(private _pageDataService: PageDataService) { }
 
   ngOnInit() {
     this.title = this.audioPage.title;
-    this.fileUrl = this.audioPage.fileUrl;
+    this.pathAudio = this.audioPage.pathAudio;
 
   }
 
@@ -52,16 +66,37 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    * te worden opgeslagen in het exercise-object
    */
   ngDoCheck(): void {
-    if (this.audioPage.title != this.title || this.audioPage.fileUrl != this.fileUrl){
+    if (this.audioPage.title != this.title){
       this.audioPage.title = this.title;
-      this.audioPage.fileUrl = this.fileUrl;
       this.changedPage.emit(this.audioPage);
-      this._uploadDataService.upload(this.fileInputRef.nativeElement.files[0]);
-      this.resetAudio();
-      console.log(this.fileUrl)
       console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.");
     }
-  } 
+
+
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+
+    this.progress.percentage = 0;
+    this.currentFileUpload = this.selectedFiles.item(0);
+
+    this._pageDataService.updatePageWithFile(this.audioPage, this.currentFileUpload).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+          let page = AudioPage.fromJSON(event.body);
+          this.pathAudio = page.pathAudio;
+          console.log(page.pathAudio);
+          this.onFileAddedToPage.emit(page);
+          this.currentFileUpload = undefined;
+        }
+
+      });
+    this.selectedFiles = undefined;
+  }
 
   resetAudio(){
     this.playing = false;

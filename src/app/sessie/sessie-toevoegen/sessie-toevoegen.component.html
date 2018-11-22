@@ -1,15 +1,23 @@
-<mat-card class="toevoeg-card">
+<mat-card class="toevoeg-card" *ngIf="!currentFileUpload">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>SESSIE AANMAKEN</mat-card-title>
   </mat-card-header>
   <mat-card-content [formGroup]='newSession' class="card-container">
-      <mat-form-field>
-        <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off" formControlName='title' required>
-        <mat-error *ngIf="newSession.get('title').invalid">
-          Geen geldige titel
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field>
+      <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off"
+             formControlName='title' required>
+      <mat-error *ngIf="newSession.get('title').invalid">
+        Geen geldige titel
+      </mat-error>
+    </mat-form-field>
+    <label for="profile_pic">
+      <i class="material-icons md-18">cloud_upload</i>
+    </label>
+    <input #fileInput type="file" id="profile_pic" name="profile_pic" (change)='selectFile($event)'>
+    <!--<mat-error *ngIf="newSession.get('sessionImage').invalid">-->
+    <!--Geen geldige image-->
+    <!--</mat-error>-->
   </mat-card-content>
   <mat-card-actions>
     <button mat-icon-button (click)="onSubmit()" class="hvr-grow">
@@ -20,3 +28,11 @@
     </button>
   </mat-card-actions>
 </mat-card>
+
+<div *ngIf="currentFileUpload" class="progress">
+  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+       attr.aria-valuenow="{{progress.percentage}}"
+       aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+    {{progress.percentage}}%
+  </div>
+</div>

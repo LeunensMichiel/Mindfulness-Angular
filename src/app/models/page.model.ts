@@ -43,30 +43,30 @@ export enum TypePage {
 }
 
 export class AudioPage extends Page {
-  private _fileUrl: string;
+  private _pathAudio: string;
 
-  constructor(position: number = 0, title: string = '', fileUrl: string = '') {
+  constructor(position: number = 0, title: string = '', pathAudio: string = '') {
     super(position, title, TypePage.AUDIO);
-    this._fileUrl = fileUrl;
+    this._pathAudio = pathAudio;
   }
 
-  get fileUrl(): string {
-    return this._fileUrl;
+  get pathAudio(): string {
+    return this._pathAudio;
   }
 
-  set fileUrl(value: string) {
-    this._fileUrl = value;
+  set pathAudio(value: string) {
+    this._pathAudio = value;
   }
 
   toJSON() {
     return {
-      fileUrl: this._fileUrl,
+      path_audio: this._pathAudio,
       ...super.toJSON()
     };
   }
 
-  static fromJSON(json: any): Page {
-    let page = new AudioPage(json.position, json.title, json._fileUrl);
+  static fromJSON(json: any): AudioPage {
+    let page = new AudioPage(json.position, json.title, json.path_audio);
     page.id = json._id;
     return page;
   }
@@ -129,7 +129,7 @@ export class TextPage extends Page {
 //   };
 // }
 //
-// fromJson(json
+// fromJSON(json
 // :
 // any;
 // ):
