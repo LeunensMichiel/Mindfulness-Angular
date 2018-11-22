@@ -21,7 +21,9 @@ export class AuthenticationService {
   public redirectUrl: string;
 
   constructor(private http: HttpClient) {
-    let parsedToken = parseJwt(JSON.parse(localStorage.getItem(this._tokenKey)).token);
+    let parsedToken;
+    if(localStorage.getItem(this._tokenKey) != null){
+    parsedToken = parseJwt(JSON.parse(localStorage.getItem(this._tokenKey)).token);
     if (parsedToken) {
       const expires = new Date(parseInt(parsedToken.exp, 10) * 1000) < new Date();
       if (expires) {
@@ -29,7 +31,9 @@ export class AuthenticationService {
         parsedToken = null;
       }
     }
+  }
     this._user$ = new BehaviorSubject<string>(parsedToken && parsedToken.email);
+  
   }
 
   get user$(): BehaviorSubject<string> {
