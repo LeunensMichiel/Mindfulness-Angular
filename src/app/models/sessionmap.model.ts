@@ -54,7 +54,7 @@ export class Sessionmap {
     this._titleCourse = value;
   }
 
-  static fromJson(json: any) {
+  static fromJSON(json: any) {
     const sesmap = new Sessionmap(json.titleCourse);
     if (json.hasOwnProperty('sessions')) {
 

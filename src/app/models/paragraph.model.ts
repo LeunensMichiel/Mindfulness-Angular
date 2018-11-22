@@ -1,8 +1,8 @@
 import {GenericItem} from './GenericCollection.model';
 
 export enum TypeParagraph {
-  TEXT ,
-  IMAGE
+  TEXT = "TEXT" ,
+  IMAGE = "IMAGE"
 }
 
 export class Paragraph extends GenericItem {
@@ -31,6 +31,16 @@ export class Paragraph extends GenericItem {
     this._type = value;
   }
 
+  convertType(): string {
+    switch (this.type) {
+      case TypeParagraph.IMAGE:
+        return "IMAGE";
+
+      case TypeParagraph.TEXT:
+        return "TEXT"
+    }
+  }
+
   static fromJSON(json: any): Paragraph {
     let type = undefined;
     switch (type) {
@@ -49,10 +59,12 @@ export class Paragraph extends GenericItem {
 
     return {
       description: this._description,
-      form_type: TypeParagraph[this.type],
+      form_type: this.convertType(),
       ...super.toJSON()
     };
   }
+
+
 
 
 }

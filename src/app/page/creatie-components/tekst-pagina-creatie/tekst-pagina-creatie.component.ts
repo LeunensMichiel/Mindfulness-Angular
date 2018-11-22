@@ -1,30 +1,14 @@
 import {Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges} from '@angular/core';
 import {TextPage, Page} from 'src/app/models/page.model';
-import {Paragraph} from 'src/app/models/paragraph.model';
-import {
-  trigger,
-  style,
-  animate,
-  transition
-  // ...
-} from '@angular/animations';
-import {PaginaCreatieLijstComponent} from '../pagina-creatie-lijst/pagina-creatie-lijst.component';
+import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
+
 import {Cmd} from 'src/app/models/Commands/command.model';
-import {Delete} from 'src/app/models/Commands/delete.model';
-import {Switch} from 'src/app/models/Commands/switch.model';
-import {Update} from 'src/app/models/Commands/update.model';
-import {Insert} from 'src/app/models/Commands/insert.model';
+
 
 @Component({
   selector: 'app-tekst-pagina-creatie',
   templateUrl: './tekst-pagina-creatie.component.html',
-  styleUrls: ['./tekst-pagina-creatie.component.css']/* ,
-  animations: [
-    trigger('shrinkParagraphs', [
-      transition(':enter', [style({ height: 0, overflow: 'hidden' }), animate('1s ease-out', style({ height: '*' }))]),
-      transition(':leave', [style({ height: '*', overflow: 'hidden'}), animate('1s ease-out', style({ height: 0}))])
-    ])
-  ] */
+  styleUrls: ['./tekst-pagina-creatie.component.css']
 })
 export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
   /**
@@ -78,7 +62,19 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param par De paragraph die word toegevoegd aan de paragraphs array
    */
   addPar(type) {
-    let newPar = new Paragraph(this.textPage.list.items.length, type);
+    console.log(type);
+    let typePar;
+    switch (type) {
+      case "TEXT":
+        typePar = TypeParagraph.TEXT;
+        break;
+      case "IMAGE":
+        typePar = TypeParagraph.IMAGE;
+        break;
+    }
+
+    let newPar = new Paragraph(this.textPage.list.items.length, typePar);
+    console.log(newPar);
     this.textPage.list.addItem(newPar);
     this.changedPage.emit(this.textPage);
   }

@@ -55,12 +55,15 @@ export class Group{
         return this._sessie_naam;
     }
 
-    fromJson(json:any){
+    static fromJSON(json:any){
         const group = new Group(
             json.name
         );
         if(json.hasOwnProperty('sessionmap_id')){
-            group.sessionmap = Sessionmap.fromJson(json.sessionmap_id);
+          if (json.sessionmap_id !== null) {
+            group.sessionmap = Sessionmap.fromJSON(json.sessionmap_id);
+
+          }
         }
         group._id = json._id;
         return group;

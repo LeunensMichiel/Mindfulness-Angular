@@ -26,6 +26,7 @@ export class GroepenListComponent implements OnInit {
   ngOnInit() {
     this.groepenDataService.groups.subscribe(
       groups => {
+        console.log(groups);
         this._groups = groups;
       },
       (error: HttpErrorResponse) => {
@@ -34,7 +35,7 @@ export class GroepenListComponent implements OnInit {
           } while trying to retrieve groups: ${error.error}`;
       }
     );
-    this._groups = new Array(); 
+    this._groups = new Array();
 
     this.groepenDataService.sesmaps.subscribe(
       sesmaps => {

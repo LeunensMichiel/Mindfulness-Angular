@@ -21,8 +21,9 @@ export class GroepenDataService {
     .pipe(map((list:any[]): Group[] =>
       list.map(
         it => {
-          const g = new Group();
-          return g.fromJson(it);
+          console.log(it);
+          console.log(Group.fromJSON(it));
+          return Group.fromJSON(it);
         }
       )
     ));
@@ -33,8 +34,7 @@ export class GroepenDataService {
     return this.http
       .post(`${this._appUrl}/group`, group)
       .pipe(map(it => {
-        const group= new Group();
-        return group.fromJson(it);
+        return Group.fromJSON(it);
       }));
   }
 
@@ -42,8 +42,7 @@ export class GroepenDataService {
     return this.http
       .put(`${this._appUrl}/group/${group.id}`, group)
       .pipe(map(it => {
-        const gr = new Group();
-        return gr.fromJson(it);
+        return Group.fromJSON(it);
       }));
   }
 
@@ -51,8 +50,7 @@ export class GroepenDataService {
     return this.http
       .delete(`${this._appUrl}/group/${gr.id}`)
       .pipe(map(it => {
-        const gr = new Group();
-        return gr.fromJson(it);
+        return Group.fromJSON(it);
       }));
   }
 
@@ -62,7 +60,7 @@ export class GroepenDataService {
       .pipe(map((list:any[]): Sessionmap[] =>
         list.map(
           it => {
-            return Sessionmap.fromJson(it);
+            return Sessionmap.fromJSON(it);
           }
         )
       ));

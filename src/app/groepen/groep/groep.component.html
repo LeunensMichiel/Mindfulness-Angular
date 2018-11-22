@@ -32,7 +32,7 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-    <div><h4>{{group.sessionmap.titleCourse}}</h4></div>
+    <div *ngIf="group.sessionmap"><h4>{{group.sessionmap.titleCourse}}</h4></div>
   </mat-card-content>
 </mat-card>
 
