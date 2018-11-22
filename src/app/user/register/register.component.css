@@ -1,0 +1,40 @@
+.example-card {
+  width: 400px;
+  margin: auto;
+}
+
+
+
+.button-row button, .button-row a{
+  /* background: #B2DFDB; */
+
+  margin-right: 8px;
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.login{
+  background: rgb(153, 201, 194);
+  color: whitesmoke;
+}
+.register{
+  background: whitesmoke;
+}
+
+
+
+.cardcontainervertical {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+
+table, tr, .mat-form-field, .passwordGroup{
+  width: 100%;
+}
+

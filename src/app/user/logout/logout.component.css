@@ -1,0 +1,7 @@
+.cardcontainervertical {
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }

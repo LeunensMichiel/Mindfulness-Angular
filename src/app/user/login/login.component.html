@@ -1,19 +1,31 @@
-<mat-card class="example-card" fxLayoutAlign="center">
-  <mat-card-header>
+<div class="cardcontainervertical">
+<mat-card class="example-card">
+  <mat-card-header fxLayoutAlign="center">
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
-  <mat-card-content >
-    <form [formGroup]='user' (ngSubmit)='onSubmit()'>
-      <mat-form-field>
-        <input matInput type="text" id="email" formControlName='email' placeholder="Email">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="password" id="password" formControlName='password' placeholder="Wachtwoord">
-      </mat-form-field>
-      <button mat-button color="primary" type='submit' [disabled]='!user.valid' id='loginbtn'>log in</button>
-      <mat-error *ngIf='errorMsg'>{{errorMsg}}</mat-error>
-      <a routerLink="/register">register</a>
-    </form>
-  </mat-card-content>
+      <mat-card-content>
+          <form [formGroup]='user' (ngSubmit)='onSubmit()' >
+            <table>
+              <tr>
+                  <mat-form-field>
+                      <input matInput type="text" id="email" formControlName='email' placeholder="Email">
+                    </mat-form-field>
+              </tr>
+              <tr>
+                  <mat-form-field>
+                      <input matInput type="password" id="password" formControlName='password' placeholder="Wachtwoord">
+                    </mat-form-field>
+              </tr>
+            </table>
+            
+            <div class="button-row">
+                <button mat-button routerLink="/register" color="primary" class="vet register" >REGISTREER</button>
+                <button mat-button class="vet login" type='submit' [disabled]='!user.valid' id='loginbtn'>LOGIN</button>
+            </div>
+            <mat-error *ngIf='errorMsg'>{{errorMsg}}</mat-error>
+          </form>
+        </mat-card-content>
+  
 
 </mat-card>
+</div>
