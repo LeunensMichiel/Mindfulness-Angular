@@ -1,18 +1,18 @@
 <div class="container" (keydown)="onKeydown($event)" tabindex="0">
   <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of getPages(); let i = index' [page]='page' [_position]='i'
     [viewBeingDragged]='dragging' (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)'
-    (enableDragView)='dragging = $event' (changePagePos)='changePagePos($event)' (addParagraphCmd)='onNewParCommand($event)'
+    (onFileAddedToPage)='fileAddedToPage($event)' (enableDragView)='dragging = $event' (changePagePos)='changePagePos($event)' (addParagraphCmd)='onNewParCommand($event)'
     class="kid">
   </app-pagina-creatie>
   <mat-card class="inputField">
     <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
-      <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true'>
+      <mat-button-toggle (click)='addPage(group.value)' value="input" [disableRipple]='true'>
         <mat-icon>create</mat-icon>
       </mat-button-toggle>
       <mat-button-toggle (click)='addPage(group.value)' value="audio" [disableRipple]='true'>
         <mat-icon>music_video</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle (click)='addPage(group.value)' value="input" [disableRipple]='true'>
+      <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true'>
         <mat-icon>text_format</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>

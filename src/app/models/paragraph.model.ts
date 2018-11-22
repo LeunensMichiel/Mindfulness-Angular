@@ -49,7 +49,7 @@ export class Paragraph extends GenericItem {
 
     return {
       description: this._description,
-      form_type: this._type,
+      form_type: TypeParagraph[this.type],
       ...super.toJSON()
     };
   }

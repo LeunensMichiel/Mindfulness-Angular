@@ -10,11 +10,11 @@ export class Delete extends Cmd {
   }
 
   execute(): boolean {
-    this.inputItem[0].deleteItem(this.param[0].position);
+    this.inputItem.list.deleteItem(this.param[0].position);
     return true;
   }
 
   undo() {
-    this.inputItem[0].addItem(this.param[0]);
+    this.inputItem.list.addItem(this.param[0]);
   }
 }

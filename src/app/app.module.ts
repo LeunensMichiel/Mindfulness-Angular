@@ -16,7 +16,9 @@ import {
   MatButtonToggleModule,
   MatFormFieldModule,
   MatInputModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { SessieComponent, QrDialog } from './sessie/sessie/sessie.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
@@ -59,6 +61,8 @@ import {AuthGuardService} from './user/auth-guard.service';
 import {AuthenticationService} from './user/authentication.service';
 import {UserModule} from './user/user.module';
 import {ExerciseResolver} from './exercise/exercise-resolver.service';
+import {basehttpInterceptorProviders, httpInterceptorProviders} from './http-interceptors';
+import {DownloadService} from './download.service';
 
 @NgModule({
   declarations: [
@@ -100,6 +104,8 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatIconModule,
@@ -127,6 +133,9 @@ import {ExerciseResolver} from './exercise/exercise-resolver.service';
     MatFormFieldModule
   ],
   providers: [
+    basehttpInterceptorProviders,
+    httpInterceptorProviders,
+    DownloadService,
     SessieDataService,
     SessionmapDataService,
     Sessionmapresolver,

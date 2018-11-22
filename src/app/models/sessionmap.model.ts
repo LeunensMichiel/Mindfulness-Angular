@@ -58,10 +58,9 @@ export class Sessionmap {
     const sesmap = new Sessionmap(json.titleCourse);
     if (json.hasOwnProperty('sessions')) {
 
-      let genericItems = json.sessions.map(it => {
-        return Session.fromJson(it);
-      });
-      sesmap._sessions = genericItems;
+      sesmap.sessions = new GenericCollection(json.sessions.map(it => {
+        return Session.fromJSON(it);
+      }));
     }
 
     sesmap.id = json._id;

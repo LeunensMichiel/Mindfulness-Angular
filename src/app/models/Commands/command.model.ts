@@ -53,5 +53,6 @@ export enum TypeCmd {
   INSERT,
   UPDATE,
   SWITCH,
-  DELETE
+  DELETE,
+  SWITCHWITHOUTSAVE
 }

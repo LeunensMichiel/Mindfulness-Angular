@@ -7,7 +7,7 @@ import { Page, AudioPage } from 'src/app/models/page.model';
   styleUrls: ['./audio-pagina-detail.component.css']
 })
 export class AudioPaginaDetailComponent implements OnInit {
-  @Input() page:Page = new AudioPage()
+  @Input() page:AudioPage;
 
   constructor() { }
 

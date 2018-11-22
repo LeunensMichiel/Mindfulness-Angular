@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Page, TextPage, AudioPage, TypePage} from '../models/page.model';
+import {HttpClient, HttpEvent, HttpEventType, HttpRequest} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
+import {AudioPage, Page, TextPage} from '../models/page.model';
 import {map} from 'rxjs/operators';
+import {formatDate} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class PageDataService {
       );
   }
 
+
+
+
+
   removePage(page_id: String) {
     return this.http
       .delete(`${this._appUrl}/page/${page_id}`)
@@ -36,7 +41,7 @@ export class PageDataService {
       }));
   }
 
-  updatePage(page: Page) {
+  updatePage(page: Page): Observable<Page> {
     console.log(page);
     console.log(page.toJSON());
     return this.http
@@ -48,15 +53,29 @@ export class PageDataService {
       ));
   }
 
-  private filterJson(json: any) {
+  updatePageWithFile(page: Page, file: File): Observable<HttpEvent<{}>> {
+    const formdata: FormData = new FormData();
+
+    formdata.append('page_file', file);
+    formdata.append('updated_page', JSON.stringify(page.toJSON()));
+
+    const req = new HttpRequest('PUT', `${this._appUrl}/pagefile/${page.id}`, formdata, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
+
+  }
+
+  private filterJson(json: any) : Page{
     switch (json.type) {
-      case TypePage.TEXT: {
+      case "TEXT": {
         return TextPage.fromJSON(json);
       }
-      case TypePage.AUDIO: {
+      case "AUDIO": {
         return AudioPage.fromJSON(json);
       }
-      case TypePage.INPUT: {
+      case "INPUT": {
         return Page.fromJSON(json);
       }
     }

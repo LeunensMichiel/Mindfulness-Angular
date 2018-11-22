@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {Session} from '../../models/session.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SessieDataService} from '../sessie-data.service';
@@ -8,6 +8,7 @@ import {DialogCourseData} from '../../sessionmaps/sessionmap-list/sessionmap-lis
 import {Observable} from 'rxjs';
 import {Sessionmap} from '../../models/sessionmap.model';
 import {GenericItem} from '../../models/GenericCollection.model';
+import {AudioPage} from '../../models/page.model';
 
 export interface DialogCourseData {
   session_title: string;
@@ -33,28 +34,37 @@ export class SessieLijstComponent implements OnInit {
   }
 
   getSessions() {
-    return this.sessionmap.sessions;
+    return this.sessionmap.sessions.items;
   }
 
   addSession(session: Session) {
-    this._sessionDataService.addNewSession(session, this.sessionmap.id).subscribe(
-      result => {
-        this.sessionmap.sessions.addItem(result);
-        this.snackBar.open('Session successfully added!');
-        this.creating = false;
-      },
-      (error: HttpErrorResponse) => {
-        this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, '', {
-          duration: 3000,
-        });
-        this.creating = false;
-      }
-    );
+    // this._sessionDataService.addNewSession(session, this.sessionmap.id).subscribe(
+    //   event => {
+    //     if (event.type === HttpEventType.UploadProgress) {
+    //       this.progress.percentage = Math.round(100 * event.loaded / event.total);
+    //     } else if (event instanceof HttpResponse) {
+    //       console.log('File is completely uploaded!');
+    //       let page = AudioPage.fromJSON(event.body);
+    //       this.pathAudio = page.pathAudio;
+    //       console.log(page.pathAudio);
+    //     }
+    //     this.sessionmap.sessions.addItem(event);
+    //     this.snackBar.open('Session successfully added!', '', {
+    //       duration: 3000,
+    //     });
+    //     this.creating = false;
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, '', {
+    //       duration: 3000,
+    //     });
+    //     this.creating = false;
+    //   }
+    // );
 
-    this.snackBar.open('Please fill in all fields correctly!', '',
-      {
-        duration: 3000,
-      });
+    this.sessionmap.sessions.addItem(session);
+    this.creating = false;
+
 
   }
 
