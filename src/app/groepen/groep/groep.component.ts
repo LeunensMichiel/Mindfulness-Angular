@@ -23,6 +23,7 @@ export class GroepComponent implements OnInit {
   color = 'accent';
   checked = false;//this.getStatusActiefVanGroep();
   disabled = false;
+  checkTekst = "Niet actief";
 
   isActief():boolean{
     if(this.checked == true)
@@ -37,6 +38,13 @@ export class GroepComponent implements OnInit {
   changed(){
     console.log(this.checked);
     this.group.actief = this.checked;
+    if(this.checked == true){
+      this.checkTekst = "Actief";
+    }
+    else{
+      this.checkTekst = "Niet actief";
+    }
+    console.log(this.checkTekst);
     this._groupDataService.editGroup(this.group).subscribe(
       () => {
       },
@@ -66,6 +74,12 @@ export class GroepComponent implements OnInit {
     console.log("INIT");
     console.log(this.group);
     this.checked = this.getStatusActiefVanGroep();
+    if(this.checked == true){
+      this.checkTekst = "Actief";
+    }
+    else{
+      this.checkTekst = "Niet actief";
+    }
 
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
