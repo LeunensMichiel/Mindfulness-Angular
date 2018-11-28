@@ -1,18 +1,17 @@
 <mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>
+  <mat-toolbar [className]="isActief()?'class1':'class2'">
+    <div>
       {{group.name}}
-    </mat-card-title>
-    <div><button mat-icon-button (click)="editGroup()">
+    </div>
+
+  </mat-toolbar>
+  <div class="editEnDelete"><button mat-icon-button (click)="editGroup()">
       <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
     </button>
     <button mat-icon-button (click)="removeGroup()" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
     </button></div>
 
-   
-  </mat-card-header>
   <mat-card-content> 
     <div *ngIf="usersLeeg()">
       <p>Nog geen groepsleden</p></div>

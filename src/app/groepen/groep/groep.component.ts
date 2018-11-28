@@ -19,9 +19,20 @@ export class GroepComponent implements OnInit {
   public errorMsg: string;
   private _users:User[]; 
 
+
   color = 'accent';
   checked = false;//this.getStatusActiefVanGroep();
   disabled = false;
+
+  isActief():boolean{
+    if(this.checked == true)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   changed(){
     console.log(this.checked);
