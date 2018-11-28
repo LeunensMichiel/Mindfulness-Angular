@@ -19,8 +19,6 @@ export class SessionmapDataService {
       .pipe(map((list:any[]): Sessionmap[] =>
         list.map(
           it => {
-            console.log(it);
-
             return Sessionmap.fromJSON(it);
           }
         )

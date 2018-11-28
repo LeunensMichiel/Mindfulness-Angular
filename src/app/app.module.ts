@@ -64,10 +64,15 @@ import {UserModule} from './user/user.module';
 import {ExerciseResolver} from './exercise/exercise-resolver.service';
 import {basehttpInterceptorProviders, httpInterceptorProviders} from './http-interceptors';
 import {DownloadService} from './download.service';
+import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
+import { FeedbackDetailComponent } from './feedback/feedback-detail/feedback-detail.component';
+import {FeedbackDataService} from './feedback/feedback-data.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FeedbackDetailComponent,
+    FeedbackListComponent,
     ExerciseCreationComponent,
     ExerciseDetailComponent,
     PaginaDetailComponent,
@@ -96,7 +101,9 @@ import {DownloadService} from './download.service';
     QrDialog,
     GroepComponent,
     GroupModifyComponent,
-    RemoveGroupDialog
+    RemoveGroupDialog,
+    FeedbackListComponent,
+    FeedbackDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -137,6 +144,7 @@ import {DownloadService} from './download.service';
   providers: [
     basehttpInterceptorProviders,
     httpInterceptorProviders,
+    FeedbackDataService,
     DownloadService,
     SessieDataService,
     SessionmapDataService,
