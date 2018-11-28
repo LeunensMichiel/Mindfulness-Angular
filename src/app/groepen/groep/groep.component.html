@@ -33,6 +33,17 @@
       </mat-accordion>
     </div>
     <div *ngIf="group.sessionmap"><h4>{{group.sessionmap.titleCourse}}</h4></div>
+    <div>
+      <mat-slide-toggle
+          [color]="color"
+          [checked]="checked"
+          [disabled]="disabled"
+          
+          [(ngModel)]="checked"
+          (change)="changed()">
+        Actief: {{checked}}
+      </mat-slide-toggle>
+    </div>
   </mat-card-content>
 </mat-card>
 

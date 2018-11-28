@@ -18,7 +18,8 @@ import {
   MatInputModule,
   MatExpansionModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { SessieComponent, QrDialog } from './sessie/sessie/sessie.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
@@ -130,7 +131,8 @@ import {DownloadService} from './download.service';
     FlexLayoutModule,
     MatInputModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSlideToggleModule
   ],
   providers: [
     basehttpInterceptorProviders,
