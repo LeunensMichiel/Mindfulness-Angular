@@ -6,13 +6,13 @@
          {{group.name}}
       </mat-card-title>
   </mat-card-header>
-  <div class="editEnDelete"><button mat-icon-button (click)="editGroup()">
+  </div>
+  <div><button mat-icon-button (click)="editGroup()">
       <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
     </button>
     <button mat-icon-button (click)="removeGroup()" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
     </button></div>
-  </div>
 
   <mat-card-content> 
     <div *ngIf="usersLeeg()">
