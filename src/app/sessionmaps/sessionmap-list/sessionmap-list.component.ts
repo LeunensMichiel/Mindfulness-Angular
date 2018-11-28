@@ -20,11 +20,11 @@ export class SessionmapListComponent implements OnInit {
   private _sessionmaps: Sessionmap[];
   private _selectedSessionmap: Sessionmap;
 
-  constructor(private sessionmapDataService: SessionmapDataService, public dialog: MatDialog) {
+  constructor(private _sessionmapDataService: SessionmapDataService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.sessionmapDataService.sesmaps.subscribe(
+    this._sessionmapDataService.sesmaps.subscribe(
       sesmaps => {
         this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
         if (sesmaps.length !== 0) {
@@ -72,7 +72,7 @@ export class SessionmapListComponent implements OnInit {
         //We herbruiken hetzelfde dialoog. Is het een creatie of wijzigdialoog?
         if (isCreation) {
           let sesmap: Sessionmap = new Sessionmap(result);
-          this.sessionmapDataService.addNewSessionMap(sesmap).subscribe(
+          this._sessionmapDataService.addNewSessionMap(sesmap).subscribe(
             sesmap => {
               this._sessionmaps.push(sesmap);
               this._sessionmaps = this._sessionmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
@@ -86,7 +86,7 @@ export class SessionmapListComponent implements OnInit {
           );
         } else {
           this.selectedSessionmap.titleCourse = result;
-          this.sessionmapDataService.updateSessionMap(this._selectedSessionmap).subscribe(
+          this._sessionmapDataService.updateSessionMap(this._selectedSessionmap).subscribe(
             () => {
             },
             (error: HttpErrorResponse) => {
@@ -101,7 +101,7 @@ export class SessionmapListComponent implements OnInit {
   }
 
   removeSessionMap() {
-    this.sessionmapDataService.deleteSessionMap(this._selectedSessionmap).subscribe(
+    this._sessionmapDataService.deleteSessionMap(this._selectedSessionmap).subscribe(
       item => (this._sessionmaps = this._sessionmaps.filter(val => item.id !== val.id)),
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${error.status} while removing courses for ${
