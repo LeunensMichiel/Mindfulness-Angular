@@ -106,6 +106,10 @@ export class GroepComponent implements OnInit {
     this.modifyGroup.emit(this.group);
   }
 
+  addUserToGroup(){
+    
+  }
+
   usersLeeg():boolean{
     if(this.users.length == 0){
       return true;

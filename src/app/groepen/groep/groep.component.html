@@ -7,12 +7,17 @@
       </mat-card-title>
   </mat-card-header>
   </div>
-  <div><button mat-icon-button (click)="editGroup()">
+  <div>
+    <button mat-icon-button (click)="editGroup()">
       <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
     </button>
     <button mat-icon-button (click)="removeGroup()" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
-    </button></div>
+    </button>
+    <button mat-icon-button (click)="addUserToGroup()" class="hvr-grow">
+        <mat-icon aria-label="Example icon-button with a person_add icon">person_add</mat-icon>
+      </button>
+  </div>
 
   <mat-card-content> 
     <div *ngIf="usersLeeg()">
@@ -33,7 +38,7 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-    <div *ngIf="group.sessionmap"><h4>{{group.sessionmap.titleCourse}}</h4></div>
+    <div *ngIf="group.sessionmap"><p>Cursus: {{group.sessionmap.titleCourse}}</p></div>
     <div>
       <mat-slide-toggle
           [color]="color"
