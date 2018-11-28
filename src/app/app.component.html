@@ -20,7 +20,7 @@
           <a mat-list-item routerLink="/groepen-list">GROEPEN</a>
 
         <a mat-list-item *ngIf='(currentUser | async) else loginlink' class="item" routerLinkActive='active'
-           routerLink="/logout">{{currentUser|async}} LOGUIT</a>
+           routerLink="/logout">{{currentUser | async}} LOGUIT</a>
         <ng-template #loginlink>
           <a mat-list-item routerLinkActive='active' routerLink="/login">INLOGGEN</a>
         </ng-template>

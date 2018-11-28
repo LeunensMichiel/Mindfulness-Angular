@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this._authenticationService.login(this.user.value.email,
-      this.user.value.password).subscribe(val => {
+    this._authenticationService.login(this.user.value.email, this.user.value.password).subscribe(val => {
       if (val) {
         if (this._authenticationService.redirectUrl) {
           this._router.navigateByUrl(this._authenticationService.redirectUrl);
@@ -33,6 +32,6 @@ export class LoginComponent implements OnInit {
           this._router.navigate(['/course-list']);
         }
       }
-    }, err => this.errorMsg = err.json().message);
+    }, err => console.log(err));
   }
 }

@@ -1,8 +1,8 @@
 export class User{
-    _id:string;
-    _firstname:string;
-    _lastname:string;
-    _email:string;
+    private _id:string;
+    private _firstname:string;
+    private _lastname:string;
+    private _email:string;
 
     constructor(){
     }

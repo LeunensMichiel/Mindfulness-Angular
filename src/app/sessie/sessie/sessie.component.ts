@@ -22,7 +22,7 @@ export class SessieComponent implements OnInit {
   public image: any;
   @Output() public deleteSession = new EventEmitter<Session>();
   @Output() public modifySession = new EventEmitter<Session>();
-
+  public imageUrl: string;
   sessionId : string;
   sessionName : string;
 
@@ -33,10 +33,9 @@ export class SessieComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.session);
     if (this.session.pathImage) {
-      this.showImage(this.session.pathImage)
-
+      this.showImage(this.session.pathImage);
+      this.isImageLoading = true;
     }
   }
 
@@ -65,10 +64,9 @@ export class SessieComponent implements OnInit {
     this._downloadService.getFile(imagePath).subscribe(
       data => {
         this.createImageFromBlob(data);
-        this.isImageLoading = false;
       },
       error => {
-        this.isImageLoading = false;
+        this.isImageLoading = true;
         console.log(error);
       }
     );
@@ -78,6 +76,8 @@ export class SessieComponent implements OnInit {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.image = (reader.result.toString()).split(',')[1];
+      this.isImageLoading = false;
+
     }, false);
 
     if (image) {

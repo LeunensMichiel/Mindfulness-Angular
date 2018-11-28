@@ -12,7 +12,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {SessieDataService} from '../sessie-data.service';
 import {Session} from '../../models/session.model';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
-import {AudioPage} from '../../models/page.model';
 import {Sessionmap} from '../../models/sessionmap.model';
 
 export class SessieErrorStateMatcher implements ErrorStateMatcher {
