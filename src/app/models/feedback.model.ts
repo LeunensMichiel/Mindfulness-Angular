@@ -1,4 +1,5 @@
 import {Session} from './session.model';
+import * as moment from 'moment';
 
 export class Feedback {
   private _id: string;
@@ -42,6 +43,10 @@ export class Feedback {
 
   set session(value: Session) {
     this._session = value;
+  }
+
+  formatDate(): string{
+    return moment(this.date).fromNow();
   }
 
   static fromJSON(json: any): Feedback {

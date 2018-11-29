@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class FeedbackDataService {
 
-  private readonly _appUrl = '/API/feedback-detail';
+  private readonly _appUrl = '/API/feedback';
 
   constructor(private http: HttpClient) {
   }

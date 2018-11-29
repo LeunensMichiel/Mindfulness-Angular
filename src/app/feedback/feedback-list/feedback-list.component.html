@@ -1,8 +1,8 @@
 <div>
   <h1>Feedback</h1>
 </div>
-<mat-list *ngFor="let feedback of feedbacks">
-  <mat-list-item>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center" >
+  <div *ngFor='let feedback of feedbacks'>
     <feedback [feedback]="feedback"></feedback>
-  </mat-list-item>
-</mat-list>
+  </div>
+</div>
