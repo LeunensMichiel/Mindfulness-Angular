@@ -77,4 +77,16 @@ export class GroepenDataService {
         )
       ));
   }
+
+  getPossibleUsers(group:Group):Observable<User[]>{
+    return this.http
+    .get(`${this._appUrl}/group/getPossibleUsers/${group.id}`)
+    .pipe(map((list:any[]): User[] =>
+        list.map(
+          it => {
+            return User.fromJson(it);
+          }
+        )
+      ));
+  }
 }

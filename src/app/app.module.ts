@@ -53,6 +53,7 @@ import {SessionResolver} from './sessie/session-resolver.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
+import { AddUserToGroupDialog } from './groepen/groep/groep.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -97,7 +98,8 @@ import {DownloadService} from './download.service';
     QrDialog,
     GroepComponent,
     GroupModifyComponent,
-    RemoveGroupDialog
+    RemoveGroupDialog,
+    AddUserToGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -161,6 +163,7 @@ import {DownloadService} from './download.service';
     QrDialog,
     RemoveExerciseDialog,
     GroupModifyComponent,
-    RemoveGroupDialog]
+    RemoveGroupDialog,
+    AddUserToGroupDialog]
 })
 export class AppModule { }
