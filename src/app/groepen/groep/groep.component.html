@@ -32,7 +32,7 @@
           </mat-expansion-panel-header>
           <mat-panel-description>
               <mat-list role="list">
-                  <mat-list-item *ngFor="let user of users" role="listitem">{{user._email}}</mat-list-item>
+                  <mat-list-item *ngFor="let user of users" role="listitem">{{user.firstname}} {{user.lastname}}</mat-list-item>
                 </mat-list>
           </mat-panel-description>
         </mat-expansion-panel>

@@ -38,8 +38,8 @@ export class User{
     static fromJson(json:any){
         const user = new User();
         user.id = json._id;
-        user.firstname = json._firstname;
-        user.lastname = json._lastname;
+        user.firstname = json.firstname;
+        user.lastname = json.lastname;
         user.email = json.email;
         return user;
     }
