@@ -18,6 +18,7 @@ export class GroepComponent implements OnInit {
   @Output() public modifyGroup = new EventEmitter<Group>();
   public errorMsg: string;
   private _users:User[]; 
+  displayedColumns: string[] = ['naam', 'vooruitgang'];
 
 
   color = 'accent';
@@ -84,6 +85,7 @@ export class GroepComponent implements OnInit {
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
         this._users = result;
+        console.log(result);
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${

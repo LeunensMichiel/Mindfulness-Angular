@@ -31,9 +31,18 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-panel-description>
-              <mat-list role="list">
-                  <mat-list-item *ngFor="let user of users" role="listitem">{{user.firstname}} {{user.lastname}}</mat-list-item>
-                </mat-list>
+                <table mat-table [dataSource]="users" class="voorBeetjeMargin">
+                  <ng-container matColumnDef="naam">
+                    <th mat-header-cell *matHeaderCellDef> Naam </th>
+                    <td mat-cell *matCellDef="let user"> {{user.firstname}} {{user.lastname}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="vooruitgang">
+                    <th mat-header-cell *matHeaderCellDef> Vooruitgang </th>
+                    <td mat-cell *matCellDef="let user"> {{user.session.title}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
           </mat-panel-description>
         </mat-expansion-panel>
       </mat-accordion>
