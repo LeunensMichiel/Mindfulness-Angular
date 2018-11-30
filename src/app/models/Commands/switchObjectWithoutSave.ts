@@ -11,6 +11,7 @@ export class SwitchObjectWithoutSave extends Cmd {
 
 
   execute(): boolean {
+    console.log("am here");
     this.inputItem.list.changeItem(this.param[0]);
     return true;
   }

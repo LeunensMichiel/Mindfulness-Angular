@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
-import {Page, TextPage, AudioPage, TypePage} from 'src/app/models/page.model';
+import {Page, TextPage, AudioPage, TypePage, InputPage} from 'src/app/models/page.model';
 import {
   trigger,
   state,
@@ -120,7 +120,7 @@ export class PaginaCreatieComponent implements OnInit {
         newPage = new AudioPage();
         break;
       case 'input':
-        newPage = new Page();
+        newPage = new InputPage();
         break;
     }
     newPage.position = this.position;
@@ -128,7 +128,6 @@ export class PaginaCreatieComponent implements OnInit {
   }
 
   public fileAddedToPage(page) {
-    console.log('FILE ADDED TO PAGE' + page.toString());
     this.onFileAddedToPage.emit(page);
   }
 
@@ -148,7 +147,6 @@ export class PaginaCreatieComponent implements OnInit {
    * @param page De nieuwe op te slagen page.
    */
   public saveChangedPage(page) {
-    console.log('EMIT CHANGED PAGE ');
     this.changedPage.emit(page);
   }
 
@@ -161,7 +159,6 @@ export class PaginaCreatieComponent implements OnInit {
   }
 
   onNewParCommand(cmd: Cmd) {
-    console.log(cmd);
     this.addParagraphCmd.emit(cmd);
   }
 }

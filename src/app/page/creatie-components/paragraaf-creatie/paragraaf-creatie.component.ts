@@ -15,10 +15,9 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * -changedParPos: De emitter die de posities van de te wisselen pargrafen doorstuurt.
    * -deletePar: De emitter die de positie van de te verwijderen paragraph doorstuurt.
    */
-  @Input() par:Paragraph = new Paragraph();
-  @Input() position:number = 0;
+  @Input() par:Paragraph;
+  @Input() position:number;
   @Input() isLastElement = false;
-  @Output() newPar = new EventEmitter<Paragraph>();
   @Output() changedParPos = new EventEmitter<any>();
   @Output() changedPar = new EventEmitter<Paragraph>();
   @Output() deletePar = new EventEmitter<number>();
@@ -27,7 +26,7 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   public isImageLoading: Boolean = true;
   public image: any;
   content:string = "";
-
+  contentImage: any;
   getTypeParagraphEnum() {
     return TypeParagraph;
   }
@@ -42,44 +41,41 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   constructor(private _downloadDataService: DownloadService) { }
 
   ngOnInit() {
-    console.log(this.par);
     this.content = this.par.description;
 
-    // if (this.par.pathName) {
-    //   this.showImage(this.par.pathName);
-    //   this.isImageLoading = true;
-    //
-    // } else {
-    //   this.isImageLoading = false;
-    // }
+    if (this.par.imageName) {
+      this.showImage(this.par.imageName);
+    }
+  }
+
+  showImage(imagePath: string) {
+    this.isImageLoading = true;
+
+    this._downloadDataService.getParagraphImage(imagePath).subscribe(
+      data => {
+
+        this.createImageFromBlob(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.image = (reader.result.toString()).split(',')[1];
+      this.isImageLoading = false;
+
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
   
-  //================== METHODES ==================
 
-  // showImage(imagePath: string) {
-  //
-  //   this._downloadDataService.getFile(imagePath).subscribe(
-  //     data => {
-  //       this.createImageFromBlob(data);
-  //       this.isImageLoading = false;
-  //     },
-  //     error => {
-  //       this.isImageLoading = false;
-  //       console.log(error);
-  //     }
-  //   );
-  // }
-  //
-  // private createImageFromBlob(image: Blob) {
-  //   let reader = new FileReader();
-  //   reader.addEventListener("load", () => {
-  //     this.image = (reader.result.toString()).split(',')[1];
-  //   }, false);
-  //
-  //   if (image) {
-  //     reader.readAsDataURL(image);
-  //   }
-  // }
   
   //------------ PARGRAPH ATTRIBUTEN WIJZIGINGEN ------------
 
@@ -94,8 +90,18 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
     if (this.par.description != this.content) {
       console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED");
       this.par.description = this.content;
-      this.changedPar.emit(this.par);
-      console.log(this.content);
+
+        this.changedPar.emit(this.par);
+
+    }
+
+    if (this.contentImage) {
+      this.addImage.emit({
+        file: this.contentImage,
+        par: this.par
+      });
+
+      this.contentImage = undefined;
     }
   }
 
@@ -128,11 +134,13 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
     this.deletePar.emit(this.par.position);
     return false;
   }
-
-  selectFile(event) {
-    this.addImage.emit({
-      file: event.target.files.item(0),
-      par_pos: this.par.position
-    })
-  }
+  //
+  // selectFile(event) {
+  //   console.log(this.par);
+  //
+  //   this.addImage.emit({
+  //     file: event.target.files.item(0),
+  //     par: this.par
+  //   })
+  // }
 }

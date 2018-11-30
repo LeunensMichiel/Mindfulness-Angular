@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpEventType, HttpRequest} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-import {AudioPage, Page, TextPage} from '../models/page.model';
+import {AudioPage, InputPage, Page, TextPage} from '../models/page.model';
 import {map} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
+import {Paragraph} from '../models/paragraph.model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,12 +68,12 @@ export class PageDataService {
 
   }
 
-  updatePageParagraphFile(page: Page, paragraphPosition: number, file: File): Observable<HttpEvent<{}>> {
+  updatePageParagraphFile(page: Page, paragraph: Paragraph, file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
 
     formData.append('page_file', file);
     formData.append('page_id', page.id);
-    formData.append('par_pos', paragraphPosition.toString());
+    formData.append('par_pos', paragraph.position.toString());
 
     const req = new HttpRequest('PUT', `${this._appUrl}/pagefileparagraph/${page.id}`, formData, {
       reportProgress: true
@@ -90,7 +91,7 @@ export class PageDataService {
         return AudioPage.fromJSON(json);
       }
       case "INPUT": {
-        return Page.fromJSON(json);
+        return InputPage.fromJSON(json);
       }
     }
 

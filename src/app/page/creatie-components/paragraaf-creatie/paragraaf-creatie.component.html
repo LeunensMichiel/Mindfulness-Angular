@@ -30,10 +30,14 @@
     </mat-form-field>
     <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
       <div class="imgInputChild">
-        <label for="profile_pic">
+        <p>{{par.imageName}}</p>
+        <img  *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card" mat-card-image>
+
+        <p></p>
+        <label for="profile_pic{{par.id}}">
           <i class="material-icons md-18">cloud_upload</i>
         </label>
-        <input type="file" id="profile_pic" name="profile_pic" (change)='selectFile($event)'>
+        <input type="file" id="profile_pic{{par.id}}"  name="profile_pic" (change)='contentImage = $event.target.files.item(0)'>
       </div>
       <!--<img *ngIf="!isImageLoading; else noImageFound" src="data:image/png;base64,{{image}}" alt="Paragraaf Foto">-->
       <!--<ng-template #noImageFound>-->

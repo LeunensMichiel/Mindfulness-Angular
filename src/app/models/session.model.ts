@@ -3,21 +3,21 @@ import {GenericCollection, GenericItemWithList} from './GenericCollection.model'
 
 export class Session extends GenericItemWithList {
   private _file : File;
-  private _pathImage: string;
+  private _imageName: string;
 
   constructor(title: string = '', position: number = 0, pathImage: string = undefined, file: File = undefined) {
     super(position, title, new GenericCollection());
     this.file = file;
-    this._pathImage = pathImage;
+    this._imageName = pathImage;
   }
 
 
-  get pathImage(): string {
-    return this._pathImage;
+  get imageName(): string {
+    return this._imageName;
   }
 
-  set pathImage(value: string) {
-    this._pathImage = value;
+  set imageName(value: string) {
+    this._imageName = value;
   }
 
   get file(): File {
@@ -46,7 +46,7 @@ export class Session extends GenericItemWithList {
 
   toJSON() {
     return {
-      path_image: this.pathImage,
+      image_name: this.imageName,
       exercises: this.list.items.map(exercise => exercise.toJSON()),
       ...super.toJSON()
     };

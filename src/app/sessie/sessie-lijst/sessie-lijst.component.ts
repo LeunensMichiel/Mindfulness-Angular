@@ -45,8 +45,8 @@ export class SessieLijstComponent implements OnInit {
     //     } else if (event instanceof HttpResponse) {
     //       console.log('File is completely uploaded!');
     //       let page = AudioPage.fromJSON(event.body);
-    //       this.pathAudio = page.pathAudio;
-    //       console.log(page.pathAudio);
+    //       this.audioName = page.audioName;
+    //       console.log(page.audioName);
     //     }
     //     this.sessionmap.sessions.addItem(event);
     //     this.snackBar.open('Session successfully added!', '', {

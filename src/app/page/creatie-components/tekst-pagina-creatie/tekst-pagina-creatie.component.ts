@@ -5,6 +5,8 @@ import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
 import {Cmd} from 'src/app/models/Commands/command.model';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {PageDataService} from '../../page-data.service';
+import {GenericCollection} from '../../../models/GenericCollection.model';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -22,6 +24,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
   @Input() textPage: TextPage;
   @Output() changedPage = new EventEmitter<Page>();
   @Output() addParagraphCmd = new EventEmitter<Cmd>();
+  @Output() onFileAddedToPage = new EventEmitter<Page>();
+
   title: string = '';
 
   /**
@@ -30,7 +34,7 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    *                      | page-creatie |
    *                                       | tekst-page-creatie
    */
-  constructor(private _pageDataService: PageDataService) {
+  constructor(private _pageDataService: PageDataService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -64,7 +68,6 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    * @param par De paragraph die word toegevoegd aan de paragraphs array
    */
   addPar(type) {
-    console.log(type);
     let typePar;
     switch (type) {
       case "TEXT":
@@ -76,7 +79,6 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
     }
 
     let newPar = new Paragraph(this.textPage.list.items.length, typePar);
-    console.log(newPar);
     this.textPage.list.addItem(newPar);
     this.changedPage.emit(this.textPage);
   }
@@ -118,20 +120,23 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
 
     // this.progress.percentage = 0;
     // this.currentFileUpload = this.selectedFiles.item(0);
+    this._pageDataService.updatePageParagraphFile(this.textPage,json.par, json.file).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          // this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.textPage.list = new GenericCollection(event.body.paragraphs.map(it => {return new Paragraph.fromJSON(it)}));
+          this.onFileAddedToPage.emit(this.textPage);
+          // this.onFileAddedToPage.emit(page);
+          // this.currentFileUpload = undefined;
+        } else {
 
-    // this._pageDataService.updatePageParagraphFile(this.textPage,json.par_pos, json.file).subscribe(
-    //   event => {
-    //     if (event.type === HttpEventType.UploadProgress) {
-    //       // this.progress.percentage = Math.round(100 * event.loaded / event.total);
-    //     } else if (event instanceof HttpResponse) {
-    //       console.log('File is completely uploaded!');
-    //       let page = TextPage.fromJSON(event.body);
-    //       console.log(page);
-    //       // this.onFileAddedToPage.emit(page);
-    //       // this.currentFileUpload = undefined;
-    //     }
-    //
-    //   });
-    // this.selectedFiles = undefined;
+          // TODO later nog wijzigen om foutmelding in httpresponse te stoppen
+          this.snackBar.open('File upload was unsuccesvol', '', {
+            duration: 3000,
+          });
+        }
+
+      });
   }
 }

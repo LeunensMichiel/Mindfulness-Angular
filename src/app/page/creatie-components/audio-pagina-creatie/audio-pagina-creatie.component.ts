@@ -45,11 +45,11 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
    *                                       | audio-page-creatie
    */
 
-  constructor(private _pageDataService: PageDataService) { }
+  constructor(private _pageDataService: PageDataService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.title = this.audioPage.title;
-    this.pathAudio = this.audioPage.pathAudio;
+    this.pathAudio = this.audioPage.audioName;
 
   }
 
@@ -86,12 +86,14 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          console.log('File is completely uploaded!');
           let page = AudioPage.fromJSON(event.body);
-          this.pathAudio = page.pathAudio;
-          console.log(page.pathAudio);
+          this.pathAudio = page.audioName;
           this.onFileAddedToPage.emit(page);
           this.currentFileUpload = undefined;
+        } else {
+          this.snackBar.open('File upload was unsuccesvol', '', {
+            duration: 3000,
+          });
         }
 
       });
