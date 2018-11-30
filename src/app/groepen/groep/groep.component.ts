@@ -18,9 +18,11 @@ export class GroepComponent implements OnInit {
   @Output() public modifyGroup = new EventEmitter<Group>();
 
   public errorMsg: string;
-  private _users:User[]; 
+  private _users:User[] = null; 
   private _possibleUsers:User[];
   displayedColumns: string[] = ['naam', 'vooruitgang'];
+  private leegOfNiet = false;
+  private alGeladenOfNiet = false;
 
   kolomTest: string[] = ['naam'];
 
@@ -78,17 +80,6 @@ export class GroepComponent implements OnInit {
       this.checkTekst = "Niet actief";
     }
 
-    this._groupDataService.getEmails(this.group).subscribe(
-      result => {
-        this._users = result;
-      },
-      (error: HttpErrorResponse) => {
-        this.errorMsg = `Error ${
-          error.status
-          } while trying to retrieve groups: ${error.error}`;
-      }
-    );
-    this._users = new Array(); 
   }
 
   get users(){
@@ -111,8 +102,6 @@ export class GroepComponent implements OnInit {
     this._groupDataService.getPossibleUsers(this.group).subscribe(
       result => {
         this._possibleUsers = result;
-        console.log("MOGELIJK USERS:");
-        console.log(this.possibleUsers); // = console.log(result); = console.log(this._possibleUsers);
         const addUserToGroupDialogRef = this.dialog.open(AddUserToGroupDialog, {
           data: {
             group_name: this.group.name,
@@ -151,10 +140,32 @@ export class GroepComponent implements OnInit {
   }
 
   usersLeeg():boolean{
-    if(this.users.length == 0){
+    if(this.users != null && this.users.length == 0){
       return true;
     }
     return false;
+  }
+
+  onExpand(){
+    if(this.users == null){
+    this._groupDataService.getEmails(this.group).subscribe(
+      result => {
+        this._users = result;
+        this.alGeladenOfNiet = true;
+        
+        if(this._users.length == 0){
+          this.leegOfNiet = true;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve groups: ${error.error}`;
+      }
+    );
+    this._users = new Array(); 
+    }
+
   }
 }
 

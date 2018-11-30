@@ -20,16 +20,14 @@
   </div>
 
   <mat-card-content> 
-    <div *ngIf="usersLeeg()">
-      <p>Nog geen groepsleden</p></div>
-    <div *ngIf="!usersLeeg()">
       <mat-accordion class="exppanel">
-        <mat-expansion-panel>
+        <mat-expansion-panel (opened)="onExpand()">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Groepsleden
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div *ngIf="!usersLeeg()">
           <mat-panel-description>
                 <table mat-table [dataSource]="users" class="voorBeetjeMargin">
                   <ng-container matColumnDef="naam">
@@ -44,9 +42,19 @@
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
           </mat-panel-description>
+          </div>
+          <div *ngIf="!alGeladenOfNiet">
+            <mat-panel-description>
+              <p>Wordt geladen</p>
+            </mat-panel-description>
+          </div>
+          <div *ngIf="leegOfNiet">
+            <mat-panel-description>
+              <p>Nog geen groepsleden</p>
+            </mat-panel-description>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
-    </div>
     <div *ngIf="group.sessionmap"><p>Cursus: {{group.sessionmap.titleCourse}}</p></div>
     <div>
       <mat-slide-toggle
