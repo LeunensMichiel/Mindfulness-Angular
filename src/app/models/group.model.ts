@@ -70,7 +70,6 @@ export class Group{
         const group = new Group(
             json.name
         );
-        console.log(json);
         if(json.hasOwnProperty('sessionmap_id')){
           if (json.sessionmap_id !== null) {
             group.sessionmap = Sessionmap.fromJSON(json.sessionmap_id);

@@ -40,7 +40,6 @@ export class GroepComponent implements OnInit {
   }
 
   changed(){
-    console.log(this.checked);
     this.group.actief = this.checked;
     if(this.checked == true){
       this.checkTekst = "Actief";
@@ -48,7 +47,6 @@ export class GroepComponent implements OnInit {
     else{
       this.checkTekst = "Niet actief";
     }
-    console.log(this.checkTekst);
     this._groupDataService.editGroup(this.group).subscribe(
       () => {
       },
@@ -64,9 +62,6 @@ export class GroepComponent implements OnInit {
   }
 
   getStatusActiefVanGroep():boolean{
-    console.log("VOLGENDE:");
-    console.log(this.group);
-    console.log(this.group.actief);
     return this.group.actief;
   }
 
@@ -75,8 +70,6 @@ export class GroepComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("INIT");
-    console.log(this.group);
     this.checked = this.getStatusActiefVanGroep();
     if(this.checked == true){
       this.checkTekst = "Actief";
@@ -88,7 +81,6 @@ export class GroepComponent implements OnInit {
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
         this._users = result;
-        console.log(result);
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -104,8 +96,6 @@ export class GroepComponent implements OnInit {
   }
 
   get possibleUsers(){
-    console.log("logje2");
-    console.log(this._possibleUsers);
     return this._possibleUsers;
   }
 
@@ -118,28 +108,29 @@ export class GroepComponent implements OnInit {
   }
 
   addUserToAGroup(){
-    console.log("log1");
-
-    
     this._groupDataService.getPossibleUsers(this.group).subscribe(
       result => {
         this._possibleUsers = result;
         console.log("MOGELIJK USERS:");
-        console.log(result);
+        console.log(this.possibleUsers); // = console.log(result); = console.log(this._possibleUsers);
+        const addUserToGroupDialogRef = this.dialog.open(AddUserToGroupDialog, {
+          data: {
+            group_name: this.group.name,
+            possibleUsers: this.possibleUsers
+          }
+        });
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
           error.status
-          } while trying to retrieve groups: ${error.error}`;
+          } tijdens het ophalen van mogelijke users: ${error.error}`;
       }
     );
     this._possibleUsers = new Array(); 
 
-    const addUserToGroupDialogRef = this.dialog.open(AddUserToGroupDialog, {
-      data: {
-        group_name: this.group.name
-      }
-    });
+    
+
+    /*
     addUserToGroupDialogRef.afterClosed().subscribe(result => {
       if (result) {
         //group.name = result;
@@ -156,7 +147,7 @@ export class GroepComponent implements OnInit {
           }
         );
       }
-    });
+    }); */
   }
 
   usersLeeg():boolean{
@@ -185,4 +176,5 @@ export class AddUserToGroupDialog {
 
 export interface DialogGroupData {
   group_name: string;
+  possibleUsers:User[];
 }

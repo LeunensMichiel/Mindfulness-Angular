@@ -21,8 +21,6 @@ export class GroepenDataService {
     .pipe(map((list:any[]): Group[] =>
       list.map(
         it => {
-          console.log(it);
-          console.log(Group.fromJSON(it));
           return Group.fromJSON(it);
         }
       )

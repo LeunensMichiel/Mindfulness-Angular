@@ -27,7 +27,6 @@ export class GroepenListComponent implements OnInit {
   ngOnInit() {
     this.groepenDataService.groups.subscribe(
       groups => {
-        console.log(groups);
         this._groups = groups;
       },
       (error: HttpErrorResponse) => {
