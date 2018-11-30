@@ -7,3 +7,20 @@
 .exppanel{
   margin: 1em;
 }
+
+.class1{
+  background-color: #339900;
+  width: 100%;
+  color: white;
+  border-radius: 7px;
+  padding-top: 1em;
+}
+
+.class2{
+  background-color: #FF0000;
+  width: 100%;
+  color: white;
+  border-radius: 7px;
+  padding-top: 1em;
+}
+

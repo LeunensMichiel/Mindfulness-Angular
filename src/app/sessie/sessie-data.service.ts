@@ -12,22 +12,12 @@ export class SessieDataService {
 
   private readonly _appUrl = '/API/session';
 
-  // private _sessies: Session[] = new Array();
 
   constructor(private http: HttpClient) {
-    // this._sessies.push(new Session("Session 1", 1));
   }
 
   addNewSession(session: Session, sessionmap_id: string): Observable<HttpEvent<{}>> {
-    // let sessionJson = session.toJSON();
-    //
-    //
-    // return this.http
-    //   .post(`${this._appUrl}/session`, {...sessionJson, sessionmap_id: sessionmap_id})
-    //   .pipe(map(it => {
-    //     return Session.fromJSON(it);
-    //   }));
-    //
+
     const formdata: FormData = new FormData();
 
     formdata.append('session_image', session.file);

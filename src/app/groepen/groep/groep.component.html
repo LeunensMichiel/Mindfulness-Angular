@@ -1,18 +1,19 @@
 <mat-card class="example-card">
+
+  <div [className]="isActief()?'class1':'class2'">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>
-      {{group.name}}
-    </mat-card-title>
-    <div><button mat-icon-button (click)="editGroup()">
+      <mat-card-title>
+         {{group.name}}
+      </mat-card-title>
+  </mat-card-header>
+  </div>
+  <div><button mat-icon-button (click)="editGroup()">
       <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
     </button>
     <button mat-icon-button (click)="removeGroup()" class="hvr-grow">
       <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
     </button></div>
 
-   
-  </mat-card-header>
   <mat-card-content> 
     <div *ngIf="usersLeeg()">
       <p>Nog geen groepsleden</p></div>
@@ -33,6 +34,17 @@
       </mat-accordion>
     </div>
     <div *ngIf="group.sessionmap"><h4>{{group.sessionmap.titleCourse}}</h4></div>
+    <div>
+      <mat-slide-toggle
+          [color]="color"
+          [checked]="checked"
+          [disabled]="disabled"
+          
+          [(ngModel)]="checked"
+          (change)="changed()">
+        {{checkTekst}}
+      </mat-slide-toggle>
+    </div>
   </mat-card-content>
 </mat-card>
 

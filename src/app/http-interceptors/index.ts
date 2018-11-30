@@ -1,4 +1,4 @@
-import { BaseUrlInterceptor } from './BaseUrlInterceptor';
+import { BaseUrlInterceptor } from './baseUrlInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {AuthenticationInterceptor} from './authentication-interceptor.service';
 

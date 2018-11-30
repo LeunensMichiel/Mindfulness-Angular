@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
 import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
+import {DownloadService} from '../../../download.service';
 
 @Component({
   selector: 'app-paragraaf-creatie',
@@ -21,6 +22,10 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   @Output() changedParPos = new EventEmitter<any>();
   @Output() changedPar = new EventEmitter<Paragraph>();
   @Output() deletePar = new EventEmitter<number>();
+  @Output() addImage = new EventEmitter<any>();
+
+  public isImageLoading: Boolean = true;
+  public image: any;
   content:string = "";
 
   getTypeParagraphEnum() {
@@ -34,14 +39,47 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    *                                       | tekst-page-creatie | 
    *                                                              | paragraaf-creatie
    */
-  constructor() { }
+  constructor(private _downloadDataService: DownloadService) { }
 
   ngOnInit() {
     console.log(this.par);
     this.content = this.par.description;
+
+    // if (this.par.pathName) {
+    //   this.showImage(this.par.pathName);
+    //   this.isImageLoading = true;
+    //
+    // } else {
+    //   this.isImageLoading = false;
+    // }
   }
   
   //================== METHODES ==================
+
+  // showImage(imagePath: string) {
+  //
+  //   this._downloadDataService.getFile(imagePath).subscribe(
+  //     data => {
+  //       this.createImageFromBlob(data);
+  //       this.isImageLoading = false;
+  //     },
+  //     error => {
+  //       this.isImageLoading = false;
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+  //
+  // private createImageFromBlob(image: Blob) {
+  //   let reader = new FileReader();
+  //   reader.addEventListener("load", () => {
+  //     this.image = (reader.result.toString()).split(',')[1];
+  //   }, false);
+  //
+  //   if (image) {
+  //     reader.readAsDataURL(image);
+  //   }
+  // }
   
   //------------ PARGRAPH ATTRIBUTEN WIJZIGINGEN ------------
 
@@ -89,5 +127,12 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
     console.log("PARAGRAPH AT POSITON " + this.par.position + " REMOVED");
     this.deletePar.emit(this.par.position);
     return false;
+  }
+
+  selectFile(event) {
+    this.addImage.emit({
+      file: event.target.files.item(0),
+      par_pos: this.par.position
+    })
   }
 }

@@ -54,12 +54,12 @@ export class PageDataService {
   }
 
   updatePageWithFile(page: Page, file: File): Observable<HttpEvent<{}>> {
-    const formdata: FormData = new FormData();
+    const formData: FormData = new FormData();
 
-    formdata.append('page_file', file);
-    formdata.append('updated_page', JSON.stringify(page.toJSON()));
+    formData.append('page_file', file);
+    formData.append('updated_page', JSON.stringify(page.toJSON()));
 
-    const req = new HttpRequest('PUT', `${this._appUrl}/pagefile/${page.id}`, formdata, {
+    const req = new HttpRequest('PUT', `${this._appUrl}/pagefile/${page.id}`, formData, {
       reportProgress: true
     });
 
@@ -67,7 +67,21 @@ export class PageDataService {
 
   }
 
-  private filterJson(json: any) : Page{
+  updatePageParagraphFile(page: Page, paragraphPosition: number, file: File): Observable<HttpEvent<{}>> {
+    const formData: FormData = new FormData();
+
+    formData.append('page_file', file);
+    formData.append('page_id', page.id);
+    formData.append('par_pos', paragraphPosition.toString());
+
+    const req = new HttpRequest('PUT', `${this._appUrl}/pagefileparagraph/${page.id}`, formData, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
+  }
+
+ private filterJson(json: any) : Page{
     switch (json.type) {
       case "TEXT": {
         return TextPage.fromJSON(json);

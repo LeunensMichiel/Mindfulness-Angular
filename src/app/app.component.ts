@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from './user/authentication.service';
+import {Admin} from './models/admin.model';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent {
   }
 
 
-  get currentUser(): Observable<string> {
+  get currentUser(): Observable<Admin> {
     return this.authService.user$;
   }
 

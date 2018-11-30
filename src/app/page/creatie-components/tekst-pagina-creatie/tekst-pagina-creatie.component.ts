@@ -1,8 +1,10 @@
 import {Component, OnInit, DoCheck, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges} from '@angular/core';
-import {TextPage, Page} from 'src/app/models/page.model';
+import {TextPage, Page, AudioPage} from 'src/app/models/page.model';
 import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
 
 import {Cmd} from 'src/app/models/Commands/command.model';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {PageDataService} from '../../page-data.service';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
    *                      | page-creatie |
    *                                       | tekst-page-creatie
    */
-  constructor() {
+  constructor(private _pageDataService: PageDataService) {
   }
 
   ngOnInit() {
@@ -79,6 +81,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
     this.changedPage.emit(this.textPage);
   }
 
+
+
   /**
    * Een pargraaf in de paragraphs array word verwijderd. De originele word verwijderd
    * en de nieuwe versie word toegevoegd op zijn originele locatie.
@@ -108,5 +112,26 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
   deletePar(position) {
     this.textPage.list.deleteItem(position);
     this.changedPage.emit(this.textPage);
+  }
+
+  addImage(json: any) {
+
+    // this.progress.percentage = 0;
+    // this.currentFileUpload = this.selectedFiles.item(0);
+
+    // this._pageDataService.updatePageParagraphFile(this.textPage,json.par_pos, json.file).subscribe(
+    //   event => {
+    //     if (event.type === HttpEventType.UploadProgress) {
+    //       // this.progress.percentage = Math.round(100 * event.loaded / event.total);
+    //     } else if (event instanceof HttpResponse) {
+    //       console.log('File is completely uploaded!');
+    //       let page = TextPage.fromJSON(event.body);
+    //       console.log(page);
+    //       // this.onFileAddedToPage.emit(page);
+    //       // this.currentFileUpload = undefined;
+    //     }
+    //
+    //   });
+    // this.selectedFiles = undefined;
   }
 }

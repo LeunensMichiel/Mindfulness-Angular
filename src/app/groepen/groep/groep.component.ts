@@ -5,6 +5,7 @@ import { Sessionmap } from '../../models/sessionmap.model';
 import { EMPTY_ARRAY } from '@angular/core/src/render3/definition';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-groep',
@@ -18,11 +19,68 @@ export class GroepComponent implements OnInit {
   public errorMsg: string;
   private _users:User[]; 
 
-  constructor(private _groupDataService:GroepenDataService) {
+
+  color = 'accent';
+  checked = false;//this.getStatusActiefVanGroep();
+  disabled = false;
+  checkTekst = "Niet actief";
+
+  isActief():boolean{
+    if(this.checked == true)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  changed(){
+    console.log(this.checked);
+    this.group.actief = this.checked;
+    if(this.checked == true){
+      this.checkTekst = "Actief";
+    }
+    else{
+      this.checkTekst = "Niet actief";
+    }
+    console.log(this.checkTekst);
+    this._groupDataService.editGroup(this.group).subscribe(
+      () => {
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} tijdens het wijzigen van de groep ${
+            this.group.name
+            }: ${error.error}`, '',
+          {
+            duration: 3000,
+          });
+      }
+    );
+  }
+
+  getStatusActiefVanGroep():boolean{
+    console.log("VOLGENDE:");
+    console.log(this.group);
+    console.log(this.group.actief);
+    return this.group.actief;
+  }
+
+  constructor(private _groupDataService:GroepenDataService, public snackBar: MatSnackBar) {
 
    }
 
   ngOnInit() {
+    console.log("INIT");
+    console.log(this.group);
+    this.checked = this.getStatusActiefVanGroep();
+    if(this.checked == true){
+      this.checkTekst = "Actief";
+    }
+    else{
+      this.checkTekst = "Niet actief";
+    }
+
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
         this._users = result;

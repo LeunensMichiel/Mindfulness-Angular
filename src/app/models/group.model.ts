@@ -8,11 +8,14 @@ export class Group{
     _sessionmap:Sessionmap;
     _sessie_naam:string;
     _sessionmap_id:string;
+    _actief:boolean;
 
     constructor(name:string = '',sessionmap:Sessionmap = null){
         //super();
         this._name = name;
         this._sessionmap = sessionmap;
+
+        this._actief = false;
     }
 
     public get id():string{
@@ -31,6 +34,10 @@ export class Group{
         return this._sessionmap_id;
     }
 
+    public get actief():boolean{
+        return this._actief;
+    }
+
     public set ses_id(value:string){
         this._sessionmap_id = value;
     }
@@ -41,6 +48,10 @@ export class Group{
 
     public set name(value:string){
         this._name = value;
+    }
+
+    public set actief(value:boolean){
+        this._actief = value;
     }
 
     public set sessionmap(value:Sessionmap){
@@ -66,6 +77,7 @@ export class Group{
           }
         }
         group._id = json._id;
+        group._actief = json.actief;
         return group;
     }
 
@@ -73,7 +85,8 @@ export class Group{
         return{
             _id:this._id,
             name:this._name,
-            sessionmap:this._sessionmap.toJSON()
+            sessionmap:this._sessionmap.toJSON(),
+            actief:this._actief
         };
     }
 }
