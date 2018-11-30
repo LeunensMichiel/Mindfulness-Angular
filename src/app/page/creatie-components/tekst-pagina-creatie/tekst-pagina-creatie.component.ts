@@ -125,7 +125,8 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
         if (event.type === HttpEventType.UploadProgress) {
           // this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          this.textPage.list = new GenericCollection(event.body.paragraphs.map(it => {return new Paragraph.fromJSON(it)}));
+          let json: any = event.body;
+          this.textPage.list = new GenericCollection(json.paragraphs.map(it => {return Paragraph.fromJSON(it)}));
           this.onFileAddedToPage.emit(this.textPage);
           // this.onFileAddedToPage.emit(page);
           // this.currentFileUpload = undefined;

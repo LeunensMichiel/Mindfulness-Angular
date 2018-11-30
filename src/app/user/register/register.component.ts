@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {AuthenticationService} from '../authentication.service';
 import { Observable } from 'rxjs';
 import {Router} from '@angular/router';
+import {Admin} from '../../models/admin.model';
 
 function passwordValidator(length: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
@@ -39,6 +40,8 @@ export class RegisterComponent implements OnInit {
     this.user = this._fb.group({
       email: ['', [Validators.required, Validators.minLength(4)],
         this.serverSideValidateEmail()],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       passwordGroup: this._fb.group({
         password: ['', [Validators.required, passwordValidator(12)]],
         confirmPassword: ['', Validators.required]
@@ -62,7 +65,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this._authenticationService.register(this.user.value.email, this.passwordControl.value).subscribe(val => {
+    let newAdmin = new Admin(this.user.value.firstname, this.user.value.lastname, this.user.value.email);
+    this._authenticationService.register(newAdmin, this.passwordControl.value).subscribe(val => {
       if (val) {
         this._router.navigate(['/course-list']);
       }
