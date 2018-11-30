@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SessieLijstComponent } from './sessie-lijst.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('SessieLijstComponent', () => {
   let component: SessieLijstComponent;
@@ -8,7 +9,8 @@ describe('SessieLijstComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SessieLijstComponent ]
+      declarations: [ SessieLijstComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

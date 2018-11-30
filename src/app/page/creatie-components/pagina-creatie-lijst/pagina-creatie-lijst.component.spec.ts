@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginaCreatieLijstComponent } from './pagina-creatie-lijst.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('PaginaCreatieLijstComponent', () => {
   let component: PaginaCreatieLijstComponent;
@@ -8,7 +9,8 @@ describe('PaginaCreatieLijstComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaginaCreatieLijstComponent ]
+      declarations: [ PaginaCreatieLijstComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

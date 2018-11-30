@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputPaginaCreatieComponent } from './input-pagina-creatie.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('InputPaginaCreatieComponent', () => {
   let component: InputPaginaCreatieComponent;
@@ -8,7 +9,8 @@ describe('InputPaginaCreatieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputPaginaCreatieComponent ]
+      declarations: [ InputPaginaCreatieComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

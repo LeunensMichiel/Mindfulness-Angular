@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParagraafCreatieComponent } from './paragraaf-creatie.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('ParagraafCreatieComponent', () => {
   let component: ParagraafCreatieComponent;
@@ -8,7 +9,8 @@ describe('ParagraafCreatieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParagraafCreatieComponent ]
+      declarations: [ ParagraafCreatieComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

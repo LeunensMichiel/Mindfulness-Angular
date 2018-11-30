@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AudioPaginaCreatieComponent } from './audio-pagina-creatie.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('AudioPaginaCreatieComponent', () => {
   let component: AudioPaginaCreatieComponent;
@@ -8,7 +9,8 @@ describe('AudioPaginaCreatieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AudioPaginaCreatieComponent ]
+      declarations: [ AudioPaginaCreatieComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

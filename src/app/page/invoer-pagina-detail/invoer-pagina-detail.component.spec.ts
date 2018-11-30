@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InvoerPaginaDetailComponent } from './invoer-pagina-detail.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('InvoerPaginaDetailComponent', () => {
   let component: InvoerPaginaDetailComponent;
@@ -8,7 +9,8 @@ describe('InvoerPaginaDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InvoerPaginaDetailComponent ]
+      declarations: [ InvoerPaginaDetailComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

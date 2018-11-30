@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SessionmapDetailComponent } from './sessionmap-detail.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('SessionmapDetailComponent', () => {
   let component: SessionmapDetailComponent;
@@ -8,7 +9,8 @@ describe('SessionmapDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SessionmapDetailComponent ]
+      declarations: [ SessionmapDetailComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

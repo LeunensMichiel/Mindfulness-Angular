@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroepenListComponent } from './groepen-list.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('GroepenListComponent', () => {
   let component: GroepenListComponent;
@@ -8,7 +9,8 @@ describe('GroepenListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroepenListComponent ]
+      declarations: [ GroepenListComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
