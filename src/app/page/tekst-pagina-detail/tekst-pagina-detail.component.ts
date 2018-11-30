@@ -8,11 +8,11 @@ import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
   styleUrls: ['./tekst-pagina-detail.component.css']
 })
 export class TekstPaginaDetailComponent implements OnInit {
-  @Input() page:Page;
+  @Input() page:TextPage;
   constructor() { }
 
   ngOnInit() {
-
+    console.log(this.page);
     
   }
 

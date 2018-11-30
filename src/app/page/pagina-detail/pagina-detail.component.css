@@ -1,10 +1,9 @@
-.paragraph {
+.page {
     margin-top: 2%;
     overflow-y: hidden;
     min-height: 70vh;
-    
 }
 
-.paragraph > p {
+.page > p {
     font-size: 1.2em;
 }

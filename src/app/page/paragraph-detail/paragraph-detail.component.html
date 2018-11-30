@@ -1,0 +1,12 @@
+<div [ngSwitch]='paragraph.type'>
+  <p *ngSwitchCase="'TEXT'">
+    {{paragraph.description}}
+  </p>
+  <div *ngSwitchCase="'IMAGE'">
+    <img *ngIf="!isImageLoading; else noImageFound"  src="data:image/png;base64,{{image}}"
+         alt="Paragraaf foto">
+    <ng-template #noImageFound>
+      <img class="example-card" src="assets/images/placeholder-image.png" alt="placeholder">
+    </ng-template>
+  </div>
+</div>

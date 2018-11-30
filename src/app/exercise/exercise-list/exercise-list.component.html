@@ -1,5 +1,5 @@
 <div class="container" (keydown)="onKeydown($event)" tabindex="0">
-  <app-exercise-detail *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i' [exercise]='exerciseDetail'
+  <app-exercise-detail  *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i' [exercise]='exerciseDetail'
     (deletedExercise)='removeExercise($event)' [_position]='i' (modifiedExercise)='onAdd($event, false)' class="kid">
   </app-exercise-detail>
   <div class="float">

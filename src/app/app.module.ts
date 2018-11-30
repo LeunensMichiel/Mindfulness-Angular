@@ -67,6 +67,7 @@ import {DownloadService} from './download.service';
 import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
 import { FeedbackDetailComponent } from './feedback/feedback-detail/feedback-detail.component';
 import {FeedbackDataService} from './feedback/feedback-data.service';
+import { ParagraphDetailComponent } from './page/paragraph-detail/paragraph-detail.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import {FeedbackDataService} from './feedback/feedback-data.service';
     GroupModifyComponent,
     RemoveGroupDialog,
     FeedbackListComponent,
-    FeedbackDetailComponent
+    FeedbackDetailComponent,
+    ParagraphDetailComponent
   ],
   imports: [
     BrowserModule,
