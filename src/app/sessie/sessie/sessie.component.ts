@@ -33,8 +33,8 @@ export class SessieComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.session.imageName) {
-      this.showImage(this.session.imageName);
+    if (this.session.imageFilename) {
+      this.showImage(this.session.imageFilename);
       this.isImageLoading = true;
     }
   }

@@ -49,7 +49,7 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.title = this.audioPage.title;
-    this.pathAudio = this.audioPage.audioName;
+    this.pathAudio = this.audioPage.audioFilename;
 
   }
 
@@ -87,7 +87,7 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           let page = AudioPage.fromJSON(event.body);
-          this.pathAudio = page.audioName;
+          this.pathAudio = page.audioFilename;
           this.onFileAddedToPage.emit(page);
           this.currentFileUpload = undefined;
         } else {

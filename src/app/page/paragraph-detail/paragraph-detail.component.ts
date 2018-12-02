@@ -18,8 +18,8 @@ export class ParagraphDetailComponent implements OnInit {
   ngOnInit() {
     this.paragraph.description;
 
-    if (this.paragraph.imageName) {
-      this.showImage(this.paragraph.imageName);
+    if (this.paragraph.imageFilename) {
+      this.showImage(this.paragraph.imageFilename);
     }
   }
 

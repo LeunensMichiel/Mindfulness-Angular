@@ -11,7 +11,7 @@
       <i class="material-icons md-18">cloud_upload</i>
     </label>
     <input #fileInput type="file" id="profile_pic{{audioPage.id}}" name="profile_pic" (change)='selectFile($event)'>
-    <p>{{audioPage.audioName}}</p>
+    <p>{{audioPage.audioFilename}}</p>
     <div *ngIf="playing; then pauseBlock else playBlock"></div>
     <ng-template #pauseBlock>
       <button mat-icon-button (click)='pauseAudio()'>

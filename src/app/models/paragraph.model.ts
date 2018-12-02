@@ -8,22 +8,22 @@ export enum TypeParagraph {
 export class Paragraph extends GenericItem {
   private _description: string;
   private _type: TypeParagraph;
-  private _imageName: string;
+  private _imageFilename: string;
 
-  constructor(position: number = 0, type: TypeParagraph = TypeParagraph.TEXT, description: string = '', pathName: string = undefined) {
+  constructor(position: number = 0, type: TypeParagraph = TypeParagraph.TEXT, description: string = '', imageFilename: string = undefined) {
     super(position);
     this._description = description;
     this._type = type;
-    this._imageName = pathName;
+    this._imageFilename = imageFilename;
   }
 
 
-  get imageName(): string {
-    return this._imageName;
+  get imageFilename(): string {
+    return this._imageFilename;
   }
 
-  set imageName(value: string) {
-    this._imageName = value;
+  set imageFilename(value: string) {
+    this._imageFilename = value;
   }
 
   get description(): string {
@@ -63,7 +63,7 @@ export class Paragraph extends GenericItem {
     }
 
 
-    let par = new Paragraph(json.position, type, json.description, json.image_name);
+    let par = new Paragraph(json.position, type, json.description, json.image_filename);
     par.id = json._id;
 
     return par;
@@ -74,7 +74,7 @@ export class Paragraph extends GenericItem {
     return {
       description: this._description,
       form_type: this.convertType(),
-      image_name: this.imageName,
+      image_filename: this.imageFilename,
       ...super.toJSON()
     };
   }

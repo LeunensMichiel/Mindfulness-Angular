@@ -30,7 +30,7 @@
     </mat-form-field>
     <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
       <div class="imgInputChild">
-        <p>{{par.imageName}}</p>
+        <p>{{par.imageFilename}}</p>
         <img  *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card" mat-card-image>
 
         <p></p>

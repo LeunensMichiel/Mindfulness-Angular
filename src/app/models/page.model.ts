@@ -45,30 +45,30 @@ export enum TypePage {
 }
 
 export class AudioPage extends Page {
-  private _audioName: string;
+  private _audioFilename: string;
 
-  constructor(position: number = 0, title: string = '', pathAudio: string = '') {
+  constructor(position: number = 0, title: string = '', audioFilename: string = '') {
     super(position, title, TypePage.AUDIO);
-    this._audioName = pathAudio;
+    this._audioFilename = audioFilename;
   }
 
-  get audioName(): string {
-    return this._audioName;
+  get audioFilename(): string {
+    return this._audioFilename;
   }
 
-  set audioName(value: string) {
-    this._audioName = value;
+  set audioFilename(value: string) {
+    this._audioFilename = value;
   }
 
   toJSON() {
     return {
-      audio_name: this._audioName,
+      audio_filename: this._audioFilename,
       ...super.toJSON()
     };
   }
 
   static fromJSON(json: any): AudioPage {
-    let page = new AudioPage(json.position, json.title, json.path_audio);
+    let page = new AudioPage(json.position, json.title, json.audio_filename);
     page.id = json._id;
     return page;
   }

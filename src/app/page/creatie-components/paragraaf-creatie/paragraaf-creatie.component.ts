@@ -43,8 +43,8 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.content = this.par.description;
 
-    if (this.par.imageName) {
-      this.showImage(this.par.imageName);
+    if (this.par.imageFilename) {
+      this.showImage(this.par.imageFilename);
     }
   }
 
