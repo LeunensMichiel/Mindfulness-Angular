@@ -20,7 +20,7 @@ export class GroepComponent implements OnInit {
   public errorMsg: string;
   private _users:User[] = null; 
   private _possibleUsers:User[];
-  private selectedOptions:string[] = null;
+  private selectedOptions:User[] = null;
   displayedColumns: string[] = ['naam', 'vooruitgang'];
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
@@ -208,7 +208,7 @@ export class GroepComponent implements OnInit {
 })
 export class AddUserToGroupDialog {
 
-  private selectedOptions:string[] = null;
+  private selectedOptions:User[] = null;
   constructor(
     public dialogRef: MatDialogRef<AddUserToGroupDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogGroupData) {
@@ -226,5 +226,5 @@ export class AddUserToGroupDialog {
 export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
-  selectedOptions:string[];
+  selectedOptions:User[];
 }
