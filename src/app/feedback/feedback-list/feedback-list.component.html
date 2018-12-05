@@ -1,8 +1,17 @@
 <div>
   <h1>Feedback</h1>
 </div>
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center" >
-  <div *ngFor='let feedback of feedbacks'>
-    <feedback [feedback]="feedback"></feedback>
-  </div>
+
+
+<div class="ui input">
+  <input (keyup)='filterFeedback$.next($event.target.value)' type='text' id='filter' name='filter'
+         placeholder='filter feedback session...'>
 </div>
+
+<!--<app-recipe *ngFor='let localRecipe of recipes | recipeFilter:filterRecipeName'></app-recipe>-->
+
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center">
+  <feedback *ngFor='let feedback of feedbacks' [feedback]="feedback"></feedback>
+</div>
+
+

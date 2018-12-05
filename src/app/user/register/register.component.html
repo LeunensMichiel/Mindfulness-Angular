@@ -34,6 +34,7 @@
 
 
 <div class="cardcontainervertical">
+<<<<<<< HEAD
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>Registreer</mat-card-title>
@@ -90,3 +91,76 @@
     
     </mat-card>
     </div>
+=======
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Registreer</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]='user' (ngSubmit)='onSubmit()'>
+        <table>
+          <tr>
+            <mat-form-field>
+              <input matInput type="text" id="email" formControlName='email' placeholder='Email'>
+            </mat-form-field>
+            <div *ngIf=' user.get("email").errors?.required && user.get("email").touched'>
+              een email is vereist
+            </div>
+            <div *ngIf='user.get("email").errors?.minlength && user.get("email").touched'>
+              the email should be at least {{user.get("email").errors?.minlength.requiredLength }} letters
+            </div>
+            <div *ngIf='user.get("email").errors?.userAlreadyExists && user.get("email").touched'>
+              Een gebruiker met dit email-adress bestaat al
+            </div>
+            <mat-form-field>
+              <input matInput type="text" id="firstname" formControlName="firstname" placeholder="Voornaam">
+            </mat-form-field>
+            <div *ngIf=' user.get("firstname").errors?.required && user.get("firstname").touched'>
+              Voornaam is vereist
+            </div>
+            <mat-form-field>
+              <input matInput type="text" id="lastname" formControlName="lastname" placeholder="Achternaam">
+            </mat-form-field>
+            <div *ngIf=' user.get("lastname").errors?.required && user.get("lastname").touched'>
+              Achternaam is vereist
+            </div>
+          </tr>
+        </table>
+
+        <div class="passwordGroup" formGroupName='passwordGroup'>
+          <table>
+            <tr>
+              <mat-form-field>
+                <input matInput type="password" id="password" formControlName='password' placeholder='Wachtwoord'>
+              </mat-form-field>
+              <div *ngIf=' passwordControl.errors?.passwordTooShort && passwordControl.touched'>
+                password too short, please use at least {{passwordControl.errors?.passwordTooShort.requiredLength}}
+                letters (got {{passwordControl.errors?.passwordTooShort.actualLength}})
+              </div>
+            </tr>
+            <tr>
+              <mat-form-field>
+                <input matInput type="password" id="confirmpassword" formControlName='confirmPassword'
+                       placeholder='Herhaal wachtwoord'>
+              </mat-form-field>
+              <div
+                *ngIf=' user.get("passwordGroup").errors?.passwordsDiffer && user.get("passwordGroup").get("confirmPassword").touched  && user.get("passwordGroup").get("password").touched'>
+                the two passwords should be the same
+              </div>
+            </tr>
+          </table>
+
+
+        </div>
+
+
+        <div class="button-row">
+          <button mat-button class="vet login" type='submit' [disabled]='!user.valid'>REGISTREER</button>
+        </div>
+      </form>
+    </mat-card-content>
+
+
+  </mat-card>
+</div>
+>>>>>>> 45a48de8bf7bbe9da214747f94381988e6138116

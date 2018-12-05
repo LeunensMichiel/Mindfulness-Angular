@@ -71,8 +71,8 @@ export class AuthenticationService {
       );
   }
 
-  register(email: string, password: string): Observable<boolean> {
-    return this.http.post(`${this._url}/register/admin`, {email: email, password: password})
+  register(newAdmin: Admin, password: string): Observable<boolean> {
+    return this.http.post(`${this._url}/register/admin`, {...newAdmin.toJSON(), password: password})
       .pipe(
         map((res: any) => {
           return this.storeAdminLocal(res.token);

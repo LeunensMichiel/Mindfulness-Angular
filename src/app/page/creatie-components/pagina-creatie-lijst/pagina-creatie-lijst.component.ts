@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Page, TextPage, AudioPage, TypePage} from 'src/app/models/page.model';
+import {Page, TextPage, AudioPage, TypePage, InputPage} from 'src/app/models/page.model';
 import { Exercise } from 'src/app/models/exercise.model';
 import { Cmd } from 'src/app/models/Commands/command.model';
 import { Delete } from 'src/app/models/Commands/delete.model';
@@ -86,7 +86,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
         newPage = new AudioPage();
         break;
       case "input":
-        newPage = new Page();
+        newPage = new InputPage();
         break;
     }
     newPage.position = this.exercise.list.items.length;
@@ -128,6 +128,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
 
   private fileAddedToPage(page) {
     console.log("SAVED CHANGED PAGE AT ANCESTOR");
+    console.log(page);
     let newPage = this.convertPage(page);
     console.log(newPage);
     let oldPage = this.exercise.list.items[newPage.position];
@@ -177,9 +178,9 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   changePos() {
     throw new Error("Method not implemented.");
   }
+
   update(cmd:Cmd) {
-    console.log(cmd);
-    console.log(this.convertPage(cmd.param[0]));
+
     this.pageDataService.updatePage(this.convertPage(cmd.param[0]))
       .subscribe(
         succes => console.log(succes),
@@ -187,16 +188,17 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
       )
   }
 
+
+
   convertPage(page: any) {
-    console.log(page);
-    console.log(page.type);
+
     switch (page.type) {
       case TypePage.TEXT:
         return page as TextPage;
       case TypePage.AUDIO:
         return page as AudioPage;
       case TypePage.INPUT:
-        return page as Page;
+        return page as InputPage;
     }
   }
 }

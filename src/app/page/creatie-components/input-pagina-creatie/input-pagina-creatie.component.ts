@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, DoCheck} from '@angular/core';
-import {Page} from 'src/app/models/page.model';
+import {InputPage} from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-input-pagina-creatie',
@@ -13,8 +13,8 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    * Die op zijn beurt naar de page-creatielijst stuurt waar ze dan word opgeslaan
    * in de databank
    */
-  @Input() inputPage: Page;
-  @Output() changedPage = new EventEmitter<Page>();
+  @Input() inputPage: InputPage;
+  @Output() changedPage = new EventEmitter<InputPage>();
   title: string = '';
 
   /**

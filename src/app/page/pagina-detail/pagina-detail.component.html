@@ -1,4 +1,4 @@
-<div class="paragraph" [ngSwitch]="page.type">
+<div class="page" [ngSwitch]="page.type">
   <app-audio-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().AUDIO"></app-audio-pagina-detail>
   <app-tekst-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().TEXT"></app-tekst-pagina-detail>
   <app-invoer-pagina-detail [page]='page' *ngSwitchCase="getTypePageEnum().INPUT"></app-invoer-pagina-detail>

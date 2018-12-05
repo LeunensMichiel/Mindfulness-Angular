@@ -1,4 +1,4 @@
-import {Page, TextPage, AudioPage, TypePage} from './page.model';
+import {Page, TextPage, AudioPage, TypePage, InputPage} from './page.model';
 import {GenericCollection, GenericItem, GenericItemWithList} from './GenericCollection.model';
 
 export class Exercise extends GenericItemWithList {
@@ -19,14 +19,13 @@ export class Exercise extends GenericItemWithList {
             case 'AUDIO':
               return AudioPage.fromJSON(it);
             case 'INPUT':
-              return Page.fromJSON(it);
+              return InputPage.fromJSON(it);
           }
         }
       }));
     }
 
     ex.id = json._id;
-    console.log(ex);
     return ex;
   }
 

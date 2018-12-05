@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, Inject} from '@angular/core';
-import { Session } from '../../models/session.model';
-import { Exercise } from '../../models/exercise.model';
-import { SessieDataService } from '../sessie-data.service';
+import {Session} from '../../models/session.model';
+import {Exercise} from '../../models/exercise.model';
+import {SessieDataService} from '../sessie-data.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DownloadService} from '../../download.service';
 
@@ -23,18 +23,18 @@ export class SessieComponent implements OnInit {
   @Output() public deleteSession = new EventEmitter<Session>();
   @Output() public modifySession = new EventEmitter<Session>();
   public imageUrl: string;
-  sessionId : string;
-  sessionName : string;
+  sessionId: string;
+  sessionName: string;
 
   constructor(public dialog: MatDialog, private _downloadService: DownloadService) {
-    let random =  Math.floor(Math.random() * (14 - 1) + 1);
+    let random = Math.floor(Math.random() * (14 - 1) + 1);
     this.url = `assets/images/sessie-${random}.jpg`;
 
   }
 
   ngOnInit() {
-    if (this.session.pathImage) {
-      this.showImage(this.session.pathImage);
+    if (this.session.imageFilename) {
+      this.showImage(this.session.imageFilename);
       this.isImageLoading = true;
     }
   }
@@ -61,8 +61,9 @@ export class SessieComponent implements OnInit {
   showImage(imagePath: string) {
     this.isImageLoading = true;
 
-    this._downloadService.getFile(imagePath).subscribe(
+    this._downloadService.getSessionImage(imagePath).subscribe(
       data => {
+
         this.createImageFromBlob(data);
       },
       error => {
@@ -74,7 +75,7 @@ export class SessieComponent implements OnInit {
 
   private createImageFromBlob(image: Blob) {
     let reader = new FileReader();
-    reader.addEventListener("load", () => {
+    reader.addEventListener('load', () => {
       this.image = (reader.result.toString()).split(',')[1];
       this.isImageLoading = false;
 
@@ -92,25 +93,25 @@ export class SessieComponent implements OnInit {
   selector: 'qr-dialog',
   templateUrl: 'qr-dialog.html',
 })
-export class QrDialog implements OnInit{
+export class QrDialog implements OnInit {
   sessionId = this.data.sessionId;
   sessionName = this.data.sessionName;
 
   constructor(
     public dialogRef: MatDialogRef<QrDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) {
-    }
+  }
 
-    ngOnInit(){
-    }
+  ngOnInit() {
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  onDownloadClick():void{
-    this.downloadUrl(document.getElementsByClassName("qrcode").item(0).getElementsByTagName("img").item(0).src, this.sessionName.replace(" ", "_"));
-    console.log(document.getElementsByClassName("qrcode").item(0).getElementsByTagName("img").item(0).src)
+  onDownloadClick(): void {
+    this.downloadUrl(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src, this.sessionName.replace(' ', '_'));
+    console.log(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src);
   }
 
   downloadUrl(url: string, fileName: string) {
@@ -122,7 +123,6 @@ export class QrDialog implements OnInit{
     a.click();
     a.remove();
   };
-
 
 
 }

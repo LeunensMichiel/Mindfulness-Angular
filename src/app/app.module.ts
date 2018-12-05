@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ExerciseCreationComponent } from './exercise/exercise-creation/exercise-creation.component';
@@ -67,6 +67,8 @@ import {DownloadService} from './download.service';
 import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.component';
 import { FeedbackDetailComponent } from './feedback/feedback-detail/feedback-detail.component';
 import {FeedbackDataService} from './feedback/feedback-data.service';
+import { ParagraphDetailComponent } from './page/paragraph-detail/paragraph-detail.component';
+import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,9 @@ import {FeedbackDataService} from './feedback/feedback-data.service';
     GroupModifyComponent,
     RemoveGroupDialog,
     FeedbackListComponent,
-    FeedbackDetailComponent
+    FeedbackDetailComponent,
+    ParagraphDetailComponent,
+    FeedbackFilterPipe
   ],
   imports: [
     BrowserModule,
