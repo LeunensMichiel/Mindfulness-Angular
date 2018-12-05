@@ -20,6 +20,7 @@ export class GroepComponent implements OnInit {
   public errorMsg: string;
   private _users:User[] = null; 
   private _possibleUsers:User[];
+  private selectedOptions:string[] = null;
   displayedColumns: string[] = ['naam', 'vooruitgang'];
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
@@ -108,6 +109,38 @@ export class GroepComponent implements OnInit {
             possibleUsers: this.possibleUsers
           }
         });
+        
+        addUserToGroupDialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            if(result != null && result.length > 0){
+              this.selectedOptions = result;
+              console.log(this.selectedOptions);
+            /*
+            this._groupDataService.jeMethodeVanDataService(this.selectedOptions).subscribe(
+              () => {
+              },
+              (error: HttpErrorResponse) => {
+                this.snackBar.open(`Error ${error.status} tijdens het wijzigen van de groep: ${error.error}`, '',
+                  {
+                    duration: 3000,
+                  });
+              }
+            );*/
+            }
+            else{
+              this.snackBar.open("Geen gebruiker(s) gekozen!", "", 
+              {
+                duration: 3000,
+              });
+            }
+          }
+          if(result == null){
+            this.snackBar.open("Geen gebruiker(s) gekozen!", "", 
+            {
+              duration: 3000,
+            });
+          }
+        }); 
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -175,6 +208,7 @@ export class GroepComponent implements OnInit {
 })
 export class AddUserToGroupDialog {
 
+  private selectedOptions:string[] = null;
   constructor(
     public dialogRef: MatDialogRef<AddUserToGroupDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogGroupData) {
@@ -183,9 +217,14 @@ export class AddUserToGroupDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  public onAreaListControlChanged(list){
+    this.selectedOptions = list.selectedOptions.selected.map(item => item.value);
+}
 }
 
 export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
+  selectedOptions:string[];
 }
