@@ -20,10 +20,11 @@ export class GroepComponent implements OnInit {
   public errorMsg: string;
   private _users:User[] = null; 
   private _possibleUsers:User[];
-  private selectedOptions:User[] = null;
+  private selectedOptions:string[] = null;
   displayedColumns: string[] = ['naam', 'vooruitgang'];
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
+  private moetReloaden = false;
 
   kolomTest: string[] = ['naam'];
 
@@ -113,19 +114,24 @@ export class GroepComponent implements OnInit {
         addUserToGroupDialogRef.afterClosed().subscribe(result => {
           if (result) {
             if(result != null && result.length > 0){
+              this.moetReloaden = true;
               this.selectedOptions = result;
-              console.log(this.selectedOptions);
-            /*
-            this._groupDataService.jeMethodeVanDataService(this.selectedOptions).subscribe(
-              () => {
+              
+            //let body = {group:this.group.id,users:this.selectedOptions}
+            this._groupDataService.addUserToGroup(this.group.id,this.selectedOptions).subscribe(
+              result => {
               },
               (error: HttpErrorResponse) => {
-                this.snackBar.open(`Error ${error.status} tijdens het wijzigen van de groep: ${error.error}`, '',
+                this.snackBar.open(`Error ${error.status} tijdens het wijzigen van de gebruiker(s): ${error.error}`, '',
                   {
                     duration: 3000,
                   });
               }
-            );*/
+            );
+            this.snackBar.open('De gebruiker is succesvol toegevoegd aan ' + this.group.name +'!', '',
+            {
+              duration: 3000,
+            });
             }
             else{
               this.snackBar.open("Geen gebruiker(s) gekozen!", "", 
@@ -149,27 +155,6 @@ export class GroepComponent implements OnInit {
       }
     );
     this._possibleUsers = new Array(); 
-
-    
-
-    /*
-    addUserToGroupDialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        //group.name = result;
-        this._groupDataService.editGroup(this.group).subscribe(
-          () => {
-          },
-          (error: HttpErrorResponse) => {
-            this.snackBar.open(`Error ${error.status} tijdens het wijzigen van de groep ${
-                this.group.name
-                }: ${error.error}`, '',
-              {
-                duration: 3000,
-              });
-          }
-        );
-      }
-    }); */
   }
 
   usersLeeg():boolean{
@@ -180,15 +165,19 @@ export class GroepComponent implements OnInit {
   }
 
   onExpand(){
-    if(this.users == null){
+    if(this.users == null || this.moetReloaden == true){
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
         this._users = result;
         this.alGeladenOfNiet = true;
-        
         if(this._users.length == 0){
           this.leegOfNiet = true;
         }
+        
+        if(this._users.length > 0){
+          this.leegOfNiet = false;
+        }
+        this.moetReloaden = false;
       },
       (error: HttpErrorResponse) => {
         this.errorMsg = `Error ${
@@ -198,7 +187,6 @@ export class GroepComponent implements OnInit {
     );
     this._users = new Array(); 
     }
-
   }
 }
 
@@ -208,7 +196,7 @@ export class GroepComponent implements OnInit {
 })
 export class AddUserToGroupDialog {
 
-  private selectedOptions:User[] = null;
+  private selectedOptions:string[] = null;
   constructor(
     public dialogRef: MatDialogRef<AddUserToGroupDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogGroupData) {
@@ -226,5 +214,5 @@ export class AddUserToGroupDialog {
 export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
-  selectedOptions:User[];
+  selectedOptions:string[];
 }

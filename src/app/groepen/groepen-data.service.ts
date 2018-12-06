@@ -87,4 +87,16 @@ export class GroepenDataService {
         )
       ));
   }
+
+  addUserToGroup(groep:string,userS:string[]):Observable<string>{
+    return this.http
+      .post(`${this._appUrl}/group/addMyUserToMyGroup`,{group:groep,users:userS})
+      .pipe(
+        map((it:any) => {
+            //return it.toString();
+            return it.resultaat;
+          }
+        )
+      );
+  }
 }
