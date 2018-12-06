@@ -21,7 +21,7 @@
 
   <mat-card-content> 
       <mat-accordion class="exppanel">
-        <mat-expansion-panel (opened)="onExpand()">
+        <mat-expansion-panel (opened)="onExpand()" [expanded]="isExpanded">
           <mat-expansion-panel-header>
             <mat-panel-title>
               Groepsleden

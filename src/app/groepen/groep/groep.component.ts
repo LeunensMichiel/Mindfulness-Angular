@@ -25,6 +25,7 @@ export class GroepComponent implements OnInit {
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
   private moetReloaden = false;
+  private isExpanded:boolean;
 
   kolomTest: string[] = ['naam'];
 
@@ -101,6 +102,7 @@ export class GroepComponent implements OnInit {
   }
 
   addUserToAGroup(){
+    this.isExpanded = false;
     this._groupDataService.getPossibleUsers(this.group).subscribe(
       result => {
         this._possibleUsers = result;
@@ -165,6 +167,7 @@ export class GroepComponent implements OnInit {
   }
 
   onExpand(){
+    this.isExpanded = true;
     if(this.users == null || this.moetReloaden == true){
     this._groupDataService.getEmails(this.group).subscribe(
       result => {
