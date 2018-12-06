@@ -21,8 +21,6 @@ export class GroepenDataService {
     .pipe(map((list:any[]): Group[] =>
       list.map(
         it => {
-          console.log(it);
-          console.log(Group.fromJSON(it));
           return Group.fromJSON(it);
         }
       )
@@ -76,5 +74,29 @@ export class GroepenDataService {
           }
         )
       ));
+  }
+
+  getPossibleUsers(group:Group):Observable<User[]>{
+    return this.http
+    .get(`${this._appUrl}/group/getPossibleUsers/${group.id}`)
+    .pipe(map((list:any[]): User[] =>
+        list.map(
+          it => {
+            return User.fromJson(it);
+          }
+        )
+      ));
+  }
+
+  addUserToGroup(groep:string,userS:string[]):Observable<string>{
+    return this.http
+      .post(`${this._appUrl}/group/addMyUserToMyGroup`,{group:groep,users:userS})
+      .pipe(
+        map((it:any) => {
+            //return it.toString();
+            return it.resultaat;
+          }
+        )
+      );
   }
 }

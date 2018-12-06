@@ -1,8 +1,11 @@
+import { Session } from "./session.model";
+
 export class User{
     private _id:string;
     private _firstname:string;
     private _lastname:string;
     private _email:string;
+    private _session:Session;
 
     constructor(){
     }
@@ -19,8 +22,16 @@ export class User{
         return this._lastname;
     }
 
+    public get session():Session{
+        return this._session;
+    }
+
     public set id(value:string){
         this._id = value;
+    }
+
+    public set session(value:Session){
+        this._session = value;
     }
 
     public set firstname(value:string){
@@ -38,9 +49,10 @@ export class User{
     static fromJson(json:any){
         const user = new User();
         user.id = json._id;
-        user.firstname = json._firstname;
-        user.lastname = json._lastname;
+        user.firstname = json.firstname;
+        user.lastname = json.lastname;
         user.email = json.email;
+        user.session = json.current_session_id;
         return user;
     }
 

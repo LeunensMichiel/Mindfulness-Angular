@@ -5,6 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { SessieDataService } from '../../sessie/sessie-data.service';
 import { Sessionmap } from '../../models/sessionmap.model';
+import { User } from '../../models/user.model';
 
 export interface DialogGroupData {
   group_name: string;
@@ -26,7 +27,6 @@ export class GroepenListComponent implements OnInit {
   ngOnInit() {
     this.groepenDataService.groups.subscribe(
       groups => {
-        console.log(groups);
         this._groups = groups;
       },
       (error: HttpErrorResponse) => {
@@ -163,4 +163,6 @@ export class RemoveGroupDialog {
     this.dialogRef.close(true);
   }
 }
+
+
 

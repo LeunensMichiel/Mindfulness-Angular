@@ -1,4 +1,4 @@
-import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ExerciseCreationComponent } from './exercise/exercise-creation/exercise-creation.component';
@@ -19,7 +19,8 @@ import {
   MatExpansionModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTableModule
 } from '@angular/material';
 import { SessieComponent, QrDialog } from './sessie/sessie/sessie.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
@@ -52,6 +53,7 @@ import {SessionResolver} from './sessie/session-resolver.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
+import { AddUserToGroupDialog } from './groepen/groep/groep.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -104,6 +106,8 @@ import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
     GroepComponent,
     GroupModifyComponent,
     RemoveGroupDialog,
+    AddUserToGroupDialog,
+    RemoveGroupDialog,
     FeedbackListComponent,
     FeedbackDetailComponent,
     ParagraphDetailComponent,
@@ -143,7 +147,8 @@ import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableModule
   ],
   providers: [
     basehttpInterceptorProviders,
@@ -171,6 +176,7 @@ import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
     QrDialog,
     RemoveExerciseDialog,
     GroupModifyComponent,
-    RemoveGroupDialog]
+    RemoveGroupDialog,
+    AddUserToGroupDialog]
 })
 export class AppModule { }
