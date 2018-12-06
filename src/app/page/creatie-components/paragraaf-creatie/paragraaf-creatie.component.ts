@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, DoCheck} from '@angular/core';
 import {Paragraph, TypeParagraph} from 'src/app/models/paragraph.model';
 import {DownloadService} from '../../../download.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-paragraaf-creatie',
   templateUrl: './paragraaf-creatie.component.html',
   styleUrls: ['./paragraaf-creatie.component.css']
 })
-export class ParagraafCreatieComponent implements OnInit, DoCheck {
+export class ParagraafCreatieComponent implements OnInit {
   /**
    * VARIABELEN:
    * -newPar: De emitter die de nieuwe paragraph naar tekst-page-creatie stuurt.
@@ -15,8 +16,8 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * -changedParPos: De emitter die de posities van de te wisselen pargrafen doorstuurt.
    * -deletePar: De emitter die de positie van de te verwijderen paragraph doorstuurt.
    */
-  @Input() par:Paragraph;
-  @Input() position:number;
+  @Input() par: Paragraph;
+  @Input() position: number;
   @Input() isLastElement = false;
   @Output() changedParPos = new EventEmitter<any>();
   @Output() changedPar = new EventEmitter<Paragraph>();
@@ -25,8 +26,9 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
 
   public isImageLoading: Boolean = true;
   public image: any;
-  content:string = "";
-  contentImage: any;
+  public paragraphForm: FormGroup;
+
+
   getTypeParagraphEnum() {
     return TypeParagraph;
   }
@@ -35,13 +37,17 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * GIDS:
    * page-creatie-lijst |
    *                      | page-creatie |
-   *                                       | tekst-page-creatie | 
+   *                                       | tekst-page-creatie |
    *                                                              | paragraaf-creatie
    */
-  constructor(private _downloadDataService: DownloadService) { }
+  constructor(private _downloadDataService: DownloadService, private _fb: FormBuilder) {
+  }
 
   ngOnInit() {
-    this.content = this.par.description;
+    this.paragraphForm = this._fb.group({
+      description: [this.par.description, [Validators.maxLength(150)]]
+    });
+
 
     if (this.par.imageFilename) {
       this.showImage(this.par.imageFilename);
@@ -74,35 +80,32 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
       reader.readAsDataURL(image);
     }
   }
-  
 
-  
+
   //------------ PARGRAPH ATTRIBUTEN WIJZIGINGEN ------------
 
   /**
    *  ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
    * dus elke keer als de gebruiker iets wijzigt in de .html.
    * Als deze wijzigingen verschillend zijn van de attributen van de lokale pargraaf
-   * worden deze de nieuwe waarden van de paragraaf. De paragraaf word dan geëmit om 
+   * worden deze de nieuwe waarden van de paragraaf. De paragraaf word dan geëmit om
    * te worden opgeslagen in het page-object
    */
-  ngDoCheck(){
-    if (this.par.description != this.content) {
-      console.log("PARAGRAPH AT POSITION " + this.par.position + " CHANGED");
-      this.par.description = this.content;
+  onChangeDescription() {
+    if (this.paragraphForm.valid && (this.paragraphForm.dirty || this.paragraphForm.touched)) {
+      this.par.description = this.paragraphForm.value.description;
 
-        this.changedPar.emit(this.par);
-
+      this.changedPar.emit(this.par);
     }
+  }
 
-    if (this.contentImage) {
-      this.addImage.emit({
-        file: this.contentImage,
-        par: this.par
-      });
+  onChangeImage(event: any) {
+    let file = event.target.files.item(0)
 
-      this.contentImage = undefined;
-    }
+    this.addImage.emit({
+      file: file,
+      par: this.par
+    });
   }
 
   //------------ PARAGRAPH WIJZIGINGEN ------------
@@ -113,15 +116,15 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * @param direction Toont de richting aan van de verplaatsing.
    * Waarde is altijd "up" of "down".
    */
-  changeParPosition(direction){
+  changeParPosition(direction) {
     let endPos = this.position;
-    (direction == "up")?endPos = -1:endPos = 1;
+    (direction == 'up') ? endPos = -1 : endPos = 1;
     this.changedParPos.emit(
       {
-        startPos:this.position,
-        direction:endPos
+        startPos: this.position,
+        direction: endPos
       }
-    )
+    );
   }
 
   /**
@@ -129,11 +132,12 @@ export class ParagraafCreatieComponent implements OnInit, DoCheck {
    * Retunt false omdat de methode is gebonden aan een click event van een button.
    * Zonder de false return word de methode niet uitgevoerd.
    */
-  removePar():boolean{
-    console.log("PARAGRAPH AT POSITON " + this.par.position + " REMOVED");
+  removePar(): boolean {
+    console.log('PARAGRAPH AT POSITON ' + this.par.position + ' REMOVED');
     this.deletePar.emit(this.par.position);
     return false;
   }
+
   //
   // selectFile(event) {
   //   console.log(this.par);

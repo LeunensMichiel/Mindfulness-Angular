@@ -1,12 +1,15 @@
-import {Component, OnInit, Input, Output, EventEmitter, DoCheck} from '@angular/core';
-import {InputPage} from 'src/app/models/page.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {InputPage, TypeInputPage} from 'src/app/models/page.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CheckListItem} from '../../../models/CheckListItem';
+import {Insert} from '../../../models/Commands/insert.model';
 
 @Component({
   selector: 'app-input-pagina-creatie',
   templateUrl: './input-pagina-creatie.component.html',
   styleUrls: ['./input-pagina-creatie.component.css']
 })
-export class InputPaginaCreatieComponent implements OnInit, DoCheck {
+export class InputPaginaCreatieComponent implements OnInit {
   /**
    * VARIABELEN:
    * changedpage: de emitter die de gewijzigde page naar page-creatie stuurt.
@@ -15,23 +18,27 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    */
   @Input() inputPage: InputPage;
   @Output() changedPage = new EventEmitter<InputPage>();
-  title: string = '';
-
+  public checkListItemForm: FormGroup;
   /**
    * GIDS:
    * page-creatie-lijst |
    *                      | page-creatie |
    *                                       | input-page-creatie
    */
-  constructor() {
-
-
+  constructor(private _fb: FormBuilder) {
+    this.checkListItemForm = this._fb.group({
+      message: ["", [Validators.maxLength(30)]]
+    });
   }
 
   ngOnInit() {
-    console.log(this.inputPage);
-    this.title = this.inputPage.title;
   }
+
+  getTypeInput() {
+    return TypeInputPage;
+  }
+
+
 
   //================== METHODES ==================
 
@@ -45,11 +52,41 @@ export class InputPaginaCreatieComponent implements OnInit, DoCheck {
    * worden deze de nieuwe waarden van de page. De page word dan geëmit om
    * te worden opgeslagen in het exercise-object
    */
-  ngDoCheck(): void {
-    if (this.inputPage.title != this.title) {
-      this.inputPage.title = this.title;
+  onAddCheckListItem(): void {
+    if (this.checkListItemForm.valid && (this.checkListItemForm.dirty || this.checkListItemForm.touched)) {
+      let position = this.inputPage.list.items.length;
+      this.inputPage.list.addItem(new CheckListItem(position, this.checkListItemForm.value.message));
       this.changedPage.emit(this.inputPage);
-      console.log('INPUTPAGE ON POSITION ' + this.inputPage.position + ' CHANGED.');
+      this.checkListItemForm.setValue({message: ""})
     }
+  }
+
+  onChangeCheckListItem(checkListItem: CheckListItem): void {
+    this.inputPage.list.changeItem(checkListItem);
+    this.changedPage.emit(this.inputPage);
+  }
+
+  deleteCheckListItem(checkListItem: CheckListItem): void {
+    this.inputPage.list.deleteItem(checkListItem.position);
+    this.changedPage.emit(this.inputPage);
+  }
+
+  public setType(value) {
+    switch (value) {
+      case "text":
+        this.inputPage.typeInput = TypeInputPage.TEXT;
+        break;
+      case "image":
+        this.inputPage.typeInput = TypeInputPage.IMAGE;
+        break;
+      case "multiple_choice":
+        this.inputPage.typeInput = TypeInputPage.MULTIPLE_CHOICE;
+        break;
+    }
+    this.changedPage.emit(this.inputPage);
+  }
+
+  public typeIsEmpty(): boolean {
+    return this.inputPage.typeInput === TypeInputPage.EMPTY;
   }
 }

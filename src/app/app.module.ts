@@ -68,7 +68,7 @@ import { FeedbackListComponent } from './feedback/feedback-list/feedback-list.co
 import { FeedbackDetailComponent } from './feedback/feedback-detail/feedback-detail.component';
 import {FeedbackDataService} from './feedback/feedback-data.service';
 import { ParagraphDetailComponent } from './page/paragraph-detail/paragraph-detail.component';
-import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
+import { ChecklistItemCreationComponent } from './page/creatie-components/checklist-item/checklist-item-creation.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +107,7 @@ import { FeedbackFilterPipe } from './feedback/feedback-filter.pipe';
     FeedbackListComponent,
     FeedbackDetailComponent,
     ParagraphDetailComponent,
-    FeedbackFilterPipe
+    ChecklistItemCreationComponent
   ],
   imports: [
     BrowserModule,

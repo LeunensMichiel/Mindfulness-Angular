@@ -75,9 +75,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
   private addPage(value) {
-    console.log(value);
-    console.log(this.exercise);
-    var newPage = null;
+    let newPage = null;
     switch (value) {
       case "text":
         newPage = new TextPage();
@@ -89,8 +87,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
         newPage = new InputPage();
         break;
     }
+
     newPage.position = this.exercise.list.items.length;
-    console.log(newPage);
     this.addCommand(new Insert(this.exercise, [newPage]));
   }
 

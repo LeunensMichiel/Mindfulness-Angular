@@ -10,7 +10,7 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
   templateUrl: './audio-pagina-creatie.component.html',
   styleUrls: ['./audio-pagina-creatie.component.css']
 })
-export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
+export class AudioPaginaCreatieComponent implements OnInit {
   /**
    * Article we used for file upload:
    *
@@ -28,7 +28,6 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   @Output() changedPage = new EventEmitter<Page>();
   @Output() onFileAddedToPage = new EventEmitter<Page>();
   @ViewChild('fileInput') fileInputRef: ElementRef;
-  title: string = "";
   pathAudio: string = "";
   audioFile: File;
   audio:any;
@@ -48,7 +47,6 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   constructor(private _pageDataService: PageDataService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.title = this.audioPage.title;
     this.pathAudio = this.audioPage.audioFilename;
 
   }
@@ -56,24 +54,6 @@ export class AudioPaginaCreatieComponent implements OnInit, DoCheck {
   //================== METHODES ==================
 
   //------------ AUDIOPAGE ATTRIBUTEN WIJZIGINGEN ------------
-
-  /**
-   * METHODES:
-   * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
-   * dus elke keer als de gebruiker iets wijzigt in de .html.
-   * Als deze wijzigingen verschillend zijn van de attributen van de lokale page
-   * worden deze de nieuwe waarden van de page. De page word dan geëmit om
-   * te worden opgeslagen in het exercise-object
-   */
-  ngDoCheck(): void {
-    if (this.audioPage.title != this.title){
-      this.audioPage.title = this.title;
-      this.changedPage.emit(this.audioPage);
-      console.log("AUDIOPAGE ON POSITION " + this.audioPage.position + " CHANGED.");
-    }
-
-
-  }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;

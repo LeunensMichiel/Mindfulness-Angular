@@ -1,8 +1,36 @@
-<form>
-  <mat-card-title>
-    <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value' >
-    </mat-form-field>
-  </mat-card-title>
-  <mat-divider [inset]='true'></mat-divider>
-</form>
+<div *ngIf="!typeIsEmpty()">
+  <div [ngSwitch]="inputPage.typeInput">
+    <div *ngSwitchCase="getTypeInput().MULTIPLE_CHOICE">
+      <checklist-item-creation (changedItem)='onChangeCheckListItem($event)' (deleteItem)="deleteCheckListItem($event)"
+                               [checkListItem]='checklistitem' *ngFor='let checklistitem of inputPage.list.items;'>
+      </checklist-item-creation>
+      <form [formGroup]="checkListItemForm">
+        <mat-icon>check_box</mat-icon>
+        <mat-form-field>
+          <input matInput formControlName="message" (change)="onAddCheckListItem()"/>
+        </mat-form-field>
+      </form>
+    </div>
+    <div *ngSwitchCase="getTypeInput().IMAGE">
+      <mat-icon>camera_alt</mat-icon>
+    </div>
+    <div *ngSwitchCase="getTypeInput().TEXT">
+      <mat-icon>text_format</mat-icon>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="typeIsEmpty()" class="inputField">
+  <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
+    <mat-button-toggle (click)='setType(group.value)' value="text" [disableRipple]='true'>
+      <mat-icon>text_format</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle (click)='setType(group.value)' value="image" [disableRipple]='true'>
+      <mat-icon>camera_alt</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle (click)='setType(group.value)' value="multiple_choice" [disableRipple]='true'>
+      <mat-icon>check_box</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

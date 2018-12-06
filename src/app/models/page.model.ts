@@ -1,5 +1,6 @@
-import {Paragraph} from './paragraph.model';
+import {Paragraph, TypeParagraph} from './paragraph.model';
 import {GenericCollection, GenericItem, GenericItemWithList} from './GenericCollection.model';
+import {CheckListItem} from './CheckListItem';
 
 export class Page extends GenericItemWithList {
   private _type: TypePage;
@@ -17,12 +18,7 @@ export class Page extends GenericItemWithList {
     this._type = value;
   }
 
-  // static fromJSON(json: any) {
-  //   let page = new Page(json.position, json.title);
-  //   page.id = json._id;
-  //   return page;
-  //
-  // }
+
 
   toJSON() {
     return {
@@ -113,14 +109,15 @@ export class TextPage extends Page {
 
 export enum TypeInputPage {
   TEXT,
-  PICTURE,
-  MULTIPLE_CHOICE
+  IMAGE,
+  MULTIPLE_CHOICE,
+  EMPTY
 }
 
 export class InputPage extends Page {
   private _typeInput: TypeInputPage;
 
-  constructor(position: number = 0, title: string = '', typeInput: TypeInputPage = undefined) {
+  constructor(position: number = 0, title: string = '', typeInput: TypeInputPage = TypeInputPage.EMPTY) {
     super(position, title, TypePage.INPUT);
     this.typeInput = typeInput;
   }
@@ -139,24 +136,41 @@ export class InputPage extends Page {
       case 'TEXT': {
         return TypeInputPage.TEXT;
       }
-      case 'PICTURE': {
-        return TypeInputPage.PICTURE;
+      case 'IMAGE': {
+        return TypeInputPage.IMAGE;
       }
       case 'MULTIPLE_CHOICE': {
         return TypeInputPage.MULTIPLE_CHOICE;
       }
+      case 'EMPTY': {
+        return TypeInputPage.EMPTY;
+      }
     }
 
-    return null;
   }
 
+  convertType(): string {
+    console.log(this.typeInput);
+    switch (this.typeInput) {
+      case TypeInputPage.IMAGE:
+        return 'IMAGE';
+      case TypeInputPage.TEXT:
+        return 'TEXT';
+      case TypeInputPage.MULTIPLE_CHOICE:
+        return 'MULTIPLE_CHOICE';
+      case TypeInputPage.EMPTY:
+        return 'EMPTY';
+    }
+  }
 
   toJSON() {
     return {
-      type: 'INPUT',
-      _id: this.id,
-      title: this.title,
+      type_input: this.convertType(),
       position: this.position,
+      multiple_choice_items: this.list.items.map(it => {
+        let item = it as CheckListItem;
+        return item.toJSON();
+      }),
       ...super.toJSON()
     };
   }
@@ -169,7 +183,7 @@ export class InputPage extends Page {
       if (json.multiple_choice_items.length !== 0) {
         page.list = new GenericCollection(json.multiple_choice_items.map(
           it => {
-            return MultipleChoiceItem.fromJSON(it);
+            return CheckListItem.fromJSON(it);
           }
         ));
       }
@@ -180,35 +194,6 @@ export class InputPage extends Page {
 
 }
 
-export class MultipleChoiceItem extends GenericItem {
 
-  constructor(position: number = 0, message: string = '') {
-    super(position, message);
-  }
-
-  get message(): string {
-    return this.title;
-  }
-
-  set message(message: string) {
-    this.title = message;
-  }
-
-  static fromJSON(json: any): MultipleChoiceItem {
-    let multipleChoiceItem = new MultipleChoiceItem(json.position, json.message);
-
-    multipleChoiceItem.id = json._id;
-
-    return multipleChoiceItem;
-  }
-
-  toJSON() {
-    return {
-      message: this.message,
-      ...super.toJSON()
-    };
-  }
-
-}
 
 

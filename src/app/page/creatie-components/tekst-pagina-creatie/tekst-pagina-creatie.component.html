@@ -1,25 +1,19 @@
-<form>
-  <mat-card-title>
-    <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value' placeholder="Pagina titel">
-    </mat-form-field>
-  </mat-card-title>
-  <mat-divider [inset]='true'></mat-divider>
-  <div class="paragraphContainer">
-    <app-paragraaf-creatie  (newPar)='addPar($event)' (changedParPos)='changeParPos($event)' (changedPar)='changePar($event)' (deletePar)='deletePar($event)' (addImage)="addImage($event)" [position]='i' [par]='par' *ngFor='let par of textPage.list.items; let i = index'>
+<div class="paragraphContainer">
+  <app-paragraaf-creatie (newPar)='addPar($event)' (changedParPos)='changeParPos($event)'
+                         (changedPar)='changePar($event)' (deletePar)='deletePar($event)' (addImage)="addImage($event)"
+                         [position]='i' [par]='par' *ngFor='let par of textPage.list.items; let i = index'>
 
-    </app-paragraaf-creatie>
-    <div class="typeSelectParent">
-      <div class="typeSelect">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
-          <mat-button-toggle value="TEXT" (click)='addPar(group.value)'>
-            <mat-icon>text_format</mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle value="IMAGE" (click)='addPar(group.value)'>
-            <mat-icon>image</mat-icon>
-          </mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
+  </app-paragraaf-creatie>
+  <div class="typeSelectParent">
+    <div class="typeSelect">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
+        <mat-button-toggle value="TEXT" (click)='addPar(group.value)'>
+          <mat-icon>text_format</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="IMAGE" (click)='addPar(group.value)'>
+          <mat-icon>image</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
   </div>
-</form>
+</div>
