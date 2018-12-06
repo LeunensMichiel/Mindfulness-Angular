@@ -20,6 +20,7 @@ export class PageDataService {
   addPageToExercise(exerciseId: String, page: Page): Observable<Page> {
     console.log(page);
     const pageJson = page.toJSON();
+    console.log(pageJson);
     return this.http
       .post(`${this._appUrl}/page`, {...pageJson, exercise_id: exerciseId})
       .pipe(
@@ -29,10 +30,6 @@ export class PageDataService {
         )
       );
   }
-
-
-
-
 
   removePage(page_id: String) {
     return this.http

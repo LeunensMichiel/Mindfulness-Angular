@@ -1,0 +1,9 @@
+<form [formGroup]="checkListItemForm">
+  <mat-icon>check_box</mat-icon>
+  <mat-form-field>
+    <input matInput formControlName="message" (change)="onChangeCheckListItem()"/>
+  </mat-form-field>
+  <button mat-icon-button type="button" (click)='deletePage()'>
+    <mat-icon>clear</mat-icon>
+  </button>
+</form>

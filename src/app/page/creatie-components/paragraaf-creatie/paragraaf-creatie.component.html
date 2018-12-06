@@ -1,22 +1,12 @@
-<!-- <div class="typeSelectParent">
-  <div class="typeSelect">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" #group="matButtonToggleGroup">
-      <mat-button-toggle value="text" (click)='addPar(group.value)'>
-        <mat-icon>text_format</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle value="image" (click)='addPar(group.value)'>
-        <mat-icon>image</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-</div> -->
+
 <mat-card class="parAnimClass">
   <div class="closeButton">
     <button mat-icon-button (click)='removePar()'>
       <mat-icon>clear</mat-icon>
     </button>
   </div>
-  <mat-button-toggle-group class='buttonGroup' [vertical]='true' name="fontStyle" aria-label="Font Style" #direction="matButtonToggleGroup">
+  <mat-button-toggle-group class='buttonGroup' [vertical]='true' name="fontStyle" aria-label="Font Style"
+                           #direction="matButtonToggleGroup">
     <mat-button-toggle value="up" (click)='changeParPosition(direction.value)'>
       <mat-icon>arrow_upward</mat-icon>
     </mat-button-toggle>
@@ -25,23 +15,27 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
   <div class="paragraph" [ngSwitch]='par.type'>
-    <mat-form-field *ngSwitchCase="getTypeParagraphEnum().TEXT">
-      <textarea matInput value="{{par.description}}" (change)='content = $event.currentTarget.value'></textarea>
-    </mat-form-field>
+    <form [formGroup]="paragraphForm">
+      <mat-form-field *ngSwitchCase="getTypeParagraphEnum().TEXT">
+        <textarea matInput formControlName="description"  (change)='onChangeDescription()'></textarea>
+      </mat-form-field>
+    </form>
     <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
       <div class="imgInputChild">
         <p>{{par.imageFilename}}</p>
-        <img  *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card" mat-card-image>
+        <img *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card"
+             mat-card-image>
 
         <p></p>
         <label for="profile_pic{{par.id}}">
           <i class="material-icons md-18">cloud_upload</i>
         </label>
-        <input type="file" id="profile_pic{{par.id}}"  name="profile_pic" (change)='contentImage = $event.target.files.item(0)'>
+        <input type="file" id="profile_pic{{par.id}}" name="profile_pic"
+               (change)='onChangeImage($event)'>
       </div>
       <!--<img *ngIf="!isImageLoading; else noImageFound" src="data:image/png;base64,{{image}}" alt="Paragraaf Foto">-->
       <!--<ng-template #noImageFound>-->
-        <!--<img  src="assets/images/sessie-1.jpg" alt="Calm Foto">-->
+      <!--<img  src="assets/images/sessie-1.jpg" alt="Calm Foto">-->
       <!--</ng-template>-->
     </div>
   </div>

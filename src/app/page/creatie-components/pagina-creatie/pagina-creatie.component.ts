@@ -11,6 +11,7 @@ import {
   // ...
 } from '@angular/animations';
 import {Cmd} from 'src/app/models/Commands/command.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-pagina-creatie',
@@ -78,17 +79,19 @@ export class PaginaCreatieComponent implements OnInit {
   public clicked = false;
   public dragging = this.viewBeingDragged && (!this.clicked);
   public draggable = false;
-
+  public pageForm: FormGroup;
   /**
    * GIDS:
    * page-creatie-lijst |
    *                      | page-creatie
    */
-  constructor() {
+  constructor(private _fb: FormBuilder) {
   }
 
   ngOnInit() {
-    console.log(this.page.constructor.name);
+    this.pageForm = this._fb.group({
+      title: [this.page.title, [Validators.maxLength(30)]]
+    });
   }
 
   //================== METHODES ==================
@@ -102,6 +105,14 @@ export class PaginaCreatieComponent implements OnInit {
   }
 
   //------------ PAGE OPERATIES ------------
+
+  onChangeTitle(): void {
+    if ((this.pageForm.dirty || this.pageForm.touched) && this.pageForm.valid) {
+      this.page.title = this.pageForm.value.title;
+
+      this.saveChangedPage(this.page);
+    }
+  }
 
   /**
    * Een nieuwe page word toegevoegd. De positie van de nieuwe page word

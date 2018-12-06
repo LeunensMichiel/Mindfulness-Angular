@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material';
   templateUrl: './tekst-pagina-creatie.component.html',
   styleUrls: ['./tekst-pagina-creatie.component.css']
 })
-export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
+export class TekstPaginaCreatieComponent implements OnInit {
   /**
    * VARIABELEN:
    * changedpage: de emitter die de gewijzigde page naar page-creatie stuurt.
@@ -38,26 +38,10 @@ export class TekstPaginaCreatieComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.title = this.textPage.title;
   }
 
   //================== METHODES ==================
 
-  //------------ TEXTPAGE ATTRIBUTEN WIJZIGINGEN ------------
-
-  /**$
-   * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
-   * dus elke keer als de gebruiker iets wijzigt in de .html.
-   * Als deze wijzigingen verschillend zijn van de attributen van de lokale page
-   * worden deze de nieuwe waarden van de page. De page word dan geëmit om
-   * te worden opgeslagen in het exercise-object
-   */
-  ngDoCheck(): void {
-    if (this.textPage.title != this.title) {
-      this.textPage.title = this.title;
-      this.changedPage.emit(this.textPage);
-    }
-  }
 
   //------------ TEXTPAGE PARAGRAPHS WIJZIGINGEN ------------
 

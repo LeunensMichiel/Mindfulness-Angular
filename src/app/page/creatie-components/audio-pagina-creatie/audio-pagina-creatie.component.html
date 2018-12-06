@@ -1,11 +1,4 @@
 <form *ngIf="!currentFileUpload">
-  <mat-card-title>
-    <mat-form-field class="titleInput">
-      <input matInput class="textInput" value="{{title}}" (change)='title = $event.currentTarget.value'>
-    </mat-form-field>
-  </mat-card-title>
-  <mat-divider [inset]='true'></mat-divider>
-
   <div class="audioInputContainer">
     <label for="profile_pic{{audioPage.id}}">
       <i class="material-icons md-18">cloud_upload</i>
