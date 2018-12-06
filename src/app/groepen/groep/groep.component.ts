@@ -21,7 +21,7 @@ export class GroepComponent implements OnInit {
   private _users:User[] = null; 
   private _possibleUsers:User[];
   private selectedOptions:string[] = null;
-  displayedColumns: string[] = ['naam', 'vooruitgang'];
+  displayedColumns: string[] = ['naam', 'vooruitgang','button'];
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
   private moetReloaden = false;
@@ -99,6 +99,28 @@ export class GroepComponent implements OnInit {
 
   editGroup(){
     this.modifyGroup.emit(this.group);
+  }
+
+  deleteThisUserFromGroup(id:string){
+    let idArray = [];
+    idArray.push(id);
+    
+    this._groupDataService.deleteUserFromGroup(idArray).subscribe(
+      result => {
+        this.isExpanded = false;
+        this.moetReloaden = true;
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} tijdens het verwijderen van de gebruiker uit de groep: ${error.error}`, '',
+          {
+            duration: 3000,
+          });
+      }
+    ); 
+    this.snackBar.open('De gebruiker is succesvol verwijderd uit ' + this.group.name +'!', '',
+    {
+      duration: 3000,
+    });
   }
 
   addUserToAGroup(){

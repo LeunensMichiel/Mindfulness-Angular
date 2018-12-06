@@ -99,4 +99,16 @@ export class GroepenDataService {
         )
       );
   }
+
+  deleteUserFromGroup(id:string[]):Observable<string>{
+    console.log(id);
+    return this.http
+      .post(`${this._appUrl}/group/deleteUserFromGroup`,{users:id})
+      .pipe(
+        map((it:any) => {
+            return it.resultaat;
+          }
+        )
+      );
+  }
 }
