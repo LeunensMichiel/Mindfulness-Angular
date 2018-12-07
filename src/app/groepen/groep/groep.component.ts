@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { Notification } from '../../models/notification.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-groep',
@@ -228,6 +229,7 @@ export class GroepComponent implements OnInit {
         console.log(result);
         console.log("notificatie verstuurd");
         this.notification = result;
+        console.log(this.notification);
 
         //group.name = result;
         /*
@@ -279,19 +281,40 @@ export interface DialogGroupData {
   selector: 'dialog-sendnotif-group',
   templateUrl: 'dialog-sendnotif-group.html',
 })
-export class SendNotifDialog {
+export class SendNotifDialog implements OnInit{
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      notification_title: ['', Validators.required],
+      notification_beschrijving: ['', Validators.required],
+      notification_launchtijdstip: ['',Validators.required]
+  });
+  }
   private notification:Notification;
+  private notification_title:string;
+  private notification_beschrijving:string;
+  private notification_launchtijdstip:Date;
+  form: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<SendNotifDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogNotifData,
-    public snackBar: MatSnackBar) {
+    //@Inject(MAT_DIALOG_DATA) public data: DialogNotifData,
+    @Inject(MAT_DIALOG_DATA) {notification_title,notification_beschrijving,
+      notification_launchtijdstip}:Notification,
+    public snackBar: MatSnackBar,
+    private fb: FormBuilder) {
+
+      this.form = fb.group({
+        notification_title: [notification_title, Validators.required],
+        notification_beschrijving: [notification_beschrijving, Validators.required],
+        notification_launchtijdstip: [notification_launchtijdstip,Validators.required]
+    });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /*
   onYesClick(notification_title:string,notification_beschrijving:string,notification_launchtijdstip:Date):void{
     console.log(notification_title + " " +notification_beschrijving + " " + notification_launchtijdstip);
     if(notification_title == undefined || notification_beschrijving == undefined || notification_launchtijdstip == undefined)
@@ -308,7 +331,20 @@ export class SendNotifDialog {
     this.notification.notification_launchtijdstip = notification_launchtijdstip;
     this.dialogRef.close(this.notification);
     }
-  }
+  } */
+
+    onJaClick(){
+      if(this.form.valid){
+        this.dialogRef.close(this.form.value);
+      }
+      else{
+        this.snackBar.open("Vul alstublieft alle velden in!", "",
+        {
+          duration: 3000,
+        });
+      }
+    }
+  
 
 }
 
