@@ -213,6 +213,33 @@ export class GroepComponent implements OnInit {
     this._users = new Array(); 
     }
   }
+
+  sendNotificationToGroup(){
+    const sendNotifToGroupDialoRef = this.dialog.open(SendNotifDialog, {
+      data: {
+        group_name: this.group.name
+      }
+    });
+    sendNotifToGroupDialoRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log("notificatie verstuurd");
+        //group.name = result;
+        /*
+        this._groupDataService.editGroup(this.group).subscribe(
+          () => {
+          },
+          (error: HttpErrorResponse) => {
+            this.snackBar.open(`Error ${error.status} tijdens het verzenden van een notifciatie naar de groep ${
+                this.group.name
+                }: ${error.error}`, '',
+              {
+                duration: 3000,
+              });
+          }
+        ); */
+      }
+    });
+  } 
 }
 
 @Component({
@@ -240,4 +267,25 @@ export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
   selectedOptions:string[];
+}
+
+@Component({
+  selector: 'dialog-sendnotif-group',
+  templateUrl: 'dialog-sendnotif-group.html',
+})
+export class SendNotifDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<SendNotifDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogNotifData) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+export interface DialogNotifData {
+  group_name: string;
+
 }
