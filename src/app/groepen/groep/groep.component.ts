@@ -294,6 +294,7 @@ export class SendNotifDialog implements OnInit{
   private notification_beschrijving:string;
   private notification_launchtijdstip:Date;
   form: FormGroup;
+  minDate = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<SendNotifDialog>,
