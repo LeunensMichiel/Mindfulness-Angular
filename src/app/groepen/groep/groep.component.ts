@@ -152,7 +152,7 @@ export class GroepComponent implements OnInit {
                   });
               }
             );
-            this.snackBar.open('De gebruiker is succesvol toegevoegd aan ' + this.group.name +'!', '',
+            this.snackBar.open('De gebruiker is succesvol toegevoegd aan ' + this.group.name +' en verwijderd uit zijn vorige groep!', '',
             {
               duration: 3000,
             });
