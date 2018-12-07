@@ -6,6 +6,7 @@ import { EMPTY_ARRAY } from '@angular/core/src/render3/definition';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { Notification } from '../../models/notification.model';
 
 @Component({
   selector: 'app-groep',
@@ -26,6 +27,7 @@ export class GroepComponent implements OnInit {
   private alGeladenOfNiet = false;
   private moetReloaden = false;
   private isExpanded:boolean;
+  private notification:Notification;
 
   kolomTest: string[] = ['naam'];
 
@@ -220,9 +222,13 @@ export class GroepComponent implements OnInit {
         group_name: this.group.name
       }
     });
+
     sendNotifToGroupDialoRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         console.log("notificatie verstuurd");
+        this.notification = result;
+
         //group.name = result;
         /*
         this._groupDataService.editGroup(this.group).subscribe(
@@ -274,18 +280,41 @@ export interface DialogGroupData {
   templateUrl: 'dialog-sendnotif-group.html',
 })
 export class SendNotifDialog {
+  private notification:Notification;
 
   constructor(
     public dialogRef: MatDialogRef<SendNotifDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogNotifData) {
+    @Inject(MAT_DIALOG_DATA) public data: DialogNotifData,
+    public snackBar: MatSnackBar) {
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onYesClick(notification_title:string,notification_beschrijving:string,notification_launchtijdstip:Date):void{
+    console.log(notification_title + " " +notification_beschrijving + " " + notification_launchtijdstip);
+    if(notification_title == undefined || notification_beschrijving == undefined || notification_launchtijdstip == undefined)
+    {
+      //this.dialogRef.disableClose = true;
+      this.snackBar.open('Alle velden moeten ingevuld zijn!', '',
+            {
+              duration: 3000,
+            });
+    }
+    else{
+    this.notification = new Notification(notification_title);
+    this.notification.notification_beschrijving = notification_beschrijving;
+    this.notification.notification_launchtijdstip = notification_launchtijdstip;
+    this.dialogRef.close(this.notification);
+    }
+  }
+
 }
 
 export interface DialogNotifData {
   group_name: string;
-
+  notification_title:string;
+  notification_beschrijving:string;
+  notification_launchtijdstip:Date;
 }
