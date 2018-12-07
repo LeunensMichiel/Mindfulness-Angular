@@ -65,6 +65,17 @@ export class PageDataService {
 
   }
 
+  updatePagesPos(page1: Page, page2: Page): Observable<string> {
+    return this.http
+      .post(`${this._appUrl}/page/changepos`, {page1: page1, page2: page2})
+      .pipe(
+        map((it: any) => {
+            return it.result;
+          }
+        )
+      );
+  }
+
   updatePageParagraphFile(page: Page, paragraph: Paragraph, file: File): Observable<HttpEvent<{}>> {
     const formData: FormData = new FormData();
 

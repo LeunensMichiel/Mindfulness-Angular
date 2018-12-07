@@ -19,7 +19,6 @@ export class Page extends GenericItemWithList {
   }
 
 
-
   toJSON() {
     return {
       type: TypePage[this.type],
@@ -150,7 +149,6 @@ export class InputPage extends Page {
   }
 
   convertType(): string {
-    console.log(this.typeInput);
     switch (this.typeInput) {
       case TypeInputPage.IMAGE:
         return 'IMAGE';
