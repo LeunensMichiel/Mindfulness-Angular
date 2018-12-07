@@ -25,7 +25,13 @@ export class ExerciseDetailComponent implements OnInit {
   }
 
   get pages() {
-    return this.exercise.list.items;
+
+    return this.exercise.list.items.filter(it => {
+      if (it) {
+        return  (it !== (undefined || null));
+      }
+    });
+
   }
 
 
