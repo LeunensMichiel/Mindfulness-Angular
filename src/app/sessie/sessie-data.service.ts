@@ -57,4 +57,19 @@ export class SessieDataService {
         return Session.fromJSON(it);
       }));
   }
+
+  editSessionWithImage(session: Session): Observable<HttpEvent<{}>>{
+
+    const formdata: FormData = new FormData();
+
+    formdata.append('session_image', session.file);
+    formdata.append('session', JSON.stringify(session.toJSON()));
+
+    const req = new HttpRequest('PUT', `${this._appUrl}/sessionWithImage/${session.id}`, formdata, {
+      reportProgress: true
+    });
+
+    return this.http.request(req);
+
+  }
 }

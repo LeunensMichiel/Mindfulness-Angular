@@ -1,7 +1,7 @@
 import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {Session} from '../../models/session.model';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SessieDataService} from '../sessie-data.service';
 import {DialogCourseData} from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {Sessionmap} from '../../models/sessionmap.model';
 import {GenericItem} from '../../models/GenericCollection.model';
 import {AudioPage} from '../../models/page.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 export interface DialogCourseData {
   session_title: string;
@@ -69,28 +70,52 @@ export class SessieLijstComponent implements OnInit {
   }
 
   editSession(session: Session) {
-    const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, {
-      data: {
-        session_title: session.title
-      }
-    });
+    const modifyCourseDialogConfig = new MatDialogConfig();
+
+    modifyCourseDialogConfig.data = session;
+
+    const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, modifyCourseDialogConfig);
+
+
     modifyCourseDialoRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result);
-        session.title = result;
-        this._sessionDataService.editSession(session).subscribe(
-          () => {
+        session.title = result.title;
+        console.log(session.title);
+        session.description = result.description;
+        session.file = result.image;
+        if(result.image == null)
+        {
+          this._sessionDataService.editSession(session).subscribe(
+            () => {
 
-          },
-          (error: HttpErrorResponse) => {
-            this.snackBar.open(`Error ${error.status} while editing session for ${
-                session.title
-                }: ${error.error}`, '',
-              {
-                duration: 10000,
-              });
-          }
-        );
+            },
+            (error: HttpErrorResponse) => {
+              this.snackBar.open(`Error ${error.status} while editing session for ${
+                  session.title
+                  }: ${error.error}`, '',
+                {
+                  duration: 10000,
+                });
+            }
+          )
+        }else{
+          console.log(session);
+          this._sessionDataService.editSessionWithImage(session).subscribe(
+            () => {
+  
+            },
+            (error: HttpErrorResponse) => {
+              this.snackBar.open(`Error ${error.status} while editing session for ${
+                  session.title
+                  }: ${error.error}`, '',
+                {
+                  duration: 10000,
+                });
+            }
+          );
+        }
+
       }
     });
   }
@@ -154,12 +179,36 @@ export class RemoveSessieDialog {
 })
 export class SessieModifyComponent {
 
+  selectedFiles: FileList;
+
+  form: FormGroup;
+
   constructor(
+    private fb: FormBuilder,
     public dialogRef: MatDialogRef<SessieModifyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogCourseData) {
+    @Inject(MAT_DIALOG_DATA) session:Session) {
+
+      this.form = fb.group({
+        title: [session.title],
+        description: [session.description],
+        image:[]
+    });
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+    console.log(event.target.files);
+    this.form.value.image = this.selectedFiles.item(0);
+    
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  save() {
+    
+    this.dialogRef.close(this.form.value);
+    
   }
 }
