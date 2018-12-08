@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthenticationService} from './authentication.service';
+import {AuthenticationService} from '../user/authentication.service';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 
-@Injectable()
-export class AuthGuardService implements CanActivate{
+@Injectable({
+  providedIn: 'root'
+})
+export class NotActiveAuthGuard {
 
   constructor(private _authtenticationService: AuthenticationService, private router: Router) {}
 
@@ -11,20 +13,12 @@ export class AuthGuardService implements CanActivate{
     let admin = this._authtenticationService.user$.getValue();
 
     if (admin) {
-
       if (admin.role.admin || admin.role.superAdmin) {
-        console.log(admin);
-        if (admin.adminActive) {
-          return true;
-        } else {
-          this.router.navigate(['/not-active']);
-          return false;
-        }
+        return true;
       }
     }
 
     this._authtenticationService.redirectUrl = state.url;
     this.router.navigate(['/login']);
     return false;
-  }
-}
+  }}

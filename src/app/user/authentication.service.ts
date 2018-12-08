@@ -41,7 +41,7 @@ export class AuthenticationService {
 
         } else {
           admin = Admin.fromJSON(
-            localStorage.getItem(this.currentUserKey)
+            JSON.parse(localStorage.getItem(this.currentUserKey))
           );
         }
       }
@@ -85,9 +85,7 @@ export class AuthenticationService {
 
     let admin = Admin.fromJSON(decodedToken);
     admin.token = json;
-    console.log(admin);
     if (admin.token) {
-      console.log(admin.toJSON());
       localStorage.setItem(this.currentUserKey, JSON.stringify(admin.toJSON()));
       this._user$.next(admin);
       return true;

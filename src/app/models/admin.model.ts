@@ -1,4 +1,5 @@
 
+
 export class Admin {
 
   private _firstname: string;
@@ -6,12 +7,32 @@ export class Admin {
   private _email: string;
   private _token: string;
   private _id: string;
+  private _adminActive: boolean;
+  private _role: Role;
 
-
-  constructor(firstname: string = '', lastname: string = '', email: string = '') {
+  constructor(firstname: string = '', lastname: string = '', email: string = '', role: Role = new Role(), adminActif: boolean = false) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
+    this.role = role;
+    this.adminActive = adminActif;
+  }
+
+
+  get adminActive(): boolean {
+    return this._adminActive;
+  }
+
+  set adminActive(value: boolean) {
+    this._adminActive = value;
+  }
+
+  get role(): Role {
+    return this._role;
+  }
+
+  set role(value: Role) {
+    this._role = value;
   }
 
   get id(): string {
@@ -59,7 +80,16 @@ export class Admin {
   }
 
   static fromJSON(json: any): Admin {
-    let admin = new Admin(json.firstname, json.lastname, json.email);
+    let admin = new Admin(
+      json.firstname,
+      json.lastname,
+      json.email,
+      json.admin_active
+    );
+
+    if (json.hasOwnProperty("roles")){
+      admin.role = Role.fromJSON(json.roles);
+    }
 
     admin.id = json._id;
 
@@ -71,11 +101,51 @@ export class Admin {
       firstname: this.firstname,
       lastname: this.lastname,
       email: this.email,
-      token: this.token
+      admin_active: this.adminActive,
+      roles: this.role.toJSON(),
+      token: this.token,
     };
   }
 
   toString(): string {
     return this.generateFullname()
+  }
+}
+
+export class Role {
+  private _admin: boolean;
+  private _superAdmin: boolean;
+
+  constructor(admin: boolean = false, superAdmin: boolean = false) {
+    this.admin = admin;
+    this.superAdmin = superAdmin;
+  }
+
+
+  get admin(): boolean {
+    return this._admin;
+  }
+
+  set admin(value: boolean) {
+    this._admin = value;
+  }
+
+  get superAdmin(): boolean {
+    return this._superAdmin;
+  }
+
+  set superAdmin(value: boolean) {
+    this._superAdmin = value;
+  }
+
+  static fromJSON(json: any): Role {
+    return new Role(json.admin, json.super_admin);
+  }
+
+  toJSON() {
+    return {
+      admin: this.admin,
+      super_admin: this.superAdmin
+    }
   }
 }
