@@ -77,6 +77,7 @@ import {SuperAdminAuthGuard} from './super-admin/super-admin-auth-guard.service'
 import { NotActiveComponent } from './not-actif/not-active.component';
 import {SuperAdminModule} from './super-admin/super-admin.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ParagraphDetailComponent,
     ChecklistItemCreationComponent,
     NotActiveComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CheckListItemDetailComponent
   ],
   imports: [
     BrowserModule,

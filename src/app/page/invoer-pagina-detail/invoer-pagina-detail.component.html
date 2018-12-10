@@ -1,2 +1,16 @@
 <p class="inputTitle">{{page.title}}</p>
-<div class="inputArea"></div>
+<div class="inputArea" *ngIf="!typeIsEmpty()">
+  <div [ngSwitch]="page.typeInput">
+    <div *ngSwitchCase="getTypeInput().MULTIPLE_CHOICE">
+      <check-list-item-detail [checkListItem]='checkListItem' *ngFor="let checkListItem of page.list.items;">
+      </check-list-item-detail>
+    </div>
+    <div *ngSwitchCase="getTypeInput().IMAGE">
+      <mat-icon>camera_alt</mat-icon>
+    </div>
+    <div *ngSwitchCase="getTypeInput().TEXT">
+      <mat-icon>text_format</mat-icon>
+    </div>
+  </div>
+
+</div>
