@@ -51,9 +51,11 @@ import { ParagraafCreatieComponent } from './page/creatie-components/paragraaf-c
 import { SessieToevoegenComponent } from './sessie/sessie-toevoegen/sessie-toevoegen.component';
 import {SessionResolver} from './sessie/session-resolver.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { AddUserToGroupDialog } from './groepen/groep/groep.component';
+import { SendNotifDialog } from './groepen/groep/groep.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -107,6 +109,7 @@ import { ChecklistItemCreationComponent } from './page/creatie-components/checkl
     GroupModifyComponent,
     RemoveGroupDialog,
     AddUserToGroupDialog,
+    SendNotifDialog,
     RemoveGroupDialog,
     FeedbackListComponent,
     FeedbackDetailComponent,
@@ -148,7 +151,9 @@ import { ChecklistItemCreationComponent } from './page/creatie-components/checkl
     MatSelectModule,
     MatFormFieldModule,
     MatSlideToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     basehttpInterceptorProviders,
@@ -177,6 +182,7 @@ import { ChecklistItemCreationComponent } from './page/creatie-components/checkl
     RemoveExerciseDialog,
     GroupModifyComponent,
     RemoveGroupDialog,
-    AddUserToGroupDialog]
+    AddUserToGroupDialog,
+    SendNotifDialog]
 })
 export class AppModule { }
