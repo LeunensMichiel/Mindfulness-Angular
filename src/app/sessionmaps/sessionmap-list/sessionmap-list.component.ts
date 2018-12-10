@@ -37,7 +37,7 @@ export class SessionmapListComponent implements OnInit {
           } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
-    this._sessionmaps = new Array();
+    this._sessionmaps = [];
   }
 
   get sesmaps() {
@@ -85,9 +85,10 @@ export class SessionmapListComponent implements OnInit {
             }
           );
         } else {
-          this.selectedSessionmap.titleCourse = result;
           this._sessionmapDataService.updateSessionMap(this._selectedSessionmap).subscribe(
             () => {
+              this.selectedSessionmap.titleCourse = result;
+
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while editing  ${

@@ -7,10 +7,14 @@
       <h1 class="example-app-name">
         <a mat-list-item routerLinkActive='active' routerLink="/course-list" class="vet">MINDFULNESS</a>
       </h1>
-      <span class="example-spacer"></span>
-      <a routerLink="/feedback">
-        <mat-icon class="example-icon" #loginlink>feedback</mat-icon>
+      <span class="example-spacer" ></span>
+      <a routerLink="/beheerders"  *ngIf="(isSuperAdmin | async)">
+        <mat-icon class="example-icon">verified_user</mat-icon>
       </a>
+      <a routerLink="/feedback" *ngIf='(currentUser | async)'>
+        <mat-icon class="example-icon">feedback</mat-icon>
+      </a>
+
     </mat-toolbar-row>
   </mat-toolbar>
 

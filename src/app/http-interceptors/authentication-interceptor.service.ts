@@ -12,6 +12,7 @@ export class AuthenticationInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     if(this.authenticationDataService.user$) {
       const clonedRequest = req.clone({
 
