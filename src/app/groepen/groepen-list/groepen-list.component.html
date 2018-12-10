@@ -8,6 +8,10 @@
   </div>
 </div>
 
+<button mat-icon-button (click)="voegGroepToeV2()" class="creatiebtn">
+  <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+</button>
+
 <div *ngIf='creating' class="creatiebtn">
   <app-groep-creatie (addedGroup)="addGroup($event)" (disable)='creating = !creating'></app-groep-creatie>
 </div>

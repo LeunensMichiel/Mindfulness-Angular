@@ -56,6 +56,7 @@ import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { AddUserToGroupDialog } from './groepen/groep/groep.component';
 import { SendNotifDialog } from './groepen/groep/groep.component';
+import { AddGroupDialog } from './groepen/groepen-list/groepen-list.component'
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -120,7 +121,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ParagraphDetailComponent,
     ChecklistItemCreationComponent,
     NotActiveComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AddGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -191,6 +193,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     GroupModifyComponent,
     RemoveGroupDialog,
     AddUserToGroupDialog,
+    AddGroupDialog,
     SendNotifDialog]
 })
 export class AppModule { }
