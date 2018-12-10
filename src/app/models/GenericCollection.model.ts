@@ -1,4 +1,4 @@
-export class GenericCollection  {
+export class GenericCollection {
   private _items: GenericItem[];
 
   constructor(items: GenericItem[] = []) {
@@ -13,24 +13,28 @@ export class GenericCollection  {
     this._items = value;
   }
 
-  public addItem(item: GenericItem) {
-    let position = item.position;
-    this._items
-      .filter(it => it.position >= position)
-      .forEach(it => it.position += 1);
-    this._items.splice(position, 0, item);
+  public setItem(value: GenericItem) {
+    this.items[value.position] = value;
   }
 
-  public deleteItem(_position: number) {
-    let item = this.items[_position];
-    this.items.splice(_position, 1);
+  public addItem(item: GenericItem) {
+    this.items.push(item);
+  }
+
+  public deleteItem(position: number) {
+    let item = this.items[position];
+    this.items.splice(position, 1);
     this.items
-      .filter(it => it.position >= _position)
-      .forEach(it => it.position -= 1);
+      .filter(it => it.position >= position)
+      .forEach(it => {
+        if (it) {
+          it.position -= 1;
+        }
+      });
     return item;
   }
 
-  public changeItemPos(startPos: number, direction: number) {
+  public changeItemPos(startPos: number, direction: number): boolean {
     let endPos = (startPos + direction);
     if (startPos != endPos && endPos >= 0 && endPos < this._items.length) {
       let item = this._items[endPos];
@@ -41,6 +45,20 @@ export class GenericCollection  {
       return true;
     }
     return false;
+  }
+
+  public getItem(position: number): GenericItem {
+    return this.items[position];
+  }
+
+  public getSecondItem(position: number, direction: number): GenericItem {
+    let endPos = (position + direction);
+    if (position != endPos && endPos >= 0 && endPos < this._items.length) {
+      return this.items[endPos];
+    }
+
+    return null;
+
   }
 
   public changeItem(item: GenericItem) {
@@ -54,7 +72,7 @@ export abstract class GenericItem {
   private _title: string;
   private _id: string;
 
-  protected constructor(position: number = 0, title: string = "") {
+  protected constructor(position: number = 0, title: string = '') {
     this._position = position;
     this._title = title;
   }
@@ -94,10 +112,10 @@ export abstract class GenericItem {
 
 }
 
-export abstract class GenericItemWithList extends GenericItem{
+export abstract class GenericItemWithList extends GenericItem {
   private _list: GenericCollection;
 
-  protected constructor(position: number = 0, title: string = "", list: GenericCollection = new GenericCollection()) {
+  protected constructor(position: number = 0, title: string = '', list: GenericCollection = new GenericCollection()) {
     super(position, title);
     this._list = list;
   }

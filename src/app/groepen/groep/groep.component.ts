@@ -6,6 +6,8 @@ import { EMPTY_ARRAY } from '@angular/core/src/render3/definition';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { Notification } from '../../models/notification.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-groep',
@@ -21,11 +23,12 @@ export class GroepComponent implements OnInit {
   private _users:User[] = null; 
   private _possibleUsers:User[];
   private selectedOptions:string[] = null;
-  displayedColumns: string[] = ['naam', 'vooruitgang'];
+  displayedColumns: string[] = ['naam', 'vooruitgang','button'];
   private leegOfNiet = false;
   private alGeladenOfNiet = false;
   private moetReloaden = false;
   private isExpanded:boolean;
+  private notification:Notification;
 
   kolomTest: string[] = ['naam'];
 
@@ -101,6 +104,28 @@ export class GroepComponent implements OnInit {
     this.modifyGroup.emit(this.group);
   }
 
+  deleteThisUserFromGroup(id:string){
+    let idArray = [];
+    idArray.push(id);
+    
+    this._groupDataService.deleteUserFromGroup(idArray).subscribe(
+      result => {
+        this.isExpanded = false;
+        this.moetReloaden = true;
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open(`Error ${error.status} tijdens het verwijderen van de gebruiker uit de groep: ${error.error}`, '',
+          {
+            duration: 3000,
+          });
+      }
+    ); 
+    this.snackBar.open('De gebruiker is succesvol verwijderd uit ' + this.group.name +'!', '',
+    {
+      duration: 3000,
+    });
+  }
+
   addUserToAGroup(){
     this.isExpanded = false;
     this._groupDataService.getPossibleUsers(this.group).subscribe(
@@ -130,7 +155,7 @@ export class GroepComponent implements OnInit {
                   });
               }
             );
-            this.snackBar.open('De gebruiker is succesvol toegevoegd aan ' + this.group.name +'!', '',
+            this.snackBar.open('De gebruiker is succesvol toegevoegd aan ' + this.group.name +' en verwijderd uit zijn vorige groep!', '',
             {
               duration: 3000,
             });
@@ -191,6 +216,38 @@ export class GroepComponent implements OnInit {
     this._users = new Array(); 
     }
   }
+
+  sendNotificationToGroup(){
+    const sendNotifToGroupDialoRef = this.dialog.open(SendNotifDialog, {
+      data: {
+        group_name: this.group.name
+      }
+    });
+
+    sendNotifToGroupDialoRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.notification = result;
+        this.notification.notification_launchtijdstip.setHours(13);
+
+        this._groupDataService.sendNotificationToGroup(this.group,this.notification).subscribe(
+          () => {
+          },
+          (error: HttpErrorResponse) => {
+            this.snackBar.open(`Error ${error.status} tijdens het verzenden van een notifciatie naar de groep ${
+                this.group.name
+                }: ${error.error}`, '',
+              {
+                duration: 3000,
+              });
+          }
+        ); 
+        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden!', '',
+        {
+          duration: 3000,
+        });
+      }
+    });
+  } 
 }
 
 @Component({
@@ -218,4 +275,84 @@ export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
   selectedOptions:string[];
+}
+
+@Component({
+  selector: 'dialog-sendnotif-group',
+  templateUrl: 'dialog-sendnotif-group.html',
+  styleUrls: ['dialog-sendnotif-group.css']
+})
+export class SendNotifDialog implements OnInit{
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      notification_title: ['', Validators.required],
+      notification_beschrijving: ['', Validators.required],
+      notification_launchtijdstip: ['',Validators.required]
+  });
+  }
+  private notification:Notification;
+  private notification_title:string;
+  private notification_beschrijving:string;
+  private notification_launchtijdstip:Date;
+  form: FormGroup;
+  minDate = new Date();
+
+  constructor(
+    public dialogRef: MatDialogRef<SendNotifDialog>,
+    //@Inject(MAT_DIALOG_DATA) public data: DialogNotifData,
+    @Inject(MAT_DIALOG_DATA) {notification_title,notification_beschrijving,
+      notification_launchtijdstip}:Notification,
+    public snackBar: MatSnackBar,
+    private fb: FormBuilder) {
+
+      this.form = fb.group({
+        notification_title: [notification_title, Validators.required],
+        notification_beschrijving: [notification_beschrijving, Validators.required],
+        notification_launchtijdstip: [notification_launchtijdstip,Validators.required]
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  /*
+  onYesClick(notification_title:string,notification_beschrijving:string,notification_launchtijdstip:Date):void{
+    console.log(notification_title + " " +notification_beschrijving + " " + notification_launchtijdstip);
+    if(notification_title == undefined || notification_beschrijving == undefined || notification_launchtijdstip == undefined)
+    {
+      //this.dialogRef.disableClose = true;
+      this.snackBar.open('Alle velden moeten ingevuld zijn!', '',
+            {
+              duration: 3000,
+            });
+    }
+    else{
+    this.notification = new Notification(notification_title);
+    this.notification.notification_beschrijving = notification_beschrijving;
+    this.notification.notification_launchtijdstip = notification_launchtijdstip;
+    this.dialogRef.close(this.notification);
+    }
+  } */
+
+    onJaClick(){
+      if(this.form.valid){
+        this.dialogRef.close(this.form.value);
+      }
+      else{
+        this.snackBar.open("Vul alstublieft alle velden in!", "",
+        {
+          duration: 3000,
+        });
+      }
+    }
+  
+
+}
+
+export interface DialogNotifData {
+  group_name: string;
+  notification_title:string;
+  notification_beschrijving:string;
+  notification_launchtijdstip:Date;
 }

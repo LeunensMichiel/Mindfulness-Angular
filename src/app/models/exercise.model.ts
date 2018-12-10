@@ -11,18 +11,24 @@ export class Exercise extends GenericItemWithList {
   static fromJson(json: any): Exercise {
     const ex = new Exercise(json.title, json.position);
     if (json.hasOwnProperty('pages')) {
-      ex.list = new GenericCollection(json.pages.map(it => {
+      ex.list = new GenericCollection();
+      json.pages.forEach(it => {
+        let page;
         if (typeof it != 'string') {
           switch (it.type) {
             case 'TEXT':
-              return TextPage.fromJSON(it);
+              page = TextPage.fromJSON(it);
+              break;
             case 'AUDIO':
-              return AudioPage.fromJSON(it);
+              page = AudioPage.fromJSON(it);
+              break;
             case 'INPUT':
-              return InputPage.fromJSON(it);
+              page = InputPage.fromJSON(it);
+              break;
           }
+          ex.list.setItem(page);
         }
-      }));
+      });
     }
 
     ex.id = json._id;

@@ -53,8 +53,12 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     )
   }
 
-  getPages(): GenericItem[]{
-    return this.exercise.list.items;
+  get pages(): GenericItem[]{
+    return this.exercise.list.items.filter(it => {
+      if (it) {
+        return  (it !== (undefined || null));
+      }
+    });;
   }
 
   /**
@@ -114,7 +118,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * 
    * @param page De page met de veranderingen.
    */
-  private saveChangedPage(page) {
+  public saveChangedPage(page) {
     console.log("SAVED CHANGED PAGE AT ANCESTOR");
     let newPage = this.convertPage(page);
     console.log(newPage);
@@ -124,7 +128,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
   }
 
-  private fileAddedToPage(page) {
+  public fileAddedToPage(page) {
     console.log("SAVED CHANGED PAGE AT ANCESTOR");
     console.log(page);
     let newPage = this.convertPage(page);
@@ -142,10 +146,11 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * 
    * @param positions een JSON die de eind en start positie bevat
    */
-  private changePagePos(positions) {
+  public changePagePos(positions) {
     console.log(positions);
+    this.exercise.list.changeItemPos(positions.startPos, positions.direction);
+    console.log(this.exercise);
     this.addCommand(new Switch(this.exercise, positions));
-    console.log(this.exercise.list.items);
   }
 
   onNewParCommand(cmd: Cmd) {
@@ -173,11 +178,21 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
         error => console.log(error)
       )
   }
-  changePos() {
-    throw new Error("Method not implemented.");
+
+  changePos(cmd: Switch): void{
+    let page1 = this.exercise.list.getItem(cmd.extraParam.startPos);
+    let page2 = this.exercise.list.getSecondItem(cmd.extraParam.startPos, cmd.extraParam.direction);
+    if (page2 != null) {
+      console.log(page2);
+      this.pageDataService.updatePagesPos(page1 as Page, page2 as Page)
+        .subscribe(
+          success => console.log(success),
+          error => console.log(error)
+        )
+    }
   }
 
-  update(cmd:Cmd) {
+  update(cmd:Cmd): void {
 
     this.pageDataService.updatePage(this.convertPage(cmd.param[0]))
       .subscribe(
@@ -189,7 +204,6 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
 
 
   convertPage(page: any) {
-
     switch (page.type) {
       case TypePage.TEXT:
         return page as TextPage;
