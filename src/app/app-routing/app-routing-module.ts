@@ -12,6 +12,9 @@ import {ExerciseDetailComponent} from '../exercise/exercise-detail/exercise-deta
 import {AuthGuardService} from '../user/auth-guard.service';
 import {ExerciseResolver} from '../exercise/exercise-resolver.service';
 import {FeedbackListComponent} from '../feedback/feedback-list/feedback-list.component';
+import {NotActiveComponent} from '../not-actif/not-active.component';
+import {NotActiveAuthGuard} from '../not-actif/not-active-auth-guard.service';
+import {PageNotFoundComponent} from '../page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'course-list', pathMatch: 'full'},
@@ -20,14 +23,32 @@ const appRoutes: Routes = [
     canActivate: [AuthGuardService],
     component: SessionmapListComponent
   },
-  {path: 'exercise-list/:sessionID', component: ExerciseListComponent, resolve: {session: SessionResolver}},
-  {path: 'groepen-list', component: GroepenListComponent},
-  {path: 'page-list/:exerciseID', component: PaginaCreatieLijstComponent, resolve: {exercise: ExerciseResolver}},
+  {
+    path: 'exercise-list/:sessionID',
+    component: ExerciseListComponent,
+    canActivate: [AuthGuardService],
+    resolve: {session: SessionResolver}},
+  {
+    path: 'groepen-list',
+    canActivate: [AuthGuardService],
+    component: GroepenListComponent},
+  {
+    path: 'page-list/:exerciseID',
+    component: PaginaCreatieLijstComponent,
+    canActivate: [AuthGuardService],
+    resolve: {exercise: ExerciseResolver}},
   {
     path: 'feedback',
     component:FeedbackListComponent,
-    canActivate: [AuthGuardService]
-  }/*{ path: '**', component: PageNotFoundComponent}*/
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'not-active',
+    component: NotActiveComponent,
+    canActivate: [NotActiveAuthGuard]
+  },
+  {
+    path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

@@ -73,6 +73,10 @@ import { FeedbackDetailComponent } from './feedback/feedback-detail/feedback-det
 import {FeedbackDataService} from './feedback/feedback-data.service';
 import { ParagraphDetailComponent } from './page/paragraph-detail/paragraph-detail.component';
 import { ChecklistItemCreationComponent } from './page/creatie-components/checklist-item/checklist-item-creation.component';
+import {SuperAdminAuthGuard} from './super-admin/super-admin-auth-guard.service';
+import { NotActiveComponent } from './not-actif/not-active.component';
+import {SuperAdminModule} from './super-admin/super-admin.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -114,11 +118,14 @@ import { ChecklistItemCreationComponent } from './page/creatie-components/checkl
     FeedbackListComponent,
     FeedbackDetailComponent,
     ParagraphDetailComponent,
-    ChecklistItemCreationComponent
+    ChecklistItemCreationComponent,
+    NotActiveComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     UserModule,
+    SuperAdminModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -168,7 +175,8 @@ import { ChecklistItemCreationComponent } from './page/creatie-components/checkl
     PageDataService,
     ExerciseDataService,
     AuthGuardService,
-    AuthenticationService
+    AuthenticationService,
+    SuperAdminAuthGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [
