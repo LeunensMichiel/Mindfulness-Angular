@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {InputPage, Page} from 'src/app/models/page.model';
+import {InputPage, TypeInputPage} from 'src/app/models/page.model';
 
 @Component({
   selector: 'app-invoer-pagina-detail',
@@ -12,6 +12,14 @@ export class InvoerPaginaDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getTypeInput() {
+    return TypeInputPage;
+  }
+
+  public typeIsEmpty(): boolean {
+    return this.page.typeInput === TypeInputPage.EMPTY;
   }
 
 }
