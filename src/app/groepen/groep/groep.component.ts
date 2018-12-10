@@ -226,10 +226,8 @@ export class GroepComponent implements OnInit {
 
     sendNotifToGroupDialoRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
-        console.log("notificatie verstuurd");
         this.notification = result;
-        console.log(this.notification);
+        this.notification.notification_launchtijdstip.setHours(13);
 
         this._groupDataService.sendNotificationToGroup(this.group,this.notification).subscribe(
           () => {
@@ -243,6 +241,10 @@ export class GroepComponent implements OnInit {
               });
           }
         ); 
+        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden!', '',
+        {
+          duration: 3000,
+        });
       }
     });
   } 
@@ -278,6 +280,7 @@ export interface DialogGroupData {
 @Component({
   selector: 'dialog-sendnotif-group',
   templateUrl: 'dialog-sendnotif-group.html',
+  styleUrls: ['dialog-sendnotif-group.css']
 })
 export class SendNotifDialog implements OnInit{
   ngOnInit(): void {
