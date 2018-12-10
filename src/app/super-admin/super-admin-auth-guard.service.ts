@@ -17,7 +17,7 @@ export class SuperAdminAuthGuard {
     }
 
     this._authtenticationService.redirectUrl = state.url;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
     return false;
   }
 }

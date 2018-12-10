@@ -85,9 +85,10 @@ export class SessionmapListComponent implements OnInit {
             }
           );
         } else {
-          this.selectedSessionmap.titleCourse = result;
           this._sessionmapDataService.updateSessionMap(this._selectedSessionmap).subscribe(
             () => {
+              this.selectedSessionmap.titleCourse = result;
+
             },
             (error: HttpErrorResponse) => {
               this.errorMsg = `Error ${error.status} while editing  ${

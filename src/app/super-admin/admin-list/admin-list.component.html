@@ -1,6 +1,6 @@
 <h1>Beheerders</h1>
 <h2>Geactiveerde Beheerders</h2>
-<div class="example-container mat-elevation-z8">
+<div class="{{makeTableScrollable(activatedAdmins)}} mat-elevation-z8">
   <table mat-table [dataSource]="activatedAdmins">
 
     <!-- Name Column -->
@@ -18,7 +18,9 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element">  </td>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="changeStatus(element)">Deactiveer</button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
@@ -27,28 +29,31 @@
 </div>
 
 <h2>Gedeactiveerde Beheerders</h2>
-<!--<div class="example-container mat-elevation-z8">-->
-  <!--<table mat-table [dataSource]="deactivatedAdmins">-->
+<div class="{{makeTableScrollable(deactivatedAdmins)}} mat-elevation-z8">
+  <table mat-table [dataSource]="deactivatedAdmins">
 
-    <!--&lt;!&ndash; Name Column &ndash;&gt;-->
-    <!--<ng-container matColumnDef="name">-->
-      <!--<th mat-header-cell *matHeaderCellDef> Naam </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.generateFullname()}} </td>-->
-    <!--</ng-container>-->
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Naam </th>
+      <td mat-cell *matCellDef="let element"> {{element.generateFullname()}} </td>
+    </ng-container>
 
-    <!--&lt;!&ndash; Weight Column &ndash;&gt;-->
-    <!--<ng-container matColumnDef="email">-->
-      <!--<th mat-header-cell *matHeaderCellDef> Email </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.email}} </td>-->
-    <!--</ng-container>-->
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
 
-    <!--&lt;!&ndash; Symbol Column &ndash;&gt;-->
-    <!--<ng-container matColumnDef="status">-->
-      <!--<th mat-header-cell *matHeaderCellDef> Status </th>-->
-      <!--<td mat-cell *matCellDef="let element">  </td>-->
-    <!--</ng-container>-->
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="changeStatus(element)">Activeer</button>
 
-    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>-->
-    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-  <!--</table>-->
-<!--</div>-->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

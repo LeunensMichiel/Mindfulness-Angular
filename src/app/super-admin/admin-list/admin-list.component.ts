@@ -24,8 +24,8 @@ export class AdminListComponent implements OnInit {
   constructor(private _adminDataService: AdminDataService) {
   }
 
-  ngOnInit() {
- console.log("test");
+  ngOnInit(): void {
+    console.log('test');
 
     this._adminDataService.getActiveAdmin().subscribe(
       result => {
@@ -55,6 +55,57 @@ export class AdminListComponent implements OnInit {
 
   get deactivatedAdmins(): Admin[] {
     return this._deactivatedAdmins;
+  }
+
+
+  set activatedAdmins(value: Admin[]) {
+    this._activatedAdmins = value;
+  }
+
+  set deactivatedAdmins(value: Admin[]) {
+    this._deactivatedAdmins = value;
+  }
+
+  changeStatus(admin: Admin) {
+    this._adminDataService.updateAdmin(admin).subscribe(
+      result => {
+        this.moveItem(result);
+
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  private moveItem(admin: Admin) {
+    if (admin.adminActive) {
+      this.deactivatedAdmins = this.deactivatedAdmins.filter(val => admin.id !== val.id);
+      this.activatedAdmins.push(admin);
+      this.activatedAdmins = this.activatedAdmins.slice(0);
+
+    } else {
+      this.activatedAdmins = this.activatedAdmins.filter(val => admin.id !== val.id);
+      this.deactivatedAdmins.push(admin);
+      this.deactivatedAdmins = this.deactivatedAdmins.slice(0);
+    }
+  }
+
+  deleteAdmin(admin: Admin) {
+    this._adminDataService.deleteAdmin(admin).subscribe(
+      result => {
+        console.log(result);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  makeTableScrollable(list: Admin[]): string {
+    if (list.length > 5) {
+      return "example-container"
+    }
   }
 
 }

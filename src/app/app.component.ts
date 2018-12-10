@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthenticationService} from './user/authentication.service';
 import {Admin} from './models/admin.model';
 
@@ -24,6 +24,10 @@ export class AppComponent {
 
   get currentUser(): Observable<Admin> {
     return this.authService.user$;
+  }
+
+  get isSuperAdmin(): Observable<boolean> {
+    return this.authService.isSuperAdmin$;
   }
 
   // tslint:disable-next-line:use-life-cycle-interface

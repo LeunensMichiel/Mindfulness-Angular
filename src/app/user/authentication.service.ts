@@ -20,12 +20,13 @@ function parseJwt(token) {
 export class AuthenticationService {
   private _url = '/API/users';
   private _user$: BehaviorSubject<Admin>;
+  private _isSuperAdmin$: BehaviorSubject<boolean>;
   private readonly currentUserKey = 'currentUser';
   public redirectUrl: string;
 
   constructor(private http: HttpClient) {
     let parsedToken;
-    let admin;
+    let admin: Admin;
     if (this.isAdminStoredLocal()) {
 
       parsedToken = parseJwt(JSON.parse(localStorage.getItem(this.currentUserKey)).token);
@@ -47,11 +48,15 @@ export class AuthenticationService {
       }
     }
     this._user$ = new BehaviorSubject<Admin>(parsedToken && admin);
-
+    this._isSuperAdmin$ = new BehaviorSubject<boolean>(parsedToken && admin.role.superAdmin);
   }
 
   get user$(): BehaviorSubject<Admin> {
     return this._user$;
+  }
+
+  get isSuperAdmin$(): BehaviorSubject<boolean> {
+    return this._isSuperAdmin$;
   }
 
   get token(): string {
@@ -88,6 +93,7 @@ export class AuthenticationService {
     if (admin.token) {
       localStorage.setItem(this.currentUserKey, JSON.stringify(admin.toJSON()));
       this._user$.next(admin);
+      this._isSuperAdmin$.next(admin.role.superAdmin);
       return true;
     } else {
       return false;
@@ -98,10 +104,14 @@ export class AuthenticationService {
     return localStorage.getItem(this.currentUserKey) != null;
   }
 
-  logout() {
+  logout(): void {
     if (this.user$.getValue()) {
       localStorage.removeItem('currentUser');
-      setTimeout(() => this._user$.next(null));
+      setTimeout(() => {
+          this._user$.next(null);
+          this._isSuperAdmin$.next(null);
+        }
+      );
     }
   }
 

@@ -1,5 +1,3 @@
-
-
 export class Admin {
 
   private _firstname: string;
@@ -10,12 +8,17 @@ export class Admin {
   private _adminActive: boolean;
   private _role: Role;
 
-  constructor(firstname: string = '', lastname: string = '', email: string = '', role: Role = new Role(), adminActif: boolean = false) {
+  constructor(
+    firstname: string = '',
+    lastname: string = '',
+    email: string = '', adminActive: boolean = false,
+    role: Role = new Role()
+  ) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.email = email;
     this.role = role;
-    this.adminActive = adminActif;
+    this.adminActive = adminActive;
   }
 
 
@@ -79,6 +82,10 @@ export class Admin {
     return `${this.firstname} ${this.lastname}`;
   }
 
+  isSuperAdmin(): boolean {
+    return this.role.superAdmin;
+  }
+
   static fromJSON(json: any): Admin {
     let admin = new Admin(
       json.firstname,
@@ -87,7 +94,7 @@ export class Admin {
       json.admin_active
     );
 
-    if (json.hasOwnProperty("roles")){
+    if (json.hasOwnProperty('roles')) {
       admin.role = Role.fromJSON(json.roles);
     }
 
@@ -108,7 +115,7 @@ export class Admin {
   }
 
   toString(): string {
-    return this.generateFullname()
+    return this.generateFullname();
   }
 }
 
@@ -146,6 +153,6 @@ export class Role {
     return {
       admin: this.admin,
       super_admin: this.superAdmin
-    }
+    };
   }
 }

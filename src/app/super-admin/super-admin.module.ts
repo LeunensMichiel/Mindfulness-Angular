@@ -6,7 +6,7 @@ import {SuperAdminAuthGuard} from './super-admin-auth-guard.service';
 import {AuthenticationService} from '../user/authentication.service';
 import {RouterModule} from '@angular/router';
 import {AdminDataService} from './admin-data.service';
-import {MatTableModule} from '@angular/material';
+import {MatButtonModule, MatTableModule} from '@angular/material';
 
 const routes = [
   {
@@ -22,6 +22,7 @@ const routes = [
     HttpClientModule,
     CommonModule,
     MatTableModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   providers: [

@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AdminDataService {
-  private readonly _appUrl = '/API/superadmin/';
+  private readonly _appUrl = '/API/superadmin';
 
   constructor(private http: HttpClient) {
   }
