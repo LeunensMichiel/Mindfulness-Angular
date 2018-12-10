@@ -69,56 +69,6 @@ export class SessieLijstComponent implements OnInit {
 
   }
 
-  editSession(session: Session) {
-    const modifyCourseDialogConfig = new MatDialogConfig();
-
-    modifyCourseDialogConfig.data = session;
-
-    const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, modifyCourseDialogConfig);
-
-
-    modifyCourseDialoRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(result);
-        session.title = result.title;
-        console.log(session.title);
-        session.description = result.description;
-        session.file = result.image;
-        if(result.image == null)
-        {
-          this._sessionDataService.editSession(session).subscribe(
-            () => {
-
-            },
-            (error: HttpErrorResponse) => {
-              this.snackBar.open(`Error ${error.status} while editing session for ${
-                  session.title
-                  }: ${error.error}`, '',
-                {
-                  duration: 10000,
-                });
-            }
-          )
-        }else{
-          console.log(session);
-          this._sessionDataService.editSessionWithImage(session).subscribe(
-            () => {
-  
-            },
-            (error: HttpErrorResponse) => {
-              this.snackBar.open(`Error ${error.status} while editing session for ${
-                  session.title
-                  }: ${error.error}`, '',
-                {
-                  duration: 10000,
-                });
-            }
-          );
-        }
-
-      }
-    });
-  }
 
   removeSession(session: Session) {
 
@@ -173,42 +123,3 @@ export class RemoveSessieDialog {
   }
 }
 
-@Component({
-  selector: 'dialog-modify-sessie',
-  templateUrl: 'dialog-modify-sessie.html',
-})
-export class SessieModifyComponent {
-
-  selectedFiles: FileList;
-
-  form: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<SessieModifyComponent>,
-    @Inject(MAT_DIALOG_DATA) session:Session) {
-
-      this.form = fb.group({
-        title: [session.title],
-        description: [session.description],
-        image:[]
-    });
-  }
-
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-    console.log(event.target.files);
-    this.form.value.image = this.selectedFiles.item(0);
-    
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  save() {
-    
-    this.dialogRef.close(this.form.value);
-    
-  }
-}

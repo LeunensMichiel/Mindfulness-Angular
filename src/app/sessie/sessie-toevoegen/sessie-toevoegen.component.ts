@@ -44,7 +44,8 @@ export class SessieToevoegenComponent implements OnInit {
 
   ngOnInit() {
     this.newSession = this._fb.group({
-        title: ['', Validators.required]
+        title: ['', Validators.required],
+        description: ['', Validators.required]
       }
     );
   }
@@ -59,7 +60,7 @@ export class SessieToevoegenComponent implements OnInit {
       this.progress.percentage = 0;
       this.currentFileUpload = this.selectedFiles.item(0);
 
-      let session = new Session(this.newSession.value.title, this.sessionmap.sessions.items.length, "",this.currentFileUpload);
+      let session = new Session(this.newSession.value.title, this.sessionmap.sessions.items.length, "",this.newSession.value.description ,this.currentFileUpload);
       this.saveSession(session);
     }
     else {

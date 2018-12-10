@@ -6,7 +6,7 @@ export class Session extends GenericItemWithList {
   private _imageFilename: string;
   private _description: string;
 
-  constructor(title: string = '', position: number = 0, imageFilename: string = undefined, file: File = undefined, description: string = '') {
+  constructor(title: string = '', position: number = 0, imageFilename: string = undefined, description: string = '', file: File = undefined) {
     super(position, title, new GenericCollection());
     this.file = file;
     this._imageFilename = imageFilename;
@@ -43,7 +43,8 @@ export class Session extends GenericItemWithList {
       json.title,
       json.position,
       json.image_filename,
-      json.description
+      json.description,
+  
     );
     if (json.hasOwnProperty('exercises')) {
       ses.list = new GenericCollection(json.exercises.map(it => {
@@ -52,13 +53,15 @@ export class Session extends GenericItemWithList {
       }));
     }
     ses.id = json._id;
+
+    console.log(ses);
     return ses;
   }
 
   toJSON() {
     return {
-      image_filename: this.imageFilename,
       description: this._description,
+      image_filename: this.imageFilename,
       exercises: this.list.items.map(exercise => exercise.toJSON()),
       ...super.toJSON()
     };
