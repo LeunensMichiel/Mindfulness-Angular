@@ -5,6 +5,7 @@ import { Group } from '../models/group.model';
 import { map } from 'rxjs/operators';
 import { Sessionmap } from '../models/sessionmap.model';
 import { User } from '../models/user.model';
+import { Notification} from '../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -110,5 +111,13 @@ export class GroepenDataService {
           }
         )
       );
+  }
+
+  sendNotificationToGroup(group: Group,notific:Notification): Observable<Group> {
+    return this.http
+      .put(`${this._appUrl}/group/sendNotification/${group.id}`, {notification:notific})
+      .pipe(map(it => {
+        return Group.fromJSON(it);
+      }));
   }
 }

@@ -231,9 +231,7 @@ export class GroepComponent implements OnInit {
         this.notification = result;
         console.log(this.notification);
 
-        //group.name = result;
-        /*
-        this._groupDataService.editGroup(this.group).subscribe(
+        this._groupDataService.sendNotificationToGroup(this.group,this.notification).subscribe(
           () => {
           },
           (error: HttpErrorResponse) => {
@@ -244,7 +242,7 @@ export class GroepComponent implements OnInit {
                 duration: 3000,
               });
           }
-        ); */
+        ); 
       }
     });
   } 
