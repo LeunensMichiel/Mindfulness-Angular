@@ -1,0 +1,15 @@
+
+
+img{
+    width: 100%;
+}
+
+p{
+    display: inline-block;
+    justify-content: left;
+    text-align: left;
+}
+
+p.ng-star-inserted{
+    width: 100%;
+}

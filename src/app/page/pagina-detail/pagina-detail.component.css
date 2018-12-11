@@ -1,7 +1,8 @@
 .page {
     margin-top: 2%;
-    overflow-y: hidden;
-    min-height: 70vh;
+    overflow-y: scroll;
+    height: 65vh;
+    max-width: 600px;
 }
 
 .page > p {

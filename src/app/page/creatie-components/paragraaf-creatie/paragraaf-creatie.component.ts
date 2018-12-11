@@ -45,7 +45,7 @@ export class ParagraafCreatieComponent implements OnInit {
 
   ngOnInit() {
     this.paragraphForm = this._fb.group({
-      description: [this.par.description, [Validators.maxLength(150)]]
+      description: [this.par.description, [Validators.maxLength(250)]]
     });
 
 

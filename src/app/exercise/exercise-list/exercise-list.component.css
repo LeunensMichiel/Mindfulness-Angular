@@ -1,11 +1,11 @@
 .container {
     overflow-x: auto;
-    white-space: nowrap;
-    height: 100%;
+    white-space: wrap;
+
 }
 .container > .kid {
     display: inline-block;
-    margin: 0% 5%;
+    margin: 0% 5% 5% 5%;
 }  
 
 [tabindex] {

@@ -2,7 +2,7 @@
   <p *ngSwitchCase="'TEXT'">
     {{paragraph.description}}
   </p>
-  <div *ngSwitchCase="'IMAGE'">
+  <div *ngSwitchCase="'IMAGE'" class="image">
     <img *ngIf="!isImageLoading; else noImageFound"  src="data:image/png;base64,{{image}}"
          alt="Paragraaf foto">
     <ng-template #noImageFound>

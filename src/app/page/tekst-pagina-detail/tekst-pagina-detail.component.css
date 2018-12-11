@@ -3,16 +3,20 @@ p {
 }
 
 .image{
-    width: 300px;
+    width: 200px;
     height: auto;
     margin-left: auto;
 	margin-right: auto;
 	display: block;
 }
 
-.title {
+/* .title {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   font-size: 1.4em;
+} */
+
+.paragraph{
+    display: inline;
 }

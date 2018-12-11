@@ -1,4 +1,6 @@
-<p class="title">{{page.title}}</p>
-<div *ngFor='let par of page.list.items'>
-  <paragraph-detail [paragraph]="par"></paragraph-detail>
+<div class="tekst-page-detail">
+    <!-- <p class="title">{{page.title}}</p> -->
+    <div *ngFor='let par of page.list.items' class="paragraph">
+      <paragraph-detail [paragraph]="par"></paragraph-detail>
+    </div>
 </div>
