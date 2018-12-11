@@ -12,10 +12,10 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [errorStateMatcher]="matcher" placeholder="Geef een titel:" autocomplete="off"
-             formControlName='title' required>
-      <mat-error *ngIf="newSession.get('title').invalid">
-        Geen geldige titel
+      <input matInput [errorStateMatcher]="matcher" placeholder="Geef een omschrijving:" autocomplete="off"
+             formControlName='description' required>
+      <mat-error *ngIf="newSession.get('description').invalid">
+        Geen geldige omschrijving
       </mat-error>
     </mat-form-field>
     <label for="profile_pic">

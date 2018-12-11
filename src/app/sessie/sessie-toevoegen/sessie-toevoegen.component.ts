@@ -44,8 +44,8 @@ export class SessieToevoegenComponent implements OnInit {
 
   ngOnInit() {
     this.newSession = this._fb.group({
-        title: ['', Validators.required],
-        description: ['', Validators.required]
+        title: ['', [Validators.maxLength(50), Validators.required ]],
+        description: ['', [Validators.maxLength(100), Validators.required ]]
       }
     );
   }
