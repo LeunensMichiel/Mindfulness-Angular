@@ -1,29 +1,29 @@
 <div class="cardcontainervertical">
-<mat-card class="example-card">
-  <mat-card-header fxLayoutAlign="center">
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-      <mat-card-content>
-          <form [formGroup]='user' (ngSubmit)='onSubmit()' >
-            <table>
-              <tr>
-                  <mat-form-field>
-                      <input matInput type="text" id="email" formControlName='email' placeholder="Email">
-                    </mat-form-field>
-              </tr>
-              <tr>
-                  <mat-form-field>
-                      <input matInput type="password" id="password" formControlName='password' placeholder="Wachtwoord">
-                    </mat-form-field>
-              </tr>
-            </table>
+  <mat-card class="example-card">
+    <mat-card-header fxLayoutAlign="center">
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]='user' (ngSubmit)='onSubmit()'>
+        <table>
+          <tr>
+            <mat-form-field>
+              <input matInput type="text" id="email" formControlName='email' placeholder="Email">
+            </mat-form-field>
+          </tr>
+          <tr>
+            <mat-form-field>
+              <input matInput type="password" id="password" formControlName='password' placeholder="Wachtwoord">
+            </mat-form-field>
+          </tr>
+        </table>
 
-            <div class="button-row">
-                <button mat-button routerLink="/register" color="primary" class="vet register" >REGISTREER</button>
-                <button mat-button class="vet login" type='submit' [disabled]='!user.valid' id='loginbtn'>LOGIN</button>
-            </div>
-            <mat-error *ngIf='errorMsg'>{{errorMsg}}</mat-error>
-          </form>
-        </mat-card-content>
-</mat-card>
+        <div class="button-row">
+          <button mat-button class="vet login" type='submit' [disabled]='!user.valid' id='loginbtn'>LOGIN</button>
+          <button mat-button routerLink="/register" color="primary" class="vet register">REGISTREER</button>
+        </div>
+        <mat-error *ngIf='errorMsg'>{{errorMsg}}</mat-error>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

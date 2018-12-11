@@ -22,7 +22,11 @@ import {
   MatSlideToggleModule,
   MatTableModule
 } from '@angular/material';
+<<<<<<< HEAD
 import { SessieComponent, QrDialog, SessieModifyComponent } from './sessie/sessie/sessie.component';
+=======
+import { SessieComponent, SessieModifyComponent,QrDialog } from './sessie/sessie/sessie.component';
+>>>>>>> 088cf60ac89aa6c2f7ace0df260d7ccead14fadf
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
 import { PaginaDetailComponent } from './page/pagina-detail/pagina-detail.component';
 import {ExerciseListComponent, RemoveExerciseDialog} from './exercise/exercise-list/exercise-list.component';
