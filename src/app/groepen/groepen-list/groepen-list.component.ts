@@ -11,6 +11,7 @@ import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service
 
 export interface DialogGroupData {
   group_name: string;
+  sesmaps:Sessionmap[];
 }
 
 @Component({
@@ -80,7 +81,8 @@ export class GroepenListComponent implements OnInit {
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
-        group_name: group.name
+        group_name: group.name,
+        sesmaps:this.sesmaps
       }
     });
     modifyGroupDialoRef.afterClosed().subscribe(result => {
@@ -147,6 +149,7 @@ export class GroepenListComponent implements OnInit {
   templateUrl: 'dialog-modify-group.html',
 })
 export class GroupModifyComponent {
+  private gekozenCursus:Sessionmap;
 
   constructor(
     public dialogRef: MatDialogRef<GroupModifyComponent>,
@@ -155,6 +158,10 @@ export class GroupModifyComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  wijzigenV2(){
+    console.log(this.gekozenCursus);
   }
 }
 
