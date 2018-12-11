@@ -26,4 +26,18 @@ export class FeedbackDataService {
       );
   }
 
+  getFilterdFeedback(filterString: string) {
+    return this.http
+      .get(`${this._appUrl}/feedback?filter=${filterString}`)
+      .pipe(
+        map((list: any[]) =>
+          list.map(
+            it => {
+              return Feedback.fromJSON(it);
+            }
+          )
+        )
+      );
+  }
+
 }
