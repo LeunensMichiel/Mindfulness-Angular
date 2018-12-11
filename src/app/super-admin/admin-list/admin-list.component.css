@@ -6,3 +6,24 @@
 table {
   width: 100%;
 }
+
+.mat-flat-button{
+  background-color: whitesmoke;
+}
+
+.container{
+  margin: 0px 10px;
+}
+
+th{
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mat-header-cell{
+  width: 33%;
+}
+
+.mat-header-cell:last-child, .mat-cell:last-child{
+  text-align: center;
+}

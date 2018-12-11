@@ -248,6 +248,17 @@ export class GroepComponent implements OnInit {
       }
     });
   } 
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(QrGroupDialog, {
+      width: '250px',
+      data: {group_id: this.group._id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
 
 @Component({
@@ -352,7 +363,47 @@ export class SendNotifDialog implements OnInit{
 
 export interface DialogNotifData {
   group_name: string;
+  group_id: string;
   notification_title:string;
   notification_beschrijving:string;
   notification_launchtijdstip:Date;
+}
+
+
+@Component({
+  selector: 'qr-group-dialog',
+  templateUrl: 'qr-group-dialog.html',
+})
+export class QrGroupDialog implements OnInit {
+  groupId = this.data.group_id;
+  dialog: any;
+  snackBar: any;
+
+  constructor(
+    public dialogRef: MatDialogRef<QrGroupDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogNotifData,) {
+  }
+
+  ngOnInit() {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onDownloadClick(): void {
+    this.downloadUrl(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src, this.groupId.replace(' ', '_'));
+    console.log(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src);
+  }
+
+  downloadUrl(url: string, fileName: string) {
+    let a: any = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    a.click();
+    a.remove();
+  };
+
 }

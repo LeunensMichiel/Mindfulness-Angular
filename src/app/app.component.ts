@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthenticationService} from './user/authentication.service';
 import {Admin} from './models/admin.model';
+import { MatMenuTrigger } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import {Admin} from './models/admin.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   mobileQuery: MediaQueryList;
 

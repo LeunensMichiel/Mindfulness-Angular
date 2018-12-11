@@ -6,3 +6,7 @@
 .titel{
     width: 100%;
 }
+
+.closeBtn{
+    float: right;
+}

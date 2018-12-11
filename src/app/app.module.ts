@@ -20,7 +20,8 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSlideToggleModule,
-  MatTableModule
+  MatTableModule,
+  MatMenuModule
 } from '@angular/material';
 import { SessieComponent, QrDialog, SessieModifyComponent } from './sessie/sessie/sessie.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
@@ -54,7 +55,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
-import { AddUserToGroupDialog } from './groepen/groep/groep.component';
+import { AddUserToGroupDialog, QrGroupDialog } from './groepen/groep/groep.component';
 import { SendNotifDialog } from './groepen/groep/groep.component';
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
@@ -124,7 +125,8 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     NotActiveComponent,
     PageNotFoundComponent,
     CheckListItemDetailComponent,
-    FeedbackPipePipe
+    FeedbackPipePipe,
+    QrGroupDialog
   ],
   imports: [
     BrowserModule,
@@ -164,7 +166,8 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     MatSlideToggleModule,
     MatTableModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule
   ],
   providers: [
     basehttpInterceptorProviders,
@@ -195,6 +198,7 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     GroupModifyComponent,
     RemoveGroupDialog,
     AddUserToGroupDialog,
-    SendNotifDialog]
+    SendNotifDialog,
+    QrGroupDialog]
 })
 export class AppModule { }

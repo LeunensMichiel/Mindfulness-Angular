@@ -1,14 +1,16 @@
 
 
 <div class="dialog">
+    
     <div mat-dialog-content>
-        <ngx-qrcode qrc-element-type="string" [qrc-value]= "sessionId" [qrc-element-type]="img" fxLayoutAlign="center"></ngx-qrcode>
+        <ngx-qrcode qrc-element-type="string" [qrc-value]= "groupId" [qrc-element-type]="img" fxLayoutAlign="center"></ngx-qrcode>
       </div>
       <div mat-dialog-actions class="button-row" fxLayoutAlign="center">
           <button mat-flat-button (click)="onNoClick()" class="vet">Sluit</button>
+
         <button mat-flat-button (click)="onDownloadClick()" class="vet">
           <mat-icon  aria-label="save icon">save_alt</mat-icon>
         </button>
-        <!-- <button mat-flat-button (click)="onNoClick()" class="vet">OK</button> -->
+        
       </div>
 </div>
