@@ -78,6 +78,7 @@ import { NotActiveComponent } from './not-actif/not-active.component';
 import {SuperAdminModule} from './super-admin/super-admin.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
+import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { CheckListItemDetailComponent } from './page/check-list-item-detail/chec
     ChecklistItemCreationComponent,
     NotActiveComponent,
     PageNotFoundComponent,
-    CheckListItemDetailComponent
+    CheckListItemDetailComponent,
+    FeedbackPipePipe
   ],
   imports: [
     BrowserModule,

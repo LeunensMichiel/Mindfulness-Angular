@@ -1,19 +1,20 @@
-<div class="titel" >
+<div class="titel">
   <h1><span class="vet">OVERZICHT {{sessionmap.titleCourse.toUpperCase()}}</span></h1>
 </div>
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center" >
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center">
   <div *ngFor='let session of getSessions()'>
-    <app-sessie [session]='session' (deleteSession)="removeSession($event)" (modifySession)="editSession($event)"></app-sessie>
+    <app-sessie [session]='session' (deleteSession)="removeSession($event)"
+                (modifySession)="editSession($event)"></app-sessie>
   </div>
   <div *ngIf='creating'>
-    <app-sessie-toevoegen (disable)='creating = !creating' (addSession)="addSession($event)" [sessionmap]='sessionmap' ></app-sessie-toevoegen>
+    <app-sessie-toevoegen (disable)='creating = !creating' (addSession)="addSession($event)"
+                          [sessionmap]='sessionmap'></app-sessie-toevoegen>
   </div>
 </div>
 <div *ngIf='!creating'>
-  <div class="float hvr-grow" >
+  <div class="float hvr-grow">
     <button class="button btn-float" mat-fab color="accent" (click)='creating = !creating'>
-    <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+      <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
     </button>
   </div>
-
 </div>
