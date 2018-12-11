@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>EEN GROEP WIJZIGEN</h1>
+<h1 mat-dialog-title class="vet">EEN GROEP WIJZIGEN</h1>
 <div mat-dialog-content>
-  <p>Hoe ga je je groep noemen?</p>
-  <mat-form-field>
+  <p fxLayoutAlign="center">Hoe ga je je groep noemen?</p>
+  <mat-form-field fxLayoutAlign="center">
     <input matInput [(ngModel)]="data.group_name">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Annuleer</button>
-  <button mat-button [mat-dialog-close]="data.group_name" cdkFocusInitial>Wijzigen</button>
+<div mat-dialog-actions fxLayoutAlign="center">
+  <button mat-button (click)="onNoClick()" class="vet">Annuleer</button>
+  <button mat-button [mat-dialog-close]="data.group_name" class="vet" cdkFocusInitial>Wijzigen</button>
 </div>

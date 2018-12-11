@@ -1,29 +1,3 @@
-.segment {
-  width: 35%;
-  min-height: 60vh;
-  border-radius: 0%;
-  margin: 5% auto;
-}
-
-.inputField {
-  width: 56px;
-  height: 108px;
-  margin: 30vh auto 30vh auto;
-  display: block;
-  visibility: hidden;
-}
-
-.mat-card{
-  padding: 10vh;
-}
-
-.mat-card>:first-child {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mat-button-toggle-group {
-  visibility: visible;
+.mat-dialog-title{
+  color: rgb(153, 201, 194);
 }

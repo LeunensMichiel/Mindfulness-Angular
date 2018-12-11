@@ -124,3 +124,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.cdk-overlay-container > .cdk-global-overlay-wrapper > .cdk-overlay-pane > .mat-dialog-container {
+  width: fit-content;
+  height: fit-content;
+}
+
