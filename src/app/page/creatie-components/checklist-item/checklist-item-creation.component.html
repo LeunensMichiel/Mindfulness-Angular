@@ -1,9 +1,9 @@
-<form [formGroup]="checkListItemForm">
+<form [formGroup]="checkListItemForm" class="form" fxLayoutAlign="start center">
   <mat-icon>check_box</mat-icon>
   <mat-form-field>
     <input matInput formControlName="message" (change)="onChangeCheckListItem()"/>
   </mat-form-field>
-  <button mat-icon-button type="button" (click)='deletePage()'>
+  <button mat-icon-button class="closeBtn" type="button" (click)='deletePage()'>
     <mat-icon>clear</mat-icon>
   </button>
 </form>

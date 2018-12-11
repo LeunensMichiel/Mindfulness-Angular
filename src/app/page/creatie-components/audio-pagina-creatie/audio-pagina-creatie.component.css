@@ -21,3 +21,7 @@ i {
 form {
     min-width: 100%;
 }
+
+.mat-icon, .mat-icon-button{
+    font-size: 50px;
+}

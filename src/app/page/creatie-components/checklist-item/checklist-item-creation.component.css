@@ -1,0 +1,11 @@
+.closeBtn{
+    visibility: hidden;
+}
+
+.form:hover > .closeBtn{
+    visibility: visible;
+}
+
+.mat-form-field{
+    width: 90%;
+}

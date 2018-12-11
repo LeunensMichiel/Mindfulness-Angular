@@ -4,10 +4,10 @@
       <checklist-item-creation (changedItem)='onChangeCheckListItem($event)' (deleteItem)="deleteCheckListItem($event)"
                                [checkListItem]='checklistitem' *ngFor='let checklistitem of inputPage.list.items;'>
       </checklist-item-creation>
-      <form [formGroup]="checkListItemForm">
+      <form [formGroup]="checkListItemForm" class="form" fxLayoutAlign="start center">
         <mat-icon>check_box</mat-icon>
         <mat-form-field>
-          <input matInput formControlName="message" (change)="onAddCheckListItem()"/>
+          <input matInput formControlName="message" (change)="onAddCheckListItem()"  placeholder="Voer tekst in"/>
         </mat-form-field>
       </form>
     </div>
