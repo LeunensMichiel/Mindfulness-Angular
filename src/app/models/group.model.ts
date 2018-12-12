@@ -58,6 +58,10 @@ export class Group{
         this._sessionmap = value;
     }
 
+    public set sessionmap_id(value:string){
+        this._sessionmap_id = value;
+    }
+
     public set sessie_naam(value:string){
         this._sessie_naam = value;
     }

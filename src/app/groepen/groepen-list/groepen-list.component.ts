@@ -87,7 +87,19 @@ export class GroepenListComponent implements OnInit {
     });
     modifyGroupDialoRef.afterClosed().subscribe(result => {
       if (result) {
-        group.name = result;
+        //group.name = result;
+        let naamEnMap:string[] = [];
+        naamEnMap = result;
+        if(naamEnMap.length == 1){
+          group.name = result[0];
+        }
+        else if(naamEnMap.length == 2){
+          group.name = result[0];
+          let deNieuweCursus = this.sesmaps.find(e => e.id == result[1]);
+          group.sessionmap = deNieuweCursus;
+          group.sessionmap_id = result[1];
+        }
+        
         this.groepenDataService.editGroup(group).subscribe(
           () => {
           },
@@ -99,7 +111,7 @@ export class GroepenListComponent implements OnInit {
                 duration: 3000,
               });
           }
-        );
+        ); 
       }
     });
   }
@@ -160,8 +172,14 @@ export class GroupModifyComponent {
     this.dialogRef.close();
   }
 
-  wijzigenV2(){
-    console.log(this.gekozenCursus);
+  wijzigenV2(groepsnaam:string,cursus:Sessionmap){
+    let naamEnMap:string[] = [];
+    naamEnMap.push(groepsnaam);
+    if(cursus != null && cursus != undefined){
+      naamEnMap.push(cursus.id);
+    }
+
+    this.dialogRef.close(naamEnMap);
   }
 }
 
