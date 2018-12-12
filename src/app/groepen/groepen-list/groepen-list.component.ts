@@ -2,13 +2,16 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {Group} from 'src/app/models/group.model';
 import {GroepenDataService} from '../groepen-data.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, ErrorStateMatcher} from '@angular/material';
 import { SessieDataService } from '../../sessie/sessie-data.service';
 import { Sessionmap } from '../../models/sessionmap.model';
 import { User } from '../../models/user.model';
+import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service';
 
 export interface DialogGroupData {
   group_name: string;
+  sesmaps:Sessionmap[];
 }
 
 @Component({
@@ -78,12 +81,25 @@ export class GroepenListComponent implements OnInit {
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
-        group_name: group.name
+        group_name: group.name,
+        sesmaps:this.sesmaps
       }
     });
     modifyGroupDialoRef.afterClosed().subscribe(result => {
       if (result) {
-        group.name = result;
+        //group.name = result;
+        let naamEnMap:string[] = [];
+        naamEnMap = result;
+        if(naamEnMap.length == 1){
+          group.name = result[0];
+        }
+        else if(naamEnMap.length == 2){
+          group.name = result[0];
+          let deNieuweCursus = this.sesmaps.find(e => e.id == result[1]);
+          group.sessionmap = deNieuweCursus;
+          group.sessionmap_id = result[1];
+        }
+        
         this.groepenDataService.editGroup(group).subscribe(
           () => {
           },
@@ -95,7 +111,7 @@ export class GroepenListComponent implements OnInit {
                 duration: 3000,
               });
           }
-        );
+        ); 
       }
     });
   }
@@ -127,6 +143,16 @@ export class GroepenListComponent implements OnInit {
       });
   }
 
+  voegGroepToeV2(){
+    const voegGroupToeDialoRef = this.dialog.open(AddGroupDialog, {});
+  
+    voegGroupToeDialoRef.afterClosed().subscribe(result => {
+      if(result){
+        this.groups.push(result);
+      }
+    })
+  }
+
 }
 
 
@@ -135,6 +161,7 @@ export class GroepenListComponent implements OnInit {
   templateUrl: 'dialog-modify-group.html',
 })
 export class GroupModifyComponent {
+  private gekozenCursus:Sessionmap;
 
   constructor(
     public dialogRef: MatDialogRef<GroupModifyComponent>,
@@ -143,6 +170,16 @@ export class GroupModifyComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  wijzigenV2(groepsnaam:string,cursus:Sessionmap){
+    let naamEnMap:string[] = [];
+    naamEnMap.push(groepsnaam);
+    if(cursus != null && cursus != undefined){
+      naamEnMap.push(cursus.id);
+    }
+
+    this.dialogRef.close(naamEnMap);
   }
 }
 
@@ -161,6 +198,92 @@ export class RemoveGroupDialog {
 
   onYesClick(): void {
     this.dialogRef.close(true);
+  }
+}
+
+@Component({
+  selector: 'dialog-add-group',
+  templateUrl: 'dialog-add-group.html',
+  styleUrls: ['dialog-add-group.css']
+})
+export class AddGroupDialog implements OnInit{
+
+  ngOnInit(): void {
+    this._groupDataService.sesmaps.subscribe(
+      sesmaps => {
+        this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = `Error ${
+          error.status
+          } while trying to retrieve sessionmaps: ${error.error}`;
+      }
+    );
+    this._sessionmaps = new Array();
+
+    this.newGroup = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(1)]],
+      dropdown: ['', [Validators.required]]
+    });
+  }
+  public newGroup:FormGroup;
+  public matcher = new GroupErrorStateMatcher();
+  private _sessionmaps:Sessionmap[];
+  public errorMsg: string;
+  private deNieuweGroep:Group;
+
+  constructor(public dialogRef: MatDialogRef<AddGroupDialog>
+  ,private fb: FormBuilder,
+  private _groupDataService: GroepenDataService,
+  private _sessionmapDataService:SessionmapDataService,
+  public snackBar: MatSnackBar) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+
+  get sesmaps() {
+    return this._sessionmaps;
+  }
+
+  addGroup(){    
+    if(this.newGroup.valid){
+      let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
+
+      this._groupDataService.addNewGroup(group)
+      .subscribe(
+        result => {
+          group.id = result.id;
+          this.deNieuweGroep = result;
+          this.dialogRef.close(this.deNieuweGroep);
+          //this.addedGroup.emit(group);
+          this.snackBar.open("De groep is succesvol toegevoegd!", "", 
+          {
+            duration: 3000,
+          });
+        },
+        (error: HttpErrorResponse) => {
+          this.snackBar.open(`Error ${error.status} tijdens het toevoegen van een nieuwe groep: ${error.error}`, "", {
+            duration: 3000,
+          });
+        }
+      ); 
+    }
+    else{
+      this.snackBar.open("Vul alstublieft alle velden in!", "",
+        {
+          duration: 3000,
+        });
+    }
+  }
+  
+}
+
+export class GroupErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 

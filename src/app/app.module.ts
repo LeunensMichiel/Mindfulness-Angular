@@ -29,7 +29,7 @@ import { PaginaDetailComponent } from './page/pagina-detail/pagina-detail.compon
 import {ExerciseListComponent, RemoveExerciseDialog} from './exercise/exercise-list/exercise-list.component';
 import { TekstPaginaDetailComponent } from './page/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './page/audio-pagina-detail/audio-pagina-detail.component';
-import {SessieLijstComponent, RemoveSessieDialog} from './sessie/sessie-lijst/sessie-lijst.component';
+import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
@@ -57,6 +57,7 @@ import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import { GroepenListComponent , GroupModifyComponent, RemoveGroupDialog} from './groepen/groepen-list/groepen-list.component';
 import { AddUserToGroupDialog, QrGroupDialog } from './groepen/groep/groep.component';
 import { SendNotifDialog } from './groepen/groep/groep.component';
+import { AddGroupDialog } from './groepen/groepen-list/groepen-list.component'
 import { GroepCreatieComponent } from './groepen/groep-creatie/groep-creatie.component';
 import { GroepComponent } from './groepen/groep/groep.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -123,6 +124,8 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     ParagraphDetailComponent,
     ChecklistItemCreationComponent,
     NotActiveComponent,
+    PageNotFoundComponent,
+    AddGroupDialog,
     PageNotFoundComponent,
     CheckListItemDetailComponent,
     FeedbackPipePipe,
@@ -198,6 +201,7 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     GroupModifyComponent,
     RemoveGroupDialog,
     AddUserToGroupDialog,
+    AddGroupDialog,
     SendNotifDialog,
     QrGroupDialog]
 })

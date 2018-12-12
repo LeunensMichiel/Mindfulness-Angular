@@ -8,14 +8,12 @@
   </div>
 </div>
 
-<div *ngIf='creating' class="creatiebtn">
-  <app-groep-creatie (addedGroup)="addGroup($event)" (disable)='creating = !creating'></app-groep-creatie>
+<div class="creatiebtn float">
+<button mat-icon-button (click)="voegGroepToeV2()" mat-fab color="accent" class="btn-float">
+  <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+</button>
 </div>
 
-<div *ngIf='!creating' class="creatiebtn float">
-  <button mat-fab color="accent" (click)='creating = !creating' class="btn-float">
-    <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
-  </button>
-</div>
+
 
 
