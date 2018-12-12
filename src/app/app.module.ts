@@ -29,7 +29,7 @@ import { PaginaDetailComponent } from './page/pagina-detail/pagina-detail.compon
 import {ExerciseListComponent, RemoveExerciseDialog} from './exercise/exercise-list/exercise-list.component';
 import { TekstPaginaDetailComponent } from './page/tekst-pagina-detail/tekst-pagina-detail.component';
 import { AudioPaginaDetailComponent } from './page/audio-pagina-detail/audio-pagina-detail.component';
-import {SessieLijstComponent, RemoveSessieDialog, SessieModifyComponent} from './sessie/sessie-lijst/sessie-lijst.component';
+import {SessieLijstComponent, RemoveSessieDialog} from './sessie/sessie-lijst/sessie-lijst.component';
 import { SessieDataService } from './sessie/sessie-data.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HttpClientModule } from '@angular/common/http';
