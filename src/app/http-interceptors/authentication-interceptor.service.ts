@@ -10,9 +10,13 @@ export class AuthenticationInterceptor {
 
   constructor(private authenticationDataService: AuthenticationService) { }
 
-
+  /**
+   * This function intercepts all outgoing calls and adds in the header a token
+   * @param req
+   * @param next
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    // only if the authenticationDataservice user variable is not undefined
     if(this.authenticationDataService.user$) {
       const clonedRequest = req.clone({
 

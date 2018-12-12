@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthenticationInterceptor } from './authentication-interceptor.service';
 
+
 describe('AuthenticationInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 

@@ -8,6 +8,13 @@ export class AuthGuardService implements CanActivate {
   constructor(private _authtenticationService: AuthenticationService, private router: Router) {
   }
 
+  /**
+   * This function makes checks if there is someone logged in
+   * And is admin or superadmin
+   * if not it redirects to login page or not-active
+   * @param route
+   * @param state
+   */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let admin = this._authtenticationService.user$.getValue();
 

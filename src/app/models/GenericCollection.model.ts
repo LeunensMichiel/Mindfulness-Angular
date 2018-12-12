@@ -1,3 +1,8 @@
+/**
+ * This class contains a list of genericItems
+ * It gives easy functionality for add, deleting and moving items in a array
+ * Makes sure that the position of the items are always right
+ */
 export class GenericCollection {
   private _items: GenericItem[];
 
@@ -13,14 +18,27 @@ export class GenericCollection {
     this._items = value;
   }
 
+  /**
+   * This functions sets a item in the _items array
+   * On the position of the values position
+   * @param value
+   */
   public setItem(value: GenericItem) {
     this.items[value.position] = value;
   }
 
+  /**
+   * this function adds a item at the end of the items array
+   * @param item
+   */
   public addItem(item: GenericItem) {
     this.items.push(item);
   }
 
+  /**
+   * this function deletes the generic item that sits on the given position
+   * @param position
+   */
   public deleteItem(position: number) {
     let item = this.items[position];
     this.items.splice(position, 1);
@@ -34,6 +52,13 @@ export class GenericCollection {
     return item;
   }
 
+  /**
+   * This function switches the two genericItems places
+   *
+   * @param startPos -> startPos is the position of the first genericitem
+   * @param direction -> direction tells if the startPos should be switched with the left or right genericItem
+   *                     from the startPosition
+   */
   public changeItemPos(startPos: number, direction: number): boolean {
     let endPos = (startPos + direction);
     if (startPos != endPos && endPos >= 0 && endPos < this._items.length) {
@@ -47,6 +72,10 @@ export class GenericCollection {
     return false;
   }
 
+  /**
+   * This function gives the genericItem back that's corresponds with the given position
+   * @param position
+   */
   public getItem(position: number): GenericItem {
     return this.items[position];
   }
@@ -61,12 +90,19 @@ export class GenericCollection {
 
   }
 
+  /**
+   * This functions sets a new GenericItem on the given position in the items array
+   * @param item
+   */
   public changeItem(item: GenericItem) {
     this._items[item.position] = item;
   }
 
 }
 
+/**
+ * This abstract class contains position, title and id
+ */
 export abstract class GenericItem {
   private _position: number;
   private _title: string;
@@ -112,6 +148,9 @@ export abstract class GenericItem {
 
 }
 
+/**
+ * This a abstract class contains a GenericCollection
+ */
 export abstract class GenericItemWithList extends GenericItem {
   private _list: GenericCollection;
 

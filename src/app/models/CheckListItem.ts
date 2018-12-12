@@ -1,5 +1,8 @@
 import {GenericItem} from './GenericCollection.model';
 
+/**
+ * This class contains a description of a checklistitem and extends from genericItem
+ */
 export class CheckListItem extends GenericItem {
 
   constructor(position: number = 0, message: string = '') {

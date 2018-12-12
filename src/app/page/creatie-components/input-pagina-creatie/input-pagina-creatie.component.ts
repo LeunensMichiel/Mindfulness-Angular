@@ -19,6 +19,7 @@ export class InputPaginaCreatieComponent implements OnInit {
   @Input() inputPage: InputPage;
   @Output() changedPage = new EventEmitter<InputPage>();
   public checkListItemForm: FormGroup;
+
   /**
    * GIDS:
    * page-creatie-lijst |
@@ -27,7 +28,8 @@ export class InputPaginaCreatieComponent implements OnInit {
    */
   constructor(private _fb: FormBuilder) {
     this.checkListItemForm = this._fb.group({
-      message: ["", [Validators.maxLength(30)]]
+      // a checkListItem message can not be longer than 30 characters
+      message: ['', [Validators.maxLength(30)]]
     });
   }
 
@@ -39,53 +41,58 @@ export class InputPaginaCreatieComponent implements OnInit {
   }
 
 
-
   //================== METHODES ==================
 
   //------------ INPUTPAGE ATTRIBUTEN WIJZIGINGEN ------------
 
   /**
-   * METHODES:
-   * ngDoCheck: word getriggerd bij wijzigingen aan de lokale variabelen,
-   * dus elke keer als de gebruiker iets wijzigt in de .html.
-   * Als deze wijzigingen verschillend zijn van de attributen van de lokale page
-   * worden deze de nieuwe waarden van de page. De page word dan geëmit om
-   * te worden opgeslagen in het exercise-object
+   * This function adds a CheckListItem to the GenericCollection of the inputpage
+   * If checkListItemForm is valid
    */
   onAddCheckListItem(): void {
+    /**
+     * Checks if checklistItem is valid and changed
+     */
     if (this.checkListItemForm.valid && (this.checkListItemForm.dirty || this.checkListItemForm.touched)) {
       let position = this.inputPage.list.items.length;
       this.inputPage.list.addItem(new CheckListItem(position, this.checkListItemForm.value.message));
       this.changedPage.emit(this.inputPage);
-      this.checkListItemForm.setValue({message: ""})
+      this.checkListItemForm.setValue({message: ''});
     }
   }
 
+  /**
+   * Set a nieuw changeItem in the GenericCollection of the inputpage
+   * @param checkListItem
+   */
   onChangeCheckListItem(checkListItem: CheckListItem): void {
     this.inputPage.list.changeItem(checkListItem);
     this.changedPage.emit(this.inputPage);
   }
 
+  /**
+   * Removes the given CheckListItem out of the GenericCollection
+   * @param checkListItem
+   */
   deleteCheckListItem(checkListItem: CheckListItem): void {
     this.inputPage.list.deleteItem(checkListItem.position);
     this.changedPage.emit(this.inputPage);
   }
 
+
+  /**
+   * This function sets the type of the InputPage
+   * A InputPage can be [TEXT, IMAGE, MULTIPLE_CHOICE, EMPTY]
+   * @param value
+   */
   public setType(value) {
-    switch (value) {
-      case "text":
-        this.inputPage.typeInput = TypeInputPage.TEXT;
-        break;
-      case "image":
-        this.inputPage.typeInput = TypeInputPage.IMAGE;
-        break;
-      case "multiple_choice":
-        this.inputPage.typeInput = TypeInputPage.MULTIPLE_CHOICE;
-        break;
-    }
+    this.inputPage.typeInput = InputPage.filterInputPage(value);
     this.changedPage.emit(this.inputPage);
   }
 
+  /**
+   * This function checks if the typeInput of the intputPage is Empty
+   */
   public typeIsEmpty(): boolean {
     return this.inputPage.typeInput === TypeInputPage.EMPTY;
   }

@@ -54,6 +54,10 @@ export class ParagraafCreatieComponent implements OnInit {
     }
   }
 
+  /**
+   * This Image retrieves the Images from the server via the downloadDataService
+   * @param imagePath
+   */
   showImage(imagePath: string) {
     this.isImageLoading = true;
 
@@ -68,6 +72,11 @@ export class ParagraafCreatieComponent implements OnInit {
     );
   }
 
+  /**
+   * This functions converts the given blob to a data url
+   * And sets it in the view
+   * @param image
+   */
   private createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener('load', () => {
@@ -99,8 +108,13 @@ export class ParagraafCreatieComponent implements OnInit {
     }
   }
 
+  /**
+   * This function emits the image and the paragraph to text page creation
+   * Text page creation saves the image on the server
+   * @param event
+   */
   onChangeImage(event: any) {
-    let file = event.target.files.item(0)
+    let file = event.target.files.item(0);
 
     this.addImage.emit({
       file: file,
@@ -138,13 +152,4 @@ export class ParagraafCreatieComponent implements OnInit {
     return false;
   }
 
-  //
-  // selectFile(event) {
-  //   console.log(this.par);
-  //
-  //   this.addImage.emit({
-  //     file: event.target.files.item(0),
-  //     par: this.par
-  //   })
-  // }
 }

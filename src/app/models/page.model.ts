@@ -1,8 +1,13 @@
-import {Paragraph, TypeParagraph} from './paragraph.model';
-import {GenericCollection, GenericItem, GenericItemWithList} from './GenericCollection.model';
+import {Paragraph} from './paragraph.model';
+import {GenericCollection, GenericItemWithList} from './GenericCollection.model';
 import {CheckListItem} from './CheckListItem';
 
+/**
+ * This class extends GenericItemWithList
+ * It exists to make the AudioPage, InputPage and TextPage uniform
+ */
 export class Page extends GenericItemWithList {
+
   private _type: TypePage;
 
   constructor(position: number = 0, title: string = '', type: TypePage) {
@@ -30,7 +35,16 @@ export class Page extends GenericItemWithList {
     return TypePage[this.type];
   }
 
-
+  static convertPage(page: any) {
+    switch (page.type) {
+      case TypePage.TEXT:
+        return page as TextPage;
+      case TypePage.AUDIO:
+        return page as AudioPage;
+      case TypePage.INPUT:
+        return page as InputPage;
+    }
+  }
 }
 
 export enum TypePage {
@@ -39,12 +53,16 @@ export enum TypePage {
   TEXT
 }
 
+/**
+ * This class extends from Page
+ * It contains the a audiofilename
+ */
 export class AudioPage extends Page {
   private _audioFilename: string;
 
   constructor(position: number = 0, title: string = '', audioFilename: string = '') {
     super(position, title, TypePage.AUDIO);
-    this._audioFilename = audioFilename;
+    this.audioFilename = audioFilename;
   }
 
   get audioFilename(): string {
@@ -71,6 +89,10 @@ export class AudioPage extends Page {
 
 }
 
+/**
+ * This class extends from Page
+ * It contains the a List of paragraphs
+ */
 export class TextPage extends Page {
 
 
@@ -106,13 +128,19 @@ export class TextPage extends Page {
 
 }
 
+
 export enum TypeInputPage {
   TEXT,
   IMAGE,
   MULTIPLE_CHOICE,
-  EMPTY
+  EMPTY // Empty means that there hasn't been a type chosen
 }
 
+/**
+ * This class extends from Page
+ * It contains the a List of checklistitems
+ * Depending on the kind of InputPage
+ */
 export class InputPage extends Page {
   private _typeInput: TypeInputPage;
 
@@ -130,6 +158,11 @@ export class InputPage extends Page {
     this._typeInput = value;
   }
 
+  /**
+   * This function gives a TEXT, IMAGE, MULTIPLE_CHOICE or EMPTY TypeInputPage back
+   * Depending on the typeString
+   * @param typeString
+   */
   static filterInputPage(typeString: string): TypeInputPage {
     switch (typeString) {
       case 'TEXT': {
@@ -148,6 +181,9 @@ export class InputPage extends Page {
 
   }
 
+  /**
+   * This function converts the TypeInputPage to a string
+   */
   convertType(): string {
     switch (this.typeInput) {
       case TypeInputPage.IMAGE:

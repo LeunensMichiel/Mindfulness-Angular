@@ -59,12 +59,18 @@ export class AuthenticationService {
     return this._isSuperAdmin$;
   }
 
+
   get token(): string {
     const localToken = JSON.parse(localStorage.getItem(this.currentUserKey));
 
     return !!localToken ? localToken.token : '';
   }
 
+  /**
+   * This function logs a user in the database
+   * @param email
+   * @param password
+   */
   login(email: string, password: string): Observable<boolean> {
     return this.http.post(`${this._url}/login/admin`,
       {email: email, password: password})
@@ -76,6 +82,11 @@ export class AuthenticationService {
       );
   }
 
+  /**
+   * This function registers a admin in the database
+   * @param newAdmin
+   * @param password
+   */
   register(newAdmin: Admin, password: string): Observable<boolean> {
     return this.http.post(`${this._url}/register/admin`, {...newAdmin.toJSON(), password: password})
       .pipe(
@@ -85,6 +96,10 @@ export class AuthenticationService {
       );
   }
 
+  /**
+   * This function stores the user in the localStorage
+   * @param json
+   */
   storeAdminLocal(json: any): boolean {
     let decodedToken = parseJwt(json);
 
@@ -100,10 +115,16 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function checks if admin has logged in in the last 60 days
+   */
   isAdminStoredLocal(): boolean {
     return localStorage.getItem(this.currentUserKey) != null;
   }
 
+  /**
+   * This function removes the data of the user out of localstorage
+   */
   logout(): void {
     if (this.user$.getValue()) {
       localStorage.removeItem('currentUser');
@@ -115,6 +136,10 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * This function checks if there is a user that already has this email address
+   * @param email
+   */
   checkEmailAvailability(email: string): Observable<boolean> {
     return this.http.post(`${this._url}/checkemail`, {email: email})
       .pipe(

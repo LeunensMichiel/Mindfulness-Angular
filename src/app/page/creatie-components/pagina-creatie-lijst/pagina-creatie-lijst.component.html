@@ -1,7 +1,7 @@
 <div class="container" (keydown)="onKeydown($event)" tabindex="0">
   <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of pages; let i = index' [page]='page' [_position]='i'
-    [viewBeingDragged]='dragging' (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)'
-    (onFileAddedToPage)='fileAddedToPage($event)' (enableDragView)='dragging = $event' (changePagePos)='changePagePos($event)' (addParagraphCmd)='onNewParCommand($event)'
+    (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)'
+    (onFileAddedToPage)='fileAddedToPage($event)'  (changePagePos)='changePagePos($event)'
     class="kid">
   </app-pagina-creatie>
   <mat-card class="inputField">

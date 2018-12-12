@@ -23,13 +23,13 @@
 
 <div *ngIf="typeIsEmpty()" class="inputField">
   <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
-    <mat-button-toggle (click)='setType(group.value)' value="text" [disableRipple]='true'>
+    <mat-button-toggle (click)='setType(group.value)' value="TEXT" [disableRipple]='true'>
       <mat-icon>text_format</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle (click)='setType(group.value)' value="image" [disableRipple]='true'>
+    <mat-button-toggle (click)='setType(group.value)' value="IMAGE" [disableRipple]='true'>
       <mat-icon>camera_alt</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle (click)='setType(group.value)' value="multiple_choice" [disableRipple]='true'>
+    <mat-button-toggle (click)='setType(group.value)' value="MULTIPLE_CHOICE" [disableRipple]='true'>
       <mat-icon>check_box</mat-icon>
     </mat-button-toggle>
   </mat-button-toggle-group>

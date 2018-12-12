@@ -91,11 +91,11 @@ export class AudioPaginaCreatieComponent implements OnInit {
     this.playing = true;
     var reader = new FileReader();
     reader.onload = (e) => {
-      console.log(e)
+      console.log(e);
       this.audio = new Audio(reader.result.toString());
       this.audio.currentTime = this.audioCurrentTime;
       this.audio.play();
-    }
+    };
     reader.readAsDataURL(this.fileInputRef.nativeElement.files[0]);
   }
 
