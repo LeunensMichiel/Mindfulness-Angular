@@ -1,14 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Page, TextPage, AudioPage, TypePage, InputPage} from 'src/app/models/page.model';
 import {
   trigger,
-  state,
   style,
   animate,
   transition,
-  group,
-  query
-  // ...
 } from '@angular/animations';
 import {Cmd} from 'src/app/models/Commands/command.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -18,32 +14,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './pagina-creatie.component.html',
   styleUrls: ['./pagina-creatie.component.css'],
   animations: [
-    /* trigger('pageTrigger', [
-      state('in', style({ transform: 'translateX(0)' })),
-      state('out', style({ transform: 'translateX(0)' })),
-      transition('void => *', [
-        style({ transform: 'translateX(-50%)', opacity: 0.5}),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ]),
-      transition('* => out', [
-        style({ transform: 'translateX(0)', opacity: 1}),
-        animate('300ms ease-out', style({ opacity: 0, transform: 'translateX(50%)' }))
-      ])
-    ]),
-    trigger('valueAnimation', [
-      transition(':increment', group([
-        query(':enter', [
-          style({ opacity: 0.5 }),
-          animate('0.8s ease-out', style('*'))
-        ])
-      ])),
-      transition(':decrement', group([
-        query(':enter', [
-          style({ opacity: 0.5 }),
-          animate('0.8s ease-out', style('*'))
-        ])
-      ]))
-    ]) */
     trigger('posAnim', [
       transition(':increment', [style({transform: 'translateX(-100%)'}), animate('500ms ease-out', style({transform: 'translateX(0)'}))]),
       transition(':decrement', [style({transform: 'translateX(100%)'}), animate('500ms ease-out', style({transform: 'translateX(0%)'}))])
@@ -57,8 +27,7 @@ export class PaginaCreatieComponent implements OnInit {
    * -changedPage: emit een veranderde Pagina naar de exercise.
    * -changedPagePos: emit start en eind positie van een page die word verplaatst.
    * -deletePage: emit de positie van een te verwijderen page.
-   * -enableDragView: emit een boolean waardoor alle element in de lijst veranderen
-   * naar hun draggingView.
+
    * -dragging: deze boolean bepaalt of het huidige element wel of niet veranderd naar
    * hun draggingView. Het is het element dat word gedragged dat niet veranderd, alle
    * andere element veranderen wel.
@@ -72,13 +41,7 @@ export class PaginaCreatieComponent implements OnInit {
   @Output() onFileAddedToPage = new EventEmitter<Page>();
   @Output() changePagePos = new EventEmitter<any>();
   @Output() deletedPage = new EventEmitter<number>();
-  @Output() enableDragView = new EventEmitter<boolean>();
-  @Output() addParagraphCmd = new EventEmitter<Cmd>();
   changeAnimation = true;
-  public inputChoiceActive = true;
-  public clicked = false;
-  public dragging = this.viewBeingDragged && (!this.clicked);
-  public draggable = false;
   public pageForm: FormGroup;
   /**
    * GIDS:
@@ -106,7 +69,14 @@ export class PaginaCreatieComponent implements OnInit {
 
   //------------ PAGE OPERATIES ------------
 
+  /**
+   * This function changes the title of the page
+   * It does not matter what page it is
+   */
   onChangeTitle(): void {
+    /**
+     * The title of the page is only be changed when the form is valid
+     */
     if ((this.pageForm.dirty || this.pageForm.touched) && this.pageForm.valid) {
       this.page.title = this.pageForm.value.title;
 
@@ -161,7 +131,11 @@ export class PaginaCreatieComponent implements OnInit {
     this.changedPage.emit(page);
   }
 
-
+  /**
+   * This function changes the position of a page
+   * It is triggered when the arrows in the view are clicked
+   * @param direction -> defines if the page should move to the right or left
+   */
   changePagePosition(direction) {
     this.changePagePos.emit({
       'startPos': this.page.position,
@@ -169,7 +143,5 @@ export class PaginaCreatieComponent implements OnInit {
     });
   }
 
-  onNewParCommand(cmd: Cmd) {
-    this.addParagraphCmd.emit(cmd);
-  }
+
 }

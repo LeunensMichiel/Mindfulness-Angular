@@ -1,10 +1,17 @@
+/**
+ * This class contains everything of a admin that can login to the web application
+ */
 export class Admin {
+
 
   private _firstname: string;
   private _lastname: string;
   private _email: string;
   private _token: string;
   private _id: string;
+  /**
+   * This boolean contains the value that describe is the admin is activated to be able to use the platform. 
+   */
   private _adminActive: boolean;
   private _role: Role;
 
@@ -78,10 +85,16 @@ export class Admin {
     this._email = value;
   }
 
-  generateFullname(): string {
+  /**
+   * This function gives the firstname and lastname in one string
+   */
+  generateFullName(): string {
     return `${this.firstname} ${this.lastname}`;
   }
 
+  /**
+   * this function checks if the admin is a superadmin
+   */
   isSuperAdmin(): boolean {
     return this.role.superAdmin;
   }
@@ -115,10 +128,13 @@ export class Admin {
   }
 
   toString(): string {
-    return this.generateFullname();
+    return this.generateFullName();
   }
 }
 
+/**
+ * This class contains everything of all the info of the rights that a admin can have
+ */
 export class Role {
   private _admin: boolean;
   private _superAdmin: boolean;

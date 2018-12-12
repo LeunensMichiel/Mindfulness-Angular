@@ -8,7 +8,6 @@ import {Sessionmapresolver} from '../sessionmaps/sessionmapresolver';
 import {SessionResolver} from '../sessie/session-resolver.service';
 import {GroepenListComponent} from '../groepen/groepen-list/groepen-list.component';
 import {PaginaCreatieLijstComponent} from '../page/creatie-components/pagina-creatie-lijst/pagina-creatie-lijst.component';
-import {ExerciseDetailComponent} from '../exercise/exercise-detail/exercise-detail.component';
 import {AuthGuardService} from '../user/auth-guard.service';
 import {ExerciseResolver} from '../exercise/exercise-resolver.service';
 import {FeedbackListComponent} from '../feedback/feedback-list/feedback-list.component';
@@ -16,6 +15,9 @@ import {NotActiveComponent} from '../not-actif/not-active.component';
 import {NotActiveAuthGuard} from '../not-actif/not-active-auth-guard.service';
 import {PageNotFoundComponent} from '../page-not-found/page-not-found.component';
 
+/**
+ * In this module we define all the routes in the AppModule
+ */
 const appRoutes: Routes = [
   {path: '', redirectTo: 'course-list', pathMatch: 'full'},
   {

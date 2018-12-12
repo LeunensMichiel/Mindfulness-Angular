@@ -23,6 +23,10 @@ export class ParagraphDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * This Image retrieves the Images from the server via the downloadDataService
+   * @param imagePath
+   */
   showImage(imagePath: string) {
     this.isImageLoading = true;
 
@@ -37,6 +41,11 @@ export class ParagraphDetailComponent implements OnInit {
     );
   }
 
+  /**
+   * This functions converts the given blob to a data url
+   * And sets it in the view
+   * @param image
+   */
   private createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener('load', () => {

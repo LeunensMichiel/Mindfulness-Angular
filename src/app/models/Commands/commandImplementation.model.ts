@@ -46,34 +46,22 @@ export abstract class CmdImplementation {
     if (this.cmdValue < this.commandCache.length - 1) {
       this.cmdValue += 1;
       this.commandCache[this.cmdValue].execute();
-      this.resetTimer();
+      // this.resetTimer();
     }
   }
 
+  /**
+   * This function undo's the last action taken added to the commandCache
+   */
   undoCurrentCommand() {
     if (this.cmdValue >= 0) {
       this.commandCache[this.cmdValue].undo();
       var cmd = this.commandCache[this.cmdValue];
       console.log(cmd.toString());
       this.cmdValue -= 1;
-      this.resetTimer();
     }
   }
 
-  private setTimer() {
-    this.timer = setTimeout(() => {
-      this.saveItem();
-      this.timer = null;
-    }, 3000);
-  }
-
-  private resetTimer() {
-    if (this.timer != null)
-      clearTimeout(this.timer);
-    this.setTimer();
-  }
-
-  abstract saveItem();
 
   abstract addItem(cmd: Cmd): any;
 

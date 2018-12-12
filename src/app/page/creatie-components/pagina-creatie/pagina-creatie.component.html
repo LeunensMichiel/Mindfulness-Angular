@@ -20,7 +20,7 @@
       <app-audio-pagina-creatie (changedPage)='saveChangedPage($event)' (onFileAddedToPage)='fileAddedToPage($event)'
                                 [audioPage]='page' *ngSwitchCase="getTypePage().AUDIO"></app-audio-pagina-creatie>
       <app-tekst-pagina-creatie (changedPage)='saveChangedPage($event)' (onFileAddedToPage)='fileAddedToPage($event)'
-                                (addParagraphCmd)='onNewParCommand($event)' [textPage]='page'
+                                 [textPage]='page'
                                 *ngSwitchCase="getTypePage().TEXT"></app-tekst-pagina-creatie>
       <app-input-pagina-creatie (changedPage)='saveChangedPage($event)' [inputPage]='page'
                                 *ngSwitchCase="getTypePage().INPUT"></app-input-pagina-creatie>

@@ -5,8 +5,14 @@ import {Feedback} from '../models/feedback.model';
   name: 'feedbackFilter'
 })
 export class FeedbackPipePipe implements PipeTransform {
-
+  /**
+   * This functions filters the given feedback array using the sessionTitle
+   * @param feedback (Feedback array)
+   * @param sessionTitle
+   */
   transform(feedback: Feedback[], sessionTitle: string): Feedback[] {
+    // If the sessionTitle is empty or length 0
+    // returns the feedback array without filtering
     if (!sessionTitle || sessionTitle.length === 0) {
       return feedback;
     }

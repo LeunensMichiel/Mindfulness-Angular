@@ -58,7 +58,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
       if (it) {
         return  (it !== (undefined || null));
       }
-    });;
+    });
   }
 
   /**
@@ -105,9 +105,6 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
   private deletePage(position) {
 
     this.addCommand(new Delete(this.exercise, [this.exercise.list.items[position]]));
-    console.log(position);
-    console.log("PAGE AT POSITION " + position + " DELETED.");
-    console.log(this.exercise.list.items);
     this.openSnackbar("Pagina verwijderd!");
   }
 
@@ -119,25 +116,19 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param page De page met de veranderingen.
    */
   public saveChangedPage(page) {
-    console.log("SAVED CHANGED PAGE AT ANCESTOR");
-    let newPage = this.convertPage(page);
-    console.log(newPage);
+    let newPage = Page.convertPage(page);
     let oldPage = this.exercise.list.items[newPage.position];
-    console.log(oldPage);
     this.addCommand(new Update(this.exercise, [oldPage, newPage]));
-    console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
   }
 
+  /**
+   * This function creates a command that changes a page with file
+   * @param page
+   */
   public fileAddedToPage(page) {
-    console.log("SAVED CHANGED PAGE AT ANCESTOR");
-    console.log(page);
-    let newPage = this.convertPage(page);
-    console.log(newPage);
+    let newPage = Page.convertPage(page);
     let oldPage = this.exercise.list.items[newPage.position];
-    console.log(oldPage);
     this.addCommand(new SwitchObjectWithoutSave(this.exercise, [oldPage, newPage]));
-    console.log("POSITION: " + page.position + " - TYPE: " + page.toString() + " - TITLE: " + page.title);
-
   }
 
   /**
@@ -153,37 +144,41 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     this.addCommand(new Switch(this.exercise, positions));
   }
 
-  onNewParCommand(cmd: Cmd) {
-    this.addCommand(cmd);
-  }
 
-  saveItem() {
-    console.log("saved");
-  }
-
+  /**
+   * This function adds a page that's in the command via the pageDataService
+   * @param cmd
+   */
   addItem(cmd: Cmd): any {
-    this.pageDataService.addPageToExercise(cmd.inputItem.id, this.convertPage(cmd.param[0]))
+    this.pageDataService.addPageToExercise(cmd.inputItem.id, Page.convertPage(cmd.param[0]))
       .subscribe(
         success => {
-          console.log(success);
           this.exercise.list.items[success.position].id = success.id
         },
         error => console.log(error)
       );
   }
+
+  /**
+   * This function removes the page that's in the command out of the database via the pageDataService
+   * @param cmd
+   */
   removeItem(cmd: Cmd) {
-    this.pageDataService.removePage(this.convertPage(cmd.param[0]).id)
+    this.pageDataService.removePage(Page.convertPage(cmd.param[0]).id)
       .subscribe(
         success => console.log(success),
         error => console.log(error)
       )
   }
 
+  /**
+   * This function changes the position of two page that's in the command via the pageDataService
+   * @param cmd
+   */
   changePos(cmd: Switch): void{
     let page1 = this.exercise.list.getItem(cmd.extraParam.startPos);
     let page2 = this.exercise.list.getSecondItem(cmd.extraParam.startPos, cmd.extraParam.direction);
     if (page2 != null) {
-      console.log(page2);
       this.pageDataService.updatePagesPos(page1 as Page, page2 as Page)
         .subscribe(
           success => console.log(success),
@@ -192,9 +187,13 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     }
   }
 
+  /**
+   * This function updates the page that's in the command via the pageDataService
+   * @param cmd
+   */
   update(cmd:Cmd): void {
 
-    this.pageDataService.updatePage(this.convertPage(cmd.param[0]))
+    this.pageDataService.updatePage(Page.convertPage(cmd.param[0]))
       .subscribe(
         succes => console.log(succes),
         error => console.log(error)
@@ -203,14 +202,5 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
 
 
 
-  convertPage(page: any) {
-    switch (page.type) {
-      case TypePage.TEXT:
-        return page as TextPage;
-      case TypePage.AUDIO:
-        return page as AudioPage;
-      case TypePage.INPUT:
-        return page as InputPage;
-    }
-  }
+
 }

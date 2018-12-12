@@ -23,7 +23,6 @@ export class TekstPaginaCreatieComponent implements OnInit {
    */
   @Input() textPage: TextPage;
   @Output() changedPage = new EventEmitter<Page>();
-  @Output() addParagraphCmd = new EventEmitter<Cmd>();
   @Output() onFileAddedToPage = new EventEmitter<Page>();
 
   title: string = '';
@@ -100,6 +99,11 @@ export class TekstPaginaCreatieComponent implements OnInit {
     this.changedPage.emit(this.textPage);
   }
 
+  /**
+   * This function is triggered when there is a image added to a paragraph
+   * It saves the image on the server via the pageDataService
+   * @param json
+   */
   addImage(json: any) {
 
     // this.progress.percentage = 0;
@@ -114,14 +118,13 @@ export class TekstPaginaCreatieComponent implements OnInit {
           this.onFileAddedToPage.emit(this.textPage);
           // this.onFileAddedToPage.emit(page);
           // this.currentFileUpload = undefined;
-        } else {
-
-          // TODO later nog wijzigen om foutmelding in httpresponse te stoppen
-          this.snackBar.open('File upload was unsuccesvol', '', {
-            duration: 3000,
-          });
         }
 
+      },
+      error => {
+        this.snackBar.open('File upload was unsuccesvol', '', {
+          duration: 3000,
+        });
       });
   }
 }
