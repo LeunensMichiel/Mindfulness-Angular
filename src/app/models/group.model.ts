@@ -86,6 +86,14 @@ export class Group{
     }
 
     toJSON(){
+        if(this._sessionmap == null){
+            return{
+                _id:this._id,
+                name:this._name,
+                sessionmap:null,
+                actief:this._actief
+            };
+        } 
         return{
             _id:this._id,
             name:this._name,

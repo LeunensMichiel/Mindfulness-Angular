@@ -255,6 +255,7 @@ export class AddGroupDialog implements OnInit{
       .subscribe(
         result => {
           group.id = result.id;
+          console.log(group.sessionmap);
           this.deNieuweGroep = result;
           this.dialogRef.close(this.deNieuweGroep);
           //this.addedGroup.emit(group);
