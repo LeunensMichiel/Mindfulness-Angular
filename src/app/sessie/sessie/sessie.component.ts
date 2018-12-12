@@ -4,7 +4,7 @@ import {Exercise} from '../../models/exercise.model';
 import {SessieDataService} from '../sessie-data.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {DownloadService} from '../../download.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { httpInterceptorProviders } from 'src/app/http-interceptors';
 
@@ -202,8 +202,8 @@ export class QrDialog implements OnInit {
       @Inject(MAT_DIALOG_DATA) session:Session) {
   
         this.form = fb.group({
-          title: [session.title],
-          description: [session.description],
+          title: [session.title, [Validators.maxLength(50), Validators.required ]],
+          description: [session.description, [Validators.maxLength(100), Validators.required ]],
           image:[]
       });
     }

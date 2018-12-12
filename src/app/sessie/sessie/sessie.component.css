@@ -4,6 +4,7 @@
 .card{
   margin-bottom: 15px;
   max-width: 400px;
+  word-wrap: break-word;
 }
 
 .example-header-image {
@@ -35,6 +36,11 @@
 img{
   height: 300px;
 }
+
+.mat-card-content{
+  height: 40px;
+}
+
 
 
 

@@ -1,4 +1,4 @@
-<div *ngIf="!typeIsEmpty()">
+<div *ngIf="!typeIsEmpty()" class="container">
   <div [ngSwitch]="inputPage.typeInput">
     <div *ngSwitchCase="getTypeInput().MULTIPLE_CHOICE">
       <checklist-item-creation (changedItem)='onChangeCheckListItem($event)' (deleteItem)="deleteCheckListItem($event)"
@@ -11,11 +11,11 @@
         </mat-form-field>
       </form>
     </div>
-    <div *ngSwitchCase="getTypeInput().IMAGE">
-      <mat-icon>camera_alt</mat-icon>
+    <div *ngSwitchCase="getTypeInput().IMAGE" fxLayoutAlign="center center" >
+      <p>Foto invoer pagina</p>
     </div>
-    <div *ngSwitchCase="getTypeInput().TEXT">
-      <mat-icon>text_format</mat-icon>
+    <div *ngSwitchCase="getTypeInput().TEXT" fxLayoutAlign="center center" >
+      <p>Tekst invoer pagina</p>
     </div>
   </div>
 
