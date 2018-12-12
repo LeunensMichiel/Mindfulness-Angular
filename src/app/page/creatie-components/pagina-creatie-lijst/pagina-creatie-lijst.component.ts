@@ -66,7 +66,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * 
    * @param message Boodschap die word getoond.
    */
-  private openSnackbar(message) {
+  private openSnackbar(message: string) {
     this.snackBar.open(message, 'ok', {
       duration: 1500
     });

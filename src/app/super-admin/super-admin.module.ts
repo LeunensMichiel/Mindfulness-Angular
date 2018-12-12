@@ -6,7 +6,7 @@ import {SuperAdminAuthGuard} from './super-admin-auth-guard.service';
 import {AuthenticationService} from '../user/authentication.service';
 import {RouterModule} from '@angular/router';
 import {AdminDataService} from './admin-data.service';
-import {MatButtonModule, MatTableModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatSnackBarModule, MatTableModule} from '@angular/material';
 
 const routes = [
   {
@@ -23,6 +23,8 @@ const routes = [
     CommonModule,
     MatTableModule,
     MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
     RouterModule.forChild(routes)
   ],
   providers: [

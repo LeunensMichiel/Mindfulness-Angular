@@ -1,13 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AdminDataService} from '../admin-data.service';
 import {Admin} from '../../models/admin.model';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
 
-export interface PeriodicElement {
-  name: string;
-  email: string;
-  status: number;
-}
+
 
 @Component({
   selector: 'admin-list',
@@ -18,10 +14,11 @@ export class AdminListComponent implements OnInit {
 
   private _activatedAdmins: Admin[] = [];
   private _deactivatedAdmins: Admin[] = [];
-  displayedColumns: string[] = ['name', 'email', 'status'];
+  displayedColumnsActivateTable: string[] = ['name', 'email', 'status'];
+  displayedColumnsDeactivateTable: string[] = ['name', 'email', 'status', "delete"];
 
 
-  constructor(private _adminDataService: AdminDataService) {
+  constructor(private _adminDataService: AdminDataService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -33,7 +30,7 @@ export class AdminListComponent implements OnInit {
         this._activatedAdmins = result;
       },
       err => {
-        console.log(err);
+        this.openSnackbar(`Fout bij ophalen geactiveerde beheerders!`);
       }
     );
 
@@ -42,6 +39,7 @@ export class AdminListComponent implements OnInit {
         this._deactivatedAdmins = result;
       },
       err => {
+        this.openSnackbar(`Fout bij ophalen gedeactiveerde beheerders!`);
 
       }
     );
@@ -94,10 +92,12 @@ export class AdminListComponent implements OnInit {
   deleteAdmin(admin: Admin) {
     this._adminDataService.deleteAdmin(admin).subscribe(
       result => {
-        console.log(result);
+        this.deactivatedAdmins = this.deactivatedAdmins.filter(val => result.id !== val.id);
+        this.openSnackbar(`Beheerder succesvol verwijderd!`);
       },
       err => {
-        console.log(err);
+        this.openSnackbar(`Beheerder unsuccesvol verwijderd!`);
+
       }
     );
   }
@@ -106,6 +106,17 @@ export class AdminListComponent implements OnInit {
     if (list.length > 5) {
       return "example-container"
     }
+  }
+
+  /**
+   * Deze methode toont een snackbar als er een verandering gebeurt.
+   *
+   * @param message Boodschap die word getoond.
+   */
+  private openSnackbar(message) {
+    this.snackBar.open(message, 'ok', {
+      duration: 1500
+    });
   }
 
 }
