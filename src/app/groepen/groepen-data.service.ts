@@ -39,7 +39,7 @@ export class GroepenDataService {
 
   editGroup(group: Group): Observable<Group> {
     return this.http
-      .put(`${this._appUrl}/group/${group.id}`, {group:group, sessionmap_id:group.sessionmap_id, name:group.name})
+      .put(`${this._appUrl}/group/${group.id}`, {group:group, sessionmap_id:group.sessionmap_id, name:group.name,actief:group.actief})
       .pipe(map(it => {
         return Group.fromJSON(it);
       }));

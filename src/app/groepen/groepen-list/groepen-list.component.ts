@@ -256,6 +256,7 @@ export class AddGroupDialog implements OnInit{
         result => {
           group.id = result.id;
           this.deNieuweGroep = result;
+          this.deNieuweGroep.sessionmap = group.sessionmap;
           this.dialogRef.close(this.deNieuweGroep);
           //this.addedGroup.emit(group);
           this.snackBar.open("De groep is succesvol toegevoegd!", "", 
