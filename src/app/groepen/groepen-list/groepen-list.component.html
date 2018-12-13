@@ -1,18 +1,26 @@
-
-
-
-<div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
-  
-  <div *ngFor='let group of groups'>
-    <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
-  </div>
+<div class="container">
+    <div class="title">
+      <table>
+        <tr>
+            <h1><span class="vet">GROEPEN</span></h1>
+        </tr>
+      </table>
+        
+    </div>
+    <div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
+      
+      <div *ngFor='let group of groups'>
+        <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
+      </div>
+    </div>
+    
+    <div class="creatiebtn float">
+    <button mat-icon-button (click)="voegGroepToeV2()" mat-fab color="accent" class="btn-float">
+      <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
+    </button>
+    </div>
 </div>
 
-<div class="creatiebtn float">
-<button mat-icon-button (click)="voegGroepToeV2()" mat-fab color="accent" class="btn-float">
-  <mat-icon aria-label="Example icon-button with a add icon">add</mat-icon>
-</button>
-</div>
 
 
 

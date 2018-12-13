@@ -28,6 +28,11 @@ th{
   text-align: center;
 }
 
+.title{
+  background-color: white;
+  padding-left: 15px;
+}
+
 /*.closeBtn{*/
   /*visibility: hidden;*/
 /*}*/
