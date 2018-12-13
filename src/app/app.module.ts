@@ -81,6 +81,7 @@ import {SuperAdminModule} from './super-admin/super-admin.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -170,7 +171,8 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule
   ],
   providers: [
     basehttpInterceptorProviders,

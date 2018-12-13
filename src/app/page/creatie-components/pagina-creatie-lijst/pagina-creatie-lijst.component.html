@@ -6,13 +6,13 @@
   </app-pagina-creatie>
   <mat-card class="inputField">
     <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
-      <mat-button-toggle (click)='addPage(group.value)' value="input" [disableRipple]='true'>
+      <mat-button-toggle (click)='addPage(group.value)' value="input" [disableRipple]='true' matTooltip="Input pagina toevoegen">
         <mat-icon>create</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle (click)='addPage(group.value)' value="audio" [disableRipple]='true'>
+      <mat-button-toggle (click)='addPage(group.value)' value="audio" [disableRipple]='true' matTooltip="Audio pagina toevoegen">
         <mat-icon>music_video</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true'>
+      <mat-button-toggle (click)='addPage(group.value)' value="text" [disableRipple]='true' matTooltip="Tekst pagina toevoegen">
         <mat-icon>text_format</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>

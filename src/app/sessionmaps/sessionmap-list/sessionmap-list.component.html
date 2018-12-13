@@ -3,13 +3,13 @@
     <mat-toolbar color="primary">
       <span class="vet">Lessen</span>
       <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon" (click)="onAdd(true)" class="hvr-grow">
+      <button mat-icon-button class="example-icon" (click)="onAdd(true)" class="hvr-grow" matTooltip="Cursus toevoegen">
         <mat-icon>add</mat-icon>
       </button>
-      <button mat-icon-button (click)="onAdd(false)" class="hvr-grow">
+      <button mat-icon-button (click)="onAdd(false)" class="hvr-grow" matTooltip="Cursus aanpassen">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="removeSessionMap()" class="hvr-grow">
+      <button mat-icon-button (click)="removeSessionMap()" class="hvr-grow" matTooltip="Cursus verwijderen">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-toolbar>

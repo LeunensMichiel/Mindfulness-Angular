@@ -53,5 +53,11 @@ i {
 .closeButton {
     float: right;
     z-index: 1;
+    visibility: hidden;
     
 }
+
+.parAnimClass:hover > .closeButton{
+    visibility: visible;
+}
+

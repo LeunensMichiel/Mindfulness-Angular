@@ -9,16 +9,16 @@
   </div>
   <div>
     <button mat-icon-button (click)="editGroup()">
-      <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow">edit</mat-icon>
+      <mat-icon aria-label="Example icon-button with a edit icon" class="hvr-grow" matTooltip="Wijzig">edit</mat-icon>
     </button>
     <button mat-icon-button (click)="removeGroup()" class="hvr-grow">
-      <mat-icon aria-label="Example icon-button with a delete icon">delete</mat-icon>
+      <mat-icon aria-label="Example icon-button with a delete icon" matTooltip="Verwijder">delete</mat-icon>
     </button>
     <button mat-icon-button (click)="addUserToAGroup()" class="hvr-grow">
-        <mat-icon aria-label="Example icon-button with a person_add icon">person_add</mat-icon>
+        <mat-icon aria-label="Example icon-button with a person_add icon" matTooltip="Persoon toevoegen">person_add</mat-icon>
       </button>
       <button mat-icon-button (click)="sendNotificationToGroup()" class="hvr-grow">
-        <mat-icon aria-label="Example icon-button with a notifications icon">notifications</mat-icon>
+        <mat-icon aria-label="Example icon-button with a notifications icon" matTooltip="Maak notificatie">notifications</mat-icon>
       </button>
   </div>
 
@@ -79,7 +79,7 @@
           (change)="changed()">
         {{checkTekst}}
       </mat-slide-toggle>
-      <button mat-flat-button (click)="openDialog()" class="vet">QR-CODE</button>
+      <button mat-flat-button (click)="openDialog()" class="vet" matTooltip="Genereer qr-code">QR-CODE</button>
     </div>
   </mat-card-content>
 </mat-card>
