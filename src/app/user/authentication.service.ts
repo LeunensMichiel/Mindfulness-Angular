@@ -76,7 +76,7 @@ export class AuthenticationService {
       {email: email, password: password})
       .pipe(
         map((res: any) => {
-
+          console.log(res.token);
           return this.storeAdminLocal(res.token);
         })
       );
