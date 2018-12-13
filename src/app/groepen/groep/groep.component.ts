@@ -55,6 +55,9 @@ export class GroepComponent implements OnInit {
     else{
       this.checkTekst = "Niet actief";
     }
+    if(this.group.sessionmap_id == undefined){
+      this.group.sessionmap_id = null;
+    }
     this._groupDataService.editGroup(this.group).subscribe(
       () => {
       },
@@ -256,7 +259,6 @@ export class GroepComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 }
@@ -393,7 +395,6 @@ export class QrGroupDialog implements OnInit {
 
   onDownloadClick(): void {
     this.downloadUrl(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src, this.groupId.replace(' ', '_'));
-    console.log(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src);
   }
 
   downloadUrl(url: string, fileName: string) {
