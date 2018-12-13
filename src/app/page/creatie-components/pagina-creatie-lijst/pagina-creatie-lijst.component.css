@@ -1,10 +1,10 @@
 .container {
     overflow-x: auto;
-    white-space: nowrap;
+
 }
 .container > .kid {
     display: inline-block;
-    margin: 0 5%;
+    padding: 0% 5% 0% 5%;
 }  
 
 [tabindex] {
@@ -22,6 +22,6 @@
     margin-top: 40vh;
 }
 
-.container > * {
+/* .container > * {
     vertical-align: middle;
-}
+} */

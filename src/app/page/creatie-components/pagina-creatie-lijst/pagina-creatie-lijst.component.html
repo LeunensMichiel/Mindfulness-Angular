@@ -1,4 +1,4 @@
-<div class="container" (keydown)="onKeydown($event)" tabindex="0">
+<div class="container" (keydown)="onKeydown($event)" tabindex="0" fxLayoutAlign="start center">
   <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of pages; let i = index' [page]='page' [_position]='i'
     (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)'
     (onFileAddedToPage)='fileAddedToPage($event)'  (changePagePos)='changePagePos($event)'

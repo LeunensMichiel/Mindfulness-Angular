@@ -1,3 +1,4 @@
+
 <div *ngIf="!typeIsEmpty()" class="container">
   <div [ngSwitch]="inputPage.typeInput">
     <div *ngSwitchCase="getTypeInput().MULTIPLE_CHOICE">
@@ -21,15 +22,15 @@
 
 </div>
 
-<div *ngIf="typeIsEmpty()" class="inputField">
-  <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup">
+<div *ngIf="typeIsEmpty()" class="inputField" fxLayoutAlign="center center" >
+  <mat-button-toggle-group [vertical]='true' #group="matButtonToggleGroup" fxLayout="row">
     <mat-button-toggle (click)='setType(group.value)' value="TEXT" [disableRipple]='true'>
       <mat-icon>text_format</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle (click)='setType(group.value)' value="IMAGE" [disableRipple]='true'>
+    <mat-button-toggle (click)='setType(group.value)' value="IMAGE" [disableRipple]='true' class="btn">
       <mat-icon>camera_alt</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle (click)='setType(group.value)' value="MULTIPLE_CHOICE" [disableRipple]='true'>
+    <mat-button-toggle (click)='setType(group.value)' value="MULTIPLE_CHOICE" [disableRipple]='true'class="btn">
       <mat-icon>check_box</mat-icon>
     </mat-button-toggle>
   </mat-button-toggle-group>

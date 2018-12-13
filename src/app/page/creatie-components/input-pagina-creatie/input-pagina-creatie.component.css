@@ -17,3 +17,7 @@ form {
 .container{
     height: 100%;
 }
+
+.inputField{
+    margin-top: 20px;
+}
