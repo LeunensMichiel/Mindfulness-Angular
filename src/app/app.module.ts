@@ -83,6 +83,8 @@ import { CheckListItemDetailComponent } from './page/check-list-item-detail/chec
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

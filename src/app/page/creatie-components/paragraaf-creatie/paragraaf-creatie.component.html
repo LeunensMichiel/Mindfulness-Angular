@@ -1,41 +1,49 @@
-
-<mat-card class="parAnimClass">
-  <div class="closeButton">
-    <button mat-icon-button (click)='removePar()'>
-      <mat-icon>clear</mat-icon>
-    </button>
-  </div>
-  <mat-button-toggle-group class='buttonGroup' [vertical]='true' name="fontStyle" aria-label="Font Style"
-                           #direction="matButtonToggleGroup">
-    <mat-button-toggle value="up" (click)='changeParPosition(direction.value)'>
-      <mat-icon>arrow_upward</mat-icon>
-    </mat-button-toggle>
-    <mat-button-toggle value="down" (click)='changeParPosition(direction.value)'>
-      <mat-icon>arrow_downward</mat-icon>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-  <div class="paragraph" [ngSwitch]='par.type'>
-    <form [formGroup]="paragraphForm">
-      <mat-form-field *ngSwitchCase="getTypeParagraphEnum().TEXT">
-        <textarea matInput formControlName="description"  (change)='onChangeDescription()'></textarea>
-      </mat-form-field>
-    </form>
-    <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
-      <div class="imgInputChild">
-        <img *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card"
-             mat-card-image>
-
-        <p></p>
-        <label for="profile_pic{{par.id}}">
-          <i class="material-icons md-18">cloud_upload</i>
-        </label>
-        <input type="file" id="profile_pic{{par.id}}" name="profile_pic"
-               (change)='onChangeImage($event)'>
-      </div>
-      <!--<img *ngIf="!isImageLoading; else noImageFound" src="data:image/png;base64,{{image}}" alt="Paragraaf Foto">-->
-      <!--<ng-template #noImageFound>-->
-      <!--<img  src="assets/images/sessie-1.jpg" alt="Calm Foto">-->
-      <!--</ng-template>-->
+<mat-card class="parAnimClass" fxLayoutAlign="center center">
+  <mat-card-content fxLayout="row">
+    <div fxLayoutAlign="start">
+        <mat-button-toggle-group fxLayout="column" fxLayoutAlign="center center" class='buttonGroup' [vertical]='true' name="fontStyle" aria-label="Font Style" #direction="matButtonToggleGroup">
+            <mat-button-toggle value="up" (click)='changeParPosition(direction.value)'>
+              <mat-icon>arrow_upward</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="down" (click)='changeParPosition(direction.value)'>
+              <mat-icon>arrow_downward</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
     </div>
-  </div>
+    <div class="parParent" fxLayoutAlign="center center">
+        <div class="paragraph" [ngSwitch]='par.type'>
+
+            <form [formGroup]="paragraphForm">
+              <mat-form-field *ngSwitchCase="getTypeParagraphEnum().TEXT">
+                <textarea matInput formControlName="description" (change)='onChangeDescription()'></textarea>
+              </mat-form-field>
+            </form>
+            <div *ngSwitchCase="getTypeParagraphEnum().IMAGE" class="imgInputContainer">
+              <div fxLayoutAlign="start center" class="left">
+                <img *ngIf="!isImageLoading" src="data:image/png;base64,{{image}}" alt="Calm Foto" class="example-card"
+                  mat-card-image fxLayoutAlign="center center">
+              </div>
+              <div fxLayoutAlign="end center" class="right">
+                <label for="profile_pic{{par.id}}">
+                  <i class="material-icons md-18">cloud_upload</i>
+                </label>
+                <input type="file" id="profile_pic{{par.id}}" name="profile_pic" (change)='onChangeImage($event)'>
+              </div>
+      
+      
+      
+            </div>
+      
+          </div>
+    </div>
+    <div class="btn" fxLayoutAlign="end">
+        <div class="closeButton" fxLayoutAlign="center">
+            <button mat-icon-button (click)='removePar()'>
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+    </div>
+    
+  </mat-card-content>
+
 </mat-card>

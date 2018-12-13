@@ -1,5 +1,6 @@
 <mat-card class="card">
-  <mat-card-header>
+  <div class="click" [routerLink]="['/exercise-list',session.id]">
+      <mat-card-header>
     <!-- <div mat-card-avatar class="example-header-image"></div> -->
     <mat-card-title class="vet">
       {{session.title.toLocaleUpperCase()}}
@@ -9,7 +10,7 @@
     
   </mat-card-header>
 
-  <img  *ngIf="!isImageLoading; else noImageFound" src="data:image/png;base64,{{image}}" alt="Calm Foto"  [routerLink]="['/exercise-list',session.id]" class="example-card" mat-card-image>
+  <img  *ngIf="!isImageLoading; else noImageFound" src="data:image/png;base64,{{image}}" alt="Calm Foto"   class="example-card" mat-card-image>
   <ng-template #noImageFound>
     <img [routerLink]="['/exercise-list',session.id]" class="example-card" mat-card-image src="{{url}}" alt="Calm Foto">
   </ng-template>
@@ -19,6 +20,8 @@
         {{session.description}}
       </p>
     </mat-card-content>
+  </div>
+  
   <mat-card-actions fxLayoutAlign="center">
       <!-- <div>
           <button mat-icon-button (click)="editSession()">

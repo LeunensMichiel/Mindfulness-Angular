@@ -32,6 +32,7 @@ export class SessieToevoegenComponent implements OnInit {
   @Output() public addSession = new EventEmitter();
   @Input() public sessionmap: Sessionmap;
 
+
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = {percentage: 0};
