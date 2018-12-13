@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { AudioPage, Page } from 'src/app/models/page.model';
 import { MatSnackBar } from '@angular/material';
-import { UploadService } from '../../upload.service';
 import {PageDataService} from '../../page-data.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 

@@ -22,7 +22,6 @@ export class AdminListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('test');
 
     this._adminDataService.getActiveAdmin().subscribe(
       result => {
@@ -101,6 +100,7 @@ export class AdminListComponent implements OnInit {
       }
     );
   }
+
 
   makeTableScrollable(list: Admin[]): string {
     if (list.length > 5) {

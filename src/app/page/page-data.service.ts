@@ -55,7 +55,7 @@ export class PageDataService {
     const formData: FormData = new FormData();
 
     formData.append('page_file', file);
-    formData.append('updated_page', JSON.stringify(page.toJSON()));
+    formData.append('page', JSON.stringify(page.toJSON()));
 
     const req = new HttpRequest('PUT', `${this._appUrl}/pagefile/${page.id}`, formData, {
       reportProgress: true
@@ -81,6 +81,7 @@ export class PageDataService {
 
     formData.append('page_file', file);
     formData.append('page_id', page.id);
+    formData.append('par_imageFilename', paragraph.imageFilename);
     formData.append('par_pos', paragraph.position.toString());
 
     const req = new HttpRequest('PUT', `${this._appUrl}/pagefileparagraph/${page.id}`, formData, {
