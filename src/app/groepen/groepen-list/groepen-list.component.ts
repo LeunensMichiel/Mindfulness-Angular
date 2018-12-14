@@ -170,7 +170,11 @@ export class GroepenListComponent implements OnInit {
    * Deze functie is verantwoordelijk voor het toevoegen van een groep
    */
   voegGroepToeV2(){
-    const voegGroupToeDialoRef = this.dialog.open(AddGroupDialog, {});
+    const voegGroupToeDialoRef = this.dialog.open(AddGroupDialog, {
+      data: {
+        sesmaps:this.sesmaps
+      }
+    });
   
     voegGroupToeDialoRef.afterClosed().subscribe(result => {
       if(result){
@@ -179,6 +183,10 @@ export class GroepenListComponent implements OnInit {
     })
   }
 
+}
+
+export interface DialogAddGroupData {
+  sesmaps:Sessionmap[];
 }
 
 /**
@@ -242,8 +250,10 @@ export class RemoveGroupDialog {
   styleUrls: ['dialog-add-group.css']
 })
 export class AddGroupDialog implements OnInit{
+  private sesmaps:Sessionmap[];
 
   ngOnInit(): void {
+    /*
     this._groupDataService.sesmaps.subscribe(
       sesmaps => {
         this._sessionmaps = sesmaps.sort((a, b) => a.titleCourse.localeCompare(b.titleCourse));
@@ -254,8 +264,9 @@ export class AddGroupDialog implements OnInit{
           } while trying to retrieve sessionmaps: ${error.error}`;
       }
     );
-    this._sessionmaps = new Array();
+    this._sessionmaps = new Array(); */
 
+    console.log(this.sesmaps);
     this.newGroup = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1)]],
       dropdown: ['', [Validators.required]]
@@ -271,16 +282,19 @@ export class AddGroupDialog implements OnInit{
   ,private fb: FormBuilder,
   private _groupDataService: GroepenDataService,
   private _sessionmapDataService:SessionmapDataService,
-  public snackBar: MatSnackBar) {
+  public snackBar: MatSnackBar,
+  @Inject(MAT_DIALOG_DATA) public data: DialogAddGroupData
+    ) {
   }
 
   onNoClick(): void {
     this.dialogRef.close(false);
   }
 
+  /*
   get sesmaps() {
     return this._sessionmaps;
-  }
+  } */
 
   addGroup(){    
     if(this.newGroup.valid){

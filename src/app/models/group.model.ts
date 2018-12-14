@@ -8,7 +8,6 @@ export class Group{
     _id:string;
     _name:string;
     _sessionmap:Sessionmap;
-    _sessie_naam:string;
     _sessionmap_id:string;
     /**
      * een variabele om te tonen of een groep actief is of niet, dit is voorlopig enkel voor de beheerder een gemak
@@ -68,15 +67,6 @@ export class Group{
     public set sessionmap_id(value:string){
         this._sessionmap_id = value;
     }
-
-    
-    public set sessie_naam(value:string){
-        this._sessie_naam = value;
-    }
-
-    public get sessie_naam():string{
-        return this._sessie_naam;
-    } 
 
     static fromJSON(json:any){
         const group = new Group(

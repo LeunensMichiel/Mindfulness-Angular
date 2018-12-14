@@ -13,7 +13,7 @@
         </mat-form-field>
           <mat-form-field>
               <mat-select placeholder="Kies cursus" [(value)]="selected" formControlName='dropdown'>
-                <mat-option *ngFor="let ses of sesmaps" [value]="ses">
+                <mat-option *ngFor="let ses of data.sesmaps" [value]="ses">
                   {{ses.titleCourse}}
                 </mat-option>
               </mat-select>
