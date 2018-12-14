@@ -14,6 +14,10 @@ export interface DialogGroupData {
   sesmaps:Sessionmap[];
 }
 
+/**
+ * Deze klasse is verantwoordelijk voor de lijst van groepen te tonen
+ * Ook de functionaliteit om een groep toe te voegen, te wijzigen en te verwijderen zit hierin
+ */
 @Component({
   selector: 'app-groepen-list',
   templateUrl: './groepen-list.component.html',
@@ -27,6 +31,10 @@ export class GroepenListComponent implements OnInit {
 
   constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
+  /**
+   * In de onInit halen we de groepen en de sessiemappen op
+   * sessiemappen zijn cursussen
+   */
   ngOnInit() {
     this.groepenDataService.groups.subscribe(
       groups => {
@@ -65,6 +73,10 @@ export class GroepenListComponent implements OnInit {
     this.groups.push(group);
   }
 
+  /**
+   * Functie om de groep te verwijderen uit de groepenlijst die je kan zien
+   * @param group de groep die verwijderd moet worden wordt meegegeven
+   */
   verwijderGroup(group:Group){
     let index = -1;
     let grups = this.groups;
@@ -78,6 +90,13 @@ export class GroepenListComponent implements OnInit {
     }
   }
 
+  /**
+   * Deze functie is de functie die een groep zal wijzigen
+   * De groepsnaam en de sessiemappen worden meegegeven
+   * De groepsnaam en de cursus van de groep kunnen gewijzigd worden, deze gewijzigde waarden zitten in de result die we kregen
+   * via de afterclosed van dialog
+   * @param group de groep wordt meegegeven
+   */
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
       data: {
@@ -116,6 +135,10 @@ export class GroepenListComponent implements OnInit {
     });
   }
 
+  /**
+   * Deze functie roept de functie in de groepenDataService aan om de groep te verwijderen
+   * @param group de groep wordt meegegeven
+   */
   removeGroup(group: Group) {
     const dialogRef = this.dialog.open(RemoveGroupDialog, {});
     // RemoveSessieDialog geeft een boolean mee om aan te tonen of ja of nee gedrukt werd
@@ -143,6 +166,9 @@ export class GroepenListComponent implements OnInit {
       });
   }
 
+  /**
+   * Deze functie is verantwoordelijk voor het toevoegen van een groep
+   */
   voegGroepToeV2(){
     const voegGroupToeDialoRef = this.dialog.open(AddGroupDialog, {});
   
@@ -155,7 +181,9 @@ export class GroepenListComponent implements OnInit {
 
 }
 
-
+/**
+ * Deze component is verantwoordelijk voor de dialog van een groep te wijzigen
+ */
 @Component({
   selector: 'dialog-modify-group',
   templateUrl: 'dialog-modify-group.html',
@@ -183,6 +211,9 @@ export class GroupModifyComponent {
   }
 }
 
+/**
+ * Deze component is verantwoordelijk voor de dialog van een groep te verwijderen
+ */
 @Component({
   selector: 'dialog-remove-group',
   templateUrl: 'dialog-remove-group.html',
@@ -201,6 +232,10 @@ export class RemoveGroupDialog {
   }
 }
 
+/**
+ * Deze component is verantwoordelijk voor de dialog van een groep toe te voegen
+ * De cursussen worden ook opgehaald
+ */
 @Component({
   selector: 'dialog-add-group',
   templateUrl: 'dialog-add-group.html',
