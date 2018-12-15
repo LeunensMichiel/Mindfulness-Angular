@@ -82,6 +82,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 
 
 
@@ -174,7 +175,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxAutoScrollModule
   ],
   providers: [
     basehttpInterceptorProviders,

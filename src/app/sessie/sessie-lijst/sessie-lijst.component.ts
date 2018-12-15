@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Session} from '../../models/session.model';
 import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
@@ -10,6 +10,8 @@ import {Sessionmap} from '../../models/sessionmap.model';
 import {GenericItem} from '../../models/GenericCollection.model';
 import {AudioPage} from '../../models/page.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {NgxAutoScroll} from "ngx-auto-scroll";
+import { element } from '@angular/core/src/render3';
 
 export interface DialogCourseData {
   session_title: string;
@@ -25,6 +27,7 @@ export class SessieLijstComponent implements OnInit {
   private _mysessions$: Observable<Session[]>;
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
+  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
 
   constructor(public dialog: MatDialog, private _sessionDataService: SessieDataService,
               public snackBar: MatSnackBar) {
@@ -67,7 +70,7 @@ export class SessieLijstComponent implements OnInit {
     this.creating = false;
 
 
-  }
+  } 
 
 
   removeSession(session: Session) {
@@ -100,7 +103,13 @@ export class SessieLijstComponent implements OnInit {
       });
   }
 
+  scrollDown(): void{
+    console.log(document.getElementById('sessie'));
+    document.getElementById("sessie").scrollIntoView({behavior: 'smooth'});
+  }
+
 }
+
 
 /*
   Extra klasse voor remove sessie dialoogvenster met zijn eigen html code

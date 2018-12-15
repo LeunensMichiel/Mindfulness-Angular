@@ -25,11 +25,17 @@
 
 
 .cardcontainervertical {
-  height: 90vh;
+  height: 95vh;
   width: 100%;
   display: flex;
   align-content: center;
   justify-content: center;
+  background-image: url("../../../assets/images/clouds_fog_forest.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
 }
 
 

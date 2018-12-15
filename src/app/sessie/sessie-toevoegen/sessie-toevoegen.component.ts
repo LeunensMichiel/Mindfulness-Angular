@@ -39,6 +39,9 @@ export class SessieToevoegenComponent implements OnInit {
   public newSession: FormGroup;
   public matcher = new SessieErrorStateMatcher();
 
+  color = 'primary';
+  mode = 'determinate';
+
   constructor(private _fb: FormBuilder, private _sessionDataService: SessieDataService,
               public snackBar: MatSnackBar) {
   }
