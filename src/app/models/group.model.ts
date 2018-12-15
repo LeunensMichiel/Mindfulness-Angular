@@ -9,6 +9,7 @@ export class Group{
     _name:string;
     _sessionmap:Sessionmap;
     _sessionmap_id:string;
+    _aanmaakdatum:Date;
     /**
      * een variabele om te tonen of een groep actief is of niet, dit is voorlopig enkel voor de beheerder een gemak
      * om zo te onthouden welke groep actief is en welke niet, hij kan dit zelf veranderen
@@ -43,6 +44,9 @@ export class Group{
         return this._actief;
     }
 
+    public get aanmaakdatum():Date{
+        return this._aanmaakdatum;
+    }
     
     public set ses_id(value:string){
         this._sessionmap_id = value;
@@ -68,6 +72,10 @@ export class Group{
         this._sessionmap_id = value;
     }
 
+    public set aanmaakdatum(value:Date){
+        this._aanmaakdatum = value;
+    }
+
     static fromJSON(json:any){
         const group = new Group(
             json.name
@@ -80,6 +88,7 @@ export class Group{
         }
         group._id = json._id;
         group._actief = json.actief;
+        group._aanmaakdatum = json.aanmaakdatum;
         return group;
     }
 
@@ -89,14 +98,16 @@ export class Group{
                 _id:this._id,
                 name:this._name,
                 sessionmap:null,
-                actief:this._actief
+                actief:this._actief,
+                aanmaakdatum:this._aanmaakdatum
             };
         } 
         return{
             _id:this._id,
             name:this._name,
             sessionmap:this._sessionmap.toJSON(),
-            actief:this._actief
+            actief:this._actief,
+            aanmaakdatum:this._aanmaakdatum
         };
     }
 }

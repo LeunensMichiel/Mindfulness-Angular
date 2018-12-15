@@ -11,11 +11,6 @@ import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 
-export interface DialogGroupData {
-  group_name: string;
-  sesmaps:Sessionmap[];
-}
-
 /**
  * Deze klasse is verantwoordelijk voor de lijst van groepen te tonen
  * Ook de functionaliteit om een groep toe te voegen, te wijzigen en te verwijderen zit hierin
@@ -27,14 +22,16 @@ export interface DialogGroupData {
 })
 export class GroepenListComponent implements OnInit {
   public errorMsg: string;
+  // de lijst van groepen
   private _groups: Group[];
-
+  // de lijst van sessiemappen (cursussen)
   private _sessionmaps:Sessionmap[];
-
+  // om groepen te filteren
   public filterGroepGroepsnaam: string;
   public filterGroep$ = new Subject<string>();
 
   constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { 
+    // om groepen te filteren op groepsnaam
     this.filterGroep$
     .pipe(
       distinctUntilChanged(),
@@ -45,8 +42,7 @@ export class GroepenListComponent implements OnInit {
   }
 
   /**
-   * In de onInit halen we de groepen en de sessiemappen op
-   * sessiemappen zijn cursussen
+   * In de onInit halen we de groepen en de sessiemappen (cursussen) op
    */
   ngOnInit() {
     this.groepenDataService.groups.subscribe(
@@ -82,13 +78,15 @@ export class GroepenListComponent implements OnInit {
     return this._sessionmaps;
   }
 
+  /*
   addGroup(group: Group) {
     this.groups.push(group);
-  }
+  } */
 
   /**
    * Functie om de groep te verwijderen uit de groepenlijst die je kan zien
    * @param group de groep die verwijderd moet worden wordt meegegeven
+   * Dit is nodig zodat de lijst die we zien direct geupdate wordt als we een groep verwijderen, we moeten dan niet weer alle groepen ophalen
    */
   verwijderGroup(group:Group){
     let index = -1;
@@ -105,10 +103,10 @@ export class GroepenListComponent implements OnInit {
 
   /**
    * Deze functie is de functie die een groep zal wijzigen
-   * De groepsnaam en de sessiemappen worden meegegeven
-   * De groepsnaam en de cursus van de groep kunnen gewijzigd worden, deze gewijzigde waarden zitten in de result die we kregen
+   * De groepsnaam en de sessiemappen worden meegegeven aan de dialog
+   * De groepsnaam en de cursus van de groep kunnen gewijzigd worden, deze gewijzigde waarden zitten in de result die we krijgen
    * via de afterclosed van dialog
-   * @param group de groep wordt meegegeven
+   * @param group de groep die gewijzigd zal worden, wordt meegegeven
    */
   editGroup(group: Group) {
     const modifyGroupDialoRef = this.dialog.open(GroupModifyComponent, {
@@ -150,7 +148,7 @@ export class GroepenListComponent implements OnInit {
 
   /**
    * Deze functie roept de functie in de groepenDataService aan om de groep te verwijderen
-   * @param group de groep wordt meegegeven
+   * @param group de groep die verwijderd moet worden, wordt meegegeven
    */
   removeGroup(group: Group) {
     const dialogRef = this.dialog.open(RemoveGroupDialog, {});
@@ -180,7 +178,8 @@ export class GroepenListComponent implements OnInit {
   }
 
   /**
-   * Deze functie is verantwoordelijk voor het toevoegen van een groep
+   * Deze functie is verantwoordelijk voor het scherm van het toevoegen van een groep
+   * De dialog wordt dus geopend en als hij gesloten wordt, wordt als er een result is, de groep toegevoegd aan de lijst die we kunnen zien
    */
   voegGroepToeV2(){
     const voegGroupToeDialoRef = this.dialog.open(AddGroupDialog, {
@@ -198,7 +197,12 @@ export class GroepenListComponent implements OnInit {
 
 }
 
-export interface DialogAddGroupData {
+/**
+ * Deze interface gebruiken we in de GroupModifyComponent
+ * De groepsnaam en sessiemappen (cursussen) zitten in de data die we meegeven aan de dialog
+ */
+export interface DialogGroupData {
+  group_name: string;
   sesmaps:Sessionmap[];
 }
 
@@ -221,6 +225,9 @@ export class GroupModifyComponent {
     this.dialogRef.close();
   }
 
+  // deze functie wordt aangeroepen als je op Wijzigen klikt
+  // V2 staat voor versie2, TODO: benaming veranderen naar wijzigen
+  // de gewijzigde naam en/of cursus worden meegegeven als result
   wijzigenV2(groepsnaam:string,cursus:Sessionmap){
     let naamEnMap:string[] = [];
     naamEnMap.push(groepsnaam);
@@ -254,6 +261,14 @@ export class RemoveGroupDialog {
 }
 
 /**
+ * Deze interface gebruiken we in de AddGroupDialog
+ * De sessiemappen (cursussen) zitten in de data die we meegeven aan de dialog
+ */
+export interface DialogAddGroupData {
+  sesmaps:Sessionmap[];
+}
+
+/**
  * Deze component is verantwoordelijk voor de dialog van een groep toe te voegen
  */
 @Component({
@@ -278,7 +293,6 @@ export class AddGroupDialog implements OnInit{
     );
     this._sessionmaps = new Array(); */
 
-    console.log(this.sesmaps);
     this.newGroup = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1)]],
       dropdown: ['', [Validators.required]]
@@ -308,9 +322,12 @@ export class AddGroupDialog implements OnInit{
     return this._sessionmaps;
   } */
 
+  // deze functie wordt aangeroepen als de gebruiker op Aanmaken klikt
   addGroup(){    
     if(this.newGroup.valid){
       let group = new Group(this.newGroup.value.name, this.newGroup.value.dropdown);
+      let datum = new Date();
+      group.aanmaakdatum = datum;
 
       this._groupDataService.addNewGroup(group)
       .subscribe(
@@ -341,6 +358,9 @@ export class AddGroupDialog implements OnInit{
   }
 }
 
+/**
+ * Deze klasse wordt gebruikt voor de validatie in AddGroupDialog
+ */
 export class GroupErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;

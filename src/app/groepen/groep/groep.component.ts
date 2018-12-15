@@ -16,20 +16,30 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 /**
  * Deze component is verantwoordelijk om een groep te tonen
+ * Hierin zit ook de functionaliteit om gebruikers toe te voegen aan een groep, gebruikers te verwijderen en notificaties te verzenden naar een groep
  */
 export class GroepComponent implements OnInit {
   @Input() public group: Group;
+  //de functionaliteit om een groep te verwijderen en te wijzigen zit in GroepenListComponent
   @Output() public deleteGroup = new EventEmitter<Group>();
   @Output() public modifyGroup = new EventEmitter<Group>();
 
   public errorMsg: string;
+  // de gebruikers van een groep
   private _users:User[] = null; 
+  // mogelijke gebruikers, dus gebruikers die aan een groep kunnen toegevoegd worden
   private _possibleUsers:User[];
+  // nodig voor de selection list die je ziet als je een of meerdere gebruikers wilt toevoegen aan een groep
   private selectedOptions:string[] = null;
+  // nodig voor de tabel die je ziet als je de expansion panel 'groepsleden' opent
   displayedColumns: string[] = ['naam', 'vooruitgang','button'];
+  // zitten er gebruikers in de groep of niet => is de groep leeg of niet
   private leegOfNiet = false;
+  // is de expansion panel van 'groepsleden' al eens geladen of niet
   private alGeladenOfNiet = false;
+  // moeten we de expansion panel van 'groepsleden' herladen of niet
   private moetReloaden = false;
+  // is de expansion panel van 'groepsleden' opengeklapt
   private isExpanded:boolean;
   private notification:Notification;
 
@@ -121,7 +131,6 @@ export class GroepComponent implements OnInit {
     return this._possibleUsers;
   }
 
-  
   removeGroup(){
     this.deleteGroup.emit(this.group);
   }
@@ -158,6 +167,7 @@ export class GroepComponent implements OnInit {
 
   /**
    * Funcie om een of meerdere gebruikers toe te voegen aan de groep
+   * We geven de groepsnaam en de mogelijke gebruikers mee als data aan de dialog
    */
   addUserToAGroup(){
     this.isExpanded = false;

@@ -138,7 +138,6 @@ export class GroepenDataService {
    * @param id de id van de gebruiker wordt meegegeven
    */
   deleteUserFromGroup(id:string[]):Observable<string>{
-    console.log(id);
     return this.http
       .post(`${this._appUrl}/group/deleteUserFromGroup`,{users:id})
       .pipe(
