@@ -14,19 +14,32 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './groep.component.html',
   styleUrls: ['./groep.component.css']
 })
+/**
+ * Deze component is verantwoordelijk om een groep te tonen
+ * Hierin zit ook de functionaliteit om gebruikers toe te voegen aan een groep, gebruikers te verwijderen en notificaties te verzenden naar een groep
+ */
 export class GroepComponent implements OnInit {
   @Input() public group: Group;
+  //de functionaliteit om een groep te verwijderen en te wijzigen zit in GroepenListComponent
   @Output() public deleteGroup = new EventEmitter<Group>();
   @Output() public modifyGroup = new EventEmitter<Group>();
 
   public errorMsg: string;
+  // de gebruikers van een groep
   private _users:User[] = null; 
+  // mogelijke gebruikers, dus gebruikers die aan een groep kunnen toegevoegd worden
   private _possibleUsers:User[];
+  // nodig voor de selection list die je ziet als je een of meerdere gebruikers wilt toevoegen aan een groep
   private selectedOptions:string[] = null;
+  // nodig voor de tabel die je ziet als je de expansion panel 'groepsleden' opent
   displayedColumns: string[] = ['naam', 'vooruitgang','button'];
+  // zitten er gebruikers in de groep of niet => is de groep leeg of niet
   private leegOfNiet = false;
+  // is de expansion panel van 'groepsleden' al eens geladen of niet
   private alGeladenOfNiet = false;
+  // moeten we de expansion panel van 'groepsleden' herladen of niet
   private moetReloaden = false;
+  // is de expansion panel van 'groepsleden' opengeklapt
   private isExpanded:boolean;
   private notification:Notification;
 
@@ -37,6 +50,9 @@ export class GroepComponent implements OnInit {
   disabled = false;
   checkTekst = "Niet actief";
 
+  /**
+   * Functie om te weten of de groep actief is of niet
+   */
   isActief():boolean{
     if(this.checked == true)
     {
@@ -47,6 +63,10 @@ export class GroepComponent implements OnInit {
     }
   }
 
+  /**
+   * Functie om de variabele actief op actief of niet actief te zetten
+   * Om van actief naar niet actief te veranderen, of van niet actief naar actief
+   */
   changed(){
     this.group.actief = this.checked;
     if(this.checked == true){
@@ -72,6 +92,9 @@ export class GroepComponent implements OnInit {
     );
   }
 
+  /**
+   * Functie die de huidige status van de variabele actief returnt
+   */
   getStatusActiefVanGroep():boolean{
     return this.group.actief;
   }
@@ -80,6 +103,9 @@ export class GroepComponent implements OnInit {
 
    }
 
+   /**
+    * In de onInit wordt de tekst van actief of niet actief geset, naargelang de status van de variabele actief van de groep
+    */
   ngOnInit() {
     this.checked = this.getStatusActiefVanGroep();
     if(this.checked == true){
@@ -91,10 +117,16 @@ export class GroepComponent implements OnInit {
 
   }
 
+  /**
+   * getter voor de gebruikers die in de groep zitten
+   */
   get users(){
     return this._users;
   }
 
+  /**
+   * getter voor de gebruikers die kunnen toegevoegd worden aan de groep
+   */
   get possibleUsers(){
     return this._possibleUsers;
   }
@@ -107,6 +139,10 @@ export class GroepComponent implements OnInit {
     this.modifyGroup.emit(this.group);
   }
 
+  /**
+   * Functie die een gebruiker verwijdert van een groep
+   * @param id de string van de gebruiker die verwijderd moet worden wordt meegegeven
+   */
   deleteThisUserFromGroup(id:string){
     let idArray = [];
     idArray.push(id);
@@ -129,6 +165,10 @@ export class GroepComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcie om een of meerdere gebruikers toe te voegen aan de groep
+   * We geven de groepsnaam en de mogelijke gebruikers mee als data aan de dialog
+   */
   addUserToAGroup(){
     this.isExpanded = false;
     this._groupDataService.getPossibleUsers(this.group).subscribe(
@@ -187,6 +227,9 @@ export class GroepComponent implements OnInit {
     this._possibleUsers = new Array(); 
   }
 
+  /**
+   * Functie die checkt of er gebruikers in een groep zitten, dit is nodig om in de html te tonen of er gebruikers zijn of niet
+   */
   usersLeeg():boolean{
     if(this.users != null && this.users.length == 0){
       return true;
@@ -194,10 +237,14 @@ export class GroepComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Deze functie wordt aangeroepen als de expansion panel opengedaan/uitgeklapt wordt
+   * we halen de gebruikers van de groep hierop als we dit nog niet gedaan hadden
+   */
   onExpand(){
     this.isExpanded = true;
     if(this.users == null || this.moetReloaden == true){
-    this._groupDataService.getEmails(this.group).subscribe(
+    this._groupDataService.getUsers(this.group).subscribe(
       result => {
         this._users = result;
         this.alGeladenOfNiet = true;
@@ -220,6 +267,11 @@ export class GroepComponent implements OnInit {
     }
   }
 
+  /**
+   * Deze functie verzendt een notificatie naar alle leden van de groep
+   * De datum waarop de notificatie moet verzonden worden wordt meegegeven, de gebruiker kiest dit
+   * Het tijdstip staat standaar op 12 uur 's middags
+   */
   sendNotificationToGroup(){
     const sendNotifToGroupDialoRef = this.dialog.open(SendNotifDialog, {
       data: {
@@ -244,7 +296,7 @@ export class GroepComponent implements OnInit {
               });
           }
         ); 
-        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden!', '',
+        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden van '+ this.group.name + '!', '',
         {
           duration: 3000,
         });
@@ -263,6 +315,9 @@ export class GroepComponent implements OnInit {
   }
 }
 
+/**
+ * Deze component is verantwoordelijk voor de dialog van een of meerdere gebruikers toe te voegen aan een groep
+ */
 @Component({
   selector: 'dialog-adduserto-group',
   templateUrl: 'dialog-adduserto-group.html',
@@ -279,17 +334,28 @@ export class AddUserToGroupDialog {
     this.dialogRef.close();
   }
 
+  /**
+   * Deze functie wordt aangeroepen als er een verandering is in de selection list
+   * @param list de selection list wordt meegegeven
+   */
   public onAreaListControlChanged(list){
     this.selectedOptions = list.selectedOptions.selected.map(item => item.value);
 }
 }
 
+/**
+ * Dit is de interface die we gebruiken voor de data in de dialog
+ */
 export interface DialogGroupData {
   group_name: string;
   possibleUsers:User[];
   selectedOptions:string[];
 }
 
+/**
+ * Deze component is verantwoordelijk voor de dialog die een notificatie verzendt naar een groep
+ * we gebruiken een form voor validatie van de invoer
+ */
 @Component({
   selector: 'dialog-sendnotif-group',
   templateUrl: 'dialog-sendnotif-group.html',
@@ -362,7 +428,9 @@ export class SendNotifDialog implements OnInit{
   
 
 }
-
+/**
+ * Dit is de interface die we gebruiken voor de data in de dialog
+ */
 export interface DialogNotifData {
   group_name: string;
   group_id: string;

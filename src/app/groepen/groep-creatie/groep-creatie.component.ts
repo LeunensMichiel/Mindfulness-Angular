@@ -15,7 +15,10 @@ export class GroupErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
+/**
+ * groep-create component wordt niet meer gebruikt
+ * TODO: verwijderen
+ */
 @Component({
   selector: 'app-groep-creatie',
   templateUrl: './groep-creatie.component.html',

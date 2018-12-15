@@ -82,9 +82,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { NgxAutoScrollModule } from 'ngx-auto-scroll';
-
-
+import { GroepFilterPipe } from './groepen/groep-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -133,7 +131,8 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
     PageNotFoundComponent,
     CheckListItemDetailComponent,
     FeedbackPipePipe,
-    QrGroupDialog
+    QrGroupDialog,
+    GroepFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -175,8 +174,7 @@ import { NgxAutoScrollModule } from 'ngx-auto-scroll';
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatTooltipModule,
-    NgxAutoScrollModule
+    MatTooltipModule
   ],
   providers: [
     basehttpInterceptorProviders,

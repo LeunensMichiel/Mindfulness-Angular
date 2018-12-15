@@ -2,7 +2,7 @@
 <mat-card class="toevoeg-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>GROEP AANMAKEN</mat-card-title>
+      <mat-card-title>Groep aanmaken</mat-card-title>
     </mat-card-header>
     <mat-card-content [formGroup]='newGroup' class="kaart-container">
         <mat-form-field>
@@ -13,7 +13,7 @@
         </mat-form-field>
           <mat-form-field>
               <mat-select placeholder="Kies cursus" [(value)]="selected" formControlName='dropdown'>
-                <mat-option *ngFor="let ses of sesmaps" [value]="ses">
+                <mat-option *ngFor="let ses of data.sesmaps" [value]="ses">
                   {{ses.titleCourse}}
                 </mat-option>
               </mat-select>
