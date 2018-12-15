@@ -27,7 +27,6 @@ export class SessieLijstComponent implements OnInit {
   private _mysessions$: Observable<Session[]>;
   // variabele om te bepalen of het creatie bolletje getoond wordt
   public creating: Boolean = false;
-  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
 
   constructor(public dialog: MatDialog, private _sessionDataService: SessieDataService,
               public snackBar: MatSnackBar) {
@@ -42,29 +41,6 @@ export class SessieLijstComponent implements OnInit {
   }
 
   addSession(session: Session) {
-    // this._sessionDataService.addNewSession(session, this.sessionmap.id).subscribe(
-    //   event => {
-    //     if (event.type === HttpEventType.UploadProgress) {
-    //       this.progress.percentage = Math.round(100 * event.loaded / event.total);
-    //     } else if (event instanceof HttpResponse) {
-    //       console.log('File is completely uploaded!');
-    //       let page = AudioPage.fromJSON(event.body);
-    //       this.audioFilename = page.audioFilename;
-    //       console.log(page.audioFilename);
-    //     }
-    //     this.sessionmap.sessions.addItem(event);
-    //     this.snackBar.open('Session successfully added!', '', {
-    //       duration: 3000,
-    //     });
-    //     this.creating = false;
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     this.snackBar.open(`Error ${error.status} while adding new sessie: ${error.error}`, '', {
-    //       duration: 3000,
-    //     });
-    //     this.creating = false;
-    //   }
-    // );
 
     this.sessionmap.sessions.addItem(session);
     this.creating = false;

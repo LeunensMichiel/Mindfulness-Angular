@@ -45,8 +45,14 @@ export class Feedback {
     this._session = value;
   }
 
+  /**
+   * Returns the date in a more readable format
+   * Language "Dutch"
+   */
   formatDate(): string{
-    return moment(this.date).fromNow();
+    let momentDate = moment(this.date);
+    momentDate.locale("nl");
+    return momentDate.fromNow();
   }
 
   static fromJSON(json: any): Feedback {
