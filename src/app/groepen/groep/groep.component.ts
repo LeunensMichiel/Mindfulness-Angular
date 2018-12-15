@@ -296,7 +296,7 @@ export class GroepComponent implements OnInit {
               });
           }
         ); 
-        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden!', '',
+        this.snackBar.open('De notificatie is succesvol verzonden naar de groepsleden van '+ this.group.name + '!', '',
         {
           duration: 3000,
         });
