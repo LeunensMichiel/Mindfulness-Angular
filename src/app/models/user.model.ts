@@ -1,5 +1,8 @@
 import { Session } from "./session.model";
 
+/**
+ * Modelklasse voor user, wordt gebruikt voor in groepen
+ */
 export class User{
     private _id:string;
     private _firstname:string;

@@ -82,8 +82,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
-
+import { GroepFilterPipe } from './groepen/groep-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -132,7 +131,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     PageNotFoundComponent,
     CheckListItemDetailComponent,
     FeedbackPipePipe,
-    QrGroupDialog
+    QrGroupDialog,
+    GroepFilterPipe
   ],
   imports: [
     BrowserModule,

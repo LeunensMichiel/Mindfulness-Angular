@@ -2,14 +2,25 @@
     <div class="title">
       <table>
         <tr>
+          <td class="left">
             <h1><span class="vet">GROEPEN</span></h1>
+          </td>
+          <td class="right" fxLayoutAlign="center center">
+              <mat-form-field>
+                  <input matInput (keyup)='filterGroep$.next($event.target.value)' type='text' id='filter' name='filter'
+                    placeholder='Zoek op groepsnaam'> 
+                </mat-form-field>
+                <mat-icon>
+                    search
+                  </mat-icon>
+          </td>
         </tr>
       </table>
         
     </div>
     <div class="first" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center">
       
-      <div *ngFor='let group of groups'>
+      <div *ngFor='let group of groups | groepFilter:filterGroepGroepsnaam'>
         <app-groep [group]='group' (deleteGroup)="removeGroup($event)" (modifyGroup)="editGroup($event)"></app-groep>
       </div>
     </div>

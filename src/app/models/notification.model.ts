@@ -1,6 +1,14 @@
+/**
+ * Modelklasse voor een notificatie, een groep kan notificaties hebben
+ * Een beheerder kan notificaties verzenden naar alle groepsleden van een groep
+ */
 export class Notification{
     _notification_title:string;
     _notification_beschrijving:string;
+    /**
+     * een notificatie heeft een datum waarop hij getoond wordt aan de groep
+     * Momenteel staat het tijdstip standaard op 12 uur 's middags
+     */
     _notification_launchtijdstip:Date;
 
     constructor(notification_title:string = ''){
