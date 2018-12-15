@@ -8,6 +8,8 @@ import { Sessionmap } from '../../models/sessionmap.model';
 import { User } from '../../models/user.model';
 import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SessionmapDataService } from '../../sessionmaps/sessionmap-data.service';
+import { Subject } from 'rxjs';
+import { distinctUntilChanged, debounceTime, map } from 'rxjs/operators';
 
 export interface DialogGroupData {
   group_name: string;
@@ -29,7 +31,18 @@ export class GroepenListComponent implements OnInit {
 
   private _sessionmaps:Sessionmap[];
 
-  constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
+  public filterGroepGroepsnaam: string;
+  public filterGroep$ = new Subject<string>();
+
+  constructor(private groepenDataService: GroepenDataService, public dialog: MatDialog, public snackBar: MatSnackBar) { 
+    this.filterGroep$
+    .pipe(
+      distinctUntilChanged(),
+      debounceTime(400),
+      map(val => val.toLowerCase())
+    )
+    .subscribe(val => (this.filterGroepGroepsnaam = val));
+  }
 
   /**
    * In de onInit halen we de groepen en de sessiemappen op
@@ -242,7 +255,6 @@ export class RemoveGroupDialog {
 
 /**
  * Deze component is verantwoordelijk voor de dialog van een groep toe te voegen
- * De cursussen worden ook opgehaald
  */
 @Component({
   selector: 'dialog-add-group',
@@ -327,7 +339,6 @@ export class AddGroupDialog implements OnInit{
         });
     }
   }
-  
 }
 
 export class GroupErrorStateMatcher implements ErrorStateMatcher {

@@ -81,6 +81,7 @@ import {SuperAdminModule} from './super-admin/super-admin.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CheckListItemDetailComponent } from './page/check-list-item-detail/check-list-item-detail.component';
 import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
+import { GroepFilterPipe } from './groepen/groep-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { FeedbackPipePipe } from './feedback/feedback-pipe.pipe';
     PageNotFoundComponent,
     CheckListItemDetailComponent,
     FeedbackPipePipe,
-    QrGroupDialog
+    QrGroupDialog,
+    GroepFilterPipe
   ],
   imports: [
     BrowserModule,
