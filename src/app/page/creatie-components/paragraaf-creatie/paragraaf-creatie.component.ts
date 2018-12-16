@@ -67,7 +67,6 @@ export class ParagraafCreatieComponent implements OnInit {
         this.createImageFromBlob(data);
       },
       error => {
-        console.log(error);
       }
     );
   }
@@ -147,7 +146,6 @@ export class ParagraafCreatieComponent implements OnInit {
    * Zonder de false return word de methode niet uitgevoerd.
    */
   removePar(): boolean {
-    console.log('PARAGRAPH AT POSITON ' + this.par.position + ' REMOVED');
     this.deletePar.emit(this.par.position);
     return false;
   }

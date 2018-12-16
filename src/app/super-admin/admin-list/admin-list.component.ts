@@ -25,7 +25,6 @@ export class AdminListComponent implements OnInit {
 
     this._adminDataService.getActiveAdmin().subscribe(
       result => {
-        console.log(result);
         this._activatedAdmins = result;
       },
       err => {
@@ -70,7 +69,7 @@ export class AdminListComponent implements OnInit {
 
       },
       err => {
-        console.log(err);
+        this.openSnackbar("Error bij veranderen status Beheerder!")
       }
     );
   }

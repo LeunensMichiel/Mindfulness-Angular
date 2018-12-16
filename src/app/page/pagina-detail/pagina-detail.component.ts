@@ -12,7 +12,6 @@ export class PaginaDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.page);
   }
 
   getTypePageEnum() {

@@ -36,7 +36,6 @@ export class ParagraphDetailComponent implements OnInit {
         this.createImageFromBlob(data);
       },
       error => {
-        console.log(error);
       }
     );
   }

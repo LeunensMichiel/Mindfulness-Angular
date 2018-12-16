@@ -1,17 +1,12 @@
-import {Component, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input,  OnInit} from '@angular/core';
 import {Session} from '../../models/session.model';
-import {HttpErrorResponse, HttpEventType, HttpResponse} from '@angular/common/http';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material/dialog';
+import {HttpErrorResponse} from '@angular/common/http';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SessieDataService} from '../sessie-data.service';
-import {DialogCourseData} from '../../sessionmaps/sessionmap-list/sessionmap-list.component';
 import {Observable} from 'rxjs';
 import {Sessionmap} from '../../models/sessionmap.model';
-import {GenericItem} from '../../models/GenericCollection.model';
-import {AudioPage} from '../../models/page.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import {NgxAutoScroll} from "ngx-auto-scroll";
-import { element } from '@angular/core/src/render3';
+
 
 export interface DialogCourseData {
   session_title: string;
@@ -33,7 +28,6 @@ export class SessieLijstComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.sessionmap);
   }
 
   getSessions() {
@@ -60,7 +54,6 @@ export class SessieLijstComponent implements OnInit {
           this._sessionDataService.removeSession(session).subscribe(
             item => {
               this.sessionmap.sessions.deleteItem(session.position);
-              // this.sessionmap.items = this.sessionmap.items.filter(val => item.id !== val.id);
             },
             (error: HttpErrorResponse) => {
               this.snackBar.open(`Error ${error.status} while removing session for ${
@@ -71,7 +64,7 @@ export class SessieLijstComponent implements OnInit {
                 });
             }
           );
-          this.snackBar.open('Session ' + session.position + ' removed!', '',
+          this.snackBar.open('Sessie removed!', '',
             {
               duration: 3000,
             });

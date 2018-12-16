@@ -12,8 +12,7 @@ export class TekstPaginaDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.page);
-    
+
   }
 
 }

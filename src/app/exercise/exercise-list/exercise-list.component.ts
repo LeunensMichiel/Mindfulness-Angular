@@ -47,7 +47,6 @@ export class ExerciseListComponent implements OnInit {
   ngOnInit() {
     this._route.data.subscribe(item =>{
       this._session = item['session'];
-      console.log(this._session);
     });
 
   }
@@ -87,7 +86,6 @@ export class ExerciseListComponent implements OnInit {
         this.snackBar.open(`Error ${error.status} tijdens het opslaan van oefening: ${error.error}`, '', {
           duration: 3000,
         });
-        console.log(error);
       }
     );
   }
@@ -104,7 +102,6 @@ export class ExerciseListComponent implements OnInit {
         this.snackBar.open(`Error ${error.status} tijdens het opslaan van oefening: ${error.error}`, '', {
           duration: 3000,
         });
-        console.log(error);
       }
     );
   }
@@ -130,7 +127,6 @@ export class ExerciseListComponent implements OnInit {
               this.snackBar.open(`Error ${error.status} tijdens het verwijderen van oefening: ${error.error}`, '', {
                 duration: 3000,
               });
-              console.log(error);
             }
           )
         }

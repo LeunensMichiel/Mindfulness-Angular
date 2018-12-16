@@ -1,5 +1,5 @@
 
-<div *ngIf="!typeIsEmpty()" class="container">
+<div *ngIf="!typeIsEmpty()" class="container CheckListContainer">
   <div [ngSwitch]="inputPage.typeInput">
     <div *ngSwitchCase="getTypeInput().MULTIPLE_CHOICE">
       <checklist-item-creation (changedItem)='onChangeCheckListItem($event)' (deleteItem)="deleteCheckListItem($event)"

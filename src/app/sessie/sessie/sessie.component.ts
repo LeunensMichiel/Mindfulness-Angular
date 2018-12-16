@@ -124,7 +124,6 @@ export class SessieComponent implements OnInit {
       },
       error => {
         this.isImageLoading = true;
-        console.log(error);
       }
     );
   }

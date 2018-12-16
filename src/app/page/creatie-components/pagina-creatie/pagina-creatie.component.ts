@@ -118,7 +118,6 @@ export class PaginaCreatieComponent implements OnInit {
    */
   deletePage() {
     this.changeAnimation = false;
-    console.log('PAGE AT POSITON ' + this.page.position + ' DELETED.');
     this.deletedPage.emit(this.page.position);
     return false;
   }
@@ -129,6 +128,7 @@ export class PaginaCreatieComponent implements OnInit {
    */
   public saveChangedPage(page) {
     this.changedPage.emit(page);
+    return false;
   }
 
   /**
@@ -141,6 +141,7 @@ export class PaginaCreatieComponent implements OnInit {
       'startPos': this.page.position,
       'direction': direction == 'left' ? -1 : 1
     });
+    return false;
   }
 
 

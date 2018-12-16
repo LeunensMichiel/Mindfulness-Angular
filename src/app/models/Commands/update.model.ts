@@ -16,6 +16,7 @@ export class Update extends Cmd {
   }
 
   undo() {
+    console.log(this.param);
     this.inputItem.list.changeItem(this.param[1]);
   }
 

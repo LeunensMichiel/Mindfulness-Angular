@@ -54,7 +54,6 @@ export class Session extends GenericItemWithList {
     }
     ses.id = json._id;
 
-    console.log(ses);
     return ses;
   }
 

@@ -14,10 +14,15 @@ form {
     width: 90%;
 }
 
-.container{
-    height: 100%;
-}
+
 
 .inputField{
     margin-top: 20px;
+}
+
+.CheckListContainer {
+  border: 1px solid rgba(255, 255, 255, .1);
+  overflow-y: scroll;
+  overflow: scroll;
+  height: 65vh;
 }

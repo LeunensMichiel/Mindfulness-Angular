@@ -35,10 +35,14 @@ export abstract class CmdImplementation {
 
   onKeydown(event) {
     if (event.metaKey) {
-      if (event.key == 'z')
+      if (event.key == 'z') {
+        console.log('test');
         this.undoCurrentCommand();
-      if (event.key == 'Z')
+      }
+      if (event.key == 'Z') {
         this.executeCurrentCommand();
+
+      }
     }
   }
 
