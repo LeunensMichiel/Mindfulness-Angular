@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuardService],
     component: GroepenListComponent},
   {
-    path: 'page-list/:exerciseID',
+    path: 'page-list/:exerciseID/:session_id',
     component: PaginaCreatieLijstComponent,
     canActivate: [AuthGuardService],
     resolve: {exercise: ExerciseResolver}},

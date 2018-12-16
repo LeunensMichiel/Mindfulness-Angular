@@ -25,3 +25,18 @@
 /* .container > * {
     vertical-align: middle;
 } */
+
+.title {
+  background-color: white;
+  padding: 0.05em 0 0.05em 1em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.left{
+    margin-left: 20px;
+}
+
