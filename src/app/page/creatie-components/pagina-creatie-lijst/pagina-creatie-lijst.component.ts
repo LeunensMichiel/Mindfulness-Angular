@@ -39,28 +39,45 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * -dragging: Een boolean die aangeeft of de elementen in de lijst standardView
    * of draggingView gebruiken.
    */
-  private exercise: Exercise = new Exercise();
+  private _exercise: Exercise = new Exercise();
+  private _sessionId: string;
 
   constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar, private pageDataService: PageDataService) {
     super();
   }
 
   ngOnInit() {
-    this.exercise = new Exercise();
+    this._exercise = new Exercise();
+    this.sessionId = this._route.snapshot.params.session_id;
     this._route.data.subscribe(
-      item => (this.exercise = item['exercise']),
+      item => (this._exercise = item['exercise']),
       (error: HttpErrorResponse) => {
         this.openSnackbar(`Error ${error.status} while getting exercise: ${error.error}`);
       }
     );
   }
 
+
+  get exercise(): Exercise {
+    return this._exercise;
+  }
+
   get pages(): GenericItem[] {
-    return this.exercise.list.items.filter(it => {
+    return this._exercise.list.items.filter(it => {
       if (it) {
         return (it !== (undefined || null));
       }
     });
+  }
+
+
+  get sessionId(): string {
+    return this._sessionId;
+  }
+
+
+  set sessionId(value: string) {
+    this._sessionId = value;
   }
 
   /**
@@ -94,8 +111,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
         break;
     }
 
-    newPage.position = this.exercise.list.items.length;
-    this.addCommand(new Insert(this.exercise, [newPage]));
+    newPage.position = this._exercise.list.items.length;
+    this.addCommand(new Insert(this._exercise, [newPage]));
   }
 
   /**
@@ -106,7 +123,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    */
   private deletePage(position) {
 
-    this.addCommand(new Delete(this.exercise, [this.exercise.list.items[position]]));
+    this.addCommand(new Delete(this._exercise, [this._exercise.list.items[position]]));
     this.openSnackbar('Pagina verwijderd!');
   }
 
@@ -119,8 +136,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    */
   public saveChangedPage(page) {
     let newPage = Page.convertPage(page);
-    let oldPage = this.exercise.list.items[newPage.position];
-    this.addCommand(new Update(this.exercise, [oldPage, newPage]));
+    let oldPage = this._exercise.list.items[newPage.position];
+    this.addCommand(new Update(this._exercise, [oldPage, newPage]));
   }
 
   /**
@@ -129,8 +146,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    */
   public fileAddedToPage(page) {
     let newPage = Page.convertPage(page);
-    let oldPage = this.exercise.list.items[newPage.position];
-    this.addCommand(new SwitchObjectWithoutSave(this.exercise, [oldPage, newPage]));
+    let oldPage = this._exercise.list.items[newPage.position];
+    this.addCommand(new SwitchObjectWithoutSave(this._exercise, [oldPage, newPage]));
   }
 
   /**
@@ -140,8 +157,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param positions een JSON die de eind en start positie bevat
    */
   public changePagePos(positions) {
-    this.exercise.list.changeItemPos(positions.startPos, positions.direction);
-    this.addCommand(new Switch(this.exercise, positions));
+    this._exercise.list.changeItemPos(positions.startPos, positions.direction);
+    this.addCommand(new Switch(this._exercise, positions));
   }
 
 
@@ -153,7 +170,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
     this.pageDataService.addPageToExercise(cmd.inputItem.id, Page.convertPage(cmd.param[0]))
       .subscribe(
         success => {
-          this.exercise.list.items[success.position].id = success.id;
+          this._exercise.list.items[success.position].id = success.id;
         },
         error => {
           this.openSnackbar('Error bij toevoegen Pagina!');
@@ -180,8 +197,8 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    * @param cmd
    */
   changePos(cmd: Switch): void {
-    let page1 = this.exercise.list.getItem(cmd.extraParam.startPos);
-    let page2 = this.exercise.list.getSecondItem(cmd.extraParam.startPos, cmd.extraParam.direction);
+    let page1 = this._exercise.list.getItem(cmd.extraParam.startPos);
+    let page2 = this._exercise.list.getSecondItem(cmd.extraParam.startPos, cmd.extraParam.direction);
     if (page2 != null) {
       this.pageDataService.updatePagesPos(page1 as Page, page2 as Page)
         .subscribe(

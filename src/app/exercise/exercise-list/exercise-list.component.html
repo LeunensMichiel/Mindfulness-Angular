@@ -1,6 +1,22 @@
+<div class="title">
+
+  <div class="left">
+    <a routerLink="/course-list">
+      <h1>
+        <mat-icon>arrow_back_ios</mat-icon>
+        <span class="vet">SESSIE: {{session.title.toUpperCase()}}</span>
+      </h1>
+    </a>
+  </div>
+
+
+</div>
 <div class="container" (keydown)="onKeydown($event)" tabindex="0" fxLayoutAlign="start center">
-  <app-exercise-detail  *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i' [exercise]='exerciseDetail'
-    (deletedExercise)='removeExercise($event)' [_position]='i' (modifiedExercise)='onAdd($event, false)' class="kid">
+
+  <app-exercise-detail *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i'
+                       [exercise]='exerciseDetail'
+                       (deletedExercise)='removeExercise($event)' [_position]='i' [sessionId]="session.id"
+                       (modifiedExercise)='onAdd($event, false)' class="kid">
   </app-exercise-detail>
   <div class="float">
     <button class="kid btn-float" mat-fab (click)='onAdd(null, true)'>
@@ -9,5 +25,5 @@
       </i>
     </button>
   </div>
-    
+
 </div>

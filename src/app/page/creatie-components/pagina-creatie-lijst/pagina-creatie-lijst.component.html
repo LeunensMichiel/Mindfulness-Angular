@@ -1,3 +1,16 @@
+<div class="title">
+
+  <div class="left">
+    <a routerLink="/exercise-list/{{sessionId}}">
+      <h1>
+        <mat-icon>arrow_back_ios</mat-icon>
+        <span class="vet">OEFENING: {{exercise.title.toUpperCase()}}</span>
+      </h1>
+    </a>
+  </div>
+
+
+</div>
 <div class="container" (keydown)="onKeydown($event)" tabindex="0" fxLayoutAlign="start center">
   <app-pagina-creatie [@shrinkOut]='i' *ngFor='let page of pages; let i = index' [page]='page' [_position]='i'
     (newPage)='addPage($event)' (changedPage)='saveChangedPage($event)' (deletedPage)='deletePage($event)'

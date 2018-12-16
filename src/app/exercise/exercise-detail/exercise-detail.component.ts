@@ -12,6 +12,8 @@ export class ExerciseDetailComponent implements OnInit {
   @Output() public deletedExercise = new EventEmitter<Exercise>();
   @Output() public modifiedExercise = new EventEmitter<Exercise>();
   @Input() _position: number = 0;
+  @Input() sessionId: string;
+
   public dropdownVisible = false;
 
   constructor(private _exerciseDataService: ExerciseDataService) { }
