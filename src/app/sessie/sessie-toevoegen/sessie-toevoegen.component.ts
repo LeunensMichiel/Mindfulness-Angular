@@ -56,7 +56,6 @@ export class SessieToevoegenComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-    console.log(event.target.files)
   }
 
   onSubmit() {
