@@ -1,8 +1,8 @@
 # Mindfulness online beheerderstool
 
 Dit is een Angular webapplicatie die het mogelijk maakt om:
-- cursussen met sessies en oefeningen op te stellen; 
-- Cursus groepen beheren met users; 
+- Cursussen met sessies en oefeningen op te stellen; 
+- Cursusgroepen beheren met gebruikers; 
 - Feedback van de Android Mindfulness-app bekijken;
 - Rechten van beheerders beheren.
 
