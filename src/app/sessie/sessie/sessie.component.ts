@@ -48,9 +48,6 @@ export class SessieComponent implements OnInit {
     this.deleteSession.emit(this.session);
   }
 
-  // editSession() {
-  //   this.modifySession.emit(this.session);
-  // }
 
   editSession() {
     const modifyCourseDialogConfig = new MatDialogConfig();
@@ -59,6 +56,9 @@ export class SessieComponent implements OnInit {
 
     const modifyCourseDialoRef = this.dialog.open(SessieModifyComponent, modifyCourseDialogConfig);
 
+    /*
+    *after the dialog is closed it checks if the image is changed, to call the right api call
+    */
 
     modifyCourseDialoRef.afterClosed().subscribe(result => {
       if (result) {
@@ -144,6 +144,10 @@ export class SessieComponent implements OnInit {
 
 }
 
+/*
+* This dialog generates a qr-code for the session title
+*/
+
 @Component({
   selector: 'qr-dialog',
   templateUrl: 'qr-dialog.html',
@@ -167,11 +171,17 @@ export class QrDialog implements OnInit {
     this.dialogRef.close();
   }
 
+  /*
+  *This function downloads the generated qr-code
+  */
+
   onDownloadClick(): void {
     this.downloadUrl(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src, this.sessionName.replace(' ', '_'));
-    console.log(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src);
   }
 
+  /*
+  * this function creates a invisible download link en automaticly downloads the qr-code
+  */
   downloadUrl(url: string, fileName: string) {
     let a: any = document.createElement('a');
     a.href = url;
@@ -184,6 +194,9 @@ export class QrDialog implements OnInit {
 
 }
 
+/*
+*Changes session titile, session description and session image
+*/
 
   @Component({
     selector: 'dialog-modify-sessie',

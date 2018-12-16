@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginaCreatieComponent } from './pagina-creatie.component';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 
 describe('PaginaCreatieComponent', () => {
   let component: PaginaCreatieComponent;
@@ -8,7 +10,9 @@ describe('PaginaCreatieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PaginaCreatieComponent ]
+      declarations: [ PaginaCreatieComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

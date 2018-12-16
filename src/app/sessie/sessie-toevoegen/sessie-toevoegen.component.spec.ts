@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SessieToevoegenComponent } from './sessie-toevoegen.component';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 
 describe('SessieToevoegenComponent', () => {
   let component: SessieToevoegenComponent;
@@ -8,7 +10,9 @@ describe('SessieToevoegenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SessieToevoegenComponent ]
+      declarations: [ SessieToevoegenComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

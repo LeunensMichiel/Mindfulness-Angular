@@ -2,13 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AudioPaginaCreatieComponent } from './audio-pagina-creatie.component';
 
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 describe('AudioPaginaCreatieComponent', () => {
   let component: AudioPaginaCreatieComponent;
   let fixture: ComponentFixture<AudioPaginaCreatieComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AudioPaginaCreatieComponent ]
+      declarations: [ AudioPaginaCreatieComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

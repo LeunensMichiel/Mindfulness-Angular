@@ -439,7 +439,9 @@ export interface DialogNotifData {
   notification_launchtijdstip:Date;
 }
 
-
+/*
+* This dialog generates a qr-code for the group id
+*/
 @Component({
   selector: 'qr-group-dialog',
   templateUrl: 'qr-group-dialog.html',
@@ -461,10 +463,19 @@ export class QrGroupDialog implements OnInit {
     this.dialogRef.close();
   }
 
+
+  /*
+  *This function downloads the generated qr-code
+  */
+
   onDownloadClick(): void {
     this.downloadUrl(document.getElementsByClassName('qrcode').item(0).getElementsByTagName('img').item(0).src, this.groupId.replace(' ', '_'));
   }
 
+
+  /*
+  * this function creates a invisible download link en automaticly downloads the qr-code
+  */
   downloadUrl(url: string, fileName: string) {
     let a: any = document.createElement('a');
     a.href = url;
