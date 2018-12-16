@@ -35,6 +35,8 @@ export class AudioPaginaCreatieComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: {percentage: number} = {percentage: 0};
+  color = 'primary';
+  mode = 'determinate';
 
   /**
    * GIDS:
