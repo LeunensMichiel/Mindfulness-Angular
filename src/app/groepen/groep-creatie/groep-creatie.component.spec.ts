@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroepCreatieComponent } from './groep-creatie.component';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 
 describe('GroepCreatieComponent', () => {
   let component: GroepCreatieComponent;
@@ -8,7 +10,9 @@ describe('GroepCreatieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroepCreatieComponent ]
+      declarations: [ GroepCreatieComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

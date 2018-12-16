@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {MatIconModule} from '@angular/material';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,7 +10,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      imports: [MatIconModule]
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));
 

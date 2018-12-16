@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackListComponent } from './feedback-list.component';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 
 describe('FeedbackListComponent', () => {
   let component: FeedbackListComponent;
@@ -8,7 +10,9 @@ describe('FeedbackListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackListComponent ]
+      declarations: [ FeedbackListComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

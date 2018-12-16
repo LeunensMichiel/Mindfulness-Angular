@@ -43,7 +43,7 @@
         <table>
           <tr>
             <mat-form-field>
-              <input matInput type="text" id="email" formControlName='email' placeholder='Email'>
+              <input matInput type="text" id="email" formControlName='email' placeholder='Email' data-test='email'>
             </mat-form-field>
             <div *ngIf=' user.get("email").errors?.required && user.get("email").touched'>
               een email is vereist
@@ -55,13 +55,13 @@
               Een gebruiker met dit email-adress bestaat al
             </div>
             <mat-form-field>
-              <input matInput type="text" id="firstname" formControlName="firstname" placeholder="Voornaam">
+              <input matInput type="text" id="firstname" formControlName="firstname" placeholder="Voornaam" data-test='voornaam'>
             </mat-form-field>
             <div *ngIf=' user.get("firstname").errors?.required && user.get("firstname").touched'>
               Voornaam is vereist
             </div>
             <mat-form-field>
-              <input matInput type="text" id="lastname" formControlName="lastname" placeholder="Achternaam">
+              <input matInput type="text" id="lastname" formControlName="lastname" placeholder="Achternaam" data-test='achternaam'>
             </mat-form-field>
             <div *ngIf=' user.get("lastname").errors?.required && user.get("lastname").touched'>
               Achternaam is vereist
@@ -73,7 +73,7 @@
           <table>
             <tr>
               <mat-form-field>
-                <input matInput type="password" id="password" formControlName='password' placeholder='Wachtwoord'>
+                <input matInput type="password" id="password" formControlName='password' placeholder='Wachtwoord' data-test='password'>
               </mat-form-field>
               <div *ngIf=' passwordControl.errors?.passwordTooShort && passwordControl.touched'>
                 password too short, please use at least {{passwordControl.errors?.passwordTooShort.requiredLength}}
@@ -83,7 +83,7 @@
             <tr>
               <mat-form-field>
                 <input matInput type="password" id="confirmpassword" formControlName='confirmPassword'
-                       placeholder='Herhaal wachtwoord'>
+                       placeholder='Herhaal wachtwoord' data-test='passwordConfirm'>
               </mat-form-field>
               <div
                 *ngIf=' user.get("passwordGroup").errors?.passwordsDiffer && user.get("passwordGroup").get("confirmPassword").touched  && user.get("passwordGroup").get("password").touched'>
@@ -97,7 +97,7 @@
 
 
         <div class="button-row">
-          <button mat-button class="vet login" type='submit' [disabled]='!user.valid'>REGISTREER</button>
+          <button mat-button class="vet login" type='submit' [disabled]='!user.valid' data-test='registerBtn'>REGISTREER</button>
         </div>
       </form>
     </mat-card-content>

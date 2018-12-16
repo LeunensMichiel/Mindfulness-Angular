@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackDetailComponent } from './feedback-detail.component';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
+import { MatIconModule } from '@angular/material';
 
 describe('FeedbackDetailComponent', () => {
   let component: FeedbackDetailComponent;
@@ -8,7 +10,9 @@ describe('FeedbackDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedbackDetailComponent ]
+      declarations: [ FeedbackDetailComponent ],
+      imports: [MatIconModule],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

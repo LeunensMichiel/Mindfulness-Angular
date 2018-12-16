@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { GroepenDataService } from './groepen-data.service';
+import{CUSTOM_ELEMENTS_SCHEMA} from '@angular/core'
 
 describe('GroepenDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
