@@ -23,6 +23,7 @@
         <i class="material-icons md-18">cloud_upload</i>
       </label>
       <input style="opacity:0" type="file" id="profile_pic" name="profile_pic" (change)='selectFile($event)'>
+      <p *ngIf="selectedFiles">{{selectedFiles.item(0).name}}</p>
       <!--<mat-error *ngIf="newSession.get('sessionImage').invalid">-->
       <!--Geen geldige image-->
       <!--</mat-error>-->

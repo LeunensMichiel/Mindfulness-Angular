@@ -1,24 +1,29 @@
-<form *ngIf="!currentFileUpload" fxLayoutAlign="center">
-  <div class="audioInputContainer">
-    <label for="profile_pic{{audioPage.id}}">
-      <i class="material-icons md-18">cloud_upload</i>
-    </label>
-    <input #fileInput type="file" id="profile_pic{{audioPage.id}}" name="profile_pic" (change)='selectFile($event)'>
-    <p></p>
-    <div *ngIf="playing; then pauseBlock else playBlock"></div>
-    <ng-template #pauseBlock>
-      <button mat-icon-button (click)='pauseAudio()'>
-        <mat-icon>pause</mat-icon>
-      </button>
-    </ng-template>
-    <ng-template #playBlock>
-      <button *ngIf='pathAudio != ""' mat-icon-button (click)='playAudio()'>
-        <mat-icon>play_arrow</mat-icon>
-      </button>
-    </ng-template>
 
-  </div>
-</form>
+  <form *ngIf="!currentFileUpload" fxLayoutAlign="center">
+    <div class="audioInputContainer">
+      <label for="profile_pic{{audioPage.id}}">
+        <i class="material-icons md-18">cloud_upload</i>
+      </label>
+      <input #fileInput type="file" id="profile_pic{{audioPage.id}}" name="profile_pic" (change)='selectFile($event)'>
+     
+      <!-- <div *ngIf="playing; then pauseBlock else playBlock"></div>
+      <ng-template #pauseBlock>
+        <button mat-icon-button (click)='pauseAudio()'>
+          <mat-icon>pause</mat-icon>
+        </button>
+      </ng-template>
+      <ng-template #playBlock>
+        <button *ngIf='pathAudio != ""' mat-icon-button (click)='playAudio()'>
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+      </ng-template> -->
+      <p></p>
+      {{pathAudio}} 
+    </div>
+
+  </form>
+
+
 
 
 <div *ngIf="currentFileUpload" class="progress">

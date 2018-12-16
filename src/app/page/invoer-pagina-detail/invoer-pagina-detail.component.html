@@ -5,11 +5,11 @@
       <check-list-item-detail [checkListItem]='checkListItem' *ngFor="let checkListItem of page.list.items;">
       </check-list-item-detail>
     </div>
-    <div *ngSwitchCase="getTypeInput().IMAGE">
-      <mat-icon>camera_alt</mat-icon>
+    <div *ngSwitchCase="getTypeInput().IMAGE" fxLayoutAlign="center center">
+      <p>Foto invoer pagina</p>
     </div>
-    <div *ngSwitchCase="getTypeInput().TEXT">
-      <mat-icon>text_format</mat-icon>
+    <div *ngSwitchCase="getTypeInput().TEXT" fxLayoutAlign="center center">
+      <p>Tekst invoer pagina</p>
     </div>
   </div>
 
