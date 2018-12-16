@@ -69,12 +69,15 @@ export class AudioPaginaCreatieComponent implements OnInit {
           this.pathAudio = page.audioFilename;
           this.onFileAddedToPage.emit(page);
           this.currentFileUpload = undefined;
-        } else {
-          this.snackBar.open('File upload was unsuccesvol', '', {
+          this.snackBar.open('File upload was succesvol', '', {
             duration: 3000,
           });
         }
-
+      },
+      error => {
+        this.snackBar.open('File upload was unsuccesvol', '', {
+          duration: 3000,
+        });
       });
     this.selectedFiles = undefined;
   }
