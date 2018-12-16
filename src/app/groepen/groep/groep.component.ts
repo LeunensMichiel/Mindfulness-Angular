@@ -30,17 +30,17 @@ export class GroepComponent implements OnInit {
   // mogelijke gebruikers, dus gebruikers die aan een groep kunnen toegevoegd worden
   private _possibleUsers:User[];
   // nodig voor de selection list die je ziet als je een of meerdere gebruikers wilt toevoegen aan een groep
-  private selectedOptions:string[] = null;
+  public selectedOptions:string[] = null;
   // nodig voor de tabel die je ziet als je de expansion panel 'groepsleden' opent
   displayedColumns: string[] = ['naam', 'vooruitgang','button'];
   // zitten er gebruikers in de groep of niet => is de groep leeg of niet
-  private leegOfNiet = false;
+  public leegOfNiet = false;
   // is de expansion panel van 'groepsleden' al eens geladen of niet
-  private alGeladenOfNiet = false;
+  public alGeladenOfNiet = false;
   // moeten we de expansion panel van 'groepsleden' herladen of niet
   private moetReloaden = false;
   // is de expansion panel van 'groepsleden' opengeklapt
-  private isExpanded:boolean;
+  public isExpanded:boolean;
   private notification:Notification;
 
   kolomTest: string[] = ['naam'];

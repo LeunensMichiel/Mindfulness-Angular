@@ -97,7 +97,7 @@ export class PaginaCreatieLijstComponent extends CmdImplementation implements On
    *
    * @param page De nieuwe page die word toegevoegd aan de excercise.
    */
-  private addPage(value) {
+  public addPage(value) {
     let newPage = null;
     switch (value) {
       case 'text':

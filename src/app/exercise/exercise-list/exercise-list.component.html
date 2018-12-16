@@ -11,7 +11,7 @@
 
 
 </div>
-<div class="container" (keydown)="onKeydown($event)" tabindex="0" fxLayoutAlign="start center">
+<div class="container" tabindex="0" fxLayoutAlign="start center">
 
   <app-exercise-detail *ngFor='let exerciseDetail of exercises; let i = index' [@shrinkOut]='i'
                        [exercise]='exerciseDetail'

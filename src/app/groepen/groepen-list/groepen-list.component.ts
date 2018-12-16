@@ -214,7 +214,7 @@ export interface DialogGroupData {
   templateUrl: 'dialog-modify-group.html',
 })
 export class GroupModifyComponent {
-  private gekozenCursus:Sessionmap;
+  public gekozenCursus:Sessionmap;
 
   constructor(
     public dialogRef: MatDialogRef<GroupModifyComponent>,
