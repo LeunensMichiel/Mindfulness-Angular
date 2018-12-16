@@ -6,6 +6,9 @@ Dit is een Angular webapplicatie die het mogelijk maakt om:
 - Feedback van de Android Mindfulness-app bekijken;
 - Rechten van beheerders beheren.
 
+Surf naar deze link om de live versie te zien
+> [Mindfulness-Beheerdertool](http://projecten3studserver03.westeurope.cloudapp.azure.com:4200)
+
 ## Voorbereiding
 
 ### Vereiste software
@@ -31,7 +34,7 @@ npm start
 
 Voor deze applicatie is er geopteert geweest om Cypress te gebruiken.
 
-Om de testen te runnen moet 
+Om de testen te runnen 
 
 ```
 // Voer dit commando uit in de root van het project
