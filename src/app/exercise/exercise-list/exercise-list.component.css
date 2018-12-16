@@ -1,57 +1,74 @@
 .container {
-    overflow-x: auto;
+  overflow-x: auto;
 
 }
+
 .container > .kid {
-    display: inline-block;
-    padding: 0% 5% 1% 5%;
-}  
+  display: inline-block;
+  padding: 0% 5% 1% 5%;
+}
 
 [tabindex] {
-    outline: none;
-  }
-  
-  #invisible {
-      visibility: hidden;
-  }
-.button {
-    visibility: visible;
+  outline: none;
 }
+
+#invisible {
+  visibility: hidden;
+}
+
+.button {
+  visibility: visible;
+}
+
 .inputField {
-    display: inline-block;
-    max-width: 56px;
-    max-height: 500px;
-    padding: 0%;
-    margin-left: 5vh;
-    margin-right: 5vh;
-    margin-bottom: 40vh;
-    margin-top: 40vh;
+  display: inline-block;
+  max-width: 56px;
+  max-height: 500px;
+  padding: 0%;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-bottom: 40vh;
+  margin-top: 40vh;
 }
 
 .container > * {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .undo {
-    position: absolute;
-    right: 0;
-    margin: 5px; 
+  position: absolute;
+  right: 0;
+  margin: 5px;
 }
 
-.float{
-    position:fixed;
-    width: 100px;
-    height:100px;
-    bottom:50px;
-    right:50px;
-    border-radius:50px;
-    text-align:center;
-  }
+.float {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  bottom: 50px;
+  right: 50px;
+  border-radius: 50px;
+  text-align: center;
+}
 
-  .btn-float{
-    width: 100px;
-    height:100px;
-    color: #ffffff;
-  }
+.btn-float {
+  width: 100px;
+  height: 100px;
+  color: #ffffff;
+}
 
+.title {
+  background-color: white;
+  padding: 0.05em 0 0.05em 0.5em;
+}
+
+.title h1 {
+  /*margin: 0 0 0 0;*/
+}
+
+
+a {
+  text-decoration: none;
+  color: black;
+}
 

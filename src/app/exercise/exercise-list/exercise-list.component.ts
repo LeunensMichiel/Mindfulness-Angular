@@ -137,6 +137,10 @@ export class ExerciseListComponent implements OnInit {
     return this._session.list.items;
   }
 
+
+  get session(): Session {
+    return this._session;
+  }
 }
 
 /*
